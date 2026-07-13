@@ -70,7 +70,7 @@ export const AC_DC_THEORY_DECK: LessonCardDeck = {
       id: "acd-07",
       kind: "example",
       heading: "The meter mode has to match the waveform",
-      body: "Put a meter on V AC across a 24 V DC sensor loop and the AC mode averages the steady DC toward a misleading number — wrong mode, wrong reading. Worse, probe a [[VFD]] (variable frequency drive) output with an ordinary meter and it reads low, because the output is [[PWM]] — chopped pulses, not a clean sine. Use a [[true RMS]], inverter-rated meter, or trust the drive keypad.",
+      body: "Put a meter on V AC across a 24 V DC sensor loop and the AC mode averages the steady DC toward a misleading number — wrong mode, wrong reading. Worse, probe a [[VFD]] (variable frequency drive) output with an ordinary meter and it usually reads low or erratic, because the output is [[PWM]] (pulse-width modulation) — chopped pulses, not a clean sine. Use a [[true RMS]], inverter-rated meter, or trust the drive keypad.",
       takeaway: "Match the mode to the waveform — and a PWM drive output needs a true-RMS meter.",
     },
     {
@@ -85,6 +85,7 @@ export const AC_DC_THEORY_DECK: LessonCardDeck = {
       kind: "interaction",
       heading: "Knowledge check — reading a drive output",
       body: "",
+      // lessonQuizzes[3] is the PWM / VFD-output item — deliberately paired with the acd-07 PWM card.
       interaction: curatedChoiceMcq(curated.lessonQuizzes[3]),
     },
     {

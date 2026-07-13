@@ -20,7 +20,7 @@ export const SERIES_PARALLEL_CIRCUITS_DECK: LessonCardDeck = {
       id: "ser-00",
       kind: "concept",
       heading: "New to this?",
-      body: "Before this lesson, know these terms:\n\n- **E-stop**: emergency-stop button that breaks the control circuit\n- **OL**: overload relay contacts that open when a motor runs too hot\n- **MCC**: motor control center — a lineup of motor starter \"buckets\"\n- **NC**: normally closed — a contact that passes current until acted on\n- **NO**: normally open — a contact that blocks current until acted on\n- **LOTO**: lockout/tagout — the zero-energy safety procedure",
+      body: "Before this lesson, know these terms:\n\n- **E-stop**: emergency-stop button that breaks the control circuit\n- **OL**: overload relay contacts that open when a motor runs too hot — not the meter's over-limit display\n- **MCC**: motor control center — a lineup of motor starter \"buckets\"\n- **NC**: normally closed — a contact that passes current until acted on\n- **NO**: normally open — a contact that blocks current until acted on\n- **LOTO**: lockout/tagout — the zero-energy safety procedure",
       takeaway: "Series shares one current path; parallel splits into independent branches.",
     },
     {
@@ -49,8 +49,9 @@ export const SERIES_PARALLEL_CIRCUITS_DECK: LessonCardDeck = {
       id: "ser-04",
       kind: "example",
       heading: "The open hides where the voltage piles up",
-      body: "Walk a de-energized [[series]] string with an ohmmeter and the resistances add. Energize it and [[Ohm's Law]] flips the view: a good closed device drops almost 0 V, while the one open device drops the **entire source voltage**. That is the signature — 120 V across a set of contacts that should read near zero is your open, whether it is an **E-stop**, an **OL** contact, or a blown fuse.",
+      body: "Walk a de-energized [[series]] string with an ohmmeter and the resistances add. Energize it and Kirchhoff's Voltage Law ([[KVL]]) flips the view: the loop drops must total the source, so every good closed device shows near 0 V — its [[resistance]] is tiny — while the one open device is left holding the **entire source voltage**. That is the signature: 120 V across a set of contacts that should read near zero is your open, whether it is an **E-stop**, an **OL** contact, or a blown fuse.",
       takeaway: "Full source voltage across one series device is the open — every other drop is near zero.",
+      visual: { type: "callout", tone: "warning", text: "120 V across contacts that should read near zero is your open — do not raise supply voltage chasing it; find and fix the break." },
     },
     {
       id: "ser-05",
@@ -91,7 +92,7 @@ export const SERIES_PARALLEL_CIRCUITS_DECK: LessonCardDeck = {
       id: "ser-10",
       kind: "example",
       heading: "When the two topologies combine",
-      body: "A dual-speed starter mixes both: the low- and high-speed paths are [[parallel]] selectable branches, but an interlock sits in **series** in each so both speeds can never energize at once. Read a real print in layers — find the parallel choices, then the series interlocks that constrain them. Most machine control is exactly this blend.",
+      body: "A dual-speed starter mixes both: the low- and high-speed paths are [[parallel]] selectable branches, but an interlock — a normally-closed (**NC**) contact wired in **series** — drops the other path the moment one speed is selected, so both can never energize at once. Read a real print in layers: find the parallel choices, then the series interlocks that constrain them. Most machine control is exactly this blend.",
       takeaway: "Real prints layer parallel selection under series interlocks — read them in that order.",
     },
     {

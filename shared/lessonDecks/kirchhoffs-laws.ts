@@ -10,7 +10,7 @@ export const KIRCHHOFFS_LAWS_DECK: LessonCardDeck = {
   title: "Kirchhoff's Laws",
   whatYoullLearn: [
     "Use KVL — source voltage equals the sum of drops — to walk a series loop.",
-    "Read full source voltage across one device as the open you are hunting.",
+    "Spot the open as the one series device wearing the full source voltage.",
     "Use KCL — currents in equal currents out — to catch a hidden ground path.",
   ],
   estimatedMinutes: 12,
@@ -20,7 +20,7 @@ export const KIRCHHOFFS_LAWS_DECK: LessonCardDeck = {
       id: "kir-00",
       kind: "concept",
       heading: "New to this?",
-      body: "Before this lesson, know these terms:\n\n- **KVL**: Kirchhoff's Voltage Law — voltage drops around a loop add up to the source\n- **KCL**: Kirchhoff's Current Law — current into a junction equals current out\n- **OL**: overload relay contacts in the control string\n- **MCC**: motor control center — the lineup that feeds many motor branches\n- **NC**: normally closed — a contact that passes current until it acts\n- **LOTO**: lockout/tagout — the zero-energy safety procedure",
+      body: "Before this lesson, know these terms:\n\n- **KVL**: Kirchhoff's Voltage Law — voltage drops around a loop add up to the source\n- **KCL**: Kirchhoff's Current Law — current into a junction equals current out\n- **OL**: overload relay contacts in the control string — not the meter's over-limit display\n- **MCC**: motor control center — the lineup that feeds many motor branches\n- **NC**: normally closed — a contact that passes current until it acts\n- **LOTO**: lockout/tagout — the zero-energy safety procedure",
       takeaway: "Two conservation rules: voltage balances around a loop, current balances at a node.",
     },
     {
@@ -56,7 +56,7 @@ export const KIRCHHOFFS_LAWS_DECK: LessonCardDeck = {
       id: "kir-05",
       kind: "concept",
       heading: "Good drops near zero, open drops it all",
-      body: "This is the heart of voltage-drop work. A closed, healthy series device — contact, fuse, or wire — drops almost nothing because its [[resistance]] is tiny. The one open device drops the full source, because by [[KVL]] the voltages must still add to the source and the open has all the [[resistance]]. A good closed fuse reads near 0 V across it; a blown one reads the full line.",
+      body: "This is the heart of voltage-drop work. A closed, healthy series device — contact, fuse, or wire — drops almost nothing because its [[resistance]] is tiny. The one open device drops the full source, because by [[KVL]] the voltages must still add to the source and the open has all the resistance. A good closed fuse reads near 0 V across it; a blown one reads the full line.",
       takeaway: "Near 0 V across a series device means good; full source voltage means open.",
     },
     {
@@ -79,20 +79,22 @@ export const KIRCHHOFFS_LAWS_DECK: LessonCardDeck = {
       heading: "A KCL gap is a hidden path",
       body: "Now the feed reads 45 A but the branches total only 35 A. Charge does not vanish — [[KCL]] says 10 A is flowing on a path you have not measured: a ground fault, or a branch you missed. Do not wave it off as meter error. A persistent imbalance at a node is current escaping somewhere, and it is worth finding before it becomes a shock or a fire.",
       takeaway: "Missing amperes at a junction are current on an unmeasured path — investigate, don't dismiss.",
+      visual: { type: "callout", tone: "warning", text: "A persistent KCL imbalance at a node is current on an unmeasured path — treat it as a ground fault until proven otherwise." },
     },
     {
       id: "kir-09",
       kind: "interaction",
       heading: "Knowledge check — where to start",
       body: "",
+      // lessonQuizzes[3] is the "confirm the source first" item — deliberately paired with the kir-10 KVL walk.
       interaction: curatedChoiceMcq(curated.lessonQuizzes[3]),
     },
     {
       id: "kir-10",
       kind: "example",
       heading: "Field procedure — walk a loop with KVL",
-      body: "1. Confirm the source voltage first — a partial loss upstream skews every reading below it. 2. With the circuit calling to run, meter across each series device toward the load. 3. Near 0 V means closed and good; keep moving. 4. Full source voltage across one device is the open — stop there. 5. De-energize, apply [[LOTO]], and repair the device [[KVL]] pointed you to.",
-      takeaway: "Verify the source, then let the drops walk you to the one device wearing all the voltage.",
+      body: "Voltage-drop work is just [[KVL]] applied step by step. 1. Meter the source and write the number down — every drop has to add back to it. 2. Calling to run, move your leads across each device toward the coil, keeping a running tally of drops. 3. A near-0 V drop means the source is not hiding there — keep going. 4. When one device shows the whole source, the tally is complete: that device is the open. 5. De-energize, apply [[LOTO]], and repair it. The law did the searching — you just read the drops.",
+      takeaway: "KVL turns \"poke around\" into a running tally — the device that balances the loop back to the source is the open.",
     },
     {
       id: "kir-11",

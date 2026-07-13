@@ -20,14 +20,14 @@ export const METERS_MEASUREMENTS_DECK: LessonCardDeck = {
       id: "mtr-00",
       kind: "concept",
       heading: "New to this?",
-      body: "Before this lesson, know these terms:\n\n- **DMM**: digital multimeter — reads volts, amps, ohms\n- **VOM**: volt-ohm-milliammeter, the older analog meter\n- **OL**: over-limit — the reading exceeds the selected range (often means open)\n- **VFD**: variable frequency drive — controls a motor's speed\n- **LOTO**: lockout/tagout — the zero-energy safety procedure\n- **Ω**: ohms — the unit of resistance",
+      body: "Before this lesson, know these terms:\n\n- **DMM**: digital multimeter — reads volts, amps, ohms\n- **OL**: over-limit — the reading exceeds the selected range (often means open)\n- **VFD**: variable frequency drive — controls a motor's speed\n- **LOTO**: lockout/tagout — the zero-energy safety procedure\n- **Ω**: ohms — the unit of resistance",
       takeaway: "The meter only tells the truth when it is in the mode the circuit calls for.",
     },
     {
       id: "mtr-01",
       kind: "concept",
       heading: "A good meter, a wrong reading",
-      body: "A motor is clearly running, but your [[clamp meter]] shows 0 A. The meter is not broken — the technique is wrong. Enclose all three conductors of a [[three-phase]] cord and the phase magnetic fields cancel to nearly zero. Put a **DMM (digital multimeter)** on V AC and probe a 24-volt DC sensor loop and you get a misleading number for the same reason: wrong mode, wrong answer.",
+      body: "A motor is clearly running, but your [[clamp meter]] shows 0 A. The meter is not broken — the technique is wrong. Enclose all three conductors of a **balanced** [[three-phase]] cord and the phase magnetic fields sum to nearly zero — a leftover reading means unbalanced load or ground-fault current. Put a **DMM (digital multimeter)** on V AC and probe a 24-volt DC sensor loop and you get a misleading number for a related reason: wrong mode, wrong answer.",
       takeaway: "Most \"bad meter\" calls are really wrong-mode or wrong-technique calls.",
     },
     {
@@ -79,7 +79,7 @@ export const METERS_MEASUREMENTS_DECK: LessonCardDeck = {
       id: "mtr-08",
       kind: "example",
       heading: "What a contact's resistance tells you",
-      body: "A good closed contact reads under 1 Ω. Watch it climb past about 5 Ω and you are seeing pitting or corrosion — resistance that will drop voltage and make heat under load (**P = I² × R** again). A reading of **OL** across a contact that should be closed means it is open. The number is a health gauge, not just pass/fail.",
+      body: "A good closed contact reads under 1 Ω. Watch it climb past about 5 Ω and you are seeing pitting or corrosion — resistance that will drop voltage and make heat under load (**P = I² × R**). A reading of **OL** across a contact that should be closed means it is open. The number is a health gauge, not just pass/fail.",
       takeaway: "Under 1 Ω is healthy; a few ohms is a warning; OL is an open.",
     },
     {
