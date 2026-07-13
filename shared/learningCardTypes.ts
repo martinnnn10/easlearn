@@ -24,7 +24,12 @@ export type LessonCardVisual =
         | "npn-pnp-wiring"
         | "powerflex-fault-table"
         | "wire-numbering-convention"
-        | "pid-symbol-table";
+        | "pid-symbol-table"
+        | "ohms-law-wheel"
+        | "series-parallel-circuit"
+        | "ac-dc-waveform"
+        | "kvl-kcl-diagram"
+        | "meter-mode-table";
     }
   | { type: "callout"; tone: "field" | "tip" | "warning"; text: string }
   | {

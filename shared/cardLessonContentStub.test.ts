@@ -10,6 +10,6 @@ describe("cardLessonContentStub", () => {
   });
 
   it("aligns with card lesson registry count", () => {
-    expect(getCardFormatLessonCount()).toBe(31);
+    expect(getCardFormatLessonCount()).toBe(36);
   });
 });

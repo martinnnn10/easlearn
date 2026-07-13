@@ -40,8 +40,8 @@ describe("lessonCardContent", () => {
     }
   });
 
-  it("registers 31 card-format lessons with zero legacy ILU units", () => {
-    expect(getCardFormatLessonCount()).toBe(31);
+  it("registers 36 card-format lessons with zero legacy ILU units", () => {
+    expect(getCardFormatLessonCount()).toBe(36);
     const legacy = LESSON_PRACTICE_MAP.flatMap((p) =>
       p.units.filter((u) => u.lessonFormat !== "cards")
     );

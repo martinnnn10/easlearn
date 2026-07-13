@@ -64,7 +64,7 @@ describe("curatedLessonAssessments", () => {
 
   it("covers all ILU Track A lessons (no auto-generator on active ILU paths)", () => {
     const iluKeys = getIluActiveLessonKeys();
-    expect(iluKeys.length).toBe(31);
+    expect(iluKeys.length).toBe(36);
     for (const key of iluKeys) {
       expect(
         getCuratedLessonAssessment(key.split("/")[0], key.split("/")[1]),

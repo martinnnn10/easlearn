@@ -30,6 +30,11 @@ import { GUARDING_LOCKOUT_DECK } from "./lessonDecks/guarding-lockout";
 import { LADDER_DIAGRAM_CONVENTIONS_DECK } from "./lessonDecks/ladder-diagram-conventions";
 import { WIRING_DIAGRAMS_DECK } from "./lessonDecks/wiring-diagrams";
 import { PID_SYMBOLS_DECK } from "./lessonDecks/pid-symbols";
+import { OHMS_LAW_POWER_DECK } from "./lessonDecks/ohms-law-power";
+import { METERS_MEASUREMENTS_DECK } from "./lessonDecks/meters-measurements";
+import { SERIES_PARALLEL_CIRCUITS_DECK } from "./lessonDecks/series-parallel-circuits";
+import { AC_DC_THEORY_DECK } from "./lessonDecks/ac-dc-theory";
+import { KIRCHHOFFS_LAWS_DECK } from "./lessonDecks/kirchhoffs-laws";
 import { getLessonUnit } from "./lessonPracticeMap";
 import { resolveCardDeckKey } from "./lessonSlugAliases";
 import { PUBLISHED_DECKS } from "./lessonDecks/_published.generated";
@@ -50,6 +55,11 @@ const STATIC_DECKS: Record<string, LessonCardDeck> = {
   "powerflex-vfd/common-failures": COMMON_FAILURES_DECK,
   "powerflex-vfd/advanced-features": ADVANCED_FEATURES_DECK,
   "electrical-fundamentals/electrical-safety-lockout": ELECTRICAL_SAFETY_LOTO_DECK,
+  "electrical-fundamentals/ohms-law-power": OHMS_LAW_POWER_DECK,
+  "electrical-fundamentals/meters-measurements": METERS_MEASUREMENTS_DECK,
+  "electrical-fundamentals/series-parallel-circuits": SERIES_PARALLEL_CIRCUITS_DECK,
+  "electrical-fundamentals/ac-dc-theory": AC_DC_THEORY_DECK,
+  "electrical-fundamentals/kirchhoffs-laws": KIRCHHOFFS_LAWS_DECK,
   "motors-controls/motor-theory": MOTOR_THEORY_DECK,
   "motors-controls/motor-control-circuits": MOTOR_CONTROL_CIRCUITS_DECK,
   "motors-controls/starter-troubleshooting": STARTER_TROUBLESHOOTING_DECK,

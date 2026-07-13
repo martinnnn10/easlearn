@@ -643,6 +643,201 @@ function PidSymbolTableDiagram() {
   );
 }
 
+function OhmsLawWheelDiagram() {
+  const rows = [
+    { solve: "Voltage", formula: "V = I × R", use: "expected drop" },
+    { solve: "Current", formula: "I = V ÷ R", use: "expected draw" },
+    { solve: "Resistance", formula: "R = V ÷ I", use: "find an open" },
+    { solve: "Power", formula: "P = V × I", use: "heat / load" },
+    { solve: "Joint heat", formula: "P = I² × R", use: "loose-joint heat" },
+  ];
+  return (
+    <svg viewBox="0 0 360 240" className="w-full h-auto" aria-hidden role="img">
+      <title>Ohm's Law and power formula wheel</title>
+      <rect x="0" y="0" width="360" height="240" fill="oklch(0.08 0.003 250)" rx="6" />
+      <text x="180" y="20" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" textAnchor="middle" fontFamily="system-ui, sans-serif">
+        Ohm's Law &amp; Power
+      </text>
+      <text x="14" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Solve for</text>
+      <text x="116" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Formula</text>
+      <text x="222" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Field use</text>
+      <line x1="8" y1="46" x2="352" y2="46" stroke="oklch(0.22 0.004 250)" />
+      {rows.map((row, i) => {
+        const y = 54 + i * 36;
+        return (
+          <g key={row.solve}>
+            <rect x="8" y={y} width="344" height="32" rx="4" fill="var(--color-eas-green-dim)" stroke="var(--color-eas-green)" />
+            <text x="14" y={y + 21} fill="oklch(0.80 0.008 250)" fontSize="12" fontFamily="system-ui, sans-serif">{row.solve}</text>
+            <text x="116" y={y + 21} fill="var(--color-eas-green-light)" fontSize="12" fontFamily="monospace">{row.formula}</text>
+            <text x="222" y={y + 21} fill="oklch(0.70 0.008 250)" fontSize="12" fontFamily="system-ui, sans-serif">{row.use}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function SeriesParallelCircuitDiagram() {
+  const series = [
+    { x: 26, w: 54, label: "E-stop NC" },
+    { x: 92, w: 44, label: "OL NC" },
+    { x: 148, w: 40, label: "Fuse" },
+    { x: 200, w: 44, label: "Stop NC" },
+    { x: 256, w: 74, label: "Coil (load)" },
+  ];
+  const branches = [
+    { y: 132, label: "M1" },
+    { y: 158, label: "M2" },
+    { y: 184, label: "M3" },
+  ];
+  return (
+    <svg viewBox="0 0 360 210" className="w-full h-auto" aria-hidden role="img">
+      <title>Series safety chain versus parallel MCC branches</title>
+      <rect x="0" y="0" width="360" height="210" fill="oklch(0.08 0.003 250)" rx="6" />
+      <text x="12" y="18" fill="var(--color-eas-green-light)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        Series — one open stops all
+      </text>
+      <line x1="16" y1="46" x2="344" y2="46" stroke="oklch(0.35 0.004 250)" strokeWidth="2" />
+      {series.map((box) => (
+        <g key={box.label}>
+          <rect x={box.x} y="32" width={box.w} height="28" rx="4" fill="oklch(0.12 0.003 250)" stroke="var(--color-diagram-safety)" />
+          <text x={box.x + box.w / 2} y="50" fill="oklch(0.78 0.008 250)" fontSize="11" textAnchor="middle" fontFamily="monospace">{box.label}</text>
+        </g>
+      ))}
+      <text x="12" y="104" fill="var(--color-diagram-low-side)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        Parallel — one trip isolates one
+      </text>
+      <line x1="40" y1="118" x2="40" y2="198" stroke="oklch(0.45 0.10 155)" strokeWidth="3" />
+      <text x="24" y="114" fill="var(--color-diagram-neutral)" fontSize="10" fontFamily="monospace">bus</text>
+      {branches.map((b) => (
+        <g key={b.label}>
+          <line x1="40" y1={b.y} x2="150" y2={b.y} stroke="oklch(0.40 0.006 250)" strokeWidth="2" />
+          <rect x="150" y={b.y - 10} width="42" height="20" rx="3" fill="oklch(0.12 0.003 250)" stroke="var(--color-diagram-safety)" />
+          <text x="171" y={b.y + 4} fill="oklch(0.75 0.008 250)" fontSize="9" textAnchor="middle" fontFamily="monospace">CB</text>
+          <line x1="192" y1={b.y} x2="250" y2={b.y} stroke="oklch(0.40 0.006 250)" strokeWidth="2" />
+          <circle cx="266" cy={b.y} r="12" fill="var(--color-diagram-low-side-dim)" stroke="var(--color-diagram-low-side)" />
+          <text x="266" y={b.y + 4} fill="oklch(0.80 0.008 250)" fontSize="10" textAnchor="middle" fontFamily="monospace">{b.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function AcDcWaveformDiagram() {
+  return (
+    <svg viewBox="0 0 360 170" className="w-full h-auto" aria-hidden role="img">
+      <title>AC sine wave RMS versus peak, and steady DC</title>
+      <rect x="0" y="0" width="360" height="170" fill="oklch(0.08 0.003 250)" rx="6" />
+      {/* AC panel */}
+      <text x="14" y="20" fill="var(--color-diagram-high-side)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        AC — 480 V line
+      </text>
+      <line x1="18" y1="80" x2="174" y2="80" stroke="oklch(0.30 0.004 250)" strokeWidth="1" strokeDasharray="2 2" />
+      <line x1="18" y1="48" x2="174" y2="48" stroke="var(--color-diagram-high-side)" strokeWidth="1" strokeDasharray="4 3" />
+      <line x1="18" y1="62" x2="174" y2="62" stroke="var(--color-diagram-safety)" strokeWidth="1" strokeDasharray="4 3" />
+      <path d="M20,80 Q44,32 68,80 T116,80 T164,80" fill="none" stroke="var(--color-diagram-high-side)" strokeWidth="2.5" />
+      <text x="120" y="44" fill="var(--color-diagram-high-side)" fontSize="11" fontFamily="monospace">peak ≈ 679 V</text>
+      <text x="120" y="74" fill="var(--color-diagram-safety)" fontSize="11" fontFamily="monospace">RMS 480 V</text>
+      {/* DC panel */}
+      <line x1="188" y1="14" x2="188" y2="150" stroke="oklch(0.22 0.004 250)" strokeWidth="1" />
+      <text x="200" y="20" fill="var(--color-diagram-low-side)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        DC — 24 V control
+      </text>
+      <line x1="204" y1="80" x2="348" y2="80" stroke="oklch(0.30 0.004 250)" strokeWidth="1" strokeDasharray="2 2" />
+      <line x1="204" y1="52" x2="348" y2="52" stroke="var(--color-diagram-low-side)" strokeWidth="2.5" />
+      <text x="204" y="46" fill="var(--color-diagram-low-side)" fontSize="11" fontFamily="monospace">steady +24 V</text>
+      <text x="204" y="104" fill="oklch(0.60 0.008 250)" fontSize="10" fontFamily="monospace">fixed polarity</text>
+      <text x="14" y="150" fill="oklch(0.60 0.008 250)" fontSize="10" fontFamily="system-ui, sans-serif">
+        The DC bus charges to the AC peak: 1.414 × RMS.
+      </text>
+    </svg>
+  );
+}
+
+function KvlKclDiagram() {
+  return (
+    <svg viewBox="0 0 360 180" className="w-full h-auto" aria-hidden role="img">
+      <title>Kirchhoff's Voltage Law loop and Current Law node</title>
+      <defs>
+        <marker id="kcl-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="var(--color-eas-green)" />
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="360" height="180" fill="oklch(0.08 0.003 250)" rx="6" />
+      {/* KVL loop */}
+      <text x="14" y="20" fill="var(--color-eas-green-light)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        KVL — around the loop
+      </text>
+      <rect x="28" y="36" width="120" height="86" rx="4" fill="none" stroke="oklch(0.40 0.006 250)" strokeWidth="2" />
+      <rect x="20" y="66" width="16" height="26" rx="2" fill="var(--color-diagram-safety)" />
+      <text x="44" y="34" fill="oklch(0.72 0.008 250)" fontSize="10" fontFamily="monospace">drop 0 V</text>
+      <text x="86" y="118" fill="oklch(0.72 0.008 250)" fontSize="10" fontFamily="monospace">drop 0 V</text>
+      <text x="150" y="82" fill="oklch(0.72 0.008 250)" fontSize="10" fontFamily="monospace" textAnchor="end">120 V</text>
+      <text x="14" y="146" fill="var(--color-eas-green-light)" fontSize="11" fontFamily="monospace">120 V = 0 + 0 + 120</text>
+      <text x="14" y="164" fill="oklch(0.60 0.008 250)" fontSize="10" fontFamily="system-ui, sans-serif">source = sum of drops</text>
+      {/* KCL node */}
+      <line x1="188" y1="14" x2="188" y2="166" stroke="oklch(0.22 0.004 250)" strokeWidth="1" />
+      <text x="200" y="20" fill="var(--color-diagram-low-side)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">
+        KCL — at the node
+      </text>
+      <circle cx="256" cy="80" r="6" fill="var(--color-eas-green)" />
+      <line x1="200" y1="80" x2="244" y2="80" stroke="var(--color-eas-green)" strokeWidth="2" markerEnd="url(#kcl-arrow)" />
+      <text x="200" y="72" fill="oklch(0.78 0.008 250)" fontSize="11" fontFamily="monospace">45 A</text>
+      <line x1="268" y1="80" x2="312" y2="54" stroke="var(--color-eas-green)" strokeWidth="2" markerEnd="url(#kcl-arrow)" />
+      <line x1="268" y1="80" x2="312" y2="80" stroke="var(--color-eas-green)" strokeWidth="2" markerEnd="url(#kcl-arrow)" />
+      <line x1="268" y1="80" x2="312" y2="106" stroke="var(--color-eas-green)" strokeWidth="2" markerEnd="url(#kcl-arrow)" />
+      <text x="320" y="54" fill="oklch(0.78 0.008 250)" fontSize="10" fontFamily="monospace">15 A</text>
+      <text x="320" y="84" fill="oklch(0.78 0.008 250)" fontSize="10" fontFamily="monospace">20 A</text>
+      <text x="320" y="110" fill="oklch(0.78 0.008 250)" fontSize="10" fontFamily="monospace">10 A</text>
+      <text x="200" y="150" fill="var(--color-diagram-low-side)" fontSize="11" fontFamily="monospace">45 = 15 + 20 + 10</text>
+      <text x="200" y="166" fill="oklch(0.60 0.008 250)" fontSize="10" fontFamily="system-ui, sans-serif">current in = current out</text>
+    </svg>
+  );
+}
+
+function MeterModeTableDiagram() {
+  const rows = [
+    { meas: "Voltage", mode: "V AC / V DC", rule: "match the circuit" },
+    { meas: "Current", mode: "clamp", rule: "one conductor" },
+    { meas: "Resistance", mode: "Ω ohms", rule: "kill power + LOTO" },
+    { meas: "Insulation", mode: "megger", rule: "off the drive" },
+    { meas: "Verify", mode: "Live-Dead-Live", rule: "prove it works" },
+  ];
+  return (
+    <svg viewBox="0 0 360 240" className="w-full h-auto" aria-hidden role="img">
+      <title>Meter mode selection quick reference</title>
+      <rect x="0" y="0" width="360" height="240" fill="oklch(0.08 0.003 250)" rx="6" />
+      <text x="180" y="20" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" textAnchor="middle" fontFamily="system-ui, sans-serif">
+        Pick the meter mode
+      </text>
+      <text x="14" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Measure</text>
+      <text x="116" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Mode</text>
+      <text x="230" y="40" fill="var(--color-diagram-neutral)" fontSize="13" fontWeight="600" fontFamily="system-ui, sans-serif">Key rule</text>
+      <line x1="8" y1="46" x2="352" y2="46" stroke="oklch(0.22 0.004 250)" />
+      {rows.map((row, i) => {
+        const y = 54 + i * 36;
+        const danger = row.meas === "Insulation" || row.meas === "Resistance";
+        return (
+          <g key={row.meas}>
+            <rect
+              x="8"
+              y={y}
+              width="344"
+              height="32"
+              rx="4"
+              fill={danger ? "var(--color-diagram-high-side-dim)" : "var(--color-diagram-low-side-dim)"}
+              stroke={danger ? "var(--color-diagram-high-side)" : "var(--color-diagram-low-side)"}
+            />
+            <text x="14" y={y + 21} fill="oklch(0.80 0.008 250)" fontSize="12" fontFamily="system-ui, sans-serif">{row.meas}</text>
+            <text x="116" y={y + 21} fill="oklch(0.80 0.008 250)" fontSize="11" fontFamily="monospace">{row.mode}</text>
+            <text x="230" y={y + 21} fill="oklch(0.70 0.008 250)" fontSize="12" fontFamily="system-ui, sans-serif">{row.rule}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 export function LessonCardVisualBlock({
   visual,
   showZoom = false,
@@ -724,6 +919,11 @@ export function LessonCardVisualBlock({
             {visual.variant === "powerflex-fault-table" && <PowerFlexFaultTableDiagram />}
             {visual.variant === "wire-numbering-convention" && <WireNumberingConventionDiagram />}
             {visual.variant === "pid-symbol-table" && <PidSymbolTableDiagram />}
+            {visual.variant === "ohms-law-wheel" && <OhmsLawWheelDiagram />}
+            {visual.variant === "series-parallel-circuit" && <SeriesParallelCircuitDiagram />}
+            {visual.variant === "ac-dc-waveform" && <AcDcWaveformDiagram />}
+            {visual.variant === "kvl-kcl-diagram" && <KvlKclDiagram />}
+            {visual.variant === "meter-mode-table" && <MeterModeTableDiagram />}
           </div>
         </div>
         <figcaption className="mt-2 text-xs text-[oklch(0.50_0.008_250)] text-center">
@@ -743,7 +943,17 @@ export function LessonCardVisualBlock({
                         ? "Trace by wire number across schematic, terminal strip, and field device"
                         : visual.variant === "pid-symbol-table"
                           ? "Match tag first letters to loop sheets before calibration or bypass"
-                          : "Tap +/- to zoom schematic"}
+                          : visual.variant === "ohms-law-wheel"
+                            ? "Rearrange V = I × R for the unknown; P = I² × R explains connection heating"
+                            : visual.variant === "series-parallel-circuit"
+                              ? "Ask: if this opens, does everything downstream stop? Yes = series"
+                              : visual.variant === "ac-dc-waveform"
+                                ? "Match meter mode to the waveform — the DC bus sits at the AC peak"
+                                : visual.variant === "kvl-kcl-diagram"
+                                  ? "Full source voltage across one series device = that device is open"
+                                  : visual.variant === "meter-mode-table"
+                                    ? "Verify Live-Dead-Live every time before you trust a zero reading"
+                                    : "Tap +/- to zoom schematic"}
         </figcaption>
       </figure>
     );
