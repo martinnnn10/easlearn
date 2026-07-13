@@ -1,0 +1,28 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('### Gate Triggering', content), 500) as gate_section FROM course_lessons WHERE id = 60016",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('### Gate Triggering', content), 500) as gate_section FROM course_lessons WHERE id = 60016",
+  "rows": [
+    {
+      "gate_section": "### Gate Triggering and Latching"
+    },
+    {
+      "gate_section": "An SCR has three terminals: **Anode (A)**, **Cathode (K)**, and **Gate (G)**. "
+    },
+    {
+      "gate_section": "For an SCR to conduct current from Anode to Cathode, two conditions must be met:"
+    },
+    {
+      "gate_section": "1. The Anode must be positive relative to the Cathode (forward-biased)."
+    },
+    {
+      "gate_section": "2. A positive current pulse must be applied to the Gate."
+    },
+    {
+      "gate_section": "Once the gate receives this pulse (triggering), the SCR turns ON and conducts. Here is the critical part: **Once triggered, the SCR latches ON.** You can remove the gate signal,"
+    }
+  ],
+  "messages": [],
+  "stdout": "gate_section\n### Gate Triggering and Latching\nAn SCR has three terminals: **Anode (A)**, **Cathode (K)**, and **Gate (G)**. \nFor an SCR to conduct current from Anode to Cathode, two conditions must be met:\n1. The Anode must be positive relative to the Cathode (forward-biased).\n2. A positive current pulse must be applied to the Gate.\n\nOnce the gate receives this pulse (triggering), the SCR turns ON and conducts. Here is the critical part: **Once triggered, the SCR latches ON.** You can remove the gate signal,\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

@@ -1,0 +1,52 @@
+{
+  "query": "SELECT id, slug, title, SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 60014",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, slug, title, SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 60014",
+  "rows": [
+    {
+      "id": "60014",
+      "slug": "transistors-switching",
+      "title": "Transistors: Switching & Amplification",
+      "content_start": "# Transistors: Switching & Amplification"
+    }
+  ],
+  "messages": [
+    "## The Electronic Switch",
+    "A transistor is a semiconductor device that can act as an electronically controlled switch or an amplifier. In industrial applications, transistors are the building blocks of PLC output modules, sensor circuits, and power electronics.",
+    "## Transistor Types",
+    "### Bipolar Junction Transistor (BJT)",
+    "| Type | Current Flow | Symbol | Common Use |",
+    "|------|-------------|--------|-----------|",
+    "| NPN | Collector → Emitter (conventional) | Arrow out | PLC sinking outputs, relay drivers |",
+    "| PNP | Emitter → Collector (conventional) | Arrow in | PLC sourcing outputs, sensor outputs |",
+    "### How a BJT Works (Simplified)",
+    "Think of it as a **current-controlled switch:**",
+    "- A small current into the Base (control) allows a large current to flow from Collector to Emitter (load)",
+    "- No base current = switch OFF (no load current)",
+    "- Base current applied = switch ON (load current flows)",
+    "**Gain (hFE or β):** The ratio of load current to control current. Typical β = 50-300.",
+    "- If β = 100 and base current = 1mA, collector current can be up to 100mA",
+    "### NPN Transistor as a Switch (PLC Output)",
+    "```",
+    "+24V ──── [Load (relay coil)] ──── Collector",
+    "                                      |",
+    "                                   [NPN Transistor]",
+    "                                      |",
+    "PLC Logic Signal ──── Base           Emitter ──── 0V (GND)",
+    "```",
+    "When PLC output goes HIGH → base current flows → transistor turns ON → load energizes.",
+    "### PNP vs. NPN Sensors",
+    "| Sensor Type | Output Behavior | Connects To |",
+    "|-------------|----------------|-------------|",
+    "| PNP (sourcing) | Switches +V to load | Sourcing input module |",
+    "| NPN (sinking) | Switches 0V to load | Sinking input module |",
+    "> **Mnematch Rule:** PNP sensors work with sinking inputs. NPN sensors work with sourcing inputs. If your new sensor \"doesn't work,\" check this first.",
+    "## Field Effect Transistors (FET/MOSFET)",
+    "### MOSFET vs. BJT",
+    "| Property | BJT | MOSFET |",
+    "|----------|-----|--------|",
+    "| C"
+  ],
+  "stdout": "id\tslug\ttitle\tcontent_start\n60014\ttransistors-switching\tTransistors: Switching & Amplification\t# Transistors: Switching & Amplification\n\n## The Electronic Switch\n\nA transistor is a semiconductor device that can act as an electronically controlled switch or an amplifier. In industrial applications, transistors are the building blocks of PLC output modules, sensor circuits, and power electronics.\n\n## Transistor Types\n\n### Bipolar Junction Transistor (BJT)\n\n| Type | Current Flow | Symbol | Common Use |\n|------|-------------|--------|-----------|\n| NPN | Collector → Emitter (conventional) | Arrow out | PLC sinking outputs, relay drivers |\n| PNP | Emitter → Collector (conventional) | Arrow in | PLC sourcing outputs, sensor outputs |\n\n### How a BJT Works (Simplified)\n\nThink of it as a **current-controlled switch:**\n- A small current into the Base (control) allows a large current to flow from Collector to Emitter (load)\n- No base current = switch OFF (no load current)\n- Base current applied = switch ON (load current flows)\n\n**Gain (hFE or β):** The ratio of load current to control current. Typical β = 50-300.\n- If β = 100 and base current = 1mA, collector current can be up to 100mA\n\n### NPN Transistor as a Switch (PLC Output)\n\n```\n+24V ──── [Load (relay coil)] ──── Collector\n                                      |\n                                   [NPN Transistor]\n                                      |\nPLC Logic Signal ──── Base           Emitter ──── 0V (GND)\n```\n\nWhen PLC output goes HIGH → base current flows → transistor turns ON → load energizes.\n\n### PNP vs. NPN Sensors\n\n| Sensor Type | Output Behavior | Connects To |\n|-------------|----------------|-------------|\n| PNP (sourcing) | Switches +V to load | Sourcing input module |\n| NPN (sinking) | Switches 0V to load | Sinking input module |\n\n> **Mnematch Rule:** PNP sensors work with sinking inputs. NPN sensors work with sourcing inputs. If your new sensor \"doesn't work,\" check this first.\n\n## Field Effect Transistors (FET/MOSFET)\n\n### MOSFET vs. BJT\n\n| Property | BJT | MOSFET |\n|----------|-----|--------|\n| C\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

@@ -1,0 +1,14 @@
+{
+  "query": "SELECT COUNT(*) as total, SUM(CASE WHEN totalLessons > 0 THEN 1 ELSE 0 END) as with_lessons FROM course_modules WHERE isPublished = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT COUNT(*) as total, SUM(CASE WHEN totalLessons > 0 THEN 1 ELSE 0 END) as with_lessons FROM course_modules WHERE isPublished = 1;",
+  "rows": [
+    {
+      "total": "18",
+      "with_lessons": "17"
+    }
+  ],
+  "messages": [],
+  "stdout": "total\twith_lessons\n18\t17\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

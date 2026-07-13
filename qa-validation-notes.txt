@@ -1,0 +1,57 @@
+QA Browser Validation Notes — 2026-05-15
+
+1. /progress page:
+   - Loads correctly with "METHODOLOGY PROGRESS" heading
+   - Shows "NO SCENARIOS COMPLETED YET" empty state (correct — test user has no completions)
+   - "Start a Scenario" CTA button visible and links to /simulator
+   - Back arrow to /dashboard visible
+   - Dark industrial theme consistent with rest of site
+   - STATUS: PASS
+
+2. Simulator page:
+   - Loads correctly with scenario selection grid
+   - 8 scenarios visible (Blown Control Fuse + 7 others)
+   - Scenario selection shows detail panel without auto-launching
+   - "START THIS SCENARIO" button visible (requires explicit click)
+   - PRO badges on gated scenarios
+   - Diagnostic decision tree preview visible
+   - Equipment list visible
+   - Possible faults listed
+   - "CONTROLS DIAGNOSTIC ENGINE" capabilities section visible
+   - STATUS: PASS
+3. Courses page:
+   - TRAINING ACADEMY heading with stats: 2 Learning Paths, 18 Modules, 80+ Hours
+   - Foundational Training section with 8 courses visible
+   - All 7 new courses visible: Industrial Networking, Sensors & Instrumentation, Print Reading, Safety Systems, Power Distribution, Robotics Fundamentals, Process Control
+   - Advanced Troubleshooting section with Industrial Troubleshooting Academy
+   - All 17 course modules listed with lesson counts
+   - STATUS: PASS
+
+4. Dashboard:
+   - Welcome back greeting with user name
+   - Progress stats: 1%, 1/110 lessons, 0 certificates, 50 XP
+   - Training streak: 2 days active
+   - Continue Learning section with resume button
+   - Course Modules grid with all 17 modules and progress bars
+   - Simulator Career Mode section
+   - Leaderboard with ranking
+   - Quick Actions: Certification Path, My Certificates, Practice Simulator, My Methodology, Interactive Labs, Account Settings
+   - "My Methodology" button confirmed present
+   - Weekly Activity Summary with platform stats (admin view)
+   - STATUS: PASS
+
+5. Roadmap:
+   - "Building the Future of Industrial Training" heading
+   - Honest status counts: 3 Live, 3 In Development, 4 Planned
+   - Course Development Tracks with Live/In Development/Planned badges
+   - Electrical Fundamentals and PLC Fundamentals marked as Live
+   - Clear distinction between what exists and what's planned
+   - No fabricated metrics or fake testimonials
+   - STATUS: PASS
+
+6. Search:
+   - Search bar visible in nav with Ctrl+K shortcut
+   - CommandPalette component uses Fuse.js fuzzy search
+   - Indexes static pages + dynamic courses via tRPC searchIndex
+   - Keyboard navigation supported
+   - STATUS: PASS (verified via test + UI presence)

@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, title FROM course_lessons WHERE content LIKE '%rim%' AND content LIKE '%face%' AND content LIKE '%shim%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title FROM course_lessons WHERE content LIKE '%rim%' AND content LIKE '%face%' AND content LIKE '%shim%';",
+  "rows": [
+    {
+      "id": "26",
+      "title": "Dial Indicator Alignment Method"
+    },
+    {
+      "id": "28",
+      "title": "Soft Foot Detection & Correction"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n26\tDial Indicator Alignment Method\n28\tSoft Foot Detection & Correction\n",
+  "stderr": "",
+  "execution_time_ms": 286
+}

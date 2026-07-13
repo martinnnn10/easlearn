@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 32;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 32;",
+  "rows": [
+    {
+      "content_start": "## Infrared Thermography for Electrical Systems"
+    },
+    {
+      "content_start": "### Thermal Imaging Camera Basics and Emissivity"
+    },
+    {
+      "content_start": "When you pull out a FLIR T540 or a Fluke Ti480 PRO, you aren't just taking a picture; you are measuring the infrared radiation emitted by an object. The most critical setting on your camera before you even point it at a panel is emissivity ($\\epsilon$). Emissivity is the measure of an object's ability to emit infrared energy. It ranges from 0.00 (a perfect mirror) to 1.00 (a perfect blackbody). "
+    },
+    {
+      "content_start": "If you are scanning a heavily oxidized copper busbar, the emissivity might be around 0.60 to 0.70. However, if you are looking at a brand-new, shiny copper or aluminum lug, the emissivity can drop below 0.10. If you leave your camera set to the default 0.95 (typical for electrical tape or painted surfaces) while scanning bare metal, your camera will read the reflected temperature of the surrounding environment instead of the actual temperature of the lug. "
+    },
+    {
+      "content_start": "> **CRITICAL:** Never trust a temperature reading on shiny, unpainted metal. If you need an accurate reading on a bare aluminum lug, apply a piece of standard black electrical tape (emissivity ~0.95) to the lug while the circuit is de-energized, re-energize, and scan the tape."
+    },
+    {
+      "content_start": "### Identifying Electrical Connection Hot Spots"
+    },
+    {
+      "content_start": "The primary use of thermography in a plant is finding high-resistance connections before they fail. A loose connection, corrosion, or improper crimping increases resistance. According to Ohm's Law ($P = I^2R$), as resistance increases, the power dissipated as heat increases exponentially with the current."
+    },
+    {
+      "content_start": "#### Loose Connections vs. Overloaded Circuits"
+    },
+    {
+      "content_start": "When scanning a 480V, 3-phase Allen-Bradley Centerline Motor Control Center (MCC), you need to distinguish between a loose connection and an overloaded circuit. "
+    },
+    {
+      "content_start": "- **Loose Connection:** The heat will be localized at the point of high resistance. For example, if the B-phase lug on a contactor is glowing white-hot on your palette but the wire a few inches aw"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\n## Infrared Thermography for Electrical Systems\n\n### Thermal Imaging Camera Basics and Emissivity\nWhen you pull out a FLIR T540 or a Fluke Ti480 PRO, you aren't just taking a picture; you are measuring the infrared radiation emitted by an object. The most critical setting on your camera before you even point it at a panel is emissivity ($\\epsilon$). Emissivity is the measure of an object's ability to emit infrared energy. It ranges from 0.00 (a perfect mirror) to 1.00 (a perfect blackbody). \n\nIf you are scanning a heavily oxidized copper busbar, the emissivity might be around 0.60 to 0.70. However, if you are looking at a brand-new, shiny copper or aluminum lug, the emissivity can drop below 0.10. If you leave your camera set to the default 0.95 (typical for electrical tape or painted surfaces) while scanning bare metal, your camera will read the reflected temperature of the surrounding environment instead of the actual temperature of the lug. \n\n> **CRITICAL:** Never trust a temperature reading on shiny, unpainted metal. If you need an accurate reading on a bare aluminum lug, apply a piece of standard black electrical tape (emissivity ~0.95) to the lug while the circuit is de-energized, re-energize, and scan the tape.\n\n### Identifying Electrical Connection Hot Spots\nThe primary use of thermography in a plant is finding high-resistance connections before they fail. A loose connection, corrosion, or improper crimping increases resistance. According to Ohm's Law ($P = I^2R$), as resistance increases, the power dissipated as heat increases exponentially with the current.\n\n#### Loose Connections vs. Overloaded Circuits\nWhen scanning a 480V, 3-phase Allen-Bradley Centerline Motor Control Center (MCC), you need to distinguish between a loose connection and an overloaded circuit. \n- **Loose Connection:** The heat will be localized at the point of high resistance. For example, if the B-phase lug on a contactor is glowing white-hot on your palette but the wire a few inches aw\n",
+  "stderr": "",
+  "execution_time_ms": 415
+}

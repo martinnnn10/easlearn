@@ -1,0 +1,82 @@
+{
+  "query": "SELECT SUBSTRING(content, 6500, 4000) as content_section FROM course_lessons WHERE id = 60013;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 6500, 4000) as content_section FROM course_lessons WHERE id = 60013;",
+  "rows": [
+    {
+      "content_section": "nd power supplies."
+    },
+    {
+      "content_section": "- **Three-Phase Bridge Rectifier:** Extremely common in industrial motor control. It uses six diodes to rectify three-phase AC (like 480VAC) into a very smooth DC bus voltage (typically around 680VDC). This is the very first stage (the \"converter\" section) of almost every Variable Frequency Drive (VFD) on the market, such as the Allen-Bradley PowerFlex series."
+    },
+    {
+      "content_section": "**Filter Capacitors and AC Ripple:** The raw DC from a bridge rectifier pulses from zero to peak voltage. To smooth this out, large electrolytic capacitors are placed across the DC output. They charge up during the voltage peaks and discharge during the valleys, filling in the gaps. If these capacitors dry out due to heat and age, they lose their ability to hold a charge. The resulting DC voltage will have excessive \"AC ripple,\" which wreaks havoc on PLCs, causes encoders to miscount, and triggers phantom faults in sensitive electronics."
+    },
+    {
+      "content_section": "### Specialized Diodes in Industrial Panels"
+    },
+    {
+      "content_section": "#### Freewheeling (Flyback) Diodes on Relay Coils"
+    },
+    {
+      "content_section": "When a DC relay coil, contactor coil, or solenoid is de-energized, the collapsing magnetic field generates a massive high-voltage spike (inductive kickback) that can easily exceed hundreds of volts. This spike will instantly destroy the delicate transistor output of a PLC. A freewheeling diode is wired in parallel with the coil, reverse-biased during normal operation. When the coil turns off and the polarity of the collapsing field reverses, the diode becomes forward-biased. The voltage spike is safely shunted back through the coil itself, dissipating the energy as heat and protecting the PLC."
+    },
+    {
+      "content_section": "#### TVS Diodes (Transient Voltage Suppressors)"
+    },
+    {
+      "content_section": "TVS diodes are specialized avalanche diodes designed to protect sensitive circuits from high-voltage transients (like lightning strikes, static discharge, or heavy motor switching). They sit quietly in reverse bias across power or communication lines. When a voltage spike exceeds their specific breakdown voltage, they instantly clamp the voltage to a safe level, shunting the excess energy to ground. You will frequently find them protecting RS-485 communication terminals and analog 4-20mA inputs."
+    },
+    {
+      "content_section": "#### Zener Diodes for Voltage Regulation"
+    },
+    {
+      "content_section": "Unlike standard diodes, Zener diodes are *designed* to operate safely in reverse breakdown. When the reverse voltage reaches the specific Zener voltage (e.g., 5.1V, 12V, 24V), the diode conducts, maintaining exactly that voltage across its terminals regardless of input fluctuations. They are commonly used for simple voltage regulation, creating reference voltages in analog circuits, and clamping overvoltage conditions."
+    },
+    {
+      "content_section": "#### LEDs (Light Emitting Diodes)"
+    },
+    {
+      "content_section": "LEDs are diodes that emit photons when forward-biased. In industrial control panels, they are ubiquitous for status indication (Power ON, Fault, Input Active, Network Link). They require a series resistor to limit current; otherwise, they will draw too much current and instantly burn out. Never connect an LED directly to a 24VDC source without a current-limiting resistor."
+    },
+    {
+      "content_section": "## Practical Reference Data"
+    },
+    {
+      "content_section": "| Diode Category | Common Part # | Typical VF | Primary Industrial Application | Typical Failure Mode |"
+    },
+    {
+      "content_section": "|----------------|---------------|------------|--------------------------------|----------------------|"
+    },
+    {
+      "content_section": "| Standard Rectifier | 1N4007 | 0.7V | General power supplies, freewheeling on relays | Shorts out |"
+    },
+    {
+      "content_section": "| Fast Recovery | UF4007 | 1.0V | High-frequency switch-mode power supplies | Shorts out |"
+    },
+    {
+      "content_section": "| Schottky | 1N5819 | 0.3V | Low-voltage, high-efficiency rectification | Shorts out |"
+    },
+    {
+      "content_section": "| Zener | 1N4733A (5.1V) | 0.7V (Fwd) | Voltage regulation, reference clamping | Shorts or drifts |"
+    },
+    {
+      "content_section": "| TVS (Transient) | 1.5KE39CA | N/A | Overvoltage protection on comm lines | Shorts to ground |"
+    },
+    {
+      "content_section": "| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |"
+    },
+    {
+      "content_section": "## Troubleshooting Integration"
+    },
+    {
+      "content_section": "### Common Failure Modes"
+    },
+    {
+      "content_section": "Diodes typically fail in one of two ways, and understanding these is k"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_section\nnd power supplies.\n- **Three-Phase Bridge Rectifier:** Extremely common in industrial motor control. It uses six diodes to rectify three-phase AC (like 480VAC) into a very smooth DC bus voltage (typically around 680VDC). This is the very first stage (the \"converter\" section) of almost every Variable Frequency Drive (VFD) on the market, such as the Allen-Bradley PowerFlex series.\n\n**Filter Capacitors and AC Ripple:** The raw DC from a bridge rectifier pulses from zero to peak voltage. To smooth this out, large electrolytic capacitors are placed across the DC output. They charge up during the voltage peaks and discharge during the valleys, filling in the gaps. If these capacitors dry out due to heat and age, they lose their ability to hold a charge. The resulting DC voltage will have excessive \"AC ripple,\" which wreaks havoc on PLCs, causes encoders to miscount, and triggers phantom faults in sensitive electronics.\n\n### Specialized Diodes in Industrial Panels\n\n#### Freewheeling (Flyback) Diodes on Relay Coils\nWhen a DC relay coil, contactor coil, or solenoid is de-energized, the collapsing magnetic field generates a massive high-voltage spike (inductive kickback) that can easily exceed hundreds of volts. This spike will instantly destroy the delicate transistor output of a PLC. A freewheeling diode is wired in parallel with the coil, reverse-biased during normal operation. When the coil turns off and the polarity of the collapsing field reverses, the diode becomes forward-biased. The voltage spike is safely shunted back through the coil itself, dissipating the energy as heat and protecting the PLC.\n\n#### TVS Diodes (Transient Voltage Suppressors)\nTVS diodes are specialized avalanche diodes designed to protect sensitive circuits from high-voltage transients (like lightning strikes, static discharge, or heavy motor switching). They sit quietly in reverse bias across power or communication lines. When a voltage spike exceeds their specific breakdown voltage, they instantly clamp the voltage to a safe level, shunting the excess energy to ground. You will frequently find them protecting RS-485 communication terminals and analog 4-20mA inputs.\n\n#### Zener Diodes for Voltage Regulation\nUnlike standard diodes, Zener diodes are *designed* to operate safely in reverse breakdown. When the reverse voltage reaches the specific Zener voltage (e.g., 5.1V, 12V, 24V), the diode conducts, maintaining exactly that voltage across its terminals regardless of input fluctuations. They are commonly used for simple voltage regulation, creating reference voltages in analog circuits, and clamping overvoltage conditions.\n\n#### LEDs (Light Emitting Diodes)\nLEDs are diodes that emit photons when forward-biased. In industrial control panels, they are ubiquitous for status indication (Power ON, Fault, Input Active, Network Link). They require a series resistor to limit current; otherwise, they will draw too much current and instantly burn out. Never connect an LED directly to a 24VDC source without a current-limiting resistor.\n\n## Practical Reference Data\n\n| Diode Category | Common Part # | Typical VF | Primary Industrial Application | Typical Failure Mode |\n|----------------|---------------|------------|--------------------------------|----------------------|\n| Standard Rectifier | 1N4007 | 0.7V | General power supplies, freewheeling on relays | Shorts out |\n| Fast Recovery | UF4007 | 1.0V | High-frequency switch-mode power supplies | Shorts out |\n| Schottky | 1N5819 | 0.3V | Low-voltage, high-efficiency rectification | Shorts out |\n| Zener | 1N4733A (5.1V) | 0.7V (Fwd) | Voltage regulation, reference clamping | Shorts or drifts |\n| TVS (Transient) | 1.5KE39CA | N/A | Overvoltage protection on comm lines | Shorts to ground |\n| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |\n\n## Troubleshooting Integration\n\n### Common Failure Modes\nDiodes typically fail in one of two ways, and understanding these is k\n",
+  "stderr": "",
+  "execution_time_ms": 281
+}

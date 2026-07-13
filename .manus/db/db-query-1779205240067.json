@@ -1,0 +1,22 @@
+{
+  "query": "SELECT LEFT(content, 500) as contentPreview FROM course_lessons WHERE moduleId = 2 AND orderIndex = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT LEFT(content, 500) as contentPreview FROM course_lessons WHERE moduleId = 2 AND orderIndex = 1;",
+  "rows": [
+    {
+      "contentPreview": "## The Brain of the Operation: CPU Types and Capabilities"
+    },
+    {
+      "contentPreview": "When you open a panel, the first thing you look for is the CPU. In modern manufacturing, you're likely staring at an Allen-Bradley ControlLogix or CompactLogix, or perhaps a Siemens S7-1500. The CPU is the central processing unit, executing the logic that keeps the line running. "
+    },
+    {
+      "contentPreview": "### ControlLogix 5580 vs. CompactLogix 5380"
+    },
+    {
+      "contentPreview": "The ControlLogix 5580 (e.g., 1756-L83E) is the heavy hitter. It's designed for large-scale, high-speed application"
+    }
+  ],
+  "messages": [],
+  "stdout": "contentPreview\n## The Brain of the Operation: CPU Types and Capabilities\n\nWhen you open a panel, the first thing you look for is the CPU. In modern manufacturing, you're likely staring at an Allen-Bradley ControlLogix or CompactLogix, or perhaps a Siemens S7-1500. The CPU is the central processing unit, executing the logic that keeps the line running. \n\n### ControlLogix 5580 vs. CompactLogix 5380\n\nThe ControlLogix 5580 (e.g., 1756-L83E) is the heavy hitter. It's designed for large-scale, high-speed application\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

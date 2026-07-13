@@ -1,0 +1,37 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 9;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 9;",
+  "rows": [
+    {
+      "content_start": "## Discrete I/O Wiring: Sinking vs. Sourcing"
+    },
+    {
+      "content_start": "Understanding the difference between sinking and sourcing is the foundation of discrete I/O troubleshooting. If you get this wrong, your inputs won't register, or worse, you'll let the magic smoke out of a sensor. "
+    },
+    {
+      "content_start": "A **sourcing** device provides the voltage (typically +24VDC) to the circuit. A **sinking** device provides the path to ground (0VDC). They must always be paired: a sourcing sensor connects to a sinking input module, and a sinking sensor connects to a sourcing input module."
+    },
+    {
+      "content_start": "For example, an Allen-Bradley 1756-IB16 is a sinking input module. It expects +24VDC from the field device. Therefore, you must use a PNP (sourcing) proximity sensor. If you measure across the input terminal and the module's common (DC COM) with your Fluke meter, you should read 0VDC when the sensor is off, and approximately 24VDC when the sensor is made. Conversely, a Siemens SM 321 (6ES7321-1BH02-0AA0) can often be wired for either, depending on how you land the common."
+    },
+    {
+      "content_start": "### Common Wiring Faults in Discrete I/O"
+    },
+    {
+      "content_start": "When a discrete input fails to register, grab your multimeter and check for these common faults:"
+    },
+    {
+      "content_start": "1.  **Open Circuit:** The most common issue. A wire has broken, or a terminal is loose. If the sensor LED is on but the PLC input LED is off, measure voltage at the PLC terminal. If you read 0V, work backward to the terminal block, then the field junction box. You'll eventually find the break where you have 24V on one side and 0V on the other."
+    },
+    {
+      "content_start": "2.  **Short to Ground:** A wire has rubbed through its insulation and is touching the machine frame. This usually blows the control power fuse or trips the electronic circuit breaker (like a Murr Elektronik Mico). To find it, disconnect the field wire at the panel and measure continuity to ground. Anything less than infinite ohms (OL on your meter) means you have a path to ground."
+    },
+    {
+      "content_start": "3.  **Short to Voltage:** Two wires are pinched together. This can cause an input to stay on constantly. If you di"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\n## Discrete I/O Wiring: Sinking vs. Sourcing\n\nUnderstanding the difference between sinking and sourcing is the foundation of discrete I/O troubleshooting. If you get this wrong, your inputs won't register, or worse, you'll let the magic smoke out of a sensor. \n\nA **sourcing** device provides the voltage (typically +24VDC) to the circuit. A **sinking** device provides the path to ground (0VDC). They must always be paired: a sourcing sensor connects to a sinking input module, and a sinking sensor connects to a sourcing input module.\n\nFor example, an Allen-Bradley 1756-IB16 is a sinking input module. It expects +24VDC from the field device. Therefore, you must use a PNP (sourcing) proximity sensor. If you measure across the input terminal and the module's common (DC COM) with your Fluke meter, you should read 0VDC when the sensor is off, and approximately 24VDC when the sensor is made. Conversely, a Siemens SM 321 (6ES7321-1BH02-0AA0) can often be wired for either, depending on how you land the common.\n\n### Common Wiring Faults in Discrete I/O\n\nWhen a discrete input fails to register, grab your multimeter and check for these common faults:\n\n1.  **Open Circuit:** The most common issue. A wire has broken, or a terminal is loose. If the sensor LED is on but the PLC input LED is off, measure voltage at the PLC terminal. If you read 0V, work backward to the terminal block, then the field junction box. You'll eventually find the break where you have 24V on one side and 0V on the other.\n2.  **Short to Ground:** A wire has rubbed through its insulation and is touching the machine frame. This usually blows the control power fuse or trips the electronic circuit breaker (like a Murr Elektronik Mico). To find it, disconnect the field wire at the panel and measure continuity to ground. Anything less than infinite ohms (OL on your meter) means you have a path to ground.\n3.  **Short to Voltage:** Two wires are pinched together. This can cause an input to stay on constantly. If you di\n",
+  "stderr": "",
+  "execution_time_ms": 365
+}

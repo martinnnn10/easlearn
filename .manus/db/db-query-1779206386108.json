@@ -1,0 +1,31 @@
+{
+  "query": "SELECT cm.id as moduleId, cm.title, COUNT(cl.id) as lesson_count, AVG(LENGTH(cl.content)) as avg_content_length, MIN(LENGTH(cl.content)) as min_content_length FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id WHERE cm.id IN (60001, 60002, 60003) GROUP BY cm.id, cm.title;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id as moduleId, cm.title, COUNT(cl.id) as lesson_count, AVG(LENGTH(cl.content)) as avg_content_length, MIN(LENGTH(cl.content)) as min_content_length FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id WHERE cm.id IN (60001, 60002, 60003) GROUP BY cm.id, cm.title;",
+  "rows": [
+    {
+      "moduleId": "60002",
+      "title": "Sensors & Instrumentation",
+      "lesson_count": "8",
+      "avg_content_length": "3828.7500",
+      "min_content_length": "3448"
+    },
+    {
+      "moduleId": "60003",
+      "title": "Robotics Fundamentals",
+      "lesson_count": "8",
+      "avg_content_length": "3874.6250",
+      "min_content_length": "3405"
+    },
+    {
+      "moduleId": "60001",
+      "title": "Industrial Networking",
+      "lesson_count": "8",
+      "avg_content_length": "3778.6250",
+      "min_content_length": "3501"
+    }
+  ],
+  "messages": [],
+  "stdout": "moduleId\ttitle\tlesson_count\tavg_content_length\tmin_content_length\n60002\tSensors & Instrumentation\t8\t3828.7500\t3448\n60003\tRobotics Fundamentals\t8\t3874.6250\t3405\n60001\tIndustrial Networking\t8\t3778.6250\t3501\n",
+  "stderr": "",
+  "execution_time_ms": 279
+}

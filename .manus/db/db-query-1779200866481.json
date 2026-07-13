@@ -1,0 +1,15 @@
+{
+  "query": "SELECT LOCATE('TXV stuck open', content, 1) as pos1, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content) + 14) as pos2, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content) + 14) + 14) as pos3 FROM course_lessons WHERE id = 60024;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT LOCATE('TXV stuck open', content, 1) as pos1, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content) + 14) as pos2, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content, LOCATE('TXV stuck open', content) + 14) + 14) as pos3 FROM course_lessons WHERE id = 60024;",
+  "rows": [
+    {
+      "pos1": "3141",
+      "pos2": "3345",
+      "pos3": "3997"
+    }
+  ],
+  "messages": [],
+  "stdout": "pos1\tpos2\tpos3\n3141\t3345\t3997\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

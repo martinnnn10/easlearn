@@ -1,0 +1,100 @@
+{
+  "query": "SELECT id, slug, title FROM course_modules ORDER BY path, orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, slug, title FROM course_modules ORDER BY path, orderIndex;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting"
+    },
+    {
+      "id": "2",
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting"
+    },
+    {
+      "id": "3",
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems"
+    },
+    {
+      "id": "4",
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls"
+    },
+    {
+      "id": "5",
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment"
+    },
+    {
+      "id": "6",
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs"
+    },
+    {
+      "id": "30005",
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy"
+    },
+    {
+      "id": "60001",
+      "slug": "industrial-networking",
+      "title": "Industrial Networking"
+    },
+    {
+      "id": "60003",
+      "slug": "robotics-fundamentals",
+      "title": "Robotics Fundamentals"
+    },
+    {
+      "id": "60006",
+      "slug": "process-control",
+      "title": "Process Control"
+    },
+    {
+      "id": "30001",
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals"
+    },
+    {
+      "id": "30002",
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals"
+    },
+    {
+      "id": "30003",
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals"
+    },
+    {
+      "id": "30004",
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals"
+    },
+    {
+      "id": "60002",
+      "slug": "sensors-instrumentation",
+      "title": "Sensors & Instrumentation"
+    },
+    {
+      "id": "60004",
+      "slug": "print-reading",
+      "title": "Print Reading (Electrical)"
+    },
+    {
+      "id": "60005",
+      "slug": "safety-systems",
+      "title": "Safety Systems"
+    },
+    {
+      "id": "60007",
+      "slug": "power-distribution",
+      "title": "Power Distribution"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\n1\tpowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\n2\tplc-fundamentals\tPLC Fundamentals & Troubleshooting\n3\tfluid-power\tFluid Power Systems\n4\tmotors-controls\tMotors & Motor Controls\n5\talignment\tPrecision Shaft Alignment\n6\tpreventative-maintenance\tPreventative Maintenance Programs\n30005\tindustrial-troubleshooting\tIndustrial Troubleshooting Academy\n60001\tindustrial-networking\tIndustrial Networking\n60003\trobotics-fundamentals\tRobotics Fundamentals\n60006\tprocess-control\tProcess Control\n30001\telectrical-fundamentals\tElectrical Fundamentals\n30002\tdigital-fundamentals\tDigital Fundamentals\n30003\tsemiconductor-fundamentals\tSemiconductor Fundamentals\n30004\thvac-fundamentals\tHVAC Fundamentals\n60002\tsensors-instrumentation\tSensors & Instrumentation\n60004\tprint-reading\tPrint Reading (Electrical)\n60005\tsafety-systems\tSafety Systems\n60007\tpower-distribution\tPower Distribution\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

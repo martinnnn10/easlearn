@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, 1700, 500) as content_section FROM course_lessons WHERE id = 90010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1700, 500) as content_section FROM course_lessons WHERE id = 90010",
+  "rows": [
+    {
+      "content_section": "tion detection |"
+    },
+    {
+      "content_section": "| ─PS─ | Pressure switch | Pressure detection |"
+    },
+    {
+      "content_section": "| ─TS─ | Temperature switch | Temperature detection |"
+    },
+    {
+      "content_section": "## Reading a Ladder Diagram"
+    },
+    {
+      "content_section": "### The Rules"
+    },
+    {
+      "content_section": "1. **Power flows left to right** — L1 (hot) on the left, L2 (neutral) on the right"
+    },
+    {
+      "content_section": "2. **Read top to bottom** — Circuits are numbered by rung"
+    },
+    {
+      "content_section": "3. **Contacts control coils** — Inputs (left side) control outputs (right side)"
+    },
+    {
+      "content_section": "4. **Cross-references** — A coil on rung 5 may have contacts on rungs 12, 15, and 23"
+    },
+    {
+      "content_section": "5. **Wire numbers** — Every wi"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_section\ntion detection |\n| ─PS─ | Pressure switch | Pressure detection |\n| ─TS─ | Temperature switch | Temperature detection |\n\n## Reading a Ladder Diagram\n\n### The Rules\n\n1. **Power flows left to right** — L1 (hot) on the left, L2 (neutral) on the right\n2. **Read top to bottom** — Circuits are numbered by rung\n3. **Contacts control coils** — Inputs (left side) control outputs (right side)\n4. **Cross-references** — A coil on rung 5 may have contacts on rungs 12, 15, and 23\n5. **Wire numbers** — Every wi\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

@@ -1,0 +1,136 @@
+{
+  "query": "SELECT cm.slug, cm.title, cm.estimatedHours, COUNT(cl.id) as lesson_count, SUM(cl.estimatedMinutes) as total_minutes FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id ORDER BY cm.id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.slug, cm.title, cm.estimatedHours, COUNT(cl.id) as lesson_count, SUM(cl.estimatedMinutes) as total_minutes FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id ORDER BY cm.id",
+  "rows": [
+    {
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "estimatedHours": "8",
+      "lesson_count": "18",
+      "total_minutes": "327"
+    },
+    {
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "estimatedHours": "10",
+      "lesson_count": "24",
+      "total_minutes": "420"
+    },
+    {
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "estimatedHours": "7",
+      "lesson_count": "6",
+      "total_minutes": "130"
+    },
+    {
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "estimatedHours": "8",
+      "lesson_count": "6",
+      "total_minutes": "150"
+    },
+    {
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "estimatedHours": "5",
+      "lesson_count": "5",
+      "total_minutes": "105"
+    },
+    {
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "estimatedHours": "6",
+      "lesson_count": "6",
+      "total_minutes": "125"
+    },
+    {
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals",
+      "estimatedHours": "10",
+      "lesson_count": "6",
+      "total_minutes": "127"
+    },
+    {
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals",
+      "estimatedHours": "8",
+      "lesson_count": "6",
+      "total_minutes": "125"
+    },
+    {
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals",
+      "estimatedHours": "8",
+      "lesson_count": "6",
+      "total_minutes": "127"
+    },
+    {
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals",
+      "estimatedHours": "8",
+      "lesson_count": "6",
+      "total_minutes": "126"
+    },
+    {
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy",
+      "estimatedHours": "12",
+      "lesson_count": "0",
+      "total_minutes": "NULL"
+    },
+    {
+      "slug": "industrial-networking",
+      "title": "Industrial Networking",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "197"
+    },
+    {
+      "slug": "sensors-instrumentation",
+      "title": "Sensors & Instrumentation",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "192"
+    },
+    {
+      "slug": "robotics-fundamentals",
+      "title": "Robotics Fundamentals",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "185"
+    },
+    {
+      "slug": "print-reading",
+      "title": "Print Reading (Electrical)",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "187"
+    },
+    {
+      "slug": "safety-systems",
+      "title": "Safety Systems",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "197"
+    },
+    {
+      "slug": "process-control",
+      "title": "Process Control",
+      "estimatedHours": "1",
+      "lesson_count": "7",
+      "total_minutes": "163"
+    },
+    {
+      "slug": "power-distribution",
+      "title": "Power Distribution",
+      "estimatedHours": "1",
+      "lesson_count": "8",
+      "total_minutes": "187"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\testimatedHours\tlesson_count\ttotal_minutes\npowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\t8\t18\t327\nplc-fundamentals\tPLC Fundamentals & Troubleshooting\t10\t24\t420\nfluid-power\tFluid Power Systems\t7\t6\t130\nmotors-controls\tMotors & Motor Controls\t8\t6\t150\nalignment\tPrecision Shaft Alignment\t5\t5\t105\npreventative-maintenance\tPreventative Maintenance Programs\t6\t6\t125\nelectrical-fundamentals\tElectrical Fundamentals\t10\t6\t127\ndigital-fundamentals\tDigital Fundamentals\t8\t6\t125\nsemiconductor-fundamentals\tSemiconductor Fundamentals\t8\t6\t127\nhvac-fundamentals\tHVAC Fundamentals\t8\t6\t126\nindustrial-troubleshooting\tIndustrial Troubleshooting Academy\t12\t0\tNULL\nindustrial-networking\tIndustrial Networking\t1\t8\t197\nsensors-instrumentation\tSensors & Instrumentation\t1\t8\t192\nrobotics-fundamentals\tRobotics Fundamentals\t1\t8\t185\nprint-reading\tPrint Reading (Electrical)\t1\t8\t187\nsafety-systems\tSafety Systems\t1\t8\t197\nprocess-control\tProcess Control\t1\t7\t163\npower-distribution\tPower Distribution\t1\t8\t187\n",
+  "stderr": "",
+  "execution_time_ms": 329
+}

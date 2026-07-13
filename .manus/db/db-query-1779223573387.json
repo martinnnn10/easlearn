@@ -1,0 +1,196 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 8000) FROM course_lessons WHERE slug = 'diode-fundamentals'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 8000) FROM course_lessons WHERE slug = 'diode-fundamentals'",
+  "rows": [
+    {
+      "SUBSTRING(content, 1, 8000)": "# Diodes: Rectification & Protection"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "## Real-World Industrial Context"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "In the industrial plant environment, diodes are the unsung heroes of both power conversion and circuit protection. Whether you are looking at the switch-mode power supply of an Allen-Bradley CompactLogix PLC, the snubber circuit on a 24VDC relay coil, the transient protection on a sensitive analog sensor input, or the massive rectifier bridge inside a 480VAC Variable Frequency Drive (VFD), diodes are doing the heavy lifting."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "As a maintenance technician, you will encounter diodes in almost every piece of electronic equipment on the factory floor. Understanding how they work, how they fail, and how to test them is absolutely critical for effective troubleshooting. A single shorted freewheeling diode on a hydraulic valve solenoid can repeatedly blow control fuses, taking down an entire packaging line and costing thousands of dollars in downtime. Conversely, a failed rectifier diode in a 24VDC power supply can introduce AC ripple that causes erratic sensor behavior, phantom PLC faults, and communication dropouts on industrial networks like EtherNet/IP or Profinet. By mastering diode fundamentals, you transition from merely swapping parts to diagnosing the root cause of complex electrical failures."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "## Core Technical Content: How Diodes Work"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "### PN Junction Theory Simplified for Technicians"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "At its core, a diode is a one-way valve for electrical current. It is made from semiconductor material (usually silicon) that has been chemically \"doped\" with impurities to create two distinct regions:"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- **P-type material:** The Anode (positive side), which has a surplus of mobile positive charge carriers called \"holes.\""
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- **N-type material:** The Cathode (negative side), which has a surplus of free electrons."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "The boundary where these two materials meet is called the **PN junction**. The behavior of this junction changes depending on how voltage is applied across it."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Forward Bias (Conducting State):** When you apply a positive voltage to the Anode relative to the Cathode that exceeds the junction's forward voltage threshold (approximately 0.7V for silicon, 0.3V for Schottky, 1.8-3.3V for LEDs), the depletion region collapses, majority carriers cross the junction, and current flows through the device. The diode presents very low resistance (typically < 1 ohm) in this state."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Reverse Bias (Blocking State):** When the Cathode is made positive relative to the Anode, the depletion region widens, no majority carriers cross the junction, and the diode blocks current flow. Only a negligible leakage current (typically nanoamps to microamps) flows. The diode presents extremely high resistance (megohms) in this state."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Reverse Breakdown:** If reverse voltage exceeds the diode's rated Peak Inverse Voltage (PIV), avalanche breakdown occurs and large reverse current flows. For standard rectifiers this is a destructive failure. For Zener and TVS diodes, this is the designed operating mode."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "> **Technician Tip:** The physical painted stripe on a cylindrical through-hole diode package always marks the **Cathode** terminal. On surface-mount packages (SOD-123, SMA, SMB, SMC), the cathode is marked by a line or dot on the package body. On schematics, conventional current flows from Anode to Cathode (in the direction the triangle symbol points)."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "---"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "## Diode Schematic Symbols — IEC/ANSI Standard Reference"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "The following symbols are drawn to IEC 60617 and ANSI Y32.2 standards. Each symbol consists of a **conducting triangle** (representing the P-type anode region) and a **barrier line** (representing the N-type cathode junction). Current flows in the direction the triangle points."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "---"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "### 1. Standard Rectifier Diode (1N4007, 1N5408, UF4007)"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "<div style=\"display:flex;justify-content:center;padding:1.5rem 0;\">"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "<svg viewBox=\"0 0 200 80\" width=\"100%\" style=\"max-width:320px;\" xmlns=\"http://www.w3.org/2000/svg\">"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"10\" y1=\"40\" x2=\"70\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <polygon points=\"70,20 70,60 110,40\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"20\" x2=\"110\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"40\" x2=\"190\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"40\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">ANODE (+)</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"150\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">CATHODE (−)</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"90\" y=\"14\" fill=\"#e2e8f0\" font-size=\"10\" text-anchor=\"middle\" font-family=\"sans-serif\">Standard Rectifier</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "</svg>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "</div>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Symbol identification:** Equilateral triangle abutting a straight vertical barrier line. The triangle vertex points toward the cathode (direction of conventional current flow). On industrial prints, labeled **CR** (crystal rectifier) or **D** followed by a reference number."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Forward voltage drop:** 0.7V (silicon) at rated current"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Industrial applications:**"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- AC-to-DC rectification in 24VDC control power supplies"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Freewheeling (flyback) protection across relay and contactor coils"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Reverse polarity protection on DC-powered field devices"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Half-wave and full-wave rectifier circuits in battery chargers"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Failure modes:** Open circuit (most common — device stops conducting in both directions) or short circuit (device conducts in both directions, often caused by transient overvoltage exceeding PIV rating)."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Multimeter test:** In diode-check mode, you should read 0.5-0.7V forward (red lead on anode, black on cathode) and \"OL\" (open line) in reverse. A reading of 0.000V in both directions = shorted. OL in both directions = open."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "---"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "### 2. Zener Diode (1N4733A, 1N5231B, BZX84C5V1)"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "<div style=\"display:flex;justify-content:center;padding:1.5rem 0;\">"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "<svg viewBox=\"0 0 200 80\" width=\"100%\" style=\"max-width:320px;\" xmlns=\"http://www.w3.org/2000/svg\">"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"10\" y1=\"40\" x2=\"70\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <polygon points=\"70,20 70,60 110,40\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"20\" x2=\"110\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"20\" x2=\"102\" y2=\"20\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"60\" x2=\"118\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <line x1=\"110\" y1=\"40\" x2=\"190\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"40\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">ANODE (+)</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"150\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">CATHODE (−)</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "  <text x=\"90\" y=\"14\" fill=\"#e2e8f0\" font-size=\"10\" text-anchor=\"middle\" font-family=\"sans-serif\">Zener Diode</text>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "</svg>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "</div>"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Symbol identification:** Same triangle-and-barrier as a standard diode, but the barrier line has **bent ends** — a short horizontal stroke turning back toward the anode at the top, and a short horizontal stroke turning away from the anode at the bottom, forming a shape reminiscent of the letter \"Z.\" On prints, labeled **ZD** or **D** with a Zener voltage notation (e.g., \"5.1V\")."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Operating principle:** Designed to operate in **reverse breakdown** at a precise, stable voltage (the Zener voltage, V_Z). When reverse voltage reaches V_Z, the diode conducts in reverse while clamping the voltage at that level. This is non-destructive and is the intended operating mode."
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Industrial applications:**"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Voltage regulation in analog signal conditioning circuits (4-20mA transmitter power supplies)"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Overvoltage clamping on PLC discrete inputs (protecting 24VDC inputs from inductive spikes)"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Reference voltage generation in instrumentation amplifiers"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "- Gate protection on MOSFETs and IGBTs in VFD gate driver circuits"
+    },
+    {
+      "SUBSTRING(content, 1, 8000)": "**Failure modes:** Short circuit (most common — Zener fails to a dead short, pulling the regulated rail to ground and blowing upstream fuses). Open circuit is less common but occurs "
+    }
+  ],
+  "messages": [],
+  "stdout": "SUBSTRING(content, 1, 8000)\n# Diodes: Rectification & Protection\n\n## Real-World Industrial Context\n\nIn the industrial plant environment, diodes are the unsung heroes of both power conversion and circuit protection. Whether you are looking at the switch-mode power supply of an Allen-Bradley CompactLogix PLC, the snubber circuit on a 24VDC relay coil, the transient protection on a sensitive analog sensor input, or the massive rectifier bridge inside a 480VAC Variable Frequency Drive (VFD), diodes are doing the heavy lifting.\n\nAs a maintenance technician, you will encounter diodes in almost every piece of electronic equipment on the factory floor. Understanding how they work, how they fail, and how to test them is absolutely critical for effective troubleshooting. A single shorted freewheeling diode on a hydraulic valve solenoid can repeatedly blow control fuses, taking down an entire packaging line and costing thousands of dollars in downtime. Conversely, a failed rectifier diode in a 24VDC power supply can introduce AC ripple that causes erratic sensor behavior, phantom PLC faults, and communication dropouts on industrial networks like EtherNet/IP or Profinet. By mastering diode fundamentals, you transition from merely swapping parts to diagnosing the root cause of complex electrical failures.\n\n## Core Technical Content: How Diodes Work\n\n### PN Junction Theory Simplified for Technicians\n\nAt its core, a diode is a one-way valve for electrical current. It is made from semiconductor material (usually silicon) that has been chemically \"doped\" with impurities to create two distinct regions:\n\n- **P-type material:** The Anode (positive side), which has a surplus of mobile positive charge carriers called \"holes.\"\n- **N-type material:** The Cathode (negative side), which has a surplus of free electrons.\n\nThe boundary where these two materials meet is called the **PN junction**. The behavior of this junction changes depending on how voltage is applied across it.\n\n**Forward Bias (Conducting State):** When you apply a positive voltage to the Anode relative to the Cathode that exceeds the junction's forward voltage threshold (approximately 0.7V for silicon, 0.3V for Schottky, 1.8-3.3V for LEDs), the depletion region collapses, majority carriers cross the junction, and current flows through the device. The diode presents very low resistance (typically < 1 ohm) in this state.\n\n**Reverse Bias (Blocking State):** When the Cathode is made positive relative to the Anode, the depletion region widens, no majority carriers cross the junction, and the diode blocks current flow. Only a negligible leakage current (typically nanoamps to microamps) flows. The diode presents extremely high resistance (megohms) in this state.\n\n**Reverse Breakdown:** If reverse voltage exceeds the diode's rated Peak Inverse Voltage (PIV), avalanche breakdown occurs and large reverse current flows. For standard rectifiers this is a destructive failure. For Zener and TVS diodes, this is the designed operating mode.\n\n> **Technician Tip:** The physical painted stripe on a cylindrical through-hole diode package always marks the **Cathode** terminal. On surface-mount packages (SOD-123, SMA, SMB, SMC), the cathode is marked by a line or dot on the package body. On schematics, conventional current flows from Anode to Cathode (in the direction the triangle symbol points).\n\n---\n\n## Diode Schematic Symbols — IEC/ANSI Standard Reference\n\nThe following symbols are drawn to IEC 60617 and ANSI Y32.2 standards. Each symbol consists of a **conducting triangle** (representing the P-type anode region) and a **barrier line** (representing the N-type cathode junction). Current flows in the direction the triangle points.\n\n---\n\n### 1. Standard Rectifier Diode (1N4007, 1N5408, UF4007)\n\n<div style=\"display:flex;justify-content:center;padding:1.5rem 0;\">\n<svg viewBox=\"0 0 200 80\" width=\"100%\" style=\"max-width:320px;\" xmlns=\"http://www.w3.org/2000/svg\">\n  <line x1=\"10\" y1=\"40\" x2=\"70\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <polygon points=\"70,20 70,60 110,40\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>\n  <line x1=\"110\" y1=\"20\" x2=\"110\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <line x1=\"110\" y1=\"40\" x2=\"190\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <text x=\"40\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">ANODE (+)</text>\n  <text x=\"150\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">CATHODE (−)</text>\n  <text x=\"90\" y=\"14\" fill=\"#e2e8f0\" font-size=\"10\" text-anchor=\"middle\" font-family=\"sans-serif\">Standard Rectifier</text>\n</svg>\n</div>\n\n**Symbol identification:** Equilateral triangle abutting a straight vertical barrier line. The triangle vertex points toward the cathode (direction of conventional current flow). On industrial prints, labeled **CR** (crystal rectifier) or **D** followed by a reference number.\n\n**Forward voltage drop:** 0.7V (silicon) at rated current\n\n**Industrial applications:**\n- AC-to-DC rectification in 24VDC control power supplies\n- Freewheeling (flyback) protection across relay and contactor coils\n- Reverse polarity protection on DC-powered field devices\n- Half-wave and full-wave rectifier circuits in battery chargers\n\n**Failure modes:** Open circuit (most common — device stops conducting in both directions) or short circuit (device conducts in both directions, often caused by transient overvoltage exceeding PIV rating).\n\n**Multimeter test:** In diode-check mode, you should read 0.5-0.7V forward (red lead on anode, black on cathode) and \"OL\" (open line) in reverse. A reading of 0.000V in both directions = shorted. OL in both directions = open.\n\n---\n\n### 2. Zener Diode (1N4733A, 1N5231B, BZX84C5V1)\n\n<div style=\"display:flex;justify-content:center;padding:1.5rem 0;\">\n<svg viewBox=\"0 0 200 80\" width=\"100%\" style=\"max-width:320px;\" xmlns=\"http://www.w3.org/2000/svg\">\n  <line x1=\"10\" y1=\"40\" x2=\"70\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <polygon points=\"70,20 70,60 110,40\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/>\n  <line x1=\"110\" y1=\"20\" x2=\"110\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <line x1=\"110\" y1=\"20\" x2=\"102\" y2=\"20\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <line x1=\"110\" y1=\"60\" x2=\"118\" y2=\"60\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <line x1=\"110\" y1=\"40\" x2=\"190\" y2=\"40\" stroke=\"#22c55e\" stroke-width=\"2.5\"/>\n  <text x=\"40\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">ANODE (+)</text>\n  <text x=\"150\" y=\"72\" fill=\"#94a3b8\" font-size=\"11\" text-anchor=\"middle\" font-family=\"monospace\">CATHODE (−)</text>\n  <text x=\"90\" y=\"14\" fill=\"#e2e8f0\" font-size=\"10\" text-anchor=\"middle\" font-family=\"sans-serif\">Zener Diode</text>\n</svg>\n</div>\n\n**Symbol identification:** Same triangle-and-barrier as a standard diode, but the barrier line has **bent ends** — a short horizontal stroke turning back toward the anode at the top, and a short horizontal stroke turning away from the anode at the bottom, forming a shape reminiscent of the letter \"Z.\" On prints, labeled **ZD** or **D** with a Zener voltage notation (e.g., \"5.1V\").\n\n**Operating principle:** Designed to operate in **reverse breakdown** at a precise, stable voltage (the Zener voltage, V_Z). When reverse voltage reaches V_Z, the diode conducts in reverse while clamping the voltage at that level. This is non-destructive and is the intended operating mode.\n\n**Industrial applications:**\n- Voltage regulation in analog signal conditioning circuits (4-20mA transmitter power supplies)\n- Overvoltage clamping on PLC discrete inputs (protecting 24VDC inputs from inductive spikes)\n- Reference voltage generation in instrumentation amplifiers\n- Gate protection on MOSFETs and IGBTs in VFD gate driver circuits\n\n**Failure modes:** Short circuit (most common — Zener fails to a dead short, pulling the regulated rail to ground and blowing upstream fuses). Open circuit is less common but occurs \n",
+  "stderr": "",
+  "execution_time_ms": 697
+}

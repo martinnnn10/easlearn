@@ -1,0 +1,520 @@
+{
+  "query": "SELECT cl.id, cl.title, cm.title as module_title, LENGTH(cl.content) as content_length FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cm.title LIKE '%semiconductor%' OR cm.title LIKE '%electric%' OR cm.title LIKE '%motor%' OR cm.title LIKE '%VFD%' OR cm.title LIKE '%PLC%' OR cm.title LIKE '%power%' OR cl.title LIKE '%circuit%' OR cl.title LIKE '%diode%' OR cl.title LIKE '%transistor%' OR cl.title LIKE '%capacitor%' OR cl.title LIKE '%resistor%' OR cl.title LIKE '%inductor%' OR cl.title LIKE '%relay%' OR cl.title LIKE '%contactor%' OR cl.title LIKE '%transformer%' ORDER BY cm.title, cl.orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.id, cl.title, cm.title as module_title, LENGTH(cl.content) as content_length FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cm.title LIKE '%semiconductor%' OR cm.title LIKE '%electric%' OR cm.title LIKE '%motor%' OR cm.title LIKE '%VFD%' OR cm.title LIKE '%PLC%' OR cm.title LIKE '%power%' OR cl.title LIKE '%circuit%' OR cl.title LIKE '%diode%' OR cl.title LIKE '%transistor%' OR cl.title LIKE '%capacitor%' OR cl.title LIKE '%resistor%' OR cl.title LIKE '%inductor%' OR cl.title LIKE '%relay%' OR cl.title LIKE '%contactor%' OR cl.title LIKE '%transformer%' ORDER BY cm.title, cl.orderIndex;",
+  "rows": [
+    {
+      "id": "60001",
+      "title": "Ohm's Law & Power Calculations",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "12333"
+    },
+    {
+      "id": "60002",
+      "title": "Kirchhoff's Voltage & Current Laws",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "11881"
+    },
+    {
+      "id": "60003",
+      "title": "AC vs. DC: Theory & Industrial Applications",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "12989"
+    },
+    {
+      "id": "60004",
+      "title": "Series & Parallel Circuits in Industrial Systems",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "15836"
+    },
+    {
+      "id": "60005",
+      "title": "Electrical Safety & Lockout/Tagout",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "16989"
+    },
+    {
+      "id": "60006",
+      "title": "Meters & Measurement Techniques",
+      "module_title": "Electrical Fundamentals",
+      "content_length": "12558"
+    },
+    {
+      "id": "13",
+      "title": "Hydraulic System Fundamentals",
+      "module_title": "Fluid Power Systems",
+      "content_length": "10865"
+    },
+    {
+      "id": "14",
+      "title": "Pneumatic System Fundamentals",
+      "module_title": "Fluid Power Systems",
+      "content_length": "8790"
+    },
+    {
+      "id": "15",
+      "title": "Reading Hydraulic & Pneumatic Schematics",
+      "module_title": "Fluid Power Systems",
+      "content_length": "8592"
+    },
+    {
+      "id": "16",
+      "title": "Valve Types & Troubleshooting",
+      "module_title": "Fluid Power Systems",
+      "content_length": "14856"
+    },
+    {
+      "id": "17",
+      "title": "Pressure Diagnostics & Flow Testing",
+      "module_title": "Fluid Power Systems",
+      "content_length": "8980"
+    },
+    {
+      "id": "18",
+      "title": "Fluid Power Preventative Maintenance",
+      "module_title": "Fluid Power Systems",
+      "content_length": "8369"
+    },
+    {
+      "id": "19",
+      "title": "AC & DC Motor Theory",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "10095"
+    },
+    {
+      "id": "20",
+      "title": "Motor Control Circuits & Schematics",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "9446"
+    },
+    {
+      "id": "21",
+      "title": "Motor Starter Troubleshooting",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "8603"
+    },
+    {
+      "id": "22",
+      "title": "Overload Protection & Sizing",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "8197"
+    },
+    {
+      "id": "23",
+      "title": "Single-Phase vs Three-Phase Diagnostics",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "8416"
+    },
+    {
+      "id": "24",
+      "title": "Motor Testing: Megger, Winding Resistance, Vibration",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "11732"
+    },
+    {
+      "id": "7",
+      "title": "PLC Architecture & Hardware Components",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7735"
+    },
+    {
+      "id": "8",
+      "title": "Ladder Logic: Contacts, Coils, and Basic Instructions",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "8467"
+    },
+    {
+      "id": "9",
+      "title": "I/O Module Troubleshooting & Wiring",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7488"
+    },
+    {
+      "id": "10",
+      "title": "Timers, Counters, and Comparison Instructions",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "8891"
+    },
+    {
+      "id": "11",
+      "title": "Communication Faults: EtherNet/IP & DeviceNet",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7666"
+    },
+    {
+      "id": "12",
+      "title": "Online Troubleshooting & Forcing I/O",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7244"
+    },
+    {
+      "id": "30001",
+      "title": "Data Types, Tags, and Memory Addressing in ControlLogix",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10147"
+    },
+    {
+      "id": "30002",
+      "title": "Program Flow: Main Task, Periodic Tasks, and Event Tasks",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10783"
+    },
+    {
+      "id": "30003",
+      "title": "Math Instructions: ADD, SUB, MUL, DIV, CPT, and Scaling Analog Signals",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10120"
+    },
+    {
+      "id": "30004",
+      "title": "Sequencer Instructions (SQO, SQI, SQL) for Machine Automation",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "9458"
+    },
+    {
+      "id": "30005",
+      "title": "Subroutines, Add-On Instructions (AOI), and Code Reuse",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "9057"
+    },
+    {
+      "id": "30006",
+      "title": "Analog I/O Configuration: 4-20mA, 0-10V, Thermocouple Modules",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "12457"
+    },
+    {
+      "id": "30007",
+      "title": "PID Control in ControlLogix: Setup, Tuning, and Troubleshooting",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10978"
+    },
+    {
+      "id": "30008",
+      "title": "Motion Control Basics: Servo Axes, MAPC, and Homing Sequences",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7308"
+    },
+    {
+      "id": "30009",
+      "title": "EtherNet/IP Produced/Consumed Tags and Module Configuration",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "11607"
+    },
+    {
+      "id": "30010",
+      "title": "DeviceNet and ControlNet: Configuration and Fault Recovery",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "9491"
+    },
+    {
+      "id": "30011",
+      "title": "HMI Integration: FactoryTalk View Tag Binding and Alarming",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "11611"
+    },
+    {
+      "id": "30012",
+      "title": "Data Logging and Trending: Historizing Process Variables",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "11605"
+    },
+    {
+      "id": "30013",
+      "title": "Safety PLCs: GuardLogix, Safety I/O, and SIL Ratings",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10406"
+    },
+    {
+      "id": "30014",
+      "title": "Structured Text Programming for Complex Calculations",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "11295"
+    },
+    {
+      "id": "30015",
+      "title": "Function Block Diagram (FBD) for Process Control Applications",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "9127"
+    },
+    {
+      "id": "30016",
+      "title": "Firmware Updates, Backup/Restore, and Disaster Recovery",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "11389"
+    },
+    {
+      "id": "30017",
+      "title": "Network Security: CIP Security, Firewalls, and Access Control",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10959"
+    },
+    {
+      "id": "30018",
+      "title": "Capstone: Full System Commissioning from Wiring to First Run",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "10877"
+    },
+    {
+      "id": "90019",
+      "title": "Industrial Power Systems: From Utility to Machine",
+      "module_title": "Power Distribution",
+      "content_length": "15341"
+    },
+    {
+      "id": "90020",
+      "title": "Overcurrent Protection: Fuses, Breakers & Coordination",
+      "module_title": "Power Distribution",
+      "content_length": "14112"
+    },
+    {
+      "id": "90021",
+      "title": "Grounding, Bonding & Ground Fault Protection",
+      "module_title": "Power Distribution",
+      "content_length": "13183"
+    },
+    {
+      "id": "120030",
+      "title": "Motor Control Center (MCC) Architecture and Maintenance",
+      "module_title": "Power Distribution",
+      "content_length": "11555"
+    },
+    {
+      "id": "120031",
+      "title": "Grounding and Bonding Requirements (NEC Article 250)",
+      "module_title": "Power Distribution",
+      "content_length": "16264"
+    },
+    {
+      "id": "120032",
+      "title": "Power Quality Issues (Harmonics, Sags, Swells)",
+      "module_title": "Power Distribution",
+      "content_length": "12551"
+    },
+    {
+      "id": "120033",
+      "title": "UPS Systems and Emergency Power",
+      "module_title": "Power Distribution",
+      "content_length": "15176"
+    },
+    {
+      "id": "120034",
+      "title": "Medium Voltage Switchgear Safety and Operation",
+      "module_title": "Power Distribution",
+      "content_length": "14898"
+    },
+    {
+      "id": "1",
+      "title": "VFD Fundamentals & Operating Principles",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "15595"
+    },
+    {
+      "id": "2",
+      "title": "PowerFlex Parameter Groups & Navigation",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "8332"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "7620"
+    },
+    {
+      "id": "4",
+      "title": "Fault Codes & Diagnostic Procedures",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "8946"
+    },
+    {
+      "id": "5",
+      "title": "Common Failure Modes in Manufacturing",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "8115"
+    },
+    {
+      "id": "6",
+      "title": "Advanced Features: PID, Multi-Speed, Communication",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "9036"
+    },
+    {
+      "id": "30019",
+      "title": "PowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "10596"
+    },
+    {
+      "id": "30020",
+      "title": "Motor Nameplate Data Entry and Auto-Tune Procedures",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "9522"
+    },
+    {
+      "id": "30021",
+      "title": "Digital and Analog I/O Configuration for Start/Stop and Speed Reference",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "11176"
+    },
+    {
+      "id": "30022",
+      "title": "Multi-Speed Profiles and Preset Speed Selection",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "7975"
+    },
+    {
+      "id": "30023",
+      "title": "Process PID Control: Pressure, Flow, and Level Applications",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "9843"
+    },
+    {
+      "id": "30024",
+      "title": "Dynamic Braking and Regenerative Energy Management",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "13877"
+    },
+    {
+      "id": "30025",
+      "title": "PowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "10412"
+    },
+    {
+      "id": "30026",
+      "title": "Drive Coordination: Master/Follower and Line Speed Synchronization",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "8876"
+    },
+    {
+      "id": "30027",
+      "title": "Thermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "10946"
+    },
+    {
+      "id": "30028",
+      "title": "Power Quality Issues: Harmonics, Line Reactors, and dV/dt Filters",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "10235"
+    },
+    {
+      "id": "30029",
+      "title": "Predictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "10341"
+    },
+    {
+      "id": "30030",
+      "title": "Capstone: Complete VFD System Commissioning from Specification to Startup",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "11843"
+    },
+    {
+      "id": "90010",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "7690"
+    },
+    {
+      "id": "90011",
+      "title": "Panel Layout Drawings & Wire Tracing Techniques",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "12713"
+    },
+    {
+      "id": "90012",
+      "title": "Three-Phase Power Distribution Prints",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "12544"
+    },
+    {
+      "id": "120016",
+      "title": "Cross-Referencing Contacts and Coils Across Pages",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "16469"
+    },
+    {
+      "id": "120017",
+      "title": "Reading VFD and Motor Starter One-Line Diagrams",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "11003"
+    },
+    {
+      "id": "120018",
+      "title": "Control Panel Wiring Diagrams and Terminal Strips",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "13192"
+    },
+    {
+      "id": "120019",
+      "title": "PLC I/O Wiring Diagrams and Address Mapping",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "15792"
+    },
+    {
+      "id": "120020",
+      "title": "Reading Safety Circuit Schematics",
+      "module_title": "Print Reading (Electrical)",
+      "content_length": "16819"
+    },
+    {
+      "id": "90015",
+      "title": "Safety PLC Basics & Troubleshooting Safety Circuits",
+      "module_title": "Safety Systems",
+      "content_length": "12655"
+    },
+    {
+      "id": "120021",
+      "title": "Safety Relay Wiring and Configuration",
+      "module_title": "Safety Systems",
+      "content_length": "13132"
+    },
+    {
+      "id": "120024",
+      "title": "Emergency Stop Circuit Design and Testing",
+      "module_title": "Safety Systems",
+      "content_length": "13989"
+    },
+    {
+      "id": "60013",
+      "title": "Diodes: Rectification & Protection",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "34257"
+    },
+    {
+      "id": "60014",
+      "title": "Transistors: Switching & Amplification",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "15424"
+    },
+    {
+      "id": "60015",
+      "title": "IGBTs & Power Electronics",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "12774"
+    },
+    {
+      "id": "60016",
+      "title": "Thyristors & SCRs: Phase Control",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "13421"
+    },
+    {
+      "id": "60017",
+      "title": "Industrial Power Supply Circuits",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "13934"
+    },
+    {
+      "id": "60018",
+      "title": "VFD Power Stage: From Input to Output",
+      "module_title": "Semiconductor Fundamentals",
+      "content_length": "12837"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmodule_title\tcontent_length\n60001\tOhm's Law & Power Calculations\tElectrical Fundamentals\t12333\n60002\tKirchhoff's Voltage & Current Laws\tElectrical Fundamentals\t11881\n60003\tAC vs. DC: Theory & Industrial Applications\tElectrical Fundamentals\t12989\n60004\tSeries & Parallel Circuits in Industrial Systems\tElectrical Fundamentals\t15836\n60005\tElectrical Safety & Lockout/Tagout\tElectrical Fundamentals\t16989\n60006\tMeters & Measurement Techniques\tElectrical Fundamentals\t12558\n13\tHydraulic System Fundamentals\tFluid Power Systems\t10865\n14\tPneumatic System Fundamentals\tFluid Power Systems\t8790\n15\tReading Hydraulic & Pneumatic Schematics\tFluid Power Systems\t8592\n16\tValve Types & Troubleshooting\tFluid Power Systems\t14856\n17\tPressure Diagnostics & Flow Testing\tFluid Power Systems\t8980\n18\tFluid Power Preventative Maintenance\tFluid Power Systems\t8369\n19\tAC & DC Motor Theory\tMotors & Motor Controls\t10095\n20\tMotor Control Circuits & Schematics\tMotors & Motor Controls\t9446\n21\tMotor Starter Troubleshooting\tMotors & Motor Controls\t8603\n22\tOverload Protection & Sizing\tMotors & Motor Controls\t8197\n23\tSingle-Phase vs Three-Phase Diagnostics\tMotors & Motor Controls\t8416\n24\tMotor Testing: Megger, Winding Resistance, Vibration\tMotors & Motor Controls\t11732\n7\tPLC Architecture & Hardware Components\tPLC Fundamentals & Troubleshooting\t7735\n8\tLadder Logic: Contacts, Coils, and Basic Instructions\tPLC Fundamentals & Troubleshooting\t8467\n9\tI/O Module Troubleshooting & Wiring\tPLC Fundamentals & Troubleshooting\t7488\n10\tTimers, Counters, and Comparison Instructions\tPLC Fundamentals & Troubleshooting\t8891\n11\tCommunication Faults: EtherNet/IP & DeviceNet\tPLC Fundamentals & Troubleshooting\t7666\n12\tOnline Troubleshooting & Forcing I/O\tPLC Fundamentals & Troubleshooting\t7244\n30001\tData Types, Tags, and Memory Addressing in ControlLogix\tPLC Fundamentals & Troubleshooting\t10147\n30002\tProgram Flow: Main Task, Periodic Tasks, and Event Tasks\tPLC Fundamentals & Troubleshooting\t10783\n30003\tMath Instructions: ADD, SUB, MUL, DIV, CPT, and Scaling Analog Signals\tPLC Fundamentals & Troubleshooting\t10120\n30004\tSequencer Instructions (SQO, SQI, SQL) for Machine Automation\tPLC Fundamentals & Troubleshooting\t9458\n30005\tSubroutines, Add-On Instructions (AOI), and Code Reuse\tPLC Fundamentals & Troubleshooting\t9057\n30006\tAnalog I/O Configuration: 4-20mA, 0-10V, Thermocouple Modules\tPLC Fundamentals & Troubleshooting\t12457\n30007\tPID Control in ControlLogix: Setup, Tuning, and Troubleshooting\tPLC Fundamentals & Troubleshooting\t10978\n30008\tMotion Control Basics: Servo Axes, MAPC, and Homing Sequences\tPLC Fundamentals & Troubleshooting\t7308\n30009\tEtherNet/IP Produced/Consumed Tags and Module Configuration\tPLC Fundamentals & Troubleshooting\t11607\n30010\tDeviceNet and ControlNet: Configuration and Fault Recovery\tPLC Fundamentals & Troubleshooting\t9491\n30011\tHMI Integration: FactoryTalk View Tag Binding and Alarming\tPLC Fundamentals & Troubleshooting\t11611\n30012\tData Logging and Trending: Historizing Process Variables\tPLC Fundamentals & Troubleshooting\t11605\n30013\tSafety PLCs: GuardLogix, Safety I/O, and SIL Ratings\tPLC Fundamentals & Troubleshooting\t10406\n30014\tStructured Text Programming for Complex Calculations\tPLC Fundamentals & Troubleshooting\t11295\n30015\tFunction Block Diagram (FBD) for Process Control Applications\tPLC Fundamentals & Troubleshooting\t9127\n30016\tFirmware Updates, Backup/Restore, and Disaster Recovery\tPLC Fundamentals & Troubleshooting\t11389\n30017\tNetwork Security: CIP Security, Firewalls, and Access Control\tPLC Fundamentals & Troubleshooting\t10959\n30018\tCapstone: Full System Commissioning from Wiring to First Run\tPLC Fundamentals & Troubleshooting\t10877\n90019\tIndustrial Power Systems: From Utility to Machine\tPower Distribution\t15341\n90020\tOvercurrent Protection: Fuses, Breakers & Coordination\tPower Distribution\t14112\n90021\tGrounding, Bonding & Ground Fault Protection\tPower Distribution\t13183\n120030\tMotor Control Center (MCC) Architecture and Maintenance\tPower Distribution\t11555\n120031\tGrounding and Bonding Requirements (NEC Article 250)\tPower Distribution\t16264\n120032\tPower Quality Issues (Harmonics, Sags, Swells)\tPower Distribution\t12551\n120033\tUPS Systems and Emergency Power\tPower Distribution\t15176\n120034\tMedium Voltage Switchgear Safety and Operation\tPower Distribution\t14898\n1\tVFD Fundamentals & Operating Principles\tPowerFlex VFD Programming & Troubleshooting\t15595\n2\tPowerFlex Parameter Groups & Navigation\tPowerFlex VFD Programming & Troubleshooting\t8332\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\tPowerFlex VFD Programming & Troubleshooting\t7620\n4\tFault Codes & Diagnostic Procedures\tPowerFlex VFD Programming & Troubleshooting\t8946\n5\tCommon Failure Modes in Manufacturing\tPowerFlex VFD Programming & Troubleshooting\t8115\n6\tAdvanced Features: PID, Multi-Speed, Communication\tPowerFlex VFD Programming & Troubleshooting\t9036\n30019\tPowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance\tPowerFlex VFD Programming & Troubleshooting\t10596\n30020\tMotor Nameplate Data Entry and Auto-Tune Procedures\tPowerFlex VFD Programming & Troubleshooting\t9522\n30021\tDigital and Analog I/O Configuration for Start/Stop and Speed Reference\tPowerFlex VFD Programming & Troubleshooting\t11176\n30022\tMulti-Speed Profiles and Preset Speed Selection\tPowerFlex VFD Programming & Troubleshooting\t7975\n30023\tProcess PID Control: Pressure, Flow, and Level Applications\tPowerFlex VFD Programming & Troubleshooting\t9843\n30024\tDynamic Braking and Regenerative Energy Management\tPowerFlex VFD Programming & Troubleshooting\t13877\n30025\tPowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions\tPowerFlex VFD Programming & Troubleshooting\t10412\n30026\tDrive Coordination: Master/Follower and Line Speed Synchronization\tPowerFlex VFD Programming & Troubleshooting\t8876\n30027\tThermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance\tPowerFlex VFD Programming & Troubleshooting\t10946\n30028\tPower Quality Issues: Harmonics, Line Reactors, and dV/dt Filters\tPowerFlex VFD Programming & Troubleshooting\t10235\n30029\tPredictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring\tPowerFlex VFD Programming & Troubleshooting\t10341\n30030\tCapstone: Complete VFD System Commissioning from Specification to Startup\tPowerFlex VFD Programming & Troubleshooting\t11843\n90010\tReading Electrical Schematics: Symbols, Conventions & Layout\tPrint Reading (Electrical)\t7690\n90011\tPanel Layout Drawings & Wire Tracing Techniques\tPrint Reading (Electrical)\t12713\n90012\tThree-Phase Power Distribution Prints\tPrint Reading (Electrical)\t12544\n120016\tCross-Referencing Contacts and Coils Across Pages\tPrint Reading (Electrical)\t16469\n120017\tReading VFD and Motor Starter One-Line Diagrams\tPrint Reading (Electrical)\t11003\n120018\tControl Panel Wiring Diagrams and Terminal Strips\tPrint Reading (Electrical)\t13192\n120019\tPLC I/O Wiring Diagrams and Address Mapping\tPrint Reading (Electrical)\t15792\n120020\tReading Safety Circuit Schematics\tPrint Reading (Electrical)\t16819\n90015\tSafety PLC Basics & Troubleshooting Safety Circuits\tSafety Systems\t12655\n120021\tSafety Relay Wiring and Configuration\tSafety Systems\t13132\n120024\tEmergency Stop Circuit Design and Testing\tSafety Systems\t13989\n60013\tDiodes: Rectification & Protection\tSemiconductor Fundamentals\t34257\n60014\tTransistors: Switching & Amplification\tSemiconductor Fundamentals\t15424\n60015\tIGBTs & Power Electronics\tSemiconductor Fundamentals\t12774\n60016\tThyristors & SCRs: Phase Control\tSemiconductor Fundamentals\t13421\n60017\tIndustrial Power Supply Circuits\tSemiconductor Fundamentals\t13934\n60018\tVFD Power Stage: From Input to Output\tSemiconductor Fundamentals\t12837\n",
+  "stderr": "",
+  "execution_time_ms": 1109
+}

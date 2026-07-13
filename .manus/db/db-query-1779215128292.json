@@ -1,0 +1,15 @@
+{
+  "query": "SELECT COUNT(*) as total_lessons, SUM(CASE WHEN linkedScenarioId IS NOT NULL THEN 1 ELSE 0 END) as linked, SUM(CASE WHEN linkedScenarioId IS NULL THEN 1 ELSE 0 END) as unlinked FROM course_lessons;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT COUNT(*) as total_lessons, SUM(CASE WHEN linkedScenarioId IS NOT NULL THEN 1 ELSE 0 END) as linked, SUM(CASE WHEN linkedScenarioId IS NULL THEN 1 ELSE 0 END) as unlinked FROM course_lessons;",
+  "rows": [
+    {
+      "total_lessons": "152",
+      "linked": "42",
+      "unlinked": "110"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_lessons\tlinked\tunlinked\n152\t42\t110\n",
+  "stderr": "",
+  "execution_time_ms": 273
+}

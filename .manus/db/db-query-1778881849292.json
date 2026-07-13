@@ -1,0 +1,66 @@
+{
+  "query": "SELECT id, slug, title, totalLessons, isPublished, path FROM course_modules WHERE id >= 60000 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, slug, title, totalLessons, isPublished, path FROM course_modules WHERE id >= 60000 ORDER BY id;",
+  "rows": [
+    {
+      "id": "60001",
+      "slug": "industrial-networking",
+      "title": "Industrial Networking",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "advanced"
+    },
+    {
+      "id": "60002",
+      "slug": "sensors-instrumentation",
+      "title": "Sensors & Instrumentation",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "foundational"
+    },
+    {
+      "id": "60003",
+      "slug": "robotics-fundamentals",
+      "title": "Robotics Fundamentals",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "advanced"
+    },
+    {
+      "id": "60004",
+      "slug": "print-reading",
+      "title": "Print Reading (Electrical)",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "foundational"
+    },
+    {
+      "id": "60005",
+      "slug": "safety-systems",
+      "title": "Safety Systems",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "foundational"
+    },
+    {
+      "id": "60006",
+      "slug": "process-control",
+      "title": "Process Control",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "advanced"
+    },
+    {
+      "id": "60007",
+      "slug": "power-distribution",
+      "title": "Power Distribution",
+      "totalLessons": "3",
+      "isPublished": "1",
+      "path": "foundational"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\ttotalLessons\tisPublished\tpath\n60001\tindustrial-networking\tIndustrial Networking\t3\t1\tadvanced\n60002\tsensors-instrumentation\tSensors & Instrumentation\t3\t1\tfoundational\n60003\trobotics-fundamentals\tRobotics Fundamentals\t3\t1\tadvanced\n60004\tprint-reading\tPrint Reading (Electrical)\t3\t1\tfoundational\n60005\tsafety-systems\tSafety Systems\t3\t1\tfoundational\n60006\tprocess-control\tProcess Control\t3\t1\tadvanced\n60007\tpower-distribution\tPower Distribution\t3\t1\tfoundational\n",
+  "stderr": "",
+  "execution_time_ms": 376
+}

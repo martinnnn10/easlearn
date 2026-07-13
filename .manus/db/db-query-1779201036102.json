@@ -1,0 +1,106 @@
+{
+  "query": "SELECT id, title FROM course_lessons WHERE content LIKE '%PowerFlex 525%' OR content LIKE '%P0%' AND content LIKE '%525%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title FROM course_lessons WHERE content LIKE '%PowerFlex 525%' OR content LIKE '%P0%' AND content LIKE '%525%';",
+  "rows": [
+    {
+      "id": "2",
+      "title": "PowerFlex Parameter Groups & Navigation"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data"
+    },
+    {
+      "id": "4",
+      "title": "Fault Codes & Diagnostic Procedures"
+    },
+    {
+      "id": "5",
+      "title": "Common Failure Modes in Manufacturing"
+    },
+    {
+      "id": "6",
+      "title": "Advanced Features: PID, Multi-Speed, Communication"
+    },
+    {
+      "id": "10",
+      "title": "Timers, Counters, and Comparison Instructions"
+    },
+    {
+      "id": "12",
+      "title": "Online Troubleshooting & Forcing I/O"
+    },
+    {
+      "id": "19",
+      "title": "AC & DC Motor Theory"
+    },
+    {
+      "id": "22",
+      "title": "Overload Protection & Sizing"
+    },
+    {
+      "id": "23",
+      "title": "Single-Phase vs Three-Phase Diagnostics"
+    },
+    {
+      "id": "30018",
+      "title": "Capstone: Full System Commissioning from Wiring to First Run"
+    },
+    {
+      "id": "30019",
+      "title": "PowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance"
+    },
+    {
+      "id": "30020",
+      "title": "Motor Nameplate Data Entry and Auto-Tune Procedures"
+    },
+    {
+      "id": "30021",
+      "title": "Digital and Analog I/O Configuration for Start/Stop and Speed Reference"
+    },
+    {
+      "id": "30022",
+      "title": "Multi-Speed Profiles and Preset Speed Selection"
+    },
+    {
+      "id": "30023",
+      "title": "Process PID Control: Pressure, Flow, and Level Applications"
+    },
+    {
+      "id": "30024",
+      "title": "Dynamic Braking and Regenerative Energy Management"
+    },
+    {
+      "id": "30025",
+      "title": "PowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions"
+    },
+    {
+      "id": "30026",
+      "title": "Drive Coordination: Master/Follower and Line Speed Synchronization"
+    },
+    {
+      "id": "30027",
+      "title": "Thermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance"
+    },
+    {
+      "id": "30028",
+      "title": "Power Quality Issues: Harmonics, Line Reactors, and dV/dt Filters"
+    },
+    {
+      "id": "30029",
+      "title": "Predictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring"
+    },
+    {
+      "id": "30030",
+      "title": "Capstone: Complete VFD System Commissioning from Specification to Startup"
+    },
+    {
+      "id": "120017",
+      "title": "Reading VFD and Motor Starter One-Line Diagrams"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n2\tPowerFlex Parameter Groups & Navigation\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\n4\tFault Codes & Diagnostic Procedures\n5\tCommon Failure Modes in Manufacturing\n6\tAdvanced Features: PID, Multi-Speed, Communication\n10\tTimers, Counters, and Comparison Instructions\n12\tOnline Troubleshooting & Forcing I/O\n19\tAC & DC Motor Theory\n22\tOverload Protection & Sizing\n23\tSingle-Phase vs Three-Phase Diagnostics\n30018\tCapstone: Full System Commissioning from Wiring to First Run\n30019\tPowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance\n30020\tMotor Nameplate Data Entry and Auto-Tune Procedures\n30021\tDigital and Analog I/O Configuration for Start/Stop and Speed Reference\n30022\tMulti-Speed Profiles and Preset Speed Selection\n30023\tProcess PID Control: Pressure, Flow, and Level Applications\n30024\tDynamic Braking and Regenerative Energy Management\n30025\tPowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions\n30026\tDrive Coordination: Master/Follower and Line Speed Synchronization\n30027\tThermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance\n30028\tPower Quality Issues: Harmonics, Line Reactors, and dV/dt Filters\n30029\tPredictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring\n30030\tCapstone: Complete VFD System Commissioning from Specification to Startup\n120017\tReading VFD and Motor Starter One-Line Diagrams\n",
+  "stderr": "",
+  "execution_time_ms": 310
+}

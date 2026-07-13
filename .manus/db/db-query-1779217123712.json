@@ -1,0 +1,35 @@
+{
+  "query": "SELECT id, title, moduleId FROM course_lessons WHERE content LIKE '%schematic symbol%' OR content LIKE '%circuit symbol%' OR content LIKE '%electrical symbol%' OR content LIKE '%IEC symbol%' OR content LIKE '%NEMA symbol%' ORDER BY moduleId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, moduleId FROM course_lessons WHERE content LIKE '%schematic symbol%' OR content LIKE '%circuit symbol%' OR content LIKE '%electrical symbol%' OR content LIKE '%IEC symbol%' OR content LIKE '%NEMA symbol%' ORDER BY moduleId;",
+  "rows": [
+    {
+      "id": "60013",
+      "title": "Diodes: Rectification & Protection",
+      "moduleId": "30003"
+    },
+    {
+      "id": "150003",
+      "title": "Reading Electrical Prints Under Pressure",
+      "moduleId": "30005"
+    },
+    {
+      "id": "90010",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout",
+      "moduleId": "60004"
+    },
+    {
+      "id": "120016",
+      "title": "Cross-Referencing Contacts and Coils Across Pages",
+      "moduleId": "60004"
+    },
+    {
+      "id": "120017",
+      "title": "Reading VFD and Motor Starter One-Line Diagrams",
+      "moduleId": "60004"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmoduleId\n60013\tDiodes: Rectification & Protection\t30003\n150003\tReading Electrical Prints Under Pressure\t30005\n90010\tReading Electrical Schematics: Symbols, Conventions & Layout\t60004\n120016\tCross-Referencing Contacts and Coils Across Pages\t60004\n120017\tReading VFD and Motor Starter One-Line Diagrams\t60004\n",
+  "stderr": "",
+  "execution_time_ms": 415
+}

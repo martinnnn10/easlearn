@@ -1,0 +1,9 @@
+{
+  "query": "SELECT id, title, moduleId FROM course_lessons WHERE content LIKE '%TODO%' OR content LIKE '%placeholder%' OR content LIKE '%coming soon%' OR content LIKE '%[TBD]%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, moduleId FROM course_lessons WHERE content LIKE '%TODO%' OR content LIKE '%placeholder%' OR content LIKE '%coming soon%' OR content LIKE '%[TBD]%'",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 323
+}

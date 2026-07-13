@@ -1,0 +1,22 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Category 2', content) - 50, 400) as section FROM course_lessons WHERE id = 120024;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Category 2', content) - 50, 400) as section FROM course_lessons WHERE id = 120024;",
+  "rows": [
+    {
+      "section": "opening the safe torque off (STO) circuit)."
+    },
+    {
+      "section": "*   **Category 2:** A controlled stop with power left available to the machine actuators. (Note: Category 2 is rarely used for Emergency Stops, as power remains applied)."
+    },
+    {
+      "section": "### Positive Opening Operation"
+    },
+    {
+      "section": "E-Stop pushbuttons must utilize \"positive opening\" (or direct opening) contacts. This means the mechanical movement of the button directly forces the no"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nopening the safe torque off (STO) circuit).\n*   **Category 2:** A controlled stop with power left available to the machine actuators. (Note: Category 2 is rarely used for Emergency Stops, as power remains applied).\n\n### Positive Opening Operation\n\nE-Stop pushbuttons must utilize \"positive opening\" (or direct opening) contacts. This means the mechanical movement of the button directly forces the no\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

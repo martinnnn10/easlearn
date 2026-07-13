@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(content, '| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |', '| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |\\n| LED (Indicator) | HLMP-series | 1.8-3.3V | Panel status indicators, optocoupler inputs | Opens (goes dark) |\\n| Photodiode (Optocoupler) | 4N25, PC817 | 1.2V (LED side) | Electrical isolation between control/power circuits | LED degrades over time |\\n| Power/IGBT Freewheeling | DSEI30-06A | 1.5V | VFD output stage freewheeling, inductive load protection | Shorts under thermal stress |') WHERE id = 60013;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content, '| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |', '| Bridge Rectifier | GBPC3510 | 1.1V/diode | Single-phase AC to DC conversion (35A, 1000V) | One leg shorts |\\n| LED (Indicator) | HLMP-series | 1.8-3.3V | Panel status indicators, optocoupler inputs | Opens (goes dark) |\\n| Photodiode (Optocoupler) | 4N25, PC817 | 1.2V (LED side) | Electrical isolation between control/power circuits | LED degrades over time |\\n| Power/IGBT Freewheeling | DSEI30-06A | 1.5V | VFD output stage freewheeling, inductive load protection | Shorts under thermal stress |') WHERE id = 60013;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 282
+}

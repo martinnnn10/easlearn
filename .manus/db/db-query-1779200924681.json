@@ -1,0 +1,19 @@
+{
+  "query": "SELECT title, SUBSTRING(content, 1, 500) as start_content FROM course_lessons WHERE id = 120027;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT title, SUBSTRING(content, 1, 500) as start_content FROM course_lessons WHERE id = 120027;",
+  "rows": [
+    {
+      "title": "Cascade and Ratio Control Strategies",
+      "start_content": "## Introduction"
+    }
+  ],
+  "messages": [
+    "Cascade and ratio control strategies are advanced process control methods used to improve system stability and achieve precise control in complex industrial processes. Both strategies involve multiple controllers working together but serve different purposes:",
+    "- **Cascade control** uses a primary (master) controller and a secondary (slave) controller to reduce lag and disturbances.",
+    "- **Ratio control** maintains a fixed proportional relationship between two process variables.",
+    "Un"
+  ],
+  "stdout": "title\tstart_content\nCascade and Ratio Control Strategies\t## Introduction\n\nCascade and ratio control strategies are advanced process control methods used to improve system stability and achieve precise control in complex industrial processes. Both strategies involve multiple controllers working together but serve different purposes:\n\n- **Cascade control** uses a primary (master) controller and a secondary (slave) controller to reduce lag and disturbances.\n- **Ratio control** maintains a fixed proportional relationship between two process variables.\n\nUn\n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

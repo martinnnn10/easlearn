@@ -1,0 +1,34 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('frozen', content) - 100, 400) as section FROM course_lessons WHERE id = 60024;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('frozen', content) - 100, 400) as section FROM course_lessons WHERE id = 60024;",
+  "rows": [
+    {
+      "section": "| Dirty condenser, overcharge, condenser fan failed |"
+    },
+    {
+      "section": "| Low-pressure switch | Tripped | Low charge, frozen evaporator, TXV stuck closed |"
+    },
+    {
+      "section": "### Cooling But Not Enough"
+    },
+    {
+      "section": "| Check | Finding | Diagnosis |"
+    },
+    {
+      "section": "|-------|---------|-----------|"
+    },
+    {
+      "section": "| Airflow | Low | Dirty filter, broken belt, damper closed |"
+    },
+    {
+      "section": "| Suction pressure | Low | Low charge, restricted TXV, low airflow |"
+    },
+    {
+      "section": "| Suction pressure | High | Compressor "
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n| Dirty condenser, overcharge, condenser fan failed |\n| Low-pressure switch | Tripped | Low charge, frozen evaporator, TXV stuck closed |\n\n### Cooling But Not Enough\n\n| Check | Finding | Diagnosis |\n|-------|---------|-----------|\n| Airflow | Low | Dirty filter, broken belt, damper closed |\n| Suction pressure | Low | Low charge, restricted TXV, low airflow |\n| Suction pressure | High | Compressor \n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

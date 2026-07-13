@@ -1,0 +1,172 @@
+{
+  "query": "SELECT slug, title, path, orderIndex, totalLessons, estimatedHours, prerequisiteSlug FROM course_modules ORDER BY path, orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT slug, title, path, orderIndex, totalLessons, estimatedHours, prerequisiteSlug FROM course_modules ORDER BY path, orderIndex;",
+  "rows": [
+    {
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "path": "advanced",
+      "orderIndex": "1",
+      "totalLessons": "18",
+      "estimatedHours": "8",
+      "prerequisiteSlug": "semiconductor-fundamentals"
+    },
+    {
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "path": "advanced",
+      "orderIndex": "2",
+      "totalLessons": "24",
+      "estimatedHours": "10",
+      "prerequisiteSlug": "electrical-fundamentals"
+    },
+    {
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "path": "advanced",
+      "orderIndex": "3",
+      "totalLessons": "6",
+      "estimatedHours": "7",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "path": "advanced",
+      "orderIndex": "4",
+      "totalLessons": "6",
+      "estimatedHours": "8",
+      "prerequisiteSlug": "electrical-fundamentals"
+    },
+    {
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "path": "advanced",
+      "orderIndex": "5",
+      "totalLessons": "5",
+      "estimatedHours": "5",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "path": "advanced",
+      "orderIndex": "6",
+      "totalLessons": "6",
+      "estimatedHours": "6",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy",
+      "path": "advanced",
+      "orderIndex": "7",
+      "totalLessons": "0",
+      "estimatedHours": "12",
+      "prerequisiteSlug": "plc-fundamentals"
+    },
+    {
+      "slug": "industrial-networking",
+      "title": "Industrial Networking",
+      "path": "advanced",
+      "orderIndex": "7",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "robotics-fundamentals",
+      "title": "Robotics Fundamentals",
+      "path": "advanced",
+      "orderIndex": "9",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "process-control",
+      "title": "Process Control",
+      "path": "advanced",
+      "orderIndex": "12",
+      "totalLessons": "7",
+      "estimatedHours": "3",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals",
+      "path": "foundational",
+      "orderIndex": "1",
+      "totalLessons": "6",
+      "estimatedHours": "10",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals",
+      "path": "foundational",
+      "orderIndex": "2",
+      "totalLessons": "6",
+      "estimatedHours": "8",
+      "prerequisiteSlug": "electrical-fundamentals"
+    },
+    {
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals",
+      "path": "foundational",
+      "orderIndex": "3",
+      "totalLessons": "6",
+      "estimatedHours": "8",
+      "prerequisiteSlug": "digital-fundamentals"
+    },
+    {
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals",
+      "path": "foundational",
+      "orderIndex": "4",
+      "totalLessons": "6",
+      "estimatedHours": "8",
+      "prerequisiteSlug": "electrical-fundamentals"
+    },
+    {
+      "slug": "sensors-instrumentation",
+      "title": "Sensors & Instrumentation",
+      "path": "foundational",
+      "orderIndex": "8",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "print-reading",
+      "title": "Print Reading (Electrical)",
+      "path": "foundational",
+      "orderIndex": "10",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "safety-systems",
+      "title": "Safety Systems",
+      "path": "foundational",
+      "orderIndex": "11",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    },
+    {
+      "slug": "power-distribution",
+      "title": "Power Distribution",
+      "path": "foundational",
+      "orderIndex": "13",
+      "totalLessons": "8",
+      "estimatedHours": "4",
+      "prerequisiteSlug": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\tpath\torderIndex\ttotalLessons\testimatedHours\tprerequisiteSlug\npowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\tadvanced\t1\t18\t8\tsemiconductor-fundamentals\nplc-fundamentals\tPLC Fundamentals & Troubleshooting\tadvanced\t2\t24\t10\telectrical-fundamentals\nfluid-power\tFluid Power Systems\tadvanced\t3\t6\t7\tNULL\nmotors-controls\tMotors & Motor Controls\tadvanced\t4\t6\t8\telectrical-fundamentals\nalignment\tPrecision Shaft Alignment\tadvanced\t5\t5\t5\tNULL\npreventative-maintenance\tPreventative Maintenance Programs\tadvanced\t6\t6\t6\tNULL\nindustrial-troubleshooting\tIndustrial Troubleshooting Academy\tadvanced\t7\t0\t12\tplc-fundamentals\nindustrial-networking\tIndustrial Networking\tadvanced\t7\t8\t4\tNULL\nrobotics-fundamentals\tRobotics Fundamentals\tadvanced\t9\t8\t4\tNULL\nprocess-control\tProcess Control\tadvanced\t12\t7\t3\tNULL\nelectrical-fundamentals\tElectrical Fundamentals\tfoundational\t1\t6\t10\tNULL\ndigital-fundamentals\tDigital Fundamentals\tfoundational\t2\t6\t8\telectrical-fundamentals\nsemiconductor-fundamentals\tSemiconductor Fundamentals\tfoundational\t3\t6\t8\tdigital-fundamentals\nhvac-fundamentals\tHVAC Fundamentals\tfoundational\t4\t6\t8\telectrical-fundamentals\nsensors-instrumentation\tSensors & Instrumentation\tfoundational\t8\t8\t4\tNULL\nprint-reading\tPrint Reading (Electrical)\tfoundational\t10\t8\t4\tNULL\nsafety-systems\tSafety Systems\tfoundational\t11\t8\t4\tNULL\npower-distribution\tPower Distribution\tfoundational\t13\t8\t4\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 273
+}

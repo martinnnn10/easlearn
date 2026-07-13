@@ -1,0 +1,37 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('lead', content) - 50, 300) as section FROM course_lessons WHERE id = 120027;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('lead', content) - 50, 300) as section FROM course_lessons WHERE id = 120027;",
+  "rows": [
+    {
+      "section": "          |"
+    },
+    {
+      "section": "### How Ratio Control Works"
+    },
+    {
+      "section": "- The **lead flow** is measured and used as the reference."
+    },
+    {
+      "section": "- The **lag flow** controller adjusts to maintain a fixed ratio (R) to the lead flow."
+    },
+    {
+      "section": "- The ratio controller calculates the lag flow SP as:"
+    },
+    {
+      "section": "  \\["
+    },
+    {
+      "section": "  SP_{lag} = R \\times PV_{lead}"
+    },
+    {
+      "section": "  \\]"
+    },
+    {
+      "section": "### Procedure t"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n          |\n\n### How Ratio Control Works\n\n- The **lead flow** is measured and used as the reference.\n- The **lag flow** controller adjusts to maintain a fixed ratio (R) to the lead flow.\n- The ratio controller calculates the lag flow SP as:\n\n  \\[\n  SP_{lag} = R \\times PV_{lead}\n  \\]\n\n### Procedure t\n",
+  "stderr": "",
+  "execution_time_ms": 267
+}

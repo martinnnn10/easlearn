@@ -1,0 +1,31 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('above the process connection', content) - 100, 400) as section FROM course_lessons WHERE id = 90006;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('above the process connection', content) - 100, 400) as section FROM course_lessons WHERE id = 90006;",
+  "rows": [
+    {
+      "section": "ter below the process connection** for liquid service (prevents air pockets)"
+    },
+    {
+      "section": "2. **Mount transmitter above the process connection** for gas/steam service (prevents condensate)"
+    },
+    {
+      "section": "3. **Use impulse tubing** — never connect directly to a vibrating pipe"
+    },
+    {
+      "section": "4. **Install a valve** between the process and transmitter for isolation during maintenance"
+    },
+    {
+      "section": "## Calibration Fundamentals"
+    },
+    {
+      "section": "### Zero and Span Adjustment"
+    },
+    {
+      "section": "Ev"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nter below the process connection** for liquid service (prevents air pockets)\n2. **Mount transmitter above the process connection** for gas/steam service (prevents condensate)\n3. **Use impulse tubing** — never connect directly to a vibrating pipe\n4. **Install a valve** between the process and transmitter for isolation during maintenance\n\n## Calibration Fundamentals\n\n### Zero and Span Adjustment\n\nEv\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

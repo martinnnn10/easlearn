@@ -1,0 +1,229 @@
+{
+  "query": "SELECT content FROM course_lessons WHERE id = 90010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT content FROM course_lessons WHERE id = 90010",
+  "rows": [
+    {
+      "content": "# Reading Electrical Schematics"
+    },
+    {
+      "content": "## Why Print Reading Is Non-Negotiable"
+    },
+    {
+      "content": "You cannot troubleshoot what you cannot read. Electrical schematics are the roadmap of every machine. Without them, you're guessing — and guessing with 480V can kill you."
+    },
+    {
+      "content": "## Schematic vs. Wiring Diagram vs. Layout"
+    },
+    {
+      "content": "| Type | Shows | Used For |"
+    },
+    {
+      "content": "|------|-------|----------|"
+    },
+    {
+      "content": "| **Schematic (ladder)** | Logical circuit connections | Understanding how the circuit works |"
+    },
+    {
+      "content": "| **Wiring diagram** | Physical wire connections | Connecting wires at terminals |"
+    },
+    {
+      "content": "| **Layout drawing** | Physical location of components | Finding components in the panel |"
+    },
+    {
+      "content": "## Standard Electrical Symbols"
+    },
+    {
+      "content": "### Power Components"
+    },
+    {
+      "content": "| Symbol | Component | Function |"
+    },
+    {
+      "content": "|--------|-----------|----------|"
+    },
+    {
+      "content": "| ─/─ | Disconnect switch | Main power isolation |"
+    },
+    {
+      "content": "| ─▷─ | Fuse | Overcurrent protection |"
+    },
+    {
+      "content": "| ─□─ | Circuit breaker | Overcurrent protection (resettable) |"
+    },
+    {
+      "content": "| ─(M)─ | Motor | Converts electrical to mechanical energy |"
+    },
+    {
+      "content": "| ─⊗─ | Transformer | Changes voltage level |"
+    },
+    {
+      "content": "### Control Components"
+    },
+    {
+      "content": "| Symbol | Component | Function |"
+    },
+    {
+      "content": "|--------|-----------|----------|"
+    },
+    {
+      "content": "| ─( )─ | Relay/contactor coil | Electromagnetic actuator |"
+    },
+    {
+      "content": "| ─] [─ | Normally open contact | Closes when coil is energized |"
+    },
+    {
+      "content": "| ─]/[─ | Normally closed contact | Opens when coil is energized |"
+    },
+    {
+      "content": "| ─] [─ (with T) | Timer contact | Changes state after time delay |"
+    },
+    {
+      "content": "| ─(OL)─ | Overload relay | Motor thermal protection |"
+    },
+    {
+      "content": "### Input Devices"
+    },
+    {
+      "content": "| Symbol | Component | Function |"
+    },
+    {
+      "content": "|--------|-----------|----------|"
+    },
+    {
+      "content": "| ─○/○─ | Pushbutton NO | Momentary close on press |"
+    },
+    {
+      "content": "| ─○╲○─ | Pushbutton NC | Momentary open on press |"
+    },
+    {
+      "content": "| ─○/○─ (maintained) | Selector switch | Stays in selected position |"
+    },
+    {
+      "content": "| ─LS─ | Limit switch | Position detection |"
+    },
+    {
+      "content": "| ─PS─ | Pressure switch | Pressure detection |"
+    },
+    {
+      "content": "| ─TS─ | Temperature switch | Temperature detection |"
+    },
+    {
+      "content": "## Reading a Ladder Diagram"
+    },
+    {
+      "content": "### The Rules"
+    },
+    {
+      "content": "1. **Power flows left to right** — L1 (hot) on the left, L2 (neutral) on the right"
+    },
+    {
+      "content": "2. **Read top to bottom** — Circuits are numbered by rung"
+    },
+    {
+      "content": "3. **Contacts control coils** — Inputs (left side) control outputs (right side)"
+    },
+    {
+      "content": "4. **Cross-references** — A coil on rung 5 may have contacts on rungs 12, 15, and 23"
+    },
+    {
+      "content": "5. **Wire numbers** — Every wire has a unique number for identification"
+    },
+    {
+      "content": "### Example: Basic Motor Start/Stop Circuit"
+    },
+    {
+      "content": "```"
+    },
+    {
+      "content": "Rung 1: ─]Stop[──]Start[──────────(M)─"
+    },
+    {
+      "content": "                    │"
+    },
+    {
+      "content": "                   ]M[  (seal-in contact)"
+    },
+    {
+      "content": "```"
+    },
+    {
+      "content": "Reading this:"
+    },
+    {
+      "content": "- The Stop button (NC) must be closed (not pressed)"
+    },
+    {
+      "content": "- Either the Start button (NO) OR the M seal-in contact must be closed"
+    },
+    {
+      "content": "- When both conditions are met, the M coil energizes"
+    },
+    {
+      "content": "- The M contact seals in, keeping the motor running after Start is released"
+    },
+    {
+      "content": "- Pressing Stop opens the NC contact, dropping the M coil"
+    },
+    {
+      "content": "## Cross-Referencing"
+    },
+    {
+      "content": "When you see a coil labeled \"CR5\" on rung 10, you need to find all contacts labeled \"CR5\" throughout the print:"
+    },
+    {
+      "content": "| Location | Type | Rung | Purpose |"
+    },
+    {
+      "content": "|----------|------|------|---------|"
+    },
+    {
+      "content": "| CR5 coil | Coil | 10 | Energized by safety circuit |"
+    },
+    {
+      "content": "| CR5 | NO contact | 15 | Enables conveyor motor |"
+    },
+    {
+      "content": "| CR5 | NO contact | 22 | Enables robot start |"
+    },
+    {
+      "content": "| CR5 | NC contact | 30 | Alarm if safety lost |"
+    },
+    {
+      "content": "> **Field Reality:** The fastest troubleshooters don't just read the rung with the problem — they trace every cross-reference. If motor M3 won't start, they check every contact in that rung's circuit, then check what controls each of those contacts."
+    },
+    {
+      "content": "## Glossary"
+    },
+    {
+      "content": "| Term | Definition |"
+    },
+    {
+      "content": "|------|-----------|"
+    },
+    {
+      "content": "| **Ladder diagram** | Schematic format resembling a ladder, with power rails and rungs |"
+    },
+    {
+      "content": "| **Rung** | One horizontal circuit in a ladder diagram |"
+    },
+    {
+      "content": "| **Cross-reference** | Notation showing where a relay's contacts are used in other rungs |"
+    },
+    {
+      "content": "| **NO** | Normally Open — contact is open when the device is at rest |"
+    },
+    {
+      "content": "| **NC** | Normally Closed — contact is closed when the device is at rest |"
+    },
+    {
+      "content": "| **Seal-in** | A contact that maintains a circuit after the initiating device releases |"
+    },
+    {
+      "content": "| **Wire number** | Unique identifier for each wire in the system |"
+    }
+  ],
+  "messages": [],
+  "stdout": "content\n# Reading Electrical Schematics\n\n## Why Print Reading Is Non-Negotiable\n\nYou cannot troubleshoot what you cannot read. Electrical schematics are the roadmap of every machine. Without them, you're guessing — and guessing with 480V can kill you.\n\n## Schematic vs. Wiring Diagram vs. Layout\n\n| Type | Shows | Used For |\n|------|-------|----------|\n| **Schematic (ladder)** | Logical circuit connections | Understanding how the circuit works |\n| **Wiring diagram** | Physical wire connections | Connecting wires at terminals |\n| **Layout drawing** | Physical location of components | Finding components in the panel |\n\n## Standard Electrical Symbols\n\n### Power Components\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─/─ | Disconnect switch | Main power isolation |\n| ─▷─ | Fuse | Overcurrent protection |\n| ─□─ | Circuit breaker | Overcurrent protection (resettable) |\n| ─(M)─ | Motor | Converts electrical to mechanical energy |\n| ─⊗─ | Transformer | Changes voltage level |\n\n### Control Components\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─( )─ | Relay/contactor coil | Electromagnetic actuator |\n| ─] [─ | Normally open contact | Closes when coil is energized |\n| ─]/[─ | Normally closed contact | Opens when coil is energized |\n| ─] [─ (with T) | Timer contact | Changes state after time delay |\n| ─(OL)─ | Overload relay | Motor thermal protection |\n\n### Input Devices\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─○/○─ | Pushbutton NO | Momentary close on press |\n| ─○╲○─ | Pushbutton NC | Momentary open on press |\n| ─○/○─ (maintained) | Selector switch | Stays in selected position |\n| ─LS─ | Limit switch | Position detection |\n| ─PS─ | Pressure switch | Pressure detection |\n| ─TS─ | Temperature switch | Temperature detection |\n\n## Reading a Ladder Diagram\n\n### The Rules\n\n1. **Power flows left to right** — L1 (hot) on the left, L2 (neutral) on the right\n2. **Read top to bottom** — Circuits are numbered by rung\n3. **Contacts control coils** — Inputs (left side) control outputs (right side)\n4. **Cross-references** — A coil on rung 5 may have contacts on rungs 12, 15, and 23\n5. **Wire numbers** — Every wire has a unique number for identification\n\n### Example: Basic Motor Start/Stop Circuit\n\n```\nRung 1: ─]Stop[──]Start[──────────(M)─\n                    │\n                   ]M[  (seal-in contact)\n```\n\nReading this:\n- The Stop button (NC) must be closed (not pressed)\n- Either the Start button (NO) OR the M seal-in contact must be closed\n- When both conditions are met, the M coil energizes\n- The M contact seals in, keeping the motor running after Start is released\n- Pressing Stop opens the NC contact, dropping the M coil\n\n## Cross-Referencing\n\nWhen you see a coil labeled \"CR5\" on rung 10, you need to find all contacts labeled \"CR5\" throughout the print:\n\n| Location | Type | Rung | Purpose |\n|----------|------|------|---------|\n| CR5 coil | Coil | 10 | Energized by safety circuit |\n| CR5 | NO contact | 15 | Enables conveyor motor |\n| CR5 | NO contact | 22 | Enables robot start |\n| CR5 | NC contact | 30 | Alarm if safety lost |\n\n> **Field Reality:** The fastest troubleshooters don't just read the rung with the problem — they trace every cross-reference. If motor M3 won't start, they check every contact in that rung's circuit, then check what controls each of those contacts.\n\n## Glossary\n\n| Term | Definition |\n|------|-----------|\n| **Ladder diagram** | Schematic format resembling a ladder, with power rails and rungs |\n| **Rung** | One horizontal circuit in a ladder diagram |\n| **Cross-reference** | Notation showing where a relay's contacts are used in other rungs |\n| **NO** | Normally Open — contact is open when the device is at rest |\n| **NC** | Normally Closed — contact is closed when the device is at rest |\n| **Seal-in** | A contact that maintains a circuit after the initiating device releases |\n| **Wire number** | Unique identifier for each wire in the system |\n\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, title FROM course_lessons WHERE content LIKE '%─/─%' OR content LIKE '%─▷─%' OR content LIKE '%─□─%' OR content LIKE '%─(M)─%' OR content LIKE '%─⊗─%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title FROM course_lessons WHERE content LIKE '%─/─%' OR content LIKE '%─▷─%' OR content LIKE '%─□─%' OR content LIKE '%─(M)─%' OR content LIKE '%─⊗─%'",
+  "rows": [
+    {
+      "id": "90010",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout"
+    },
+    {
+      "id": "90012",
+      "title": "Three-Phase Power Distribution Prints"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n90010\tReading Electrical Schematics: Symbols, Conventions & Layout\n90012\tThree-Phase Power Distribution Prints\n",
+  "stderr": "",
+  "execution_time_ms": 359
+}

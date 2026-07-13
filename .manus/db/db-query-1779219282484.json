@@ -1,0 +1,13 @@
+{
+  "query": "SELECT LENGTH(content) as content_length FROM course_lessons WHERE id = 60013;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT LENGTH(content) as content_length FROM course_lessons WHERE id = 60013;",
+  "rows": [
+    {
+      "content_length": "17406"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_length\n17406\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

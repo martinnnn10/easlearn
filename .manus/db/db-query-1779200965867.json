@@ -1,0 +1,55 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('## Ratio Control', content), 1000) as section FROM course_lessons WHERE id = 120027;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('## Ratio Control', content), 1000) as section FROM course_lessons WHERE id = 120027;",
+  "rows": [
+    {
+      "section": "## Ratio Control Strategy"
+    },
+    {
+      "section": "### What is Ratio Control?"
+    },
+    {
+      "section": "Ratio control maintains a fixed ratio between two process variables, typically flow rates or feed rates, to ensure consistent product quality or process stability."
+    },
+    {
+      "section": "### Typical Applications"
+    },
+    {
+      "section": "- Mixing two fluids in a fixed proportion"
+    },
+    {
+      "section": "- Fuel-to-air ratio in combustion processes"
+    },
+    {
+      "section": "- Chemical feed rates in batching systems"
+    },
+    {
+      "section": "### System Components and Example"
+    },
+    {
+      "section": "| Component           | Description                             | Typical Part Number           |"
+    },
+    {
+      "section": "|---------------------|---------------------------------------|------------------------------|"
+    },
+    {
+      "section": "| Ratio Controller    | Dedicated ratio control module          | Honeywell UDC3200             |"
+    },
+    {
+      "section": "| Flow Transmitters   | Differential pressure or electromagnetic flow meters | Endress+Hauser Proline Promag 50F |"
+    },
+    {
+      "section": "| Control Valves      | Modulating valves for each stream       | Samson 3241                  |"
+    },
+    {
+      "section": "### How Ratio Control Works"
+    },
+    {
+      "section": "- The **lead flow** is measured and used as the reference"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n## Ratio Control Strategy\n\n### What is Ratio Control?\n\nRatio control maintains a fixed ratio between two process variables, typically flow rates or feed rates, to ensure consistent product quality or process stability.\n\n### Typical Applications\n\n- Mixing two fluids in a fixed proportion\n- Fuel-to-air ratio in combustion processes\n- Chemical feed rates in batching systems\n\n### System Components and Example\n\n| Component           | Description                             | Typical Part Number           |\n|---------------------|---------------------------------------|------------------------------|\n| Ratio Controller    | Dedicated ratio control module          | Honeywell UDC3200             |\n| Flow Transmitters   | Differential pressure or electromagnetic flow meters | Endress+Hauser Proline Promag 50F |\n| Control Valves      | Modulating valves for each stream       | Samson 3241                  |\n\n### How Ratio Control Works\n\n- The **lead flow** is measured and used as the reference\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

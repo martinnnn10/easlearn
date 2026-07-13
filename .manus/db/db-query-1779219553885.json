@@ -1,0 +1,70 @@
+{
+  "query": "SELECT cl.id, cl.title, cm.title as module_title, LENGTH(cl.content) as content_length FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE LENGTH(cl.content) < 8000 ORDER BY LENGTH(cl.content) ASC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.id, cl.title, cm.title as module_title, LENGTH(cl.content) as content_length FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE LENGTH(cl.content) < 8000 ORDER BY LENGTH(cl.content) ASC LIMIT 10;",
+  "rows": [
+    {
+      "id": "32",
+      "title": "Infrared Thermography for Electrical Systems",
+      "module_title": "Preventative Maintenance Programs",
+      "content_length": "7037"
+    },
+    {
+      "id": "120004",
+      "title": "Wireshark for Industrial Packet Analysis",
+      "module_title": "Industrial Networking",
+      "content_length": "7084"
+    },
+    {
+      "id": "12",
+      "title": "Online Troubleshooting & Forcing I/O",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7244"
+    },
+    {
+      "id": "30008",
+      "title": "Motion Control Basics: Servo Axes, MAPC, and Homing Sequences",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7308"
+    },
+    {
+      "id": "9",
+      "title": "I/O Module Troubleshooting & Wiring",
+      "module_title": "PLC Fundamentals & Troubleshooting",
+      "content_length": "7488"
+    },
+    {
+      "id": "33",
+      "title": "Lubrication Schedules & Best Practices",
+      "module_title": "Preventative Maintenance Programs",
+      "content_length": "7528"
+    },
+    {
+      "id": "19",
+      "title": "AC & DC Motor Theory",
+      "module_title": "Motors & Motor Controls",
+      "content_length": "7583"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "module_title": "PowerFlex VFD Programming & Troubleshooting",
+      "content_length": "7620"
+    },
+    {
+      "id": "90001",
+      "title": "Ethernet/IP Fundamentals for Industrial Networks",
+      "module_title": "Industrial Networking",
+      "content_length": "7621"
+    },
+    {
+      "id": "13",
+      "title": "Hydraulic System Fundamentals",
+      "module_title": "Fluid Power Systems",
+      "content_length": "7655"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmodule_title\tcontent_length\n32\tInfrared Thermography for Electrical Systems\tPreventative Maintenance Programs\t7037\n120004\tWireshark for Industrial Packet Analysis\tIndustrial Networking\t7084\n12\tOnline Troubleshooting & Forcing I/O\tPLC Fundamentals & Troubleshooting\t7244\n30008\tMotion Control Basics: Servo Axes, MAPC, and Homing Sequences\tPLC Fundamentals & Troubleshooting\t7308\n9\tI/O Module Troubleshooting & Wiring\tPLC Fundamentals & Troubleshooting\t7488\n33\tLubrication Schedules & Best Practices\tPreventative Maintenance Programs\t7528\n19\tAC & DC Motor Theory\tMotors & Motor Controls\t7583\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\tPowerFlex VFD Programming & Troubleshooting\t7620\n90001\tEthernet/IP Fundamentals for Industrial Networks\tIndustrial Networking\t7621\n13\tHydraulic System Fundamentals\tFluid Power Systems\t7655\n",
+  "stderr": "",
+  "execution_time_ms": 273
+}

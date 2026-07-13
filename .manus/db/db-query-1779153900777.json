@@ -1,0 +1,115 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 1800) as content_start FROM course_lessons WHERE id = 90010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 1800) as content_start FROM course_lessons WHERE id = 90010",
+  "rows": [
+    {
+      "content_start": "# Reading Electrical Schematics"
+    },
+    {
+      "content_start": "## Why Print Reading Is Non-Negotiable"
+    },
+    {
+      "content_start": "You cannot troubleshoot what you cannot read. Electrical schematics are the roadmap of every machine. Without them, you're guessing — and guessing with 480V can kill you."
+    },
+    {
+      "content_start": "## Schematic vs. Wiring Diagram vs. Layout"
+    },
+    {
+      "content_start": "| Type | Shows | Used For |"
+    },
+    {
+      "content_start": "|------|-------|----------|"
+    },
+    {
+      "content_start": "| **Schematic (ladder)** | Logical circuit connections | Understanding how the circuit works |"
+    },
+    {
+      "content_start": "| **Wiring diagram** | Physical wire connections | Connecting wires at terminals |"
+    },
+    {
+      "content_start": "| **Layout drawing** | Physical location of components | Finding components in the panel |"
+    },
+    {
+      "content_start": "## Standard Electrical Symbols"
+    },
+    {
+      "content_start": "### Power Components"
+    },
+    {
+      "content_start": "| Symbol | Component | Function |"
+    },
+    {
+      "content_start": "|--------|-----------|----------|"
+    },
+    {
+      "content_start": "| ─/─ | Disconnect switch | Main power isolation |"
+    },
+    {
+      "content_start": "| ─▷─ | Fuse | Overcurrent protection |"
+    },
+    {
+      "content_start": "| ─□─ | Circuit breaker | Overcurrent protection (resettable) |"
+    },
+    {
+      "content_start": "| ─(M)─ | Motor | Converts electrical to mechanical energy |"
+    },
+    {
+      "content_start": "| ─⊗─ | Transformer | Changes voltage level |"
+    },
+    {
+      "content_start": "### Control Components"
+    },
+    {
+      "content_start": "| Symbol | Component | Function |"
+    },
+    {
+      "content_start": "|--------|-----------|----------|"
+    },
+    {
+      "content_start": "| ─( )─ | Relay/contactor coil | Electromagnetic actuator |"
+    },
+    {
+      "content_start": "| ─] [─ | Normally open contact | Closes when coil is energized |"
+    },
+    {
+      "content_start": "| ─]/[─ | Normally closed contact | Opens when coil is energized |"
+    },
+    {
+      "content_start": "| ─] [─ (with T) | Timer contact | Changes state after time delay |"
+    },
+    {
+      "content_start": "| ─(OL)─ | Overload relay | Motor thermal protection |"
+    },
+    {
+      "content_start": "### Input Devices"
+    },
+    {
+      "content_start": "| Symbol | Component | Function |"
+    },
+    {
+      "content_start": "|--------|-----------|----------|"
+    },
+    {
+      "content_start": "| ─○/○─ | Pushbutton NO | Momentary close on press |"
+    },
+    {
+      "content_start": "| ─○╲○─ | Pushbutton NC | Momentary open on press |"
+    },
+    {
+      "content_start": "| ─○/○─ (maintained) | Selector switch | Stays in selected position |"
+    },
+    {
+      "content_start": "| ─LS─ | Limit switch | Position detection |"
+    },
+    {
+      "content_start": "| ─PS─ | Pressure switch | Pressure detection |"
+    },
+    {
+      "content_start": "| ─TS─ | Temperature switch | Temper"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\n# Reading Electrical Schematics\n\n## Why Print Reading Is Non-Negotiable\n\nYou cannot troubleshoot what you cannot read. Electrical schematics are the roadmap of every machine. Without them, you're guessing — and guessing with 480V can kill you.\n\n## Schematic vs. Wiring Diagram vs. Layout\n\n| Type | Shows | Used For |\n|------|-------|----------|\n| **Schematic (ladder)** | Logical circuit connections | Understanding how the circuit works |\n| **Wiring diagram** | Physical wire connections | Connecting wires at terminals |\n| **Layout drawing** | Physical location of components | Finding components in the panel |\n\n## Standard Electrical Symbols\n\n### Power Components\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─/─ | Disconnect switch | Main power isolation |\n| ─▷─ | Fuse | Overcurrent protection |\n| ─□─ | Circuit breaker | Overcurrent protection (resettable) |\n| ─(M)─ | Motor | Converts electrical to mechanical energy |\n| ─⊗─ | Transformer | Changes voltage level |\n\n### Control Components\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─( )─ | Relay/contactor coil | Electromagnetic actuator |\n| ─] [─ | Normally open contact | Closes when coil is energized |\n| ─]/[─ | Normally closed contact | Opens when coil is energized |\n| ─] [─ (with T) | Timer contact | Changes state after time delay |\n| ─(OL)─ | Overload relay | Motor thermal protection |\n\n### Input Devices\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─○/○─ | Pushbutton NO | Momentary close on press |\n| ─○╲○─ | Pushbutton NC | Momentary open on press |\n| ─○/○─ (maintained) | Selector switch | Stays in selected position |\n| ─LS─ | Limit switch | Position detection |\n| ─PS─ | Pressure switch | Pressure detection |\n| ─TS─ | Temperature switch | Temper\n",
+  "stderr": "",
+  "execution_time_ms": 257
+}

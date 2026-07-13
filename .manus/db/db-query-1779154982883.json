@@ -1,0 +1,20 @@
+{
+  "query": "SELECT content LIKE '%─/─%' as has_disc, content LIKE '%─▷─%' as has_fuse, content LIKE '%─□─%' as has_cb, content LIKE '%─(M)─%' as has_motor, content LIKE '%─⊗─%' as has_xfmr, content LIKE '%─( )─%' as has_coil, content LIKE '%─] [─%' as has_no, content LIKE '%─]/[─%' as has_nc FROM course_lessons WHERE id = 90010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT content LIKE '%─/─%' as has_disc, content LIKE '%─▷─%' as has_fuse, content LIKE '%─□─%' as has_cb, content LIKE '%─(M)─%' as has_motor, content LIKE '%─⊗─%' as has_xfmr, content LIKE '%─( )─%' as has_coil, content LIKE '%─] [─%' as has_no, content LIKE '%─]/[─%' as has_nc FROM course_lessons WHERE id = 90010",
+  "rows": [
+    {
+      "has_disc": "0",
+      "has_fuse": "0",
+      "has_cb": "0",
+      "has_motor": "1",
+      "has_xfmr": "0",
+      "has_coil": "0",
+      "has_no": "1",
+      "has_nc": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "has_disc\thas_fuse\thas_cb\thas_motor\thas_xfmr\thas_coil\thas_no\thas_nc\n0\t0\t0\t1\t0\t0\t1\t0\n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

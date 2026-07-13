@@ -1,0 +1,94 @@
+{
+  "query": "SELECT SUBSTRING(content, 3000, 4000) as content_mid FROM course_lessons WHERE id = 60013;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 3000, 4000) as content_mid FROM course_lessons WHERE id = 60013;",
+  "rows": [
+    {
+      "content_mid": "nts in the direction of conventional current flow, and the bar always represents the blocking barrier:"
+    },
+    {
+      "content_mid": "```"
+    },
+    {
+      "content_mid": "Standard Diode:          Zener Diode:           Schottky Diode:"
+    },
+    {
+      "content_mid": "  Anode    Cathode       Anode    Cathode       Anode    Cathode"
+    },
+    {
+      "content_mid": "    ─────|>|─────          ─────|>|─────          ─────|>|─────"
+    },
+    {
+      "content_mid": "         ▷|                    ▷|/                    ▷|⌐"
+    },
+    {
+      "content_mid": "                              (bent bar)           (hooked bar)"
+    },
+    {
+      "content_mid": "```"
+    },
+    {
+      "content_mid": "| Symbol Type | Schematic Identifier | Industrial Application | How to Identify on Print |"
+    },
+    {
+      "content_mid": "|---|---|---|---|"
+    },
+    {
+      "content_mid": "| Standard Rectifier | Triangle + straight bar | Bridge rectifiers, freewheeling protection | Plain triangle-bar, often labeled CR or D |"
+    },
+    {
+      "content_mid": "| Zener | Triangle + bent/angled bar ends | Voltage regulation, overvoltage clamping | Bar has small bends at each end (like a Z) |"
+    },
+    {
+      "content_mid": "| Schottky | Triangle + hooked/curved bar | High-frequency switching, low-loss rectification | Bar curves inward at ends (like parentheses) |"
+    },
+    {
+      "content_mid": "| LED | Triangle + bar + two arrows pointing outward | Panel indicators, optocoupler inputs | Small arrows radiating away from the junction |"
+    },
+    {
+      "content_mid": "| Photodiode | Triangle + bar + two arrows pointing inward | Optocouplers, light sensors | Small arrows pointing toward the junction |"
+    },
+    {
+      "content_mid": "| TVS (bidirectional) | Back-to-back triangles sharing a bar | Transient suppression on I/O cards | Two triangles facing each other |"
+    },
+    {
+      "content_mid": "| Fast Recovery | Triangle + straight bar (same as standard) | Switch-mode power supplies | Identical to standard; identified by part number only |"
+    },
+    {
+      "content_mid": "| Power Freewheeling | Triangle + straight bar (heavy lines) | VFD/servo IGBT protection | Same symbol but drawn with thicker lines or boxed |"
+    },
+    {
+      "content_mid": "| Bridge Rectifier | Four diodes in diamond arrangement | AC-to-DC conversion | Diamond shape with AC input top/bottom, DC output left/right |"
+    },
+    {
+      "content_mid": "> **Print Reading Rule:** When you see a diode symbol on a schematic, immediately identify: (1) Which direction does the triangle point? That is the direction current is ALLOWED to flow. (2) What type of bar is drawn? That tells you the diode type and its special behavior. (3) Where is it connected relative to the load? Parallel = protection/clamping. Series = rectification/blocking."
+    },
+    {
+      "content_mid": "### Key Diode Specifications"
+    },
+    {
+      "content_mid": "When replacing a diode in the field, you cannot just grab any component from the parts bin that looks similar. You must match or exceed three critical specifications to ensure the replacement does not immediately fail:"
+    },
+    {
+      "content_mid": "1. **Peak Inverse Voltage (PIV) / Peak Repetitive Reverse Voltage (VRRM):** This is the maximum reverse voltage the diode can withstand before the PN junction breaks down and allows current to flow backward. If a 24VDC circuit experiences a 100V inductive spike, a diode rated for only 50V PIV will be destroyed. Always over-spec PIV; using a 1000V diode in a 24V circuit is perfectly fine and adds a massive safety margin."
+    },
+    {
+      "content_mid": "2. **Maximum Forward Current (IF):** The maximum continuous current the diode can safely conduct when forward-biased. Exceeding this rating will generate excessive heat, literally melting the semiconductor junction and causing a dead short."
+    },
+    {
+      "content_mid": "3. **Forward Voltage Drop (VF):** The voltage lost across the diode when it is conducting. For standard silicon diodes (like the ubiquitous 1N4007), this is typically 0.7V. Schottky diodes have a much lower drop (around 0.2V to 0.3V), making them ideal for high-efficiency power supplies where minimizing heat loss is critical."
+    },
+    {
+      "content_mid": "### Rectifier Circuits: Turning AC into DC"
+    },
+    {
+      "content_mid": "The most common application for standard diodes in industrial environments is rectification—converting Alternating Current (AC) to Direct Current (DC)."
+    },
+    {
+      "content_mid": "- **Half-Wave Rectifier:** Uses a single diode to pass only the positive half of the AC sine wave, blocking the negative half. It is cheap but highly inefficient, producing a very \"bumpy\" DC output with massive gaps. It is rarely used in modern industrial power supplies but might be found in very cheap, low-power battery charge"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_mid\nnts in the direction of conventional current flow, and the bar always represents the blocking barrier:\n\n```\nStandard Diode:          Zener Diode:           Schottky Diode:\n                                                \n  Anode    Cathode       Anode    Cathode       Anode    Cathode\n    ─────|>|─────          ─────|>|─────          ─────|>|─────\n         ▷|                    ▷|/                    ▷|⌐\n                              (bent bar)           (hooked bar)\n```\n\n| Symbol Type | Schematic Identifier | Industrial Application | How to Identify on Print |\n|---|---|---|---|\n| Standard Rectifier | Triangle + straight bar | Bridge rectifiers, freewheeling protection | Plain triangle-bar, often labeled CR or D |\n| Zener | Triangle + bent/angled bar ends | Voltage regulation, overvoltage clamping | Bar has small bends at each end (like a Z) |\n| Schottky | Triangle + hooked/curved bar | High-frequency switching, low-loss rectification | Bar curves inward at ends (like parentheses) |\n| LED | Triangle + bar + two arrows pointing outward | Panel indicators, optocoupler inputs | Small arrows radiating away from the junction |\n| Photodiode | Triangle + bar + two arrows pointing inward | Optocouplers, light sensors | Small arrows pointing toward the junction |\n| TVS (bidirectional) | Back-to-back triangles sharing a bar | Transient suppression on I/O cards | Two triangles facing each other |\n| Fast Recovery | Triangle + straight bar (same as standard) | Switch-mode power supplies | Identical to standard; identified by part number only |\n| Power Freewheeling | Triangle + straight bar (heavy lines) | VFD/servo IGBT protection | Same symbol but drawn with thicker lines or boxed |\n| Bridge Rectifier | Four diodes in diamond arrangement | AC-to-DC conversion | Diamond shape with AC input top/bottom, DC output left/right |\n\n> **Print Reading Rule:** When you see a diode symbol on a schematic, immediately identify: (1) Which direction does the triangle point? That is the direction current is ALLOWED to flow. (2) What type of bar is drawn? That tells you the diode type and its special behavior. (3) Where is it connected relative to the load? Parallel = protection/clamping. Series = rectification/blocking.\n\n### Key Diode Specifications\nWhen replacing a diode in the field, you cannot just grab any component from the parts bin that looks similar. You must match or exceed three critical specifications to ensure the replacement does not immediately fail:\n\n1. **Peak Inverse Voltage (PIV) / Peak Repetitive Reverse Voltage (VRRM):** This is the maximum reverse voltage the diode can withstand before the PN junction breaks down and allows current to flow backward. If a 24VDC circuit experiences a 100V inductive spike, a diode rated for only 50V PIV will be destroyed. Always over-spec PIV; using a 1000V diode in a 24V circuit is perfectly fine and adds a massive safety margin.\n2. **Maximum Forward Current (IF):** The maximum continuous current the diode can safely conduct when forward-biased. Exceeding this rating will generate excessive heat, literally melting the semiconductor junction and causing a dead short.\n3. **Forward Voltage Drop (VF):** The voltage lost across the diode when it is conducting. For standard silicon diodes (like the ubiquitous 1N4007), this is typically 0.7V. Schottky diodes have a much lower drop (around 0.2V to 0.3V), making them ideal for high-efficiency power supplies where minimizing heat loss is critical.\n\n### Rectifier Circuits: Turning AC into DC\nThe most common application for standard diodes in industrial environments is rectification—converting Alternating Current (AC) to Direct Current (DC).\n\n- **Half-Wave Rectifier:** Uses a single diode to pass only the positive half of the AC sine wave, blocking the negative half. It is cheap but highly inefficient, producing a very \"bumpy\" DC output with massive gaps. It is rarely used in modern industrial power supplies but might be found in very cheap, low-power battery charge\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

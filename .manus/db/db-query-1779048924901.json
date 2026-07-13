@@ -1,0 +1,118 @@
+{
+  "query": "SELECT cm.id, cm.title, cm.totalLessons as stored_total, COUNT(cl.id) as actual_total FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title, cm.totalLessons ORDER BY cm.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id, cm.title, cm.totalLessons as stored_total, COUNT(cl.id) as actual_total FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title, cm.totalLessons ORDER BY cm.id;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "stored_total": "18",
+      "actual_total": "18"
+    },
+    {
+      "id": "2",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "stored_total": "24",
+      "actual_total": "24"
+    },
+    {
+      "id": "3",
+      "title": "Fluid Power Systems",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "4",
+      "title": "Motors & Motor Controls",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "5",
+      "title": "Precision Shaft Alignment",
+      "stored_total": "5",
+      "actual_total": "5"
+    },
+    {
+      "id": "6",
+      "title": "Preventative Maintenance Programs",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "30001",
+      "title": "Electrical Fundamentals",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "30002",
+      "title": "Digital Fundamentals",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "30003",
+      "title": "Semiconductor Fundamentals",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "30004",
+      "title": "HVAC Fundamentals",
+      "stored_total": "6",
+      "actual_total": "6"
+    },
+    {
+      "id": "30005",
+      "title": "Industrial Troubleshooting Academy",
+      "stored_total": "0",
+      "actual_total": "0"
+    },
+    {
+      "id": "60001",
+      "title": "Industrial Networking",
+      "stored_total": "8",
+      "actual_total": "8"
+    },
+    {
+      "id": "60002",
+      "title": "Sensors & Instrumentation",
+      "stored_total": "8",
+      "actual_total": "8"
+    },
+    {
+      "id": "60003",
+      "title": "Robotics Fundamentals",
+      "stored_total": "8",
+      "actual_total": "8"
+    },
+    {
+      "id": "60004",
+      "title": "Print Reading (Electrical)",
+      "stored_total": "8",
+      "actual_total": "8"
+    },
+    {
+      "id": "60005",
+      "title": "Safety Systems",
+      "stored_total": "8",
+      "actual_total": "8"
+    },
+    {
+      "id": "60006",
+      "title": "Process Control",
+      "stored_total": "7",
+      "actual_total": "7"
+    },
+    {
+      "id": "60007",
+      "title": "Power Distribution",
+      "stored_total": "8",
+      "actual_total": "8"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tstored_total\tactual_total\n1\tPowerFlex VFD Programming & Troubleshooting\t18\t18\n2\tPLC Fundamentals & Troubleshooting\t24\t24\n3\tFluid Power Systems\t6\t6\n4\tMotors & Motor Controls\t6\t6\n5\tPrecision Shaft Alignment\t5\t5\n6\tPreventative Maintenance Programs\t6\t6\n30001\tElectrical Fundamentals\t6\t6\n30002\tDigital Fundamentals\t6\t6\n30003\tSemiconductor Fundamentals\t6\t6\n30004\tHVAC Fundamentals\t6\t6\n30005\tIndustrial Troubleshooting Academy\t0\t0\n60001\tIndustrial Networking\t8\t8\n60002\tSensors & Instrumentation\t8\t8\n60003\tRobotics Fundamentals\t8\t8\n60004\tPrint Reading (Electrical)\t8\t8\n60005\tSafety Systems\t8\t8\n60006\tProcess Control\t7\t7\n60007\tPower Distribution\t8\t8\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

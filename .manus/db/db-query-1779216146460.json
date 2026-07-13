@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, title, category, difficulty, estimatedTime, description, JSON_LENGTH(steps) as step_count, JSON_LENGTH(equipment) as equip_count FROM scenarios WHERE id = 7 LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, category, difficulty, estimatedTime, description, JSON_LENGTH(steps) as step_count, JSON_LENGTH(equipment) as equip_count FROM scenarios WHERE id = 7 LIMIT 1;",
+  "rows": [
+    {
+      "id": "7",
+      "title": "PowerFlex 525 Replacement Drive Inhibit Status",
+      "category": "VFD Troubleshooting",
+      "difficulty": "beginner",
+      "estimatedTime": "10-15 min",
+      "description": "A newly installed PowerFlex 525 replacement drive won't start. The HIM shows 'Inhibit' status. All parameters were uploaded from backup but the motor won't respond to run commands from either the keypad or terminal block.",
+      "step_count": "3",
+      "equip_count": "4"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\tdifficulty\testimatedTime\tdescription\tstep_count\tequip_count\n7\tPowerFlex 525 Replacement Drive Inhibit Status\tVFD Troubleshooting\tbeginner\t10-15 min\tA newly installed PowerFlex 525 replacement drive won't start. The HIM shows 'Inhibit' status. All parameters were uploaded from backup but the motor won't respond to run commands from either the keypad or terminal block.\t3\t4\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

@@ -1,0 +1,30 @@
+{
+  "query": "SELECT 'published_modules' as metric, COUNT(*) as cnt FROM course_modules WHERE isPublished = 1 UNION ALL SELECT 'modules_with_lessons', COUNT(*) FROM course_modules WHERE isPublished = 1 AND totalLessons > 0 UNION ALL SELECT 'total_lessons', COUNT(*) FROM course_lessons UNION ALL SELECT 'published_scenarios', COUNT(*) FROM scenarios WHERE isPublished = 1 UNION ALL SELECT 'all_scenarios', COUNT(*) FROM scenarios;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT 'published_modules' as metric, COUNT(*) as cnt FROM course_modules WHERE isPublished = 1 UNION ALL SELECT 'modules_with_lessons', COUNT(*) FROM course_modules WHERE isPublished = 1 AND totalLessons > 0 UNION ALL SELECT 'total_lessons', COUNT(*) FROM course_lessons UNION ALL SELECT 'published_scenarios', COUNT(*) FROM scenarios WHERE isPublished = 1 UNION ALL SELECT 'all_scenarios', COUNT(*) FROM scenarios;",
+  "rows": [
+    {
+      "metric": "published_scenarios",
+      "cnt": "12"
+    },
+    {
+      "metric": "published_modules",
+      "cnt": "18"
+    },
+    {
+      "metric": "all_scenarios",
+      "cnt": "12"
+    },
+    {
+      "metric": "modules_with_lessons",
+      "cnt": "17"
+    },
+    {
+      "metric": "total_lessons",
+      "cnt": "144"
+    }
+  ],
+  "messages": [],
+  "stdout": "metric\tcnt\npublished_scenarios\t12\npublished_modules\t18\nall_scenarios\t12\nmodules_with_lessons\t17\ntotal_lessons\t144\n",
+  "stderr": "",
+  "execution_time_ms": 275
+}

@@ -1,0 +1,17 @@
+{
+  "query": "SELECT content LIKE '%→(fast)%' as has_fast, content LIKE '%→(S)%' as has_s, content LIKE '%→(Z)%' as has_z, content LIKE '%→(light)%' as has_light, content LIKE '%←→%' as has_tvs FROM course_lessons WHERE id = 60013",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT content LIKE '%→(fast)%' as has_fast, content LIKE '%→(S)%' as has_s, content LIKE '%→(Z)%' as has_z, content LIKE '%→(light)%' as has_light, content LIKE '%←→%' as has_tvs FROM course_lessons WHERE id = 60013",
+  "rows": [
+    {
+      "has_fast": "0",
+      "has_s": "0",
+      "has_z": "0",
+      "has_light": "0",
+      "has_tvs": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "has_fast\thas_s\thas_z\thas_light\thas_tvs\n0\t0\t0\t0\t0\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

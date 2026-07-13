@@ -1,0 +1,80 @@
+{
+  "query": "SELECT id, title, CHAR_LENGTH(content) as len,\n  (CHAR_LENGTH(content) - CHAR_LENGTH(REPLACE(content, '- ', ''))) / 2 as bullet_count,\n  (CHAR_LENGTH(content) - CHAR_LENGTH(REPLACE(content, '## ', ''))) / 3 as section_count\nFROM course_lessons \nWHERE CHAR_LENGTH(content) < 8000\nORDER BY len ASC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, CHAR_LENGTH(content) as len,\n  (CHAR_LENGTH(content) - CHAR_LENGTH(REPLACE(content, '- ', ''))) / 2 as bullet_count,\n  (CHAR_LENGTH(content) - CHAR_LENGTH(REPLACE(content, '## ', ''))) / 3 as section_count\nFROM course_lessons \nWHERE CHAR_LENGTH(content) < 8000\nORDER BY len ASC LIMIT 10;",
+  "rows": [
+    {
+      "id": "32",
+      "title": "Infrared Thermography for Electrical Systems",
+      "len": "7009",
+      "bullet_count": "11.0000",
+      "section_count": "10.0000"
+    },
+    {
+      "id": "120004",
+      "title": "Wireshark for Industrial Packet Analysis",
+      "len": "7070",
+      "bullet_count": "10.0000",
+      "section_count": "16.0000"
+    },
+    {
+      "id": "12",
+      "title": "Online Troubleshooting & Forcing I/O",
+      "len": "7242",
+      "bullet_count": "4.0000",
+      "section_count": "10.0000"
+    },
+    {
+      "id": "30008",
+      "title": "Motion Control Basics: Servo Axes, MAPC, and Homing Sequences",
+      "len": "7304",
+      "bullet_count": "19.0000",
+      "section_count": "14.0000"
+    },
+    {
+      "id": "9",
+      "title": "I/O Module Troubleshooting & Wiring",
+      "len": "7488",
+      "bullet_count": "4.0000",
+      "section_count": "11.0000"
+    },
+    {
+      "id": "33",
+      "title": "Lubrication Schedules & Best Practices",
+      "len": "7513",
+      "bullet_count": "12.0000",
+      "section_count": "9.0000"
+    },
+    {
+      "id": "90001",
+      "title": "Ethernet/IP Fundamentals for Industrial Networks",
+      "len": "7583",
+      "bullet_count": "32.0000",
+      "section_count": "11.0000"
+    },
+    {
+      "id": "19",
+      "title": "AC & DC Motor Theory",
+      "len": "7583",
+      "bullet_count": "20.0000",
+      "section_count": "12.0000"
+    },
+    {
+      "id": "90010",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout",
+      "len": "7600",
+      "bullet_count": "5.0000",
+      "section_count": "11.0000"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "len": "7620",
+      "bullet_count": "3.0000",
+      "section_count": "12.0000"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tlen\tbullet_count\tsection_count\n32\tInfrared Thermography for Electrical Systems\t7009\t11.0000\t10.0000\n120004\tWireshark for Industrial Packet Analysis\t7070\t10.0000\t16.0000\n12\tOnline Troubleshooting & Forcing I/O\t7242\t4.0000\t10.0000\n30008\tMotion Control Basics: Servo Axes, MAPC, and Homing Sequences\t7304\t19.0000\t14.0000\n9\tI/O Module Troubleshooting & Wiring\t7488\t4.0000\t11.0000\n33\tLubrication Schedules & Best Practices\t7513\t12.0000\t9.0000\n90001\tEthernet/IP Fundamentals for Industrial Networks\t7583\t32.0000\t11.0000\n19\tAC & DC Motor Theory\t7583\t20.0000\t12.0000\n90010\tReading Electrical Schematics: Symbols, Conventions & Layout\t7600\t5.0000\t11.0000\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\t7620\t3.0000\t12.0000\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

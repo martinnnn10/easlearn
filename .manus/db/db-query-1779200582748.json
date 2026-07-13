@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(content, \n  'Never megger through a VFD. Disconnect motor leads at the VFD output terminals before testing. The test voltage will destroy IGBT modules and DC bus capacitors instantly.',\n  'Always disconnect motor leads at the VFD output terminals before megger testing. While IGBTs are open-circuit when the drive is powered off (isolating the DC bus from the output), best practice is to disconnect to avoid potential issues with MOV snubber circuits, false readings from cable capacitance, and to ensure no residual charge paths exist. Some drives have internal EMC filters or surge protection that can be damaged by high-voltage insulation tests.'\n) WHERE id = 60006;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content, \n  'Never megger through a VFD. Disconnect motor leads at the VFD output terminals before testing. The test voltage will destroy IGBT modules and DC bus capacitors instantly.',\n  'Always disconnect motor leads at the VFD output terminals before megger testing. While IGBTs are open-circuit when the drive is powered off (isolating the DC bus from the output), best practice is to disconnect to avoid potential issues with MOV snubber circuits, false readings from cable capacitance, and to ensure no residual charge paths exist. Some drives have internal EMC filters or surge protection that can be damaged by high-voltage insulation tests.'\n) WHERE id = 60006;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 274
+}

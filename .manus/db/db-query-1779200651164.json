@@ -1,0 +1,31 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Ki', content), 400) as section FROM course_lessons WHERE id = 120026;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Ki', content), 400) as section FROM course_lessons WHERE id = 120026;",
+  "rows": [
+    {
+      "section": "Ki** (integral gain), and **Kd** (derivative gain)."
+    },
+    {
+      "section": "This lesson covers two widely used PID tuning methods:"
+    },
+    {
+      "section": "- **Ziegler-Nichols Tuning Method**"
+    },
+    {
+      "section": "- **Trial-and-Error Tuning Method**"
+    },
+    {
+      "section": "Both methods have practical applications in the field, with advantages and limitations. Understanding these methods enables you to optimize control loops during commissioning and troubleshooting."
+    },
+    {
+      "section": "---"
+    },
+    {
+      "section": "## Prerequisites"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nKi** (integral gain), and **Kd** (derivative gain).\n\nThis lesson covers two widely used PID tuning methods:\n\n- **Ziegler-Nichols Tuning Method**\n- **Trial-and-Error Tuning Method**\n\nBoth methods have practical applications in the field, with advantages and limitations. Understanding these methods enables you to optimize control loops during commissioning and troubleshooting.\n\n---\n\n## Prerequisites\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

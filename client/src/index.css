@@ -1,0 +1,2006 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+  --font-sim-body: 'DM Sans', 'Inter', sans-serif;
+  --color-eas-green: oklch(0.55 0.12 155);
+  --color-eas-green-light: oklch(0.65 0.10 155);
+  --color-eas-green-dim: oklch(0.55 0.12 155 / 20%);
+  --color-diagram-high-side: oklch(0.62 0.16 25);
+  --color-diagram-high-side-dim: oklch(0.62 0.16 25 / 15%);
+  --color-diagram-low-side: oklch(0.62 0.14 250);
+  --color-diagram-low-side-dim: oklch(0.62 0.14 250 / 15%);
+  --color-diagram-safety: oklch(0.75 0.14 85);
+  --color-diagram-neutral: oklch(0.50 0.008 250);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.10 0.003 250);
+  --foreground: oklch(0.90 0.005 250);
+  --card: oklch(0.13 0.004 250);
+  --card-foreground: oklch(0.90 0.005 250);
+  --popover: oklch(0.13 0.004 250);
+  --popover-foreground: oklch(0.90 0.005 250);
+  --primary: oklch(0.55 0.12 155);
+  --primary-foreground: oklch(0.98 0.005 155);
+  --secondary: oklch(0.16 0.004 250);
+  --secondary-foreground: oklch(0.82 0.005 250);
+  --muted: oklch(0.18 0.004 250);
+  --muted-foreground: oklch(0.55 0.008 250);
+  --accent: oklch(0.16 0.004 250);
+  --accent-foreground: oklch(0.90 0.005 250);
+  --destructive: oklch(0.55 0.18 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.22 0.004 250);
+  --input: oklch(0.18 0.004 250);
+  --ring: oklch(0.55 0.12 155);
+  --chart-1: oklch(0.55 0.12 155);
+  --chart-2: oklch(0.48 0.10 155);
+  --chart-3: oklch(0.42 0.08 155);
+  --chart-4: oklch(0.36 0.06 155);
+  --chart-5: oklch(0.30 0.05 155);
+  --sidebar: oklch(0.10 0.003 250);
+  --sidebar-foreground: oklch(0.90 0.005 250);
+  --sidebar-primary: oklch(0.55 0.12 155);
+  --sidebar-primary-foreground: oklch(0.98 0.005 155);
+  --sidebar-accent: oklch(0.16 0.004 250);
+  --sidebar-accent-foreground: oklch(0.90 0.005 250);
+  --sidebar-border: oklch(0.22 0.004 250);
+  --sidebar-ring: oklch(0.55 0.12 155);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+  }
+
+  /* Smooth page transitions */
+  main {
+    animation: page-enter 0.35s ease-out;
+  }
+
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Premium scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.25 0.004 250);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.35 0.006 250);
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+
+  /* ADA Accessibility — Focus-visible styles for all interactive elements */
+  :focus-visible {
+    outline: 2px solid oklch(0.75 0.15 155);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid oklch(0.75 0.15 155);
+    outline-offset: 2px;
+  }
+
+  /* Mobile touch targets — minimum 44x44px for interactive elements */
+  @media (pointer: coarse), (max-width: 767px) {
+    button,
+    [role="button"],
+    a,
+    input[type="checkbox"],
+    input[type="radio"],
+    select {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Exclude inline text links from min-size */
+    p a,
+    li a,
+    span a,
+    .prose a {
+      min-height: unset;
+      min-width: unset;
+    }
+
+    /* Nav logo and compact icon-only controls keep explicit sizing */
+    header a.flex.items-center.gap-2\.5,
+    header button[aria-label="Toggle menu"] {
+      min-width: unset;
+    }
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex:not([data-sonner-toast]):not([data-sonner-toaster]) {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1200px;
+    }
+  }
+
+  /* Clean card style — premium glass variant */
+  .card-panel {
+    background: linear-gradient(135deg, oklch(0.13 0.004 250) 0%, oklch(0.11 0.003 250) 100%);
+    border: 1px solid oklch(0.20 0.004 250);
+    border-radius: var(--radius);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 20%);
+  }
+
+  .card-panel:hover {
+    border-color: oklch(0.28 0.005 250);
+    box-shadow: 0 8px 32px oklch(0 0 0 / 40%), 0 2px 8px oklch(0 0 0 / 20%);
+    transform: translateY(-1px);
+  }
+
+  /* Industrial glass card — elevated premium */
+  .card-glass {
+    background: linear-gradient(135deg, oklch(0.12 0.005 250 / 85%) 0%, oklch(0.09 0.003 250 / 75%) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.22 0.005 250 / 50%);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 24px oklch(0 0 0 / 30%), 0 1px 2px oklch(0 0 0 / 15%);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-glass:hover {
+    border-color: oklch(0.30 0.006 250 / 60%);
+    box-shadow: 0 8px 40px oklch(0 0 0 / 45%), 0 2px 8px oklch(0 0 0 / 20%);
+    transform: translateY(-2px);
+  }
+
+  /* Status indicator dot — pulsing */
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes status-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.5); opacity: 0; }
+  }
+
+  .status-dot-green {
+    background: oklch(0.55 0.12 155);
+  }
+
+  .status-dot-amber {
+    background: oklch(0.70 0.14 85);
+  }
+
+  .status-dot-red {
+    background: oklch(0.55 0.18 25);
+  }
+
+  /* Scenario card */
+  .scenario-card {
+    background: oklch(0.12 0.004 250);
+    border: 1px solid oklch(0.20 0.004 250);
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+  }
+
+  .scenario-card:hover {
+    border-color: oklch(0.30 0.006 250);
+    box-shadow: 0 4px 12px oklch(0 0 0 / 30%);
+  }
+
+  .scenario-card.active {
+    border-color: oklch(0.55 0.12 155 / 50%);
+    box-shadow: 0 0 0 1px oklch(0.55 0.12 155 / 15%);
+    background: oklch(0.13 0.006 200);
+  }
+
+  /* Primary CTA - darker, more industrial */
+  .btn-primary {
+    background: oklch(0.40 0.10 155);
+    color: oklch(0.95 0.01 155);
+    border: 1px solid oklch(0.48 0.10 155 / 50%);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 40%);
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: oklch(0.45 0.11 155);
+    box-shadow: 0 2px 8px oklch(0 0 0 / 50%);
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    background: transparent;
+    color: oklch(0.80 0.005 250);
+    border: 1px solid oklch(0.28 0.004 250);
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .btn-secondary:hover {
+    border-color: oklch(0.40 0.005 250);
+    color: white;
+    background: oklch(0.15 0.004 250);
+  }
+
+  /* Tool button */
+  .tool-btn {
+    background: oklch(0.12 0.003 250);
+    border: 1px solid oklch(0.25 0.004 250);
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+
+  .tool-btn:hover {
+    border-color: oklch(0.55 0.12 155 / 40%);
+    background: oklch(0.15 0.005 200);
+  }
+
+  .tool-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* Divider line */
+  .divider {
+    height: 1px;
+    background: oklch(0.20 0.004 250);
+  }
+
+  /* Fault card */
+  .fault-card {
+    background: oklch(0.11 0.003 250);
+    border: 1px solid oklch(0.20 0.004 250);
+    border-radius: var(--radius);
+    transition: all 0.15s ease;
+  }
+
+  .fault-card:hover {
+    border-color: oklch(0.30 0.005 250);
+  }
+
+  /* ============================================
+     MAINTENANCE LOG STYLING
+     ============================================ */
+
+  /* Maintenance log — styled like a real work order printout */
+  .maintenance-log {
+    background: oklch(0.08 0.002 250);
+    border: 1px solid oklch(0.20 0.004 250);
+    border-left: 3px solid oklch(0.55 0.12 155);
+    border-radius: 0.375rem;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: oklch(0.70 0.008 250);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .maintenance-log::before {
+    content: 'MAINTENANCE LOG';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    background: oklch(0.55 0.12 155 / 15%);
+    color: oklch(0.55 0.12 155);
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .maintenance-log .log-entry {
+    padding: 0.25rem 0;
+    border-bottom: 1px dashed oklch(0.18 0.003 250);
+  }
+
+  .maintenance-log .log-entry:last-child {
+    border-bottom: none;
+  }
+
+  .maintenance-log .log-timestamp {
+    color: oklch(0.50 0.006 250);
+    margin-right: 0.75rem;
+  }
+
+  .maintenance-log .log-action {
+    color: oklch(0.55 0.12 155);
+    font-weight: 500;
+  }
+
+  .maintenance-log .log-fault {
+    color: oklch(0.65 0.16 25);
+    font-weight: 500;
+  }
+
+  .maintenance-log .log-resolved {
+    color: oklch(0.55 0.12 155);
+  }
+
+  /* Equipment reference tag — inline equipment mentions */
+  .equip-ref {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    background: oklch(0.14 0.005 250);
+    border: 1px solid oklch(0.25 0.005 250);
+    border-radius: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: oklch(0.75 0.06 155);
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .equip-ref:hover {
+    background: oklch(0.17 0.006 250);
+    border-color: oklch(0.55 0.12 155 / 40%);
+  }
+
+  .equip-ref::before {
+    content: '\2699';
+    font-size: 0.625rem;
+    opacity: 0.6;
+  }
+
+  /* Equipment reference variants */
+  .equip-ref-vfd {
+    border-color: oklch(0.55 0.12 155 / 30%);
+    color: oklch(0.70 0.10 155);
+  }
+
+  .equip-ref-plc {
+    border-color: oklch(0.55 0.12 250 / 30%);
+    color: oklch(0.70 0.10 250);
+  }
+
+  .equip-ref-motor {
+    border-color: oklch(0.65 0.12 85 / 30%);
+    color: oklch(0.70 0.10 85);
+  }
+
+  .equip-ref-relay {
+    border-color: oklch(0.60 0.10 300 / 30%);
+    color: oklch(0.70 0.08 300);
+  }
+
+  /* Industrial collapsible panel */
+  .industrial-panel {
+    background: oklch(0.10 0.003 250);
+    border: 1px solid oklch(0.20 0.004 250);
+    border-radius: 0.375rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+
+  .industrial-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    background: oklch(0.12 0.004 250);
+    border-bottom: 1px solid oklch(0.18 0.004 250);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+
+  .industrial-panel-header:hover {
+    background: oklch(0.14 0.005 250);
+  }
+
+  .industrial-panel-header .panel-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: oklch(0.65 0.008 250);
+  }
+
+  .industrial-panel-header .panel-toggle {
+    width: 1rem;
+    height: 1rem;
+    color: oklch(0.50 0.006 250);
+    transition: transform 0.2s ease;
+  }
+
+  .industrial-panel-header[data-open="true"] .panel-toggle {
+    transform: rotate(180deg);
+  }
+
+  .industrial-panel-body {
+    padding: 0.875rem;
+  }
+
+  /* Lesson prose — enhanced code blocks to look like terminal output */
+  .prose pre {
+    position: relative;
+  }
+
+  .prose pre::before {
+    content: 'TERMINAL';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: oklch(0.45 0.006 250);
+    background: oklch(0.12 0.003 250);
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  /* Lesson prose — responsive SVG diagrams for mobile */
+  .prose svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .prose div[style*="display:flex"] {
+    max-width: 100%;
+    overflow: visible;
+    padding: 0.5rem 0;
+  }
+
+  .prose div[style*="display:flex"] svg {
+    max-width: 100%;
+    height: auto;
+    min-height: 60px;
+  }
+
+  /* Mobile portrait: ensure SVG symbols don't clip on narrow screens */
+  @media (max-width: 480px) {
+    .prose div[style*="display:flex"] {
+      padding: 0.25rem 0;
+    }
+    .prose div[style*="display:flex"] svg {
+      max-width: 95vw;
+      min-height: 50px;
+    }
+    .prose table {
+      font-size: 0.8rem;
+    }
+    .prose th, .prose td {
+      padding: 0.4rem 0.5rem;
+      word-break: break-word;
+    }
+  }
+
+  /* Lesson prose — responsive table wrapper for mobile */
+  .prose .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem 0;
+    border-radius: 0.375rem;
+    border: 1px solid oklch(0.20 0.004 250);
+    position: relative;
+  }
+  .prose .table-wrapper::after {
+    content: '← scroll →';
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.625rem;
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.45 0.008 250);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .prose .table-wrapper.has-overflow {
+    margin-bottom: 2rem;
+  }
+  .prose .table-wrapper.has-overflow::after {
+    opacity: 1;
+  }
+  .prose .table-wrapper.has-overflow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 1.5rem;
+    width: 2.5rem;
+    background: linear-gradient(to right, transparent, oklch(0.08 0.003 250 / 90%));
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  /* Lesson prose — table styling for spec sheets */
+  .prose table {
+    border: 1px solid oklch(0.20 0.004 250);
+    border-radius: 0.375rem;
+    overflow: hidden;
+    font-size: 0.8125rem;
+    min-width: 100%;
+  }
+
+  .prose thead {
+    background: oklch(0.12 0.004 250);
+  }
+
+  .prose th {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    color: oklch(0.55 0.12 155);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid oklch(0.20 0.004 250);
+  }
+
+  .prose td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid oklch(0.15 0.003 250);
+  }
+
+  .prose tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ============================================
+     SIMULATOR V3 — PREMIUM COMMAND CENTER THEME
+     ============================================ */
+
+  /* Glass panel — primary container style */
+  .sim-glass-panel {
+    background: linear-gradient(135deg, oklch(0.11 0.004 250 / 80%) 0%, oklch(0.09 0.003 250 / 70%) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.20 0.005 250 / 50%);
+    border-radius: 0.375rem;
+    box-shadow:
+      0 2px 12px oklch(0 0 0 / 35%),
+      0 1px 2px oklch(0 0 0 / 20%);
+  }
+
+  /* Glass panel — elevated variant */
+  .sim-glass-elevated {
+    background: linear-gradient(135deg, oklch(0.13 0.005 250 / 85%) 0%, oklch(0.10 0.004 250 / 75%) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(0.24 0.006 250 / 60%);
+    border-radius: 0.5rem;
+    box-shadow:
+      0 4px 20px oklch(0 0 0 / 45%),
+      0 2px 4px oklch(0 0 0 / 25%);
+  }
+
+  /* Status chip — generic */
+  .sim-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .sim-chip-green {
+    background: oklch(0.22 0.06 155 / 40%);
+    color: oklch(0.78 0.12 155);
+    border-color: oklch(0.40 0.10 155 / 30%);
+  }
+
+  .sim-chip-red {
+    background: oklch(0.22 0.06 25 / 40%);
+    color: oklch(0.78 0.14 25);
+    border-color: oklch(0.40 0.12 25 / 30%);
+  }
+
+  .sim-chip-amber {
+    background: oklch(0.25 0.06 85 / 40%);
+    color: oklch(0.80 0.12 85);
+    border-color: oklch(0.45 0.10 85 / 30%);
+  }
+
+  .sim-chip-blue {
+    background: oklch(0.22 0.06 250 / 40%);
+    color: oklch(0.78 0.10 250);
+    border-color: oklch(0.40 0.08 250 / 30%);
+  }
+
+  .sim-chip-gray {
+    background: oklch(0.18 0.003 250 / 60%);
+    color: oklch(0.65 0.005 250);
+    border-color: oklch(0.28 0.004 250 / 40%);
+  }
+
+  /* Simulator tool button — industrial rack style */
+  .sim-tool-btn {
+    background: linear-gradient(180deg, oklch(0.13 0.004 250) 0%, oklch(0.10 0.003 250) 100%);
+    border: 1px solid oklch(0.22 0.005 250 / 50%);
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    min-height: 2.75rem; /* 44px — WCAG 2.5.5 touch target minimum */
+    min-width: 2.75rem;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sim-tool-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    background: radial-gradient(circle at center, oklch(0.55 0.12 155 / 8%) 0%, transparent 70%);
+  }
+
+  .sim-tool-btn:hover {
+    border-color: oklch(0.35 0.006 250 / 70%);
+    box-shadow: 0 2px 12px oklch(0 0 0 / 30%);
+    transform: translateY(-1px);
+  }
+
+  .sim-tool-btn:hover::before {
+    opacity: 1;
+  }
+
+  .sim-tool-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .sim-tool-btn.selected {
+    border-color: oklch(0.55 0.12 155 / 60%);
+    background: linear-gradient(180deg, oklch(0.18 0.02 155) 0%, oklch(0.14 0.015 155) 100%);
+    box-shadow:
+      0 0 16px oklch(0.55 0.12 155 / 15%),
+      0 2px 8px oklch(0 0 0 / 30%),
+      inset 0 1px 0 oklch(0.55 0.12 155 / 10%);
+  }
+
+  /* Premium action button */
+  .sim-action-btn {
+    background: linear-gradient(180deg, oklch(0.42 0.10 155) 0%, oklch(0.36 0.09 155) 100%);
+    color: white;
+    border: 1px solid oklch(0.50 0.10 155 / 50%);
+    border-radius: 0.625rem;
+    padding: 0.875rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.02em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+      0 2px 8px oklch(0.55 0.12 155 / 20%),
+      0 1px 2px oklch(0 0 0 / 30%);
+  }
+
+  .sim-action-btn:hover {
+    background: linear-gradient(180deg, oklch(0.46 0.11 155) 0%, oklch(0.40 0.10 155) 100%);
+    box-shadow:
+      0 4px 16px oklch(0.55 0.12 155 / 30%),
+      0 2px 4px oklch(0 0 0 / 30%);
+    transform: translateY(-1px);
+  }
+
+  .sim-action-btn:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  /* Meter reading display */
+  .sim-meter-display {
+    background: linear-gradient(180deg, oklch(0.08 0.003 250) 0%, oklch(0.06 0.002 250) 100%);
+    border: 2px solid oklch(0.25 0.005 250 / 60%);
+    border-radius: 0.75rem;
+    box-shadow:
+      inset 0 2px 8px oklch(0 0 0 / 50%),
+      0 1px 0 oklch(1 0 0 / 3%);
+  }
+
+  /* Evidence panel */
+  .sim-evidence-item {
+    background: oklch(0.12 0.004 250 / 60%);
+    border: 1px solid oklch(0.22 0.004 250 / 50%);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.15s ease;
+  }
+
+  .sim-evidence-item.key-clue {
+    background: oklch(0.15 0.03 155 / 40%);
+    border-color: oklch(0.40 0.10 155 / 30%);
+  }
+
+  /* Diagnostic objective card */
+  .sim-objective-card {
+    background: linear-gradient(135deg, oklch(0.14 0.01 250 / 80%) 0%, oklch(0.12 0.008 250 / 70%) 100%);
+    border: 1px solid oklch(0.30 0.008 250 / 50%);
+    border-left: 3px solid oklch(0.55 0.12 155);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 12px oklch(0 0 0 / 25%);
+  }
+
+  /* Feedback toast */
+  .sim-feedback {
+    border-radius: 0.625rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    border: 1px solid transparent;
+  }
+
+  .sim-feedback-positive {
+    background: oklch(0.15 0.04 155 / 50%);
+    border-color: oklch(0.40 0.10 155 / 30%);
+    color: oklch(0.82 0.10 155);
+  }
+
+  .sim-feedback-negative {
+    background: oklch(0.15 0.04 25 / 50%);
+    border-color: oklch(0.40 0.12 25 / 30%);
+    color: oklch(0.82 0.12 25);
+  }
+
+  .sim-feedback-neutral {
+    background: oklch(0.15 0.003 250 / 60%);
+    border-color: oklch(0.28 0.004 250 / 40%);
+    color: oklch(0.75 0.005 250);
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+  .font-mono-industrial {
+    font-family: var(--font-mono);
+  }
+  .font-sim {
+    font-family: var(--font-sim-body);
+  }
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .safe-area-pt {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* ============================================
+   SIMULATOR KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes sim-pulse-fault {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 4px oklch(0.55 0.18 25 / 30%); }
+  50% { opacity: 1; box-shadow: 0 0 16px oklch(0.55 0.18 25 / 60%); }
+}
+
+@keyframes sim-pulse-green {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes sim-glow-selected {
+  0%, 100% { box-shadow: 0 0 8px oklch(0.55 0.12 155 / 20%), 0 2px 8px oklch(0 0 0 / 30%); }
+  50% { box-shadow: 0 0 20px oklch(0.55 0.12 155 / 35%), 0 2px 8px oklch(0 0 0 / 30%); }
+}
+
+@keyframes sim-wire-flow {
+  0% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes sim-fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sim-meter-sweep {
+  0% { transform: rotate(-90deg); }
+  100% { transform: rotate(var(--meter-angle, 0deg)); }
+}
+
+@keyframes sim-celebration {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes sim-slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-sim-pulse-fault {
+  animation: sim-pulse-fault 1.2s ease-in-out infinite;
+}
+
+.animate-sim-pulse-green {
+  animation: sim-pulse-green 2s ease-in-out infinite;
+}
+
+.animate-sim-glow-selected {
+  animation: sim-glow-selected 2s ease-in-out infinite;
+}
+
+.animate-sim-fade-in-up {
+  animation: sim-fade-in-up 0.3s ease-out forwards;
+}
+
+.animate-sim-celebration {
+  animation: sim-celebration 0.5s ease-out forwards;
+}
+
+.animate-sim-slide-in-right {
+  animation: sim-slide-in-right 0.25s ease-out forwards;
+}
+
+/* ===== SIMULATOR IMMERSIVE CONTAINER ===== */
+/* Fixed viewport that takes over the screen when simulator is active */
+.sim-immersive-container {
+  display: flex;
+  flex-direction: column;
+  /* Use inset:0 instead of explicit width/height to automatically adapt to
+     viewport changes during orientation transitions on iOS Safari */
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, #060906 0%, #080c08 30%, #0a0f0a 100%);
+  overflow: hidden;
+  /* REMOVED overscroll-behavior: none — it was preventing nested scroll containers
+     from working on iOS Safari. The body.sim-body-locked class already prevents
+     page-level scrolling, so this is not needed here. */
+  /* Safe area insets for notched devices */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sim-immersive-container.sim-fullscreen {
+  z-index: 9999;
+}
+
+/* ===== STATUS BAR ===== */
+.sim-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  background: rgba(2, 4, 2, 0.97);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  min-height: 1.75rem;
+  z-index: 10;
+  position: relative;
+}
+
+/* ===== DESKTOP: 3-COLUMN SPLIT PANEL ===== */
+.sim-desktop-workspace {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 240px;
+  flex: 1 1 0;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+  z-index: 2;
+  gap: 0;
+}
+
+@media (min-width: 1400px) {
+  .sim-desktop-workspace {
+    grid-template-columns: 1fr 1.3fr 280px;
+  }
+}
+
+.sim-panel-left {
+  border-right: 1px solid rgba(16, 185, 129, 0.06);
+  display: flex;
+  flex-direction: column;
+  background: rgba(4, 6, 4, 0.5);
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.sim-panel-center {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  background: rgba(6, 9, 6, 0.25);
+}
+
+.sim-panel-right {
+  border-left: 1px solid rgba(16, 185, 129, 0.06);
+  display: flex;
+  flex-direction: column;
+  background: rgba(4, 6, 4, 0.5);
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ===== MACHINE VIEWPORT ===== */
+/* Dark industrial background with subtle grid — scrollable within its flex container */
+.sim-machine-viewport {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+  /* touch-action is handled by InteractiveCircuitDiagramV3 internally */
+  touch-action: manipulation;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.02) 0%, transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px, 24px 24px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.12) transparent;
+}
+
+.sim-machine-viewport::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.sim-machine-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sim-machine-viewport::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.12);
+  border-radius: 4px;
+}
+
+/* ===== ELECTRICAL DIAGRAM TOKENS (Plant Print standard) ===== */
+:root {
+  --diag-font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+  --diag-font-body: 'DM Sans', 'Inter', sans-serif;
+  --diag-text-tag: 12px;
+  --diag-text-wire: 11px;
+  --diag-text-state: 10px;
+  --diag-text-rail: 11px;
+  --diag-text-primary: 12px;
+  --diag-text-secondary: 11px;
+  --diag-text-min: 10px;
+  --diag-rung-spacing: 100px;
+  --diag-component-gap: 12px;
+  --diag-rail-inset: 24px;
+  --diag-letter-spacing: 0.04em;
+}
+
+.electrical-diagram {
+  font-family: var(--diag-font-mono);
+  letter-spacing: var(--diag-letter-spacing);
+}
+
+.diag-text-tag {
+  font-size: var(--diag-text-tag);
+  font-family: var(--diag-font-mono);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.diag-text-wire {
+  font-size: var(--diag-text-wire);
+  font-family: var(--diag-font-mono);
+  letter-spacing: 0.02em;
+}
+
+.diag-text-state {
+  font-size: var(--diag-text-state);
+  font-family: var(--diag-font-mono);
+  font-weight: 500;
+}
+
+.diag-text-primary {
+  font-size: var(--diag-text-primary);
+  font-family: var(--diag-font-mono);
+  font-weight: 600;
+}
+
+.diag-text-secondary {
+  font-size: var(--diag-text-secondary);
+  font-family: var(--diag-font-mono);
+}
+
+.diag-text-xs {
+  font-size: var(--diag-text-min);
+  font-family: var(--diag-font-mono);
+}
+
+.diag-touch-target {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+/* ===== CONVEYOR TROUBLESHOOTING LAB ===== */
+.conveyor-lab-panel-wrap {
+  min-height: 360px;
+  max-height: min(70vh, 520px);
+}
+
+.conveyor-lab-panel {
+  background: oklch(0.06 0.003 250);
+  min-height: 0;
+}
+
+@media (max-width: 1023px) {
+  .conveyor-lab-panel-wrap {
+    max-height: none;
+  }
+
+  .conveyor-lab-mobile .conveyor-mobile-tabs button {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .conveyor-lab-mobile .conveyor-lab-panel-wrap {
+    min-height: 360px;
+  }
+
+  .conveyor-print-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .conveyor-print-drawer .flex.gap-1.px-4 {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .conveyor-print-drawer pre,
+  .conveyor-print-drawer ol {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .conveyor-print-drawer .text-\[10px\] {
+    font-size: 0.8125rem;
+  }
+
+  .conveyor-debrief {
+    padding: 1rem;
+  }
+
+  .conveyor-debrief .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .powerflex-lab-panel-wrap {
+    max-height: none;
+    min-height: 360px;
+  }
+
+  .powerflex-debrief .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .powerflex-reference-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+.powerflex-lab-panel-wrap {
+  min-height: 360px;
+  max-height: min(70vh, 520px);
+}
+
+.powerflex-lab-panel {
+  background: oklch(0.06 0.003 250);
+  min-height: 0;
+}
+
+/* ===== LEGACY LESSON READING PROGRESS (Cycle 6–7) ===== */
+.lesson-reading-progress {
+  background: oklch(0.10 0.003 250);
+  box-shadow: 0 2px 6px oklch(0 0 0 / 35%);
+  transition: opacity 120ms ease-out;
+}
+
+.lesson-reading-progress__fill {
+  background: var(--color-eas-green);
+  box-shadow: 0 0 6px oklch(0.55 0.12 155 / 40%);
+  transition: width 75ms ease-out;
+}
+
+/* ===== SLIDE LESSON CARD PLAYER (Priority 1 + Rise layout P4) ===== */
+.lesson-card-player {
+  width: 100%;
+}
+
+.lesson-rise-layout {
+  width: 100%;
+}
+
+.lesson-rise-topbar {
+  margin-bottom: 1rem;
+}
+
+.lesson-rise-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.lesson-rise-sidebar {
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(0.18 0.004 250);
+  background: oklch(0.07 0.003 250);
+  width: 240px;
+}
+
+.lesson-rise-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-rise-stage {
+  min-height: 360px;
+  max-height: none;
+}
+
+.lesson-card-view h2 {
+  font-size: max(1.25rem, 20px);
+}
+
+.lesson-card-view p,
+.lesson-card-view .lesson-kc-block button {
+  font-size: max(1rem, 16px);
+}
+
+.lesson-rise-main .lesson-card-stage {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.lesson-slide-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .lesson-slide-split {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+@media (max-width: 1023px) {
+  .lesson-rise-body {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-rise-main .lesson-card-stage {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Simulator lab split layout */
+.sim-lab-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.sim-lab-instructions {
+  position: sticky;
+  top: 5.5rem;
+}
+
+@media (max-width: 1023px) {
+  .sim-lab-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-lab-instructions {
+    position: static;
+  }
+}
+
+.lesson-card-player .lesson-card-stage {
+  min-height: min(58vh, 480px);
+  max-height: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lesson-card-player .lesson-card-stage--mcq {
+  min-height: 260px;
+  max-height: none;
+}
+
+@media (max-width: 639px) {
+  .lesson-card-player .lesson-card-stage {
+    min-height: 360px;
+    max-height: none;
+  }
+
+  .lesson-card-view {
+    max-height: none !important;
+  }
+
+  /* Assessment + lesson body readability on phone */
+  .prose p,
+  .prose li,
+  .prose td {
+    font-size: max(0.875rem, 14px);
+  }
+
+  .lesson-assess-panel .text-sm {
+    font-size: max(0.875rem, 14px);
+  }
+}
+
+.glossary-term {
+  cursor: help;
+}
+
+/* ===== WIRING DIAGRAM SVG (print packages) ===== */
+.wiring-diagram-wrap {
+  width: 100%;
+}
+
+.wiring-diagram-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+.wiring-diagram-svg {
+  display: block;
+  min-height: 280px;
+}
+
+@media print {
+  .wiring-diagram-svg {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  .wiring-diagram-scroll {
+    overflow: visible !important;
+  }
+
+  .wiring-diagram-zoom {
+    transform: none !important;
+    width: 100% !important;
+  }
+}
+
+/* ===== SCHEMATIC SYMBOL TABLES (print reading lessons) ===== */
+.prose .schematic-symbol-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7.5rem;
+  padding: 0.125rem 0;
+}
+
+.prose .schematic-symbol-inline {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  color: oklch(0.65 0.10 155);
+}
+
+.prose table td:first-child {
+  vertical-align: middle;
+  text-align: center;
+  width: 9rem;
+  min-width: 7.5rem;
+}
+
+.prose table td:first-child .schematic-symbol-cell {
+  margin: 0 auto;
+}
+
+/* ===== LESSON SYMBOL CARD GRID (legacy / other lessons) ===== */
+.prose .symbol-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.prose .symbol-card {
+  background: oklch(0.10 0.003 250);
+  border: 1px solid oklch(0.18 0.004 250);
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.625rem;
+  text-align: center;
+  color: oklch(0.70 0.10 155);
+}
+
+.prose .symbol-card-title {
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: oklch(0.75 0.008 250);
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.prose .symbol-card-svg {
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  margin: 0 auto 0.375rem;
+  color: oklch(0.65 0.10 155);
+}
+
+.prose .symbol-section-note {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: oklch(0.50 0.006 250);
+  margin: 0.5rem 0 1rem;
+}
+
+.prose .symbol-card-desc {
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: oklch(0.50 0.006 250);
+  margin: 0;
+}
+
+.prose table td svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 72px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ===== DIAGNOSTICS SCROLL AREA ===== */
+.sim-diagnostics-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-anchor: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.15) transparent;
+}
+
+.sim-diagnostics-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sim-diagnostics-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sim-diagnostics-scroll::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.15);
+  border-radius: 4px;
+}
+
+.sim-diagnostics-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+/* ===== MOBILE WORKSPACE ===== */
+.sim-mobile-workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* The .flex-1 child is a relative container; the actual scroll container
+   is an absolute-positioned div inside it (see SimulatorEngineV3.tsx).
+   This pattern creates a proper scroll boundary that iOS Safari respects. */
+.sim-mobile-workspace > .flex-1 {
+  flex: 1 1 0;
+  min-height: 0;
+  position: relative;
+}
+
+/* ===== MOBILE TAB BAR ===== */
+.sim-mobile-tabbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem 0.5rem;
+  /* Use generous bottom padding to stay above mobile browser navigation bars.
+     env(safe-area-inset-bottom) handles the iPhone home indicator;
+     the 0.75rem fallback ensures visibility even when safe-area reports 0. */
+  padding-bottom: max(0.75rem, calc(env(safe-area-inset-bottom) + 0.25rem));
+  background: rgba(4, 6, 4, 0.98);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  z-index: 10;
+  /* Ensure the tab bar is always visible above any overlapping browser chrome */
+  position: relative;
+}
+
+.sim-mobile-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  color: rgba(156, 163, 175, 0.6);
+  transition: all 0.15s ease;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 2.75rem; /* 44px — WCAG 2.5.5 touch target minimum */
+  min-width: 2.75rem;
+}
+
+.sim-mobile-tab.active {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.sim-mobile-tab:active {
+  transform: scale(0.95);
+}
+
+/* ===== LANDSCAPE MOBILE OPTIMIZATIONS ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .sim-status-bar {
+    padding: 0.125rem 0.5rem;
+    min-height: 1.5rem;
+  }
+
+  .sim-mobile-tabbar {
+    padding: 0.125rem 0.25rem;
+    padding-bottom: max(0.125rem, env(safe-area-inset-bottom));
+  }
+
+  .sim-mobile-tab {
+    padding: 0.25rem 0.75rem;
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+
+  .sim-mobile-tab span {
+    margin-top: 0;
+  }
+}
+
+/* ===== TABLET LANDSCAPE: 2-COLUMN SPLIT ===== */
+/* Only apply to actual tablets (min-height > 500px excludes phones in landscape) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) and (min-height: 501px) {
+  .sim-mobile-workspace {
+    flex-direction: row;
+  }
+
+  .sim-mobile-workspace > .flex-1 {
+    flex: 1 1 50%;
+  }
+
+  .sim-mobile-tabbar {
+    flex-direction: column;
+    padding: 0.25rem;
+    border-top: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    justify-content: center;
+    width: auto;
+  }
+}
+
+/* ===== INDUSTRIAL GLOW EFFECTS ===== */
+.sim-panel-left,
+.sim-panel-right {
+  position: relative;
+}
+
+.sim-panel-left::after,
+.sim-panel-right::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.12), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Top glow line on panels */
+.sim-panel-left::before,
+.sim-panel-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.06), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== PREVENT BODY SCROLL WHEN SIMULATOR IS ACTIVE ===== */
+/* Toggled via JavaScript in SimulatorEngineV3 (useEffect adds/removes this class).
+   Do NOT use body:has(.sim-immersive-container) — it has edge-case issues in
+   some mobile browsers and webviews that can lock scrolling globally. */
+body.sim-body-locked {
+  overflow: hidden !important;
+  /* DO NOT use position:fixed — it causes blank screen on iOS Safari during
+     orientation changes because the viewport collapses to 0 height momentarily.
+     overflow:hidden on body prevents page scroll; the sim container (position:fixed)
+     handles its own touch interactions internally via pointer events. */
+  /* REMOVED touch-action:none — it was blocking pointer event delivery to
+     InteractiveCircuitDiagramV3's pan/zoom handlers on mobile Safari/Chrome */
+  height: 100%;
+  height: 100dvh;
+  /* Use overscroll-behavior-y: contain instead of 'none' to allow nested
+     scroll containers to work on iOS Safari while still preventing pull-to-refresh */
+  overscroll-behavior-y: contain;
+}
+
+/* ===== AMBIENT SCAN LINE EFFECT ===== */
+.sim-immersive-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(16, 185, 129, 0.006) 2px,
+    rgba(16, 185, 129, 0.006) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ===== ENSURE CONTENT ABOVE SCAN LINES ===== */
+.sim-status-bar,
+.sim-desktop-workspace,
+.sim-mobile-workspace {
+  position: relative;
+  z-index: 4;
+}
+
+/* ============================================
+   PLATFORM PREMIUM VISUAL POLISH
+   ============================================ */
+
+/* Ambient grid background for non-simulator pages */
+.platform-ambient-grid {
+  background-image:
+    radial-gradient(circle at 20% 50%, oklch(0.55 0.12 155 / 2%) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, oklch(0.55 0.12 155 / 1.5%) 0%, transparent 40%),
+    linear-gradient(oklch(0.14 0.003 250 / 30%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.14 0.003 250 / 30%) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* Industrial corner accent for premium cards */
+.industrial-corner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 3rem;
+  border-top: 2px solid oklch(0.55 0.12 155 / 25%);
+  border-left: 2px solid oklch(0.55 0.12 155 / 25%);
+  border-top-left-radius: inherit;
+  pointer-events: none;
+}
+
+.industrial-corner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 3rem;
+  height: 3rem;
+  border-bottom: 2px solid oklch(0.55 0.12 155 / 15%);
+  border-right: 2px solid oklch(0.55 0.12 155 / 15%);
+  border-bottom-right-radius: inherit;
+  pointer-events: none;
+}
+
+/* Ambient pulse glow for status indicators */
+@keyframes ambient-pulse {
+  0%, 100% { box-shadow: 0 0 4px currentColor, 0 0 8px oklch(0.55 0.12 155 / 20%); }
+  50% { box-shadow: 0 0 8px currentColor, 0 0 20px oklch(0.55 0.12 155 / 35%); }
+}
+
+.ambient-pulse {
+  animation: ambient-pulse 3s ease-in-out infinite;
+}
+
+/* Scan line sweep for loading states */
+@keyframes scan-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.scan-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, oklch(0.55 0.12 155 / 8%), transparent);
+  animation: scan-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Enhanced card hover with industrial glow */
+.card-industrial {
+  position: relative;
+  background: oklch(0.11 0.004 250);
+  border: 1px solid oklch(0.20 0.004 250);
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-industrial:hover {
+  border-color: oklch(0.55 0.12 155 / 30%);
+  box-shadow:
+    0 4px 24px oklch(0 0 0 / 40%),
+    0 0 0 1px oklch(0.55 0.12 155 / 8%),
+    inset 0 1px 0 oklch(1 0 0 / 3%);
+  transform: translateY(-2px);
+}
+
+/* Data readout style - monospace industrial display */
+.data-readout {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: oklch(0.55 0.12 155);
+  text-shadow: 0 0 8px oklch(0.55 0.12 155 / 30%);
+}
+
+/* Status LED indicator */
+.status-led {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-led::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.3;
+  filter: blur(3px);
+}
+
+.status-led-green {
+  background: oklch(0.65 0.15 155);
+  box-shadow: 0 0 6px oklch(0.55 0.12 155 / 50%);
+}
+
+.status-led-red {
+  background: oklch(0.60 0.18 25);
+  box-shadow: 0 0 6px oklch(0.55 0.18 25 / 50%);
+}
+
+.status-led-amber {
+  background: oklch(0.70 0.15 85);
+  box-shadow: 0 0 6px oklch(0.55 0.12 85 / 50%);
+}
+
+/* Premium section divider with industrial accent */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.55 0.12 155 / 20%), oklch(0.22 0.004 250), oklch(0.55 0.12 155 / 20%), transparent);
+}
+
+/* Streak fire glow */
+@keyframes streak-glow {
+  0%, 100% { text-shadow: 0 0 4px oklch(0.70 0.15 60 / 40%); }
+  50% { text-shadow: 0 0 12px oklch(0.70 0.15 60 / 60%), 0 0 20px oklch(0.60 0.12 40 / 30%); }
+}
+
+.streak-fire {
+  animation: streak-glow 2s ease-in-out infinite;
+  color: oklch(0.75 0.15 60);
+}
+
+/* XP gain animation */
+@keyframes xp-float {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  80% { opacity: 0.8; transform: translateY(-20px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+}
+
+.xp-float {
+  animation: xp-float 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Industrial progress bar with glow */
+.progress-industrial {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: oklch(0.13 0.004 250);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-industrial-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, oklch(0.45 0.10 155), oklch(0.60 0.14 155));
+  box-shadow: 0 0 8px oklch(0.55 0.12 155 / 30%);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced mobile bottom nav */
+.mobile-nav-industrial {
+  background: linear-gradient(180deg, oklch(0.08 0.003 250 / 97%) 0%, oklch(0.06 0.002 250 / 99%) 100%);
+  border-top: 1px solid oklch(0.20 0.004 250 / 60%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -4px 20px oklch(0 0 0 / 40%);
+}
+
+.mobile-nav-industrial::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.55 0.12 155 / 15%), transparent);
+}
+
+/* Notification badge pulse */
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.badge-pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* Wire flow animation for circuit connections */
+@keyframes wire-current-flow {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.wire-energized {
+  stroke-dasharray: 4 4;
+  animation: wire-current-flow 0.8s linear infinite;
+}
+
+/* Component energized glow */
+@keyframes component-energized {
+  0%, 100% { filter: drop-shadow(0 0 2px oklch(0.55 0.12 155 / 30%)); }
+  50% { filter: drop-shadow(0 0 6px oklch(0.55 0.12 155 / 50%)); }
+}
+
+.component-energized {
+  animation: component-energized 2s ease-in-out infinite;
+}
+
+/* Fault blink animation */
+@keyframes fault-blink {
+  0%, 45%, 55%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.fault-blink {
+  animation: fault-blink 1s ease-in-out infinite;
+}
+
+
+/* ===== SCROLLBAR UTILITIES ===== */
+/* Hide scrollbar while maintaining scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* ===== iOS MOMENTUM SCROLL HELPER ===== */
+/* Apply to nested scroll containers for smooth iOS Safari scrolling */
+.ios-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+
+/* ===== PRINT STYLES — Semiconductor Quick Reference ===== */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 10pt !important;
+  }
+  nav, header, footer, .print\:hidden {
+    display: none !important;
+  }
+  * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  svg {
+    color: black !important;
+  }
+  @page {
+    margin: 0.5cm;
+    size: letter;
+  }
+}

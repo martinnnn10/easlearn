@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('| Controller Type', content), 800) as section FROM course_lessons WHERE id = 120026;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('| Controller Type', content), 800) as section FROM course_lessons WHERE id = 120026;",
+  "rows": [
+    {
+      "section": "| Controller Type | Kp                 | Ki (Integral time Ti)     | Kd (Derivative time Td)  |"
+    },
+    {
+      "section": "|-----------------|--------------------|---------------------------|-------------------------|"
+    },
+    {
+      "section": "| P Controller    | 0.5 × Ku           | N/A                       | N/A                     |"
+    },
+    {
+      "section": "| PI Controller   | 0.45 × Ku          | Pu / 1.2                  | N/A                     |"
+    },
+    {
+      "section": "| PID Controller  | 0.6 × Ku           | Pu / 2                    | Pu / 8                  |"
+    },
+    {
+      "section": "- **Note:** Ki and Kd are typically implemented as time constants in seconds."
+    },
+    {
+      "section": "4. **Program the PID controller with the calculated parameters.**"
+    },
+    {
+      "section": "5. **Observe the process response and fine-tune if necessary.**"
+    },
+    {
+      "section": "### Example"
+    },
+    {
+      "section": "Suppose during a test on a heating process controlled by an Allen-Bradley 1756-IF8 analog input mod"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n| Controller Type | Kp                 | Ki (Integral time Ti)     | Kd (Derivative time Td)  |\n|-----------------|--------------------|---------------------------|-------------------------|\n| P Controller    | 0.5 × Ku           | N/A                       | N/A                     |\n| PI Controller   | 0.45 × Ku          | Pu / 1.2                  | N/A                     |\n| PID Controller  | 0.6 × Ku           | Pu / 2                    | Pu / 8                  |\n\n- **Note:** Ki and Kd are typically implemented as time constants in seconds.\n\n4. **Program the PID controller with the calculated parameters.**\n\n5. **Observe the process response and fine-tune if necessary.**\n\n### Example\n\nSuppose during a test on a heating process controlled by an Allen-Bradley 1756-IF8 analog input mod\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}

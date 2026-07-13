@@ -1,0 +1,70 @@
+{
+  "query": "SELECT COUNT(*) as total_lessons FROM course_lessons; SELECT cm.id, cm.title, COUNT(cl.id) as lesson_count FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title ORDER BY cm.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT COUNT(*) as total_lessons FROM course_lessons; SELECT cm.id, cm.title, COUNT(cl.id) as lesson_count FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title ORDER BY cm.id;",
+  "rows": [
+    {
+      "total_lessons": "144"
+    },
+    {
+      "total_lessons": "id\ttitle\tlesson_count"
+    },
+    {
+      "total_lessons": "1\tPowerFlex VFD Programming & Troubleshooting\t18"
+    },
+    {
+      "total_lessons": "2\tPLC Fundamentals & Troubleshooting\t24"
+    },
+    {
+      "total_lessons": "3\tFluid Power Systems\t6"
+    },
+    {
+      "total_lessons": "4\tMotors & Motor Controls\t6"
+    },
+    {
+      "total_lessons": "5\tPrecision Shaft Alignment\t5"
+    },
+    {
+      "total_lessons": "6\tPreventative Maintenance Programs\t6"
+    },
+    {
+      "total_lessons": "30001\tElectrical Fundamentals\t6"
+    },
+    {
+      "total_lessons": "30002\tDigital Fundamentals\t6"
+    },
+    {
+      "total_lessons": "30003\tSemiconductor Fundamentals\t6"
+    },
+    {
+      "total_lessons": "30004\tHVAC Fundamentals\t6"
+    },
+    {
+      "total_lessons": "30005\tIndustrial Troubleshooting Academy\t0"
+    },
+    {
+      "total_lessons": "60001\tIndustrial Networking\t8"
+    },
+    {
+      "total_lessons": "60002\tSensors & Instrumentation\t8"
+    },
+    {
+      "total_lessons": "60003\tRobotics Fundamentals\t8"
+    },
+    {
+      "total_lessons": "60004\tPrint Reading (Electrical)\t8"
+    },
+    {
+      "total_lessons": "60005\tSafety Systems\t8"
+    },
+    {
+      "total_lessons": "60006\tProcess Control\t7"
+    },
+    {
+      "total_lessons": "60007\tPower Distribution\t8"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_lessons\n144\nid\ttitle\tlesson_count\n1\tPowerFlex VFD Programming & Troubleshooting\t18\n2\tPLC Fundamentals & Troubleshooting\t24\n3\tFluid Power Systems\t6\n4\tMotors & Motor Controls\t6\n5\tPrecision Shaft Alignment\t5\n6\tPreventative Maintenance Programs\t6\n30001\tElectrical Fundamentals\t6\n30002\tDigital Fundamentals\t6\n30003\tSemiconductor Fundamentals\t6\n30004\tHVAC Fundamentals\t6\n30005\tIndustrial Troubleshooting Academy\t0\n60001\tIndustrial Networking\t8\n60002\tSensors & Instrumentation\t8\n60003\tRobotics Fundamentals\t8\n60004\tPrint Reading (Electrical)\t8\n60005\tSafety Systems\t8\n60006\tProcess Control\t7\n60007\tPower Distribution\t8\n",
+  "stderr": "",
+  "execution_time_ms": 288
+}

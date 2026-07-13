@@ -1,0 +1,136 @@
+{
+  "query": "SELECT id, title, slug, orderIndex, estimatedMinutes FROM course_lessons WHERE moduleId = 1 ORDER BY orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, slug, orderIndex, estimatedMinutes FROM course_lessons WHERE moduleId = 1 ORDER BY orderIndex;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "VFD Fundamentals & Operating Principles",
+      "slug": "vfd-fundamentals",
+      "orderIndex": "1",
+      "estimatedMinutes": "20"
+    },
+    {
+      "id": "2",
+      "title": "PowerFlex Parameter Groups & Navigation",
+      "slug": "powerflex-parameter-groups",
+      "orderIndex": "2",
+      "estimatedMinutes": "25"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "slug": "basic-programming",
+      "orderIndex": "3",
+      "estimatedMinutes": "30"
+    },
+    {
+      "id": "4",
+      "title": "Fault Codes & Diagnostic Procedures",
+      "slug": "fault-codes-diagnostics",
+      "orderIndex": "4",
+      "estimatedMinutes": "25"
+    },
+    {
+      "id": "5",
+      "title": "Common Failure Modes in Manufacturing",
+      "slug": "common-failures",
+      "orderIndex": "5",
+      "estimatedMinutes": "20"
+    },
+    {
+      "id": "6",
+      "title": "Advanced Features: PID, Multi-Speed, Communication",
+      "slug": "advanced-features",
+      "orderIndex": "6",
+      "estimatedMinutes": "30"
+    },
+    {
+      "id": "30019",
+      "title": "PowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance",
+      "slug": "hardware-installation-wiring",
+      "orderIndex": "7",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30020",
+      "title": "Motor Nameplate Data Entry and Auto-Tune Procedures",
+      "slug": "motor-nameplate-data-entry-and-auto-tune-procedures",
+      "orderIndex": "8",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30021",
+      "title": "Digital and Analog I/O Configuration for Start/Stop and Speed Reference",
+      "slug": "digital-analog-io-configuration",
+      "orderIndex": "9",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30022",
+      "title": "Multi-Speed Profiles and Preset Speed Selection",
+      "slug": "multi-speed-profiles-preset-speed-selection",
+      "orderIndex": "10",
+      "estimatedMinutes": "12"
+    },
+    {
+      "id": "30023",
+      "title": "Process PID Control: Pressure, Flow, and Level Applications",
+      "slug": "process-pid-control-pressure-flow-level",
+      "orderIndex": "11",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30024",
+      "title": "Dynamic Braking and Regenerative Energy Management",
+      "slug": "dynamic-braking-regenerative-energy-management",
+      "orderIndex": "12",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30025",
+      "title": "PowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions",
+      "slug": "powerflex-525-ethernet-ip-setup",
+      "orderIndex": "13",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30026",
+      "title": "Drive Coordination: Master/Follower and Line Speed Synchronization",
+      "slug": "drive-coordination-master-follower-line-speed",
+      "orderIndex": "14",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30027",
+      "title": "Thermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance",
+      "slug": "thermal-management-heatsink-ambient-derating-fan-maintenance",
+      "orderIndex": "15",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30028",
+      "title": "Power Quality Issues: Harmonics, Line Reactors, and dV/dt Filters",
+      "slug": "power-quality-issues-harmonics-line-reactors-dvdt-filters",
+      "orderIndex": "16",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30029",
+      "title": "Predictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring",
+      "slug": "predictive-maintenance-drive-diagnostics-capacitor-life-trend-monitoring",
+      "orderIndex": "17",
+      "estimatedMinutes": "15"
+    },
+    {
+      "id": "30030",
+      "title": "Capstone: Complete VFD System Commissioning from Specification to Startup",
+      "slug": "capstone-complete-vfd-system-commissioning",
+      "orderIndex": "18",
+      "estimatedMinutes": "15"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\torderIndex\testimatedMinutes\n1\tVFD Fundamentals & Operating Principles\tvfd-fundamentals\t1\t20\n2\tPowerFlex Parameter Groups & Navigation\tpowerflex-parameter-groups\t2\t25\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\tbasic-programming\t3\t30\n4\tFault Codes & Diagnostic Procedures\tfault-codes-diagnostics\t4\t25\n5\tCommon Failure Modes in Manufacturing\tcommon-failures\t5\t20\n6\tAdvanced Features: PID, Multi-Speed, Communication\tadvanced-features\t6\t30\n30019\tPowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance\thardware-installation-wiring\t7\t15\n30020\tMotor Nameplate Data Entry and Auto-Tune Procedures\tmotor-nameplate-data-entry-and-auto-tune-procedures\t8\t15\n30021\tDigital and Analog I/O Configuration for Start/Stop and Speed Reference\tdigital-analog-io-configuration\t9\t15\n30022\tMulti-Speed Profiles and Preset Speed Selection\tmulti-speed-profiles-preset-speed-selection\t10\t12\n30023\tProcess PID Control: Pressure, Flow, and Level Applications\tprocess-pid-control-pressure-flow-level\t11\t15\n30024\tDynamic Braking and Regenerative Energy Management\tdynamic-braking-regenerative-energy-management\t12\t15\n30025\tPowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions\tpowerflex-525-ethernet-ip-setup\t13\t15\n30026\tDrive Coordination: Master/Follower and Line Speed Synchronization\tdrive-coordination-master-follower-line-speed\t14\t15\n30027\tThermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance\tthermal-management-heatsink-ambient-derating-fan-maintenance\t15\t15\n30028\tPower Quality Issues: Harmonics, Line Reactors, and dV/dt Filters\tpower-quality-issues-harmonics-line-reactors-dvdt-filters\t16\t15\n30029\tPredictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring\tpredictive-maintenance-drive-diagnostics-capacitor-life-trend-monitoring\t17\t15\n30030\tCapstone: Complete VFD System Commissioning from Specification to Startup\tcapstone-complete-vfd-system-commissioning\t18\t15\n",
+  "stderr": "",
+  "execution_time_ms": 288
+}

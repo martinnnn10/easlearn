@@ -1,0 +1,22 @@
+{
+  "query": "SELECT question, options, correctIndex, explanation FROM quiz_questions WHERE moduleId = 1 LIMIT 2;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT question, options, correctIndex, explanation FROM quiz_questions WHERE moduleId = 1 LIMIT 2;",
+  "rows": [
+    {
+      "question": "Which parameter group in the PowerFlex 525 VFD contains the basic motor nameplate data required for motor programming?",
+      "options": "[\"A-groups\", \"P-groups\", \"C-groups\", \"M-groups\"]",
+      "correctIndex": "0",
+      "explanation": "The A-groups contain basic motor parameters such as voltage, current, frequency, and speed derived from the motor nameplate."
+    },
+    {
+      "question": "If you see an F5 fault code on a PowerFlex 527 drive, what is the most likely cause?",
+      "options": "[\"Overcurrent fault\", \"Motor overload\", \"Overvoltage fault on DC bus\", \"Undervoltage fault\"]",
+      "correctIndex": "2",
+      "explanation": "An F5 fault code indicates an overvoltage fault on the DC bus, often caused by regenerative energy or deceleration ramp issues."
+    }
+  ],
+  "messages": [],
+  "stdout": "question\toptions\tcorrectIndex\texplanation\nWhich parameter group in the PowerFlex 525 VFD contains the basic motor nameplate data required for motor programming?\t[\"A-groups\", \"P-groups\", \"C-groups\", \"M-groups\"]\t0\tThe A-groups contain basic motor parameters such as voltage, current, frequency, and speed derived from the motor nameplate.\nIf you see an F5 fault code on a PowerFlex 527 drive, what is the most likely cause?\t[\"Overcurrent fault\", \"Motor overload\", \"Overvoltage fault on DC bus\", \"Undervoltage fault\"]\t2\tAn F5 fault code indicates an overvoltage fault on the DC bus, often caused by regenerative energy or deceleration ramp issues.\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

@@ -1,0 +1,32 @@
+Phase 6 Browser Validation — May 15, 2026
+
+1. INTERACTIVE LABS (/labs)
+   - All 7 tabs visible: Circuit Flow, Multimeter, Ladder Logic Sim, VFD Parameters, Relay Simulator, PLC Logic, Ohm's Law
+   - Multimeter tab: Renders correctly with meter settings (V AC, V DC, Resistance, Continuity, Amps DC) and test points
+   - VFD Parameters tab: Shows subscription gate correctly (paid feature)
+   - Ladder Logic Sim tab: Shows subscription gate correctly (paid feature)
+   - Circuit Flow tab: Still free and renders the animated circuit
+
+2. SIMULATOR SCENARIOS (/simulator)
+   - All 4 new scenarios found via keyword search:
+     * "PLC I/O Fault — Broken Signal Wire" (control_circuit)
+     * "Motor Overload Trip — Conveyor System" (motor_control)
+     * "Communication Loss — VFD Offline" (networking)
+     * "Intermittent Ground Fault — Water Treatment Pump" (insulation)
+   - Total scenarios now: 12 (was 8)
+   - All marked PRO and show ADAPTIVE timing
+
+3. COURSE EXPANSION (/courses)
+   - Sensors & Instrumentation: Shows "8 lessons" (was 3)
+   - Visible lessons include the new ones:
+     * Thermocouple Troubleshooting and Cold Junction Compensation
+     * RTD vs Thermocouple Selection and Wiring
+     * Pressure Transmitter Calibration with HART Communicator
+     * Level Measurement Technologies
+   - All 7 expanded modules are listed on the courses page
+
+4. OVERALL STATUS
+   - Zero TypeScript errors
+   - 168 tests passing
+   - No console errors visible
+   - All features rendering correctly

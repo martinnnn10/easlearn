@@ -1,0 +1,70 @@
+{
+  "query": "SELECT SUBSTRING(content, 3000, 3000) as content_mid FROM course_lessons WHERE id = 60014;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 3000, 3000) as content_mid FROM course_lessons WHERE id = 60014;",
+  "rows": [
+    {
+      "content_mid": "an open mechanical switch. The voltage across the collector and emitter ($V_{CE}$) equals the supply voltage."
+    },
+    {
+      "content_mid": "2.  **Saturation Region:** The transistor is fully ON. Enough base current is applied to allow maximum collector current ($I_C$) to flow. The voltage drop across the collector-emitter ($V_{CE(sat)}$) is minimal (typically 0.2V to 0.5V). It acts like a closed mechanical switch."
+    },
+    {
+      "content_mid": "If a transistor operates between these two states, it's in the *active region* (amplification). In industrial switching, operating in the active region generates excessive heat (Power = Voltage Drop $\\times$ Current) and will quickly destroy the component. We want the transistor to snap between Cutoff and Saturation as fast as possible."
+    },
+    {
+      "content_mid": "### Transistor as a Relay Driver"
+    },
+    {
+      "content_mid": "A common application on custom circuit boards or older machinery is using a low-voltage logic signal to drive a 24VDC relay coil. A standard 2N2222 NPN transistor can handle up to 800mA, perfect for a standard ice-cube relay."
+    },
+    {
+      "content_mid": "**Base Resistor Calculation:**"
+    },
+    {
+      "content_mid": "To ensure the transistor fully saturates and doesn't overheat, you must calculate the correct base resistor ($R_B$)."
+    },
+    {
+      "content_mid": "1.  Determine the load current ($I_C$). Example: A 24V relay coil with 400$\\Omega$ resistance draws $I_C = 24V / 400\\Omega = 60mA$."
+    },
+    {
+      "content_mid": "2.  Find the transistor's DC current gain ($h_{FE}$ or $\\beta$) from the datasheet. Assume a worst-case $h_{FE}$ of 30."
+    },
+    {
+      "content_mid": "3.  Calculate required base current: $I_B = I_C / h_{FE} = 60mA / 30 = 2mA$."
+    },
+    {
+      "content_mid": "4.  Overdrive the base by a factor of 5 to guarantee saturation across all temperature ranges: $I_{B(sat)} = 2mA \\times 5 = 10mA$."
+    },
+    {
+      "content_mid": "5.  Calculate $R_B$ assuming a 5V control signal and a 0.7V base-emitter drop ($V_{BE}$): $R_B = (5V - 0.7V) / 10mA = 430\\Omega$. A standard 470$\\Omega$ resistor works perfectly."
+    },
+    {
+      "content_mid": "### Darlington Pairs for High-Current Switching"
+    },
+    {
+      "content_mid": "When you need to switch larger loads (like a large DC motor, a heavy-duty solenoid, or a clutch) but only have a tiny control signal, a single transistor isn't enough. A Darlington pair connects two BJTs together in a single package so that the current amplified by the first transistor is amplified again by the second."
+    },
+    {
+      "content_mid": "*   **Advantage:** Massive current gain (e.g., $100 \\times 100 = 10,000$). A 1mA signal from a microcontroller can switch 10 Amps."
+    },
+    {
+      "content_mid": "*   **Disadvantage:** Higher voltage drop when ON ($V_{CE(sat)}$ is around 1.5V to 2.0V). This means they generate significantly more heat than a single transistor and require proper heatsinking. The TIP120 is a classic industrial Darlington transistor found in many legacy motor drive circuits."
+    },
+    {
+      "content_mid": "### MOSFET Basics (N-Channel Enhancement Mode)"
+    },
+    {
+      "content_mid": "Metal-Oxide-Semiconductor Field-Effect Transistors (MOSFETs) have largely replaced BJTs in high-power, high-speed switching applications (like in VFD inverters, servo drives, and modern solid-state relays)."
+    },
+    {
+      "content_mid": "*   Unlike BJTs (which are current-controlled), MOSFETs are **voltage-controlled**."
+    },
+    {
+      "content_mid": "*   The Gate terminal is electrically isolated from the rest of the component by a thin "
+    }
+  ],
+  "messages": [],
+  "stdout": "content_mid\nan open mechanical switch. The voltage across the collector and emitter ($V_{CE}$) equals the supply voltage.\n2.  **Saturation Region:** The transistor is fully ON. Enough base current is applied to allow maximum collector current ($I_C$) to flow. The voltage drop across the collector-emitter ($V_{CE(sat)}$) is minimal (typically 0.2V to 0.5V). It acts like a closed mechanical switch.\n\nIf a transistor operates between these two states, it's in the *active region* (amplification). In industrial switching, operating in the active region generates excessive heat (Power = Voltage Drop $\\times$ Current) and will quickly destroy the component. We want the transistor to snap between Cutoff and Saturation as fast as possible.\n\n### Transistor as a Relay Driver\nA common application on custom circuit boards or older machinery is using a low-voltage logic signal to drive a 24VDC relay coil. A standard 2N2222 NPN transistor can handle up to 800mA, perfect for a standard ice-cube relay.\n\n**Base Resistor Calculation:**\nTo ensure the transistor fully saturates and doesn't overheat, you must calculate the correct base resistor ($R_B$).\n1.  Determine the load current ($I_C$). Example: A 24V relay coil with 400$\\Omega$ resistance draws $I_C = 24V / 400\\Omega = 60mA$.\n2.  Find the transistor's DC current gain ($h_{FE}$ or $\\beta$) from the datasheet. Assume a worst-case $h_{FE}$ of 30.\n3.  Calculate required base current: $I_B = I_C / h_{FE} = 60mA / 30 = 2mA$.\n4.  Overdrive the base by a factor of 5 to guarantee saturation across all temperature ranges: $I_{B(sat)} = 2mA \\times 5 = 10mA$.\n5.  Calculate $R_B$ assuming a 5V control signal and a 0.7V base-emitter drop ($V_{BE}$): $R_B = (5V - 0.7V) / 10mA = 430\\Omega$. A standard 470$\\Omega$ resistor works perfectly.\n\n### Darlington Pairs for High-Current Switching\nWhen you need to switch larger loads (like a large DC motor, a heavy-duty solenoid, or a clutch) but only have a tiny control signal, a single transistor isn't enough. A Darlington pair connects two BJTs together in a single package so that the current amplified by the first transistor is amplified again by the second.\n*   **Advantage:** Massive current gain (e.g., $100 \\times 100 = 10,000$). A 1mA signal from a microcontroller can switch 10 Amps.\n*   **Disadvantage:** Higher voltage drop when ON ($V_{CE(sat)}$ is around 1.5V to 2.0V). This means they generate significantly more heat than a single transistor and require proper heatsinking. The TIP120 is a classic industrial Darlington transistor found in many legacy motor drive circuits.\n\n### MOSFET Basics (N-Channel Enhancement Mode)\nMetal-Oxide-Semiconductor Field-Effect Transistors (MOSFETs) have largely replaced BJTs in high-power, high-speed switching applications (like in VFD inverters, servo drives, and modern solid-state relays).\n*   Unlike BJTs (which are current-controlled), MOSFETs are **voltage-controlled**.\n*   The Gate terminal is electrically isolated from the rest of the component by a thin \n",
+  "stderr": "",
+  "execution_time_ms": 269
+}

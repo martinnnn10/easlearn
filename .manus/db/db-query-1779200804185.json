@@ -1,0 +1,25 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('start capacitor', content) - 100, 300) as section FROM course_lessons WHERE id = 60020;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('start capacitor', content) - 100, 300) as section FROM course_lessons WHERE id = 60020;",
+  "rows": [
+    {
+      "section": " - 5 HP | ECM: DC bus, PSC: direct |"
+    },
+    {
+      "section": "| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + start capacitor |"
+    },
+    {
+      "section": "| Screw compressor | 3-phase | 50-500 HP | Wye-Delta or VFD |"
+    },
+    {
+      "section": "| Centrifugal compressor | 3-phase | 100-2000 HP | VFD (always) |"
+    },
+    {
+      "section": "| Chilled water pump | 3-phase | 5-100 HP | VFD or sof"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n - 5 HP | ECM: DC bus, PSC: direct |\n| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + start capacitor |\n| Screw compressor | 3-phase | 50-500 HP | Wye-Delta or VFD |\n| Centrifugal compressor | 3-phase | 100-2000 HP | VFD (always) |\n| Chilled water pump | 3-phase | 5-100 HP | VFD or sof\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

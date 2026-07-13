@@ -1,0 +1,37 @@
+{
+  "query": "SELECT SUBSTRING(content, 5500, 2000) as content_end FROM course_lessons WHERE id = 32;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 5500, 2000) as content_end FROM course_lessons WHERE id = 32;",
+  "rows": [
+    {
+      "content_end": " a reflection of a heat source behind you (like a transformer or even your own body heat). If the hot spot stays on the component, it's a real thermal anomaly."
+    },
+    {
+      "content_end": "3. **Check the Cooling System:** If a VFD (Variable Frequency Drive) heat sink is running excessively hot (e.g., 85°C), don't immediately assume the drive is failing. Check the cooling fans and the cabinet filters. A clogged filter on a Rittal enclosure cooling unit is the most common cause of overheated drives."
+    },
+    {
+      "content_end": "4. **Solar Loading:** When scanning outdoor substations or pole-mounted transformers, do it early in the morning or on a cloudy day. Solar loading can heat up a transformer tank by 20°C, masking internal faults or creating false positives."
+    },
+    {
+      "content_end": "### Key Takeaways"
+    },
+    {
+      "content_end": "- Always adjust emissivity settings based on the material being scanned; never trust readings on bare, shiny metal without applying a known-emissivity target like electrical tape."
+    },
+    {
+      "content_end": "- Differentiate between loose connections (localized heat) and overloaded circuits (uniform heat along the conductor) to diagnose the root cause accurately."
+    },
+    {
+      "content_end": "- Use NETA $\\Delta T$ standards to prioritize repairs, comparing suspect components to similar phases under the same load or to ambient temperature."
+    },
+    {
+      "content_end": "- Always record the actual load current with a clamp meter during the IR scan, as thermal severity increases exponentially with current ($I^2R$)."
+    },
+    {
+      "content_end": "- Be aware of environmental factors like reflections on shiny surfaces and solar loading on outdoor equipment, which can lead to false readings."
+    }
+  ],
+  "messages": [],
+  "stdout": "content_end\n a reflection of a heat source behind you (like a transformer or even your own body heat). If the hot spot stays on the component, it's a real thermal anomaly.\n3. **Check the Cooling System:** If a VFD (Variable Frequency Drive) heat sink is running excessively hot (e.g., 85°C), don't immediately assume the drive is failing. Check the cooling fans and the cabinet filters. A clogged filter on a Rittal enclosure cooling unit is the most common cause of overheated drives.\n4. **Solar Loading:** When scanning outdoor substations or pole-mounted transformers, do it early in the morning or on a cloudy day. Solar loading can heat up a transformer tank by 20°C, masking internal faults or creating false positives.\n\n### Key Takeaways\n- Always adjust emissivity settings based on the material being scanned; never trust readings on bare, shiny metal without applying a known-emissivity target like electrical tape.\n- Differentiate between loose connections (localized heat) and overloaded circuits (uniform heat along the conductor) to diagnose the root cause accurately.\n- Use NETA $\\Delta T$ standards to prioritize repairs, comparing suspect components to similar phases under the same load or to ambient temperature.\n- Always record the actual load current with a clamp meter during the IR scan, as thermal severity increases exponentially with current ($I^2R$).\n- Be aware of environmental factors like reflections on shiny surfaces and solar loading on outdoor equipment, which can lead to false readings.\n\n",
+  "stderr": "",
+  "execution_time_ms": 273
+}

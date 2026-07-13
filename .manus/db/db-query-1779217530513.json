@@ -1,0 +1,38 @@
+{
+  "query": "SELECT id, title FROM scenarios WHERE id IN (1, 2, 3, 4, 5, 30001, 30002) LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title FROM scenarios WHERE id IN (1, 2, 3, 4, 5, 30001, 30002) LIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "PowerFlex 525 F063 Auto-Restart Lockout"
+    },
+    {
+      "id": "2",
+      "title": "ControlLogix Major Fault: Phantom Power Loss"
+    },
+    {
+      "id": "3",
+      "title": "Master Level: PowerFlex 525 Synchronization Loss"
+    },
+    {
+      "id": "4",
+      "title": "GuardLogix Dual-Channel Discrepancy Fault"
+    },
+    {
+      "id": "5",
+      "title": "PowerFlex 525 F005 OverVoltage on Deceleration"
+    },
+    {
+      "id": "30001",
+      "title": "Sensor Calibration Drift"
+    },
+    {
+      "id": "30002",
+      "title": "Motor Starter Overload Trip"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n1\tPowerFlex 525 F063 Auto-Restart Lockout\n2\tControlLogix Major Fault: Phantom Power Loss\n3\tMaster Level: PowerFlex 525 Synchronization Loss\n4\tGuardLogix Dual-Channel Discrepancy Fault\n5\tPowerFlex 525 F005 OverVoltage on Deceleration\n30001\tSensor Calibration Drift\n30002\tMotor Starter Overload Trip\n",
+  "stderr": "",
+  "execution_time_ms": 347
+}

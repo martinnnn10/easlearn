@@ -1,0 +1,16 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('wild', content) - 100, 500) as section FROM course_lessons WHERE id = 120027;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('wild', content) - 100, 500) as section FROM course_lessons WHERE id = 120027;",
+  "rows": [
+    {
+      "section": " standards and manufacturer guidelines when performing maintenance or calibrations."
+    },
+    {
+      "section": "# End of Lesson"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n standards and manufacturer guidelines when performing maintenance or calibrations.\n\n# End of Lesson\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

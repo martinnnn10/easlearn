@@ -1,0 +1,100 @@
+{
+  "query": "SELECT id, title, moduleId, CHAR_LENGTH(content) as len FROM course_lessons WHERE content LIKE '%In conclusion%' OR content LIKE '%In summary%' OR content LIKE '%As we have seen%' OR content LIKE '%To summarize%' OR content LIKE '%Key takeaways%' ORDER BY len ASC LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, moduleId, CHAR_LENGTH(content) as len FROM course_lessons WHERE content LIKE '%In conclusion%' OR content LIKE '%In summary%' OR content LIKE '%As we have seen%' OR content LIKE '%To summarize%' OR content LIKE '%Key takeaways%' ORDER BY len ASC LIMIT 15;",
+  "rows": [
+    {
+      "id": "32",
+      "title": "Infrared Thermography for Electrical Systems",
+      "moduleId": "6",
+      "len": "7009"
+    },
+    {
+      "id": "12",
+      "title": "Online Troubleshooting & Forcing I/O",
+      "moduleId": "2",
+      "len": "7242"
+    },
+    {
+      "id": "30008",
+      "title": "Motion Control Basics: Servo Axes, MAPC, and Homing Sequences",
+      "moduleId": "2",
+      "len": "7304"
+    },
+    {
+      "id": "9",
+      "title": "I/O Module Troubleshooting & Wiring",
+      "moduleId": "2",
+      "len": "7488"
+    },
+    {
+      "id": "33",
+      "title": "Lubrication Schedules & Best Practices",
+      "moduleId": "6",
+      "len": "7513"
+    },
+    {
+      "id": "19",
+      "title": "AC & DC Motor Theory",
+      "moduleId": "4",
+      "len": "7583"
+    },
+    {
+      "id": "3",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "moduleId": "1",
+      "len": "7620"
+    },
+    {
+      "id": "13",
+      "title": "Hydraulic System Fundamentals",
+      "moduleId": "3",
+      "len": "7637"
+    },
+    {
+      "id": "11",
+      "title": "Communication Faults: EtherNet/IP & DeviceNet",
+      "moduleId": "2",
+      "len": "7666"
+    },
+    {
+      "id": "7",
+      "title": "PLC Architecture & Hardware Components",
+      "moduleId": "2",
+      "len": "7730"
+    },
+    {
+      "id": "30022",
+      "title": "Multi-Speed Profiles and Preset Speed Selection",
+      "moduleId": "1",
+      "len": "7971"
+    },
+    {
+      "id": "34",
+      "title": "Condition-Based Monitoring vs Time-Based",
+      "moduleId": "6",
+      "len": "8026"
+    },
+    {
+      "id": "5",
+      "title": "Common Failure Modes in Manufacturing",
+      "moduleId": "1",
+      "len": "8107"
+    },
+    {
+      "id": "22",
+      "title": "Overload Protection & Sizing",
+      "moduleId": "4",
+      "len": "8188"
+    },
+    {
+      "id": "29",
+      "title": "Thermal Growth Compensation & Tolerances",
+      "moduleId": "5",
+      "len": "8259"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmoduleId\tlen\n32\tInfrared Thermography for Electrical Systems\t6\t7009\n12\tOnline Troubleshooting & Forcing I/O\t2\t7242\n30008\tMotion Control Basics: Servo Axes, MAPC, and Homing Sequences\t2\t7304\n9\tI/O Module Troubleshooting & Wiring\t2\t7488\n33\tLubrication Schedules & Best Practices\t6\t7513\n19\tAC & DC Motor Theory\t4\t7583\n3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\t1\t7620\n13\tHydraulic System Fundamentals\t3\t7637\n11\tCommunication Faults: EtherNet/IP & DeviceNet\t2\t7666\n7\tPLC Architecture & Hardware Components\t2\t7730\n30022\tMulti-Speed Profiles and Preset Speed Selection\t1\t7971\n34\tCondition-Based Monitoring vs Time-Based\t6\t8026\n5\tCommon Failure Modes in Manufacturing\t1\t8107\n22\tOverload Protection & Sizing\t4\t8188\n29\tThermal Growth Compensation & Tolerances\t5\t8259\n",
+  "stderr": "",
+  "execution_time_ms": 419
+}

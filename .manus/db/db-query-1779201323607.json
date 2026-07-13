@@ -1,0 +1,22 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Never wire', content) - 30, 400) as section FROM course_lessons WHERE id = 120023;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Never wire', content) - 30, 400) as section FROM course_lessons WHERE id = 120023;",
+  "rows": [
+    {
+      "section": "a safety relay or safety PLC. Never wire them directly to a standard standard relay or contactor."
+    },
+    {
+      "section": "2.  **EDM (External Device Monitoring):** Many light curtains have an EDM input. This is wired to the NC auxiliary contacts of the downstream contactors to monitor their state, similar to the feedback loop on a safety relay."
+    },
+    {
+      "section": "## Alignment Procedures"
+    },
+    {
+      "section": "Proper alignment is the most common challenge when "
+    }
+  ],
+  "messages": [],
+  "stdout": "section\na safety relay or safety PLC. Never wire them directly to a standard standard relay or contactor.\n2.  **EDM (External Device Monitoring):** Many light curtains have an EDM input. This is wired to the NC auxiliary contacts of the downstream contactors to monitor their state, similar to the feedback loop on a safety relay.\n\n## Alignment Procedures\n\nProper alignment is the most common challenge when \n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

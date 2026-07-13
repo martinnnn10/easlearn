@@ -1,0 +1,47 @@
+SCROLL BOUNCE ANALYSIS:
+========================
+The issue is in the InteractiveCircuitDiagramV3 component's pan handling.
+
+Current state:
+- The SVG container div has: touchAction: "none", overscrollBehavior: "contain" (added in previous fix)
+- The parent sim-machine-viewport has: overflow: hidden, touchAction: "none" (added in previous fix)
+- BUT the CSS file still has: .sim-machine-viewport { overflow: auto; -webkit-overflow-scrolling: touch; }
+
+PROBLEM: The CSS class .sim-machine-viewport sets `overflow: auto` and `-webkit-overflow-scrolling: touch`
+which OVERRIDES the inline style `overflow: hidden` because CSS specificity. Actually no - inline styles
+have higher specificity than class selectors. But the issue is that the INLINE style was applied to the
+SimulatorEngineV3 wrapper, while the CSS class is also applied. Let me check...
+
+Actually in SimulatorEngineV3.tsx line 850:
+  <div className="flex-1 overflow-hidden sim-machine-viewport" style={{ touchAction: "none", overscrollBehavior: "contain" }}>
+
+The className has "overflow-hidden" which should override the CSS class's overflow: auto.
+But wait - Tailwind's overflow-hidden generates `overflow: hidden` as a utility.
+The CSS class .sim-machine-viewport also sets `overflow: auto`.
+CSS cascade: both are class-level selectors. The one that appears LATER in the stylesheet wins.
+Since .sim-machine-viewport is in index.css which loads after Tailwind utilities... it might override!
+
+FIX: Update the .sim-machine-viewport CSS class to NOT set overflow: auto. Instead, let the
+component control overflow via Tailwind classes. Also need to remove -webkit-overflow-scrolling: touch.
+
+ROTATION ISSUE:
+===============
+The `screen.orientation.lock("landscape")` API:
+- Only works in fullscreen mode on most mobile browsers
+- iOS Safari does NOT support it at all
+- Chrome on Android requires the page to be in fullscreen first
+
+The current flow:
+1. User clicks "Enter Immersive Mode" on OrientationPrompt
+2. enterImmersive() is called
+3. It tries requestFullscreen() first
+4. Then tries screen.orientation.lock("landscape")
+
+On iOS (which the user's screenshot shows - iPhone):
+- requestFullscreen() is NOT supported on iOS Safari
+- screen.orientation.lock() is NOT supported on iOS Safari
+- The only way to get landscape on iOS is for the user to physically rotate the device
+
+FIX: The OrientationPrompt should make this clearer - on iOS it should say "Please rotate your device"
+rather than offering an "Enter Immersive Mode" button that won't actually rotate the screen.
+We can detect iOS and show different messaging.

@@ -1,0 +1,30 @@
+{
+  "query": "SELECT cl.slug, cl.title FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cm.slug = 'powerflex-vfd' ORDER BY cl.orderIndex LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.slug, cl.title FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cm.slug = 'powerflex-vfd' ORDER BY cl.orderIndex LIMIT 5;",
+  "rows": [
+    {
+      "slug": "vfd-fundamentals",
+      "title": "VFD Fundamentals & Operating Principles"
+    },
+    {
+      "slug": "powerflex-parameter-groups",
+      "title": "PowerFlex Parameter Groups & Navigation"
+    },
+    {
+      "slug": "basic-programming",
+      "title": "Basic Programming: Speed Reference, Accel/Decel, Motor Data"
+    },
+    {
+      "slug": "fault-codes-diagnostics",
+      "title": "Fault Codes & Diagnostic Procedures"
+    },
+    {
+      "slug": "common-failures",
+      "title": "Common Failure Modes in Manufacturing"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\nvfd-fundamentals\tVFD Fundamentals & Operating Principles\npowerflex-parameter-groups\tPowerFlex Parameter Groups & Navigation\nbasic-programming\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\nfault-codes-diagnostics\tFault Codes & Diagnostic Procedures\ncommon-failures\tCommon Failure Modes in Manufacturing\n",
+  "stderr": "",
+  "execution_time_ms": 258
+}

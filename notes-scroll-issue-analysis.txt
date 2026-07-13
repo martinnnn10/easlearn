@@ -1,0 +1,70 @@
+SCROLL ISSUE ANALYSIS
+=====================
+
+The session replay shows the user IS inside the simulator (SimulatorEngineV3).
+The viewport is 402x727 (mobile portrait).
+The documentHeight is 758 (just slightly taller than viewport = 727).
+The scroll events show values bouncing between 31-45px — CLASSIC scroll bounce.
+
+The user is seeing the "Begin Troubleshooting" button (line 757 of SimulatorEngineV3.tsx)
+which means they're in the BRIEFING phase of the simulator.
+
+KEY INSIGHT: The user said "All the above" meaning scrolling is broken:
+1. Inside the simulator briefing (confirmed by session replay)
+2. On the main site pages (home, courses, pricing)
+3. Inside the active simulator (circuit diagram)
+
+ROOT CAUSE CANDIDATES:
+1. The `body:has(.sim-immersive-container)` CSS rule on line 820 sets:
+   - overflow: hidden !important
+   - position: fixed
+   - touch-action: none
+   This WILL block all scrolling on the page when sim-immersive-container is present.
+
+2. The sim-immersive-container itself has:
+   - overflow: hidden
+   - position: fixed
+   - touch-action: none
+   
+3. The briefing phase content is INSIDE the sim-immersive-container, so it gets
+   touch-action: none from the parent, even though we added overflow-y: auto to the
+   briefing wrapper.
+
+4. For NON-SIMULATOR pages: The body:has(.sim-immersive-container) should NOT apply
+   because the container isn't in the DOM. UNLESS the user is on the /simulator page
+   and the engine is rendered.
+
+WAIT - The user showed the screenshot with "Begin Troubleshooting" visible.
+That means they ARE in the simulator. The sim-immersive-container IS in the DOM.
+So body:has(.sim-immersive-container) IS active.
+
+The briefing scroll wrapper has overflow-y: auto and touch-action: pan-y,
+but the PARENT (sim-immersive-container) has touch-action: none which overrides it.
+
+FIX:
+1. Remove touch-action: none from sim-immersive-container CSS
+2. Only apply touch-action: none to the circuit diagram viewport (.sim-machine-viewport)
+3. Remove the body:has(.sim-immersive-container) touch-action: none rule
+4. Keep overflow: hidden on body only to prevent background scroll, but NOT touch-action: none
+
+For non-simulator pages, the issue might be that the user is ALWAYS on the simulator page
+and the sim-immersive-container is always rendered. Need to verify.
+
+Actually wait - re-reading the user's message "All the above" — they might mean:
+- The simulator briefing doesn't scroll (confirmed)
+- The simulator circuit diagram doesn't scroll/pan (the bounce issue)
+- The main pages ALSO don't scroll
+
+But if they're on the simulator page with the engine active, the sim-immersive-container
+takes over the entire viewport (position: fixed, inset: 0). They can't see other pages.
+
+The most likely interpretation: They're testing the simulator and:
+1. Can't scroll the briefing to reach "Begin Troubleshooting"
+2. Can't scroll/pan the circuit diagram
+3. When they exit, the main page doesn't scroll either (body overflow stuck)
+
+FIX PLAN:
+1. Remove touch-action: none from .sim-immersive-container (keep it only on .sim-machine-viewport)
+2. Remove touch-action: none from body:has(.sim-immersive-container)
+3. Ensure the briefing wrapper's touch-action: pan-y actually works
+4. Make sure body overflow is restored when simulator exits

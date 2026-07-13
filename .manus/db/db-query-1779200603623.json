@@ -1,0 +1,34 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('370', content) - 100, 300) as section FROM course_lessons WHERE id = 60019;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('370', content) - 100, 300) as section FROM course_lessons WHERE id = 60019;",
+  "rows": [
+    {
+      "section": "---------|----------|"
+    },
+    {
+      "section": "| 118 | 40°F | Evaporator (cooling) |"
+    },
+    {
+      "section": "| 130 | 45°F | Evaporator (cooling) |"
+    },
+    {
+      "section": "| 370 | 100°F | Condenser |"
+    },
+    {
+      "section": "| 418 | 110°F | Condenser (hot day) |"
+    },
+    {
+      "section": "### R-22 (Older Systems, Being Phased Out)"
+    },
+    {
+      "section": "| Pressure (psig) | Saturation Temp (°F) | Location |"
+    },
+    {
+      "section": "|-----------------|------------------"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n---------|----------|\n| 118 | 40°F | Evaporator (cooling) |\n| 130 | 45°F | Evaporator (cooling) |\n| 370 | 100°F | Condenser |\n| 418 | 110°F | Condenser (hot day) |\n\n### R-22 (Older Systems, Being Phased Out)\n\n| Pressure (psig) | Saturation Temp (°F) | Location |\n|-----------------|------------------\n",
+  "stderr": "",
+  "execution_time_ms": 271
+}

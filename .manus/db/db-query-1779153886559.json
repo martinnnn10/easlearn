@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, slug, title FROM course_lessons WHERE id >= 60000 AND id < 70000 ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, slug, title FROM course_lessons WHERE id >= 60000 AND id < 70000 ORDER BY id",
+  "rows": [
+    {
+      "id": "60001",
+      "slug": "ohms-law-power",
+      "title": "Ohm's Law & Power Calculations"
+    },
+    {
+      "id": "60002",
+      "slug": "kirchhoffs-laws",
+      "title": "Kirchhoff's Voltage & Current Laws"
+    },
+    {
+      "id": "60003",
+      "slug": "ac-dc-theory",
+      "title": "AC vs. DC: Theory & Industrial Applications"
+    },
+    {
+      "id": "60004",
+      "slug": "series-parallel-circuits",
+      "title": "Series & Parallel Circuits in Industrial Systems"
+    },
+    {
+      "id": "60005",
+      "slug": "electrical-safety-lockout",
+      "title": "Electrical Safety & Lockout/Tagout"
+    },
+    {
+      "id": "60006",
+      "slug": "meters-measurements",
+      "title": "Meters & Measurement Techniques"
+    },
+    {
+      "id": "60007",
+      "slug": "binary-number-systems",
+      "title": "Binary, Hex & Number Systems for PLCs"
+    },
+    {
+      "id": "60008",
+      "slug": "logic-gates-boolean",
+      "title": "Logic Gates & Boolean Algebra"
+    },
+    {
+      "id": "60009",
+      "slug": "plc-introduction",
+      "title": "Introduction to PLCs: Architecture & Operation"
+    },
+    {
+      "id": "60010",
+      "slug": "ladder-logic-basics",
+      "title": "Ladder Logic: Reading & Writing Basic Programs"
+    },
+    {
+      "id": "60011",
+      "slug": "io-addressing",
+      "title": "I/O Addressing & Wiring"
+    },
+    {
+      "id": "60012",
+      "slug": "timers-counters-plc",
+      "title": "Timers & Counters in PLC Programs"
+    },
+    {
+      "id": "60013",
+      "slug": "diode-fundamentals",
+      "title": "Diodes: Rectification & Protection"
+    },
+    {
+      "id": "60014",
+      "slug": "transistors-switching",
+      "title": "Transistors: Switching & Amplification"
+    },
+    {
+      "id": "60015",
+      "slug": "igbt-power-electronics",
+      "title": "IGBTs & Power Electronics"
+    },
+    {
+      "id": "60016",
+      "slug": "thyristors-scrs",
+      "title": "Thyristors & SCRs: Phase Control"
+    },
+    {
+      "id": "60017",
+      "slug": "power-supply-circuits",
+      "title": "Industrial Power Supply Circuits"
+    },
+    {
+      "id": "60018",
+      "slug": "vfd-power-stage",
+      "title": "VFD Power Stage: From Input to Output"
+    },
+    {
+      "id": "60019",
+      "slug": "refrigeration-cycle",
+      "title": "The Refrigeration Cycle"
+    },
+    {
+      "id": "60020",
+      "slug": "hvac-motor-controls",
+      "title": "HVAC Motor Controls & Starters"
+    },
+    {
+      "id": "60021",
+      "slug": "vfd-hvac-applications",
+      "title": "VFDs in HVAC: Energy Savings & Control"
+    },
+    {
+      "id": "60022",
+      "slug": "compressor-types",
+      "title": "Compressor Types & Operation"
+    },
+    {
+      "id": "60023",
+      "slug": "controls-thermostats",
+      "title": "HVAC Controls & Building Automation"
+    },
+    {
+      "id": "60024",
+      "slug": "hvac-troubleshooting",
+      "title": "HVAC Troubleshooting: Systematic Approach"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\n60001\tohms-law-power\tOhm's Law & Power Calculations\n60002\tkirchhoffs-laws\tKirchhoff's Voltage & Current Laws\n60003\tac-dc-theory\tAC vs. DC: Theory & Industrial Applications\n60004\tseries-parallel-circuits\tSeries & Parallel Circuits in Industrial Systems\n60005\telectrical-safety-lockout\tElectrical Safety & Lockout/Tagout\n60006\tmeters-measurements\tMeters & Measurement Techniques\n60007\tbinary-number-systems\tBinary, Hex & Number Systems for PLCs\n60008\tlogic-gates-boolean\tLogic Gates & Boolean Algebra\n60009\tplc-introduction\tIntroduction to PLCs: Architecture & Operation\n60010\tladder-logic-basics\tLadder Logic: Reading & Writing Basic Programs\n60011\tio-addressing\tI/O Addressing & Wiring\n60012\ttimers-counters-plc\tTimers & Counters in PLC Programs\n60013\tdiode-fundamentals\tDiodes: Rectification & Protection\n60014\ttransistors-switching\tTransistors: Switching & Amplification\n60015\tigbt-power-electronics\tIGBTs & Power Electronics\n60016\tthyristors-scrs\tThyristors & SCRs: Phase Control\n60017\tpower-supply-circuits\tIndustrial Power Supply Circuits\n60018\tvfd-power-stage\tVFD Power Stage: From Input to Output\n60019\trefrigeration-cycle\tThe Refrigeration Cycle\n60020\thvac-motor-controls\tHVAC Motor Controls & Starters\n60021\tvfd-hvac-applications\tVFDs in HVAC: Energy Savings & Control\n60022\tcompressor-types\tCompressor Types & Operation\n60023\tcontrols-thermostats\tHVAC Controls & Building Automation\n60024\thvac-troubleshooting\tHVAC Troubleshooting: Systematic Approach\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

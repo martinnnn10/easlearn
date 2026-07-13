@@ -1,0 +1,14 @@
+{
+  "query": "SELECT CASE WHEN content LIKE '%|>%' OR content LIKE '%─▶│─%' OR content LIKE '%-->|%' OR content LIKE '%Anode%Cathode%' THEN 'has_symbol' ELSE 'no_symbol' END as symbol_check, CASE WHEN content LIKE '%schematic%' OR content LIKE '%symbol%' THEN 'mentions_schematic' ELSE 'no_mention' END as schematic_mention FROM course_lessons WHERE id = '60013';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT CASE WHEN content LIKE '%|>%' OR content LIKE '%─▶│─%' OR content LIKE '%-->|%' OR content LIKE '%Anode%Cathode%' THEN 'has_symbol' ELSE 'no_symbol' END as symbol_check, CASE WHEN content LIKE '%schematic%' OR content LIKE '%symbol%' THEN 'mentions_schematic' ELSE 'no_mention' END as schematic_mention FROM course_lessons WHERE id = '60013';",
+  "rows": [
+    {
+      "symbol_check": "has_symbol",
+      "schematic_mention": "mentions_schematic"
+    }
+  ],
+  "messages": [],
+  "stdout": "symbol_check\tschematic_mention\nhas_symbol\tmentions_schematic\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

@@ -1,0 +1,52 @@
+{
+  "query": "SELECT id, moduleId, slug, title FROM course_lessons WHERE slug LIKE '%symbol%' OR slug LIKE '%ladder%' OR slug LIKE '%diode%' OR slug LIKE '%rectif%' OR slug LIKE '%transistor%' OR slug LIKE '%motor-start%' OR title LIKE '%Symbol%' OR title LIKE '%Ladder%' OR title LIKE '%Diode%' OR title LIKE '%Rectif%' OR title LIKE '%Transistor%' OR title LIKE '%Motor Start%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, moduleId, slug, title FROM course_lessons WHERE slug LIKE '%symbol%' OR slug LIKE '%ladder%' OR slug LIKE '%diode%' OR slug LIKE '%rectif%' OR slug LIKE '%transistor%' OR slug LIKE '%motor-start%' OR title LIKE '%Symbol%' OR title LIKE '%Ladder%' OR title LIKE '%Diode%' OR title LIKE '%Rectif%' OR title LIKE '%Transistor%' OR title LIKE '%Motor Start%'",
+  "rows": [
+    {
+      "id": "8",
+      "moduleId": "2",
+      "slug": "ladder-logic-basics",
+      "title": "Ladder Logic: Contacts, Coils, and Basic Instructions"
+    },
+    {
+      "id": "21",
+      "moduleId": "4",
+      "slug": "starter-troubleshooting",
+      "title": "Motor Starter Troubleshooting"
+    },
+    {
+      "id": "60010",
+      "moduleId": "30002",
+      "slug": "ladder-logic-basics",
+      "title": "Ladder Logic: Reading & Writing Basic Programs"
+    },
+    {
+      "id": "60013",
+      "moduleId": "30003",
+      "slug": "diode-fundamentals",
+      "title": "Diodes: Rectification & Protection"
+    },
+    {
+      "id": "60014",
+      "moduleId": "30003",
+      "slug": "transistors-switching",
+      "title": "Transistors: Switching & Amplification"
+    },
+    {
+      "id": "90010",
+      "moduleId": "60004",
+      "slug": "electrical-schematic-basics",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout"
+    },
+    {
+      "id": "120017",
+      "moduleId": "60004",
+      "slug": "vfd-motor-starter-one-line",
+      "title": "Reading VFD and Motor Starter One-Line Diagrams"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tmoduleId\tslug\ttitle\n8\t2\tladder-logic-basics\tLadder Logic: Contacts, Coils, and Basic Instructions\n21\t4\tstarter-troubleshooting\tMotor Starter Troubleshooting\n60010\t30002\tladder-logic-basics\tLadder Logic: Reading & Writing Basic Programs\n60013\t30003\tdiode-fundamentals\tDiodes: Rectification & Protection\n60014\t30003\ttransistors-switching\tTransistors: Switching & Amplification\n90010\t60004\telectrical-schematic-basics\tReading Electrical Schematics: Symbols, Conventions & Layout\n120017\t60004\tvfd-motor-starter-one-line\tReading VFD and Motor Starter One-Line Diagrams\n",
+  "stderr": "",
+  "execution_time_ms": 1210
+}

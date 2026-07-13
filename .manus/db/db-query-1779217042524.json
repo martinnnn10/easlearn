@@ -1,0 +1,55 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 3000) as content_start FROM course_lessons WHERE id = '60013';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 3000) as content_start FROM course_lessons WHERE id = '60013';",
+  "rows": [
+    {
+      "content_start": "# Diodes: Rectification & Protection"
+    },
+    {
+      "content_start": "## Real-World Industrial Context"
+    },
+    {
+      "content_start": "In the industrial plant environment, diodes are the unsung heroes of both power conversion and circuit protection. Whether you are looking at the switch-mode power supply of an Allen-Bradley CompactLogix PLC, the snubber circuit on a 24VDC relay coil, the transient protection on a sensitive analog sensor input, or the massive rectifier bridge inside a 480VAC Variable Frequency Drive (VFD), diodes are doing the heavy lifting. "
+    },
+    {
+      "content_start": "As a maintenance technician, you will encounter diodes in almost every piece of electronic equipment on the factory floor. Understanding how they work, how they fail, and how to test them is absolutely critical for effective troubleshooting. A single shorted freewheeling diode on a hydraulic valve solenoid can repeatedly blow control fuses, taking down an entire packaging line and costing thousands of dollars in downtime. Conversely, a failed rectifier diode in a 24VDC power supply can introduce AC ripple that causes erratic sensor behavior, phantom PLC faults, and communication dropouts on industrial networks like EtherNet/IP or Profinet. By mastering diode fundamentals, you transition from merely swapping parts to diagnosing the root cause of complex electrical failures."
+    },
+    {
+      "content_start": "## Core Technical Content: How Diodes Work"
+    },
+    {
+      "content_start": "### PN Junction Theory Simplified for Technicians"
+    },
+    {
+      "content_start": "At its core, a diode is a one-way valve for electrical current. It is made from semiconductor material (usually silicon) that has been chemically \"doped\" with impurities to create two distinct regions: "
+    },
+    {
+      "content_start": "- **P-type material:** The Anode (positive side), which has a lack of electrons (often referred to as \"holes\")."
+    },
+    {
+      "content_start": "- **N-type material:** The Cathode (negative side), which has a surplus of electrons."
+    },
+    {
+      "content_start": "The boundary where these two materials meet is called the **PN junction**. The behavior of this junction changes depending on how voltage is applied across it."
+    },
+    {
+      "content_start": "- **Forward Bias (The Valve is Open):** When you apply a positive voltage to the Anode and a negative voltage to the Cathode, the electrical pressure pushes electrons and holes toward the junction. They cross the barrier, and the diode turns ON. Current flows freely through the component."
+    },
+    {
+      "content_start": "- **Reverse Bias (The Valve is Closed):** When you reverse the polarity (positive to Cathode, negative to Anode), the electrons and holes are pulled away from the junction. The depletion region widens, and the diode turns OFF. It blocks current flow, acting exactly like an open switch."
+    },
+    {
+      "content_start": "> **Technician Tip:** The physical painted stripe on a cylindrical diode always marks the Cathode (negative side). Think of the stripe as the vertical line in the diode schematic symbol `|>-`. Conventional current flows in the direction of the triangle's arrow and is blocked by the vertical line."
+    },
+    {
+      "content_start": "### Key Diode Specifications"
+    },
+    {
+      "content_start": "When replacing a diode in the field, you cannot just grab any component from the parts bin that looks similar. You must match or exceed three critical"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\n# Diodes: Rectification & Protection\n\n## Real-World Industrial Context\nIn the industrial plant environment, diodes are the unsung heroes of both power conversion and circuit protection. Whether you are looking at the switch-mode power supply of an Allen-Bradley CompactLogix PLC, the snubber circuit on a 24VDC relay coil, the transient protection on a sensitive analog sensor input, or the massive rectifier bridge inside a 480VAC Variable Frequency Drive (VFD), diodes are doing the heavy lifting. \n\nAs a maintenance technician, you will encounter diodes in almost every piece of electronic equipment on the factory floor. Understanding how they work, how they fail, and how to test them is absolutely critical for effective troubleshooting. A single shorted freewheeling diode on a hydraulic valve solenoid can repeatedly blow control fuses, taking down an entire packaging line and costing thousands of dollars in downtime. Conversely, a failed rectifier diode in a 24VDC power supply can introduce AC ripple that causes erratic sensor behavior, phantom PLC faults, and communication dropouts on industrial networks like EtherNet/IP or Profinet. By mastering diode fundamentals, you transition from merely swapping parts to diagnosing the root cause of complex electrical failures.\n\n## Core Technical Content: How Diodes Work\n\n### PN Junction Theory Simplified for Technicians\nAt its core, a diode is a one-way valve for electrical current. It is made from semiconductor material (usually silicon) that has been chemically \"doped\" with impurities to create two distinct regions: \n- **P-type material:** The Anode (positive side), which has a lack of electrons (often referred to as \"holes\").\n- **N-type material:** The Cathode (negative side), which has a surplus of electrons.\n\nThe boundary where these two materials meet is called the **PN junction**. The behavior of this junction changes depending on how voltage is applied across it.\n\n- **Forward Bias (The Valve is Open):** When you apply a positive voltage to the Anode and a negative voltage to the Cathode, the electrical pressure pushes electrons and holes toward the junction. They cross the barrier, and the diode turns ON. Current flows freely through the component.\n- **Reverse Bias (The Valve is Closed):** When you reverse the polarity (positive to Cathode, negative to Anode), the electrons and holes are pulled away from the junction. The depletion region widens, and the diode turns OFF. It blocks current flow, acting exactly like an open switch.\n\n> **Technician Tip:** The physical painted stripe on a cylindrical diode always marks the Cathode (negative side). Think of the stripe as the vertical line in the diode schematic symbol `|>-`. Conventional current flows in the direction of the triangle's arrow and is blocked by the vertical line.\n\n### Key Diode Specifications\nWhen replacing a diode in the field, you cannot just grab any component from the parts bin that looks similar. You must match or exceed three critical\n",
+  "stderr": "",
+  "execution_time_ms": 393
+}

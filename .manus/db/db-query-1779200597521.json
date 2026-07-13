@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(\n  REPLACE(\n    REPLACE(content,\n      '| C to S | Highest resistance |',\n      '| S to R | Highest resistance (equals C-S + C-R) |'\n    ),\n    '| C to R | Middle resistance |',\n    '| C to S | Middle resistance (start winding has more turns) |'\n  ),\n  '| S to R | C-S + C-R (should equal sum) |',\n  '| C to R | Lowest resistance (run winding has fewer turns, thicker wire) |'\n) WHERE id = 60024;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(\n  REPLACE(\n    REPLACE(content,\n      '| C to S | Highest resistance |',\n      '| S to R | Highest resistance (equals C-S + C-R) |'\n    ),\n    '| C to R | Middle resistance |',\n    '| C to S | Middle resistance (start winding has more turns) |'\n  ),\n  '| S to R | C-S + C-R (should equal sum) |',\n  '| C to R | Lowest resistance (run winding has fewer turns, thicker wire) |'\n) WHERE id = 60024;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 272
+}

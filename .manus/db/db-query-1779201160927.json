@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  'rFlex 525 control board, there is a small jumper (J2) located near the analog input terminals. **You must physically move this jumper from the \"0-10V\" position to the \"4-20mA\" position.** If you forget this step, the drive will not read the current signal correctly.',\n  'rFlex 525 uses **dedicated terminals** for each analog input type — Terminal 13 for 0-10V voltage input, and Terminal 15 for 4-20mA current input. **There is no physical jumper to change.** Simply wire to the correct terminal and set parameter **P047 [Anlg In Config]** to match your signal type (0 = 0-10V on Terminal 13, 1 = 4-20mA on Terminal 15).'\n) WHERE id = 30021;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  'rFlex 525 control board, there is a small jumper (J2) located near the analog input terminals. **You must physically move this jumper from the \"0-10V\" position to the \"4-20mA\" position.** If you forget this step, the drive will not read the current signal correctly.',\n  'rFlex 525 uses **dedicated terminals** for each analog input type — Terminal 13 for 0-10V voltage input, and Terminal 15 for 4-20mA current input. **There is no physical jumper to change.** Simply wire to the correct terminal and set parameter **P047 [Anlg In Config]** to match your signal type (0 = 0-10V on Terminal 13, 1 = 4-20mA on Terminal 15).'\n) WHERE id = 30021;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 269
+}

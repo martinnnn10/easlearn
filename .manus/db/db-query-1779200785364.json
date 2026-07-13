@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('suction line', content), 600) as section FROM course_lessons WHERE id = 60019 LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('suction line', content), 600) as section FROM course_lessons WHERE id = 60019 LIMIT 1;",
+  "rows": [
+    {
+      "section": "suction line | Very low | Normal | TXV stuck open, overcharge |"
+    },
+    {
+      "section": "| High head pressure | Normal | High | Dirty condenser, overcharge |"
+    },
+    {
+      "section": "| Low head pressure | High | Low | Low charge, condenser fan issue |"
+    },
+    {
+      "section": "## Key Takeaways"
+    },
+    {
+      "section": "- The refrigeration cycle moves heat from where you don't want it to where you do"
+    },
+    {
+      "section": "- Four components: Compressor → Condenser → Expansion → Evaporator"
+    },
+    {
+      "section": "- Superheat protects the compressor (ensures only gas enters)"
+    },
+    {
+      "section": "- Subcooling ensures liquid reaches the expansion device (no flash gas in liquid line)"
+    },
+    {
+      "section": "- Pressure-temperature charts are your primary diagnostic tool"
+    },
+    {
+      "section": "- Every cooling pr"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nsuction line | Very low | Normal | TXV stuck open, overcharge |\n| High head pressure | Normal | High | Dirty condenser, overcharge |\n| Low head pressure | High | Low | Low charge, condenser fan issue |\n\n## Key Takeaways\n\n- The refrigeration cycle moves heat from where you don't want it to where you do\n- Four components: Compressor → Condenser → Expansion → Evaporator\n- Superheat protects the compressor (ensures only gas enters)\n- Subcooling ensures liquid reaches the expansion device (no flash gas in liquid line)\n- Pressure-temperature charts are your primary diagnostic tool\n- Every cooling pr\n",
+  "stderr": "",
+  "execution_time_ms": 276
+}

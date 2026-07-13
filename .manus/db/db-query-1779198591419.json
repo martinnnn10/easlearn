@@ -1,0 +1,148 @@
+{
+  "query": "SELECT id, title, LENGTH(content) as content_len, \n  (LENGTH(content) - LENGTH(REPLACE(content, '<svg', ''))) / 4 as svg_count\nFROM course_lessons \nWHERE content LIKE '%<svg%' OR content LIKE '%symbol%' OR content LIKE '%schematic%'\nORDER BY svg_count DESC\nLIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, LENGTH(content) as content_len, \n  (LENGTH(content) - LENGTH(REPLACE(content, '<svg', ''))) / 4 as svg_count\nFROM course_lessons \nWHERE content LIKE '%<svg%' OR content LIKE '%symbol%' OR content LIKE '%schematic%'\nORDER BY svg_count DESC\nLIMIT 50;",
+  "rows": [
+    {
+      "id": "90010",
+      "title": "Reading Electrical Schematics: Symbols, Conventions & Layout",
+      "content_len": "7532",
+      "svg_count": "9.0000"
+    },
+    {
+      "id": "60013",
+      "title": "Diodes: Rectification & Protection",
+      "content_len": "6917",
+      "svg_count": "6.0000"
+    },
+    {
+      "id": "90012",
+      "title": "Three-Phase Power Distribution Prints",
+      "content_len": "5300",
+      "svg_count": "5.0000"
+    },
+    {
+      "id": "30011",
+      "title": "HMI Integration: FactoryTalk View Tag Binding and Alarming",
+      "content_len": "11611",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "90011",
+      "title": "Panel Layout Drawings & Wire Tracing Techniques",
+      "content_len": "3113",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "30",
+      "title": "Designing a PM Program for Manufacturing",
+      "content_len": "6712",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "30018",
+      "title": "Capstone: Full System Commissioning from Wiring to First Run",
+      "content_len": "10877",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120016",
+      "title": "Cross-Referencing Contacts and Coils Across Pages",
+      "content_len": "3648",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "60001",
+      "title": "Ohm's Law & Power Calculations",
+      "content_len": "3735",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "60010",
+      "title": "Ladder Logic: Reading & Writing Basic Programs",
+      "content_len": "5143",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "60014",
+      "title": "Transistors: Switching & Amplification",
+      "content_len": "4387",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "90018",
+      "title": "Process Instrumentation Loops & Loop Diagrams",
+      "content_len": "3609",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "30004",
+      "title": "Sequencer Instructions (SQO, SQI, SQL) for Machine Automation",
+      "content_len": "9458",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "30014",
+      "title": "Structured Text Programming for Complex Calculations",
+      "content_len": "11295",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "20",
+      "title": "Motor Control Circuits & Schematics",
+      "content_len": "9446",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "15",
+      "title": "Reading Hydraulic & Pneumatic Schematics",
+      "content_len": "8592",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "30030",
+      "title": "Capstone: Complete VFD System Commissioning from Specification to Startup",
+      "content_len": "11771",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120017",
+      "title": "Reading VFD and Motor Starter One-Line Diagrams",
+      "content_len": "3910",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120018",
+      "title": "Control Panel Wiring Diagrams and Terminal Strips",
+      "content_len": "3786",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120019",
+      "title": "PLC I/O Wiring Diagrams and Address Mapping",
+      "content_len": "3815",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120020",
+      "title": "Reading Safety Circuit Schematics",
+      "content_len": "4407",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "120029",
+      "title": "DCS vs PLC Architecture for Process Control",
+      "content_len": "8952",
+      "svg_count": "0.0000"
+    },
+    {
+      "id": "13",
+      "title": "Hydraulic System Fundamentals",
+      "content_len": "7655",
+      "svg_count": "0.0000"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcontent_len\tsvg_count\n90010\tReading Electrical Schematics: Symbols, Conventions & Layout\t7532\t9.0000\n60013\tDiodes: Rectification & Protection\t6917\t6.0000\n90012\tThree-Phase Power Distribution Prints\t5300\t5.0000\n30011\tHMI Integration: FactoryTalk View Tag Binding and Alarming\t11611\t0.0000\n90011\tPanel Layout Drawings & Wire Tracing Techniques\t3113\t0.0000\n30\tDesigning a PM Program for Manufacturing\t6712\t0.0000\n30018\tCapstone: Full System Commissioning from Wiring to First Run\t10877\t0.0000\n120016\tCross-Referencing Contacts and Coils Across Pages\t3648\t0.0000\n60001\tOhm's Law & Power Calculations\t3735\t0.0000\n60010\tLadder Logic: Reading & Writing Basic Programs\t5143\t0.0000\n60014\tTransistors: Switching & Amplification\t4387\t0.0000\n90018\tProcess Instrumentation Loops & Loop Diagrams\t3609\t0.0000\n30004\tSequencer Instructions (SQO, SQI, SQL) for Machine Automation\t9458\t0.0000\n30014\tStructured Text Programming for Complex Calculations\t11295\t0.0000\n20\tMotor Control Circuits & Schematics\t9446\t0.0000\n15\tReading Hydraulic & Pneumatic Schematics\t8592\t0.0000\n30030\tCapstone: Complete VFD System Commissioning from Specification to Startup\t11771\t0.0000\n120017\tReading VFD and Motor Starter One-Line Diagrams\t3910\t0.0000\n120018\tControl Panel Wiring Diagrams and Terminal Strips\t3786\t0.0000\n120019\tPLC I/O Wiring Diagrams and Address Mapping\t3815\t0.0000\n120020\tReading Safety Circuit Schematics\t4407\t0.0000\n120029\tDCS vs PLC Architecture for Process Control\t8952\t0.0000\n13\tHydraulic System Fundamentals\t7655\t0.0000\n",
+  "stderr": "",
+  "execution_time_ms": 317
+}

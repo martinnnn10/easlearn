@@ -1,0 +1,98 @@
+{
+  "query": "SELECT cm.id, cm.slug, cm.title, cm.isPublished, COUNT(cl.id) as totalLessons, SUM(CASE WHEN cl.isPublished = 1 THEN 1 ELSE 0 END) as publishedLessons FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.slug, cm.title, cm.isPublished ORDER BY cm.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id, cm.slug, cm.title, cm.isPublished, COUNT(cl.id) as totalLessons, SUM(CASE WHEN cl.isPublished = 1 THEN 1 ELSE 0 END) as publishedLessons FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.slug, cm.title, cm.isPublished ORDER BY cm.id;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "isPublished": "1",
+      "totalLessons": "18",
+      "publishedLessons": "18"
+    },
+    {
+      "id": "2",
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "isPublished": "1",
+      "totalLessons": "24",
+      "publishedLessons": "24"
+    },
+    {
+      "id": "3",
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "4",
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "5",
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "isPublished": "1",
+      "totalLessons": "5",
+      "publishedLessons": "5"
+    },
+    {
+      "id": "6",
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "30001",
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "30002",
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "30003",
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "30004",
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals",
+      "isPublished": "1",
+      "totalLessons": "6",
+      "publishedLessons": "6"
+    },
+    {
+      "id": "30005",
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy",
+      "isPublished": "1",
+      "totalLessons": "0",
+      "publishedLessons": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tisPublished\ttotalLessons\tpublishedLessons\n1\tpowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\t1\t18\t18\n2\tplc-fundamentals\tPLC Fundamentals & Troubleshooting\t1\t24\t24\n3\tfluid-power\tFluid Power Systems\t1\t6\t6\n4\tmotors-controls\tMotors & Motor Controls\t1\t6\t6\n5\talignment\tPrecision Shaft Alignment\t1\t5\t5\n6\tpreventative-maintenance\tPreventative Maintenance Programs\t1\t6\t6\n30001\telectrical-fundamentals\tElectrical Fundamentals\t1\t6\t6\n30002\tdigital-fundamentals\tDigital Fundamentals\t1\t6\t6\n30003\tsemiconductor-fundamentals\tSemiconductor Fundamentals\t1\t6\t6\n30004\thvac-fundamentals\tHVAC Fundamentals\t1\t6\t6\n30005\tindustrial-troubleshooting\tIndustrial Troubleshooting Academy\t1\t0\t0\n",
+  "stderr": "",
+  "execution_time_ms": 856
+}

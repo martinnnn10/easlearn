@@ -1,0 +1,43 @@
+{
+  "query": "SELECT SUBSTRING(content, 14500, 3000) as content_section FROM course_lessons WHERE id = 60013;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 14500, 3000) as content_section FROM course_lessons WHERE id = 60013;",
+  "rows": [
+    {
+      "content_section": "will instantly short out and blow the control fuse. **Correction:** The stripe MUST always face the positive voltage source."
+    },
+    {
+      "content_section": "- **Using Standard Diodes in High-Frequency Circuits:** Replacing a fast-recovery diode (like a UF4007) in a switch-mode power supply with a standard 1N4007 because \"they look the same.\" The standard diode cannot turn off fast enough for the high-frequency switching, causing massive heat generation and rapid failure. **Correction:** Always match the prefix letters on the part number, not just the numbers."
+    },
+    {
+      "content_section": "- **Ignoring AC Ripple on DC Supplies:** Assuming a 24VDC power supply is perfectly good just because a multimeter set to DC Volts reads 24.1VDC. If a bridge rectifier diode fails open, or a filter capacitor dries out, the DC average voltage might look fine on a standard meter, but the underlying AC ripple will cause erratic sensor triggers. **Correction:** Always switch your meter to AC Volts to check for ripple on a DC supply. A healthy 24VDC industrial supply should have less than 0.1VAC of ripple."
+    },
+    {
+      "content_section": "- **Testing Diodes In-Circuit:** Trying to test a freewheeling diode while it is still wired across a relay coil. The meter will read the low resistance of the coil in both directions, making a perfectly good diode look shorted. **Correction:** Always lift one leg of the diode before testing."
+    },
+    {
+      "content_section": "## Knowledge Check"
+    },
+    {
+      "content_section": "**Scenario:**"
+    },
+    {
+      "content_section": "You are troubleshooting a FANUC robot controller panel. A large 24VDC power supply is feeding a rack of sensitive analog input modules and network communication gateways. The modules are randomly dropping offline, reporting \"Signal Out of Range\" errors, and the network gateway keeps rebooting. You measure the power supply output with your Fluke meter set to DC Volts, and it reads a steady 23.8VDC. You then switch your meter to AC Volts and measure 3.5VAC across the DC output terminals. "
+    },
+    {
+      "content_section": "**Question:**"
+    },
+    {
+      "content_section": "What is the most likely cause of this erratic behavior, and what specific component(s) inside the power supply have likely failed to cause this condition?"
+    },
+    {
+      "content_section": "**Answer:**"
+    },
+    {
+      "content_section": "The issue is excessive AC ripple on the DC power line. A reading of 3.5VAC on a 24VDC supply is extremely high and will absolutely cause sensitive analog electronics and microprocessors to malfunction or reboot. The most likely cause is a failure in the power supply's rectification or filtering stage. Specifically, one or more diodes in the full-wave bridge rectifier may have failed open. This converts the smooth full-wave rectification into choppy half-wave rectification, which the internal capacitors cannot adequately smooth out. Alternatively, the main electrolytic filter capacitors have dried out and lost their capacitance, failing to smooth the normal DC pulses. In an industrial setting, the entire power supply unit should be replaced immediately to restore reliable operation."
+    }
+  ],
+  "messages": [],
+  "stdout": "content_section\nwill instantly short out and blow the control fuse. **Correction:** The stripe MUST always face the positive voltage source.\n- **Using Standard Diodes in High-Frequency Circuits:** Replacing a fast-recovery diode (like a UF4007) in a switch-mode power supply with a standard 1N4007 because \"they look the same.\" The standard diode cannot turn off fast enough for the high-frequency switching, causing massive heat generation and rapid failure. **Correction:** Always match the prefix letters on the part number, not just the numbers.\n- **Ignoring AC Ripple on DC Supplies:** Assuming a 24VDC power supply is perfectly good just because a multimeter set to DC Volts reads 24.1VDC. If a bridge rectifier diode fails open, or a filter capacitor dries out, the DC average voltage might look fine on a standard meter, but the underlying AC ripple will cause erratic sensor triggers. **Correction:** Always switch your meter to AC Volts to check for ripple on a DC supply. A healthy 24VDC industrial supply should have less than 0.1VAC of ripple.\n- **Testing Diodes In-Circuit:** Trying to test a freewheeling diode while it is still wired across a relay coil. The meter will read the low resistance of the coil in both directions, making a perfectly good diode look shorted. **Correction:** Always lift one leg of the diode before testing.\n\n## Knowledge Check\n\n**Scenario:**\nYou are troubleshooting a FANUC robot controller panel. A large 24VDC power supply is feeding a rack of sensitive analog input modules and network communication gateways. The modules are randomly dropping offline, reporting \"Signal Out of Range\" errors, and the network gateway keeps rebooting. You measure the power supply output with your Fluke meter set to DC Volts, and it reads a steady 23.8VDC. You then switch your meter to AC Volts and measure 3.5VAC across the DC output terminals. \n\n**Question:**\nWhat is the most likely cause of this erratic behavior, and what specific component(s) inside the power supply have likely failed to cause this condition?\n\n**Answer:**\nThe issue is excessive AC ripple on the DC power line. A reading of 3.5VAC on a 24VDC supply is extremely high and will absolutely cause sensitive analog electronics and microprocessors to malfunction or reboot. The most likely cause is a failure in the power supply's rectification or filtering stage. Specifically, one or more diodes in the full-wave bridge rectifier may have failed open. This converts the smooth full-wave rectification into choppy half-wave rectification, which the internal capacitors cannot adequately smooth out. Alternatively, the main electrolytic filter capacitors have dried out and lost their capacitance, failing to smooth the normal DC pulses. In an industrial setting, the entire power supply unit should be replaced immediately to restore reliable operation.\n",
+  "stderr": "",
+  "execution_time_ms": 276
+}

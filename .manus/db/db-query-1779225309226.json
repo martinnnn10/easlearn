@@ -1,0 +1,19 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('### Bipolar', content), 500) as bjt_section FROM course_lessons WHERE id = 60014;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('### Bipolar', content), 500) as bjt_section FROM course_lessons WHERE id = 60014;",
+  "rows": [
+    {
+      "bjt_section": "### Bipolar Junction Transistors (BJTs): NPN and PNP"
+    },
+    {
+      "bjt_section": "BJTs come in two flavors: NPN (Negative-Positive-Negative) and PNP (Positive-Negative-Positive). In industrial controls, they are primarily used as solid-state switches rather than linear amplifiers. The three terminals are the Base (control), Collector (load), and Emitter (reference)."
+    },
+    {
+      "bjt_section": "*   **NPN Transistors:** These switch the negative side of the circuit (sinking). The emitter is typically tied to ground (0V). When a positive voltage (relati"
+    }
+  ],
+  "messages": [],
+  "stdout": "bjt_section\n### Bipolar Junction Transistors (BJTs): NPN and PNP\nBJTs come in two flavors: NPN (Negative-Positive-Negative) and PNP (Positive-Negative-Positive). In industrial controls, they are primarily used as solid-state switches rather than linear amplifiers. The three terminals are the Base (control), Collector (load), and Emitter (reference).\n\n*   **NPN Transistors:** These switch the negative side of the circuit (sinking). The emitter is typically tied to ground (0V). When a positive voltage (relati\n",
+  "stderr": "",
+  "execution_time_ms": 409
+}

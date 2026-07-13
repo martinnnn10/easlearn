@@ -1,0 +1,28 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('ice', content), 500) as section FROM course_lessons WHERE id = 60019 LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('ice', content), 500) as section FROM course_lessons WHERE id = 60019 LIMIT 1;",
+  "rows": [
+    {
+      "section": "ice, or a walk-in freezer in a food processing facility — they all use the same fundamental refrigeration cycle. Understanding this cycle is essential for maintaining the HVAC systems that keep production environments at required temperatures."
+    },
+    {
+      "section": "## The Four Components"
+    },
+    {
+      "section": "Every refrigeration system has four essential components:"
+    },
+    {
+      "section": "| Component | Function | State Change |"
+    },
+    {
+      "section": "|-----------|----------|-------------|"
+    },
+    {
+      "section": "| **Compressor** | Pumps refrigerant, raises pressure | Low-pressure gas → High-pressure gas "
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nice, or a walk-in freezer in a food processing facility — they all use the same fundamental refrigeration cycle. Understanding this cycle is essential for maintaining the HVAC systems that keep production environments at required temperatures.\n\n## The Four Components\n\nEvery refrigeration system has four essential components:\n\n| Component | Function | State Change |\n|-----------|----------|-------------|\n| **Compressor** | Pumps refrigerant, raises pressure | Low-pressure gas → High-pressure gas \n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

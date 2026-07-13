@@ -1,0 +1,65 @@
+{
+  "query": "SELECT m.slug, m.title, COUNT(cl.id) as lessonCount FROM course_modules m LEFT JOIN course_lessons cl ON cl.moduleId = m.id GROUP BY m.id, m.slug, m.title ORDER BY lessonCount DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT m.slug, m.title, COUNT(cl.id) as lessonCount FROM course_modules m LEFT JOIN course_lessons cl ON cl.moduleId = m.id GROUP BY m.id, m.slug, m.title ORDER BY lessonCount DESC;",
+  "rows": [
+    {
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "lessonCount": "24"
+    },
+    {
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonCount": "18"
+    },
+    {
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals",
+      "lessonCount": "6"
+    },
+    {
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "lessonCount": "5"
+    },
+    {
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy",
+      "lessonCount": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\tlessonCount\nplc-fundamentals\tPLC Fundamentals & Troubleshooting\t24\npowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\t18\nfluid-power\tFluid Power Systems\t6\npreventative-maintenance\tPreventative Maintenance Programs\t6\nsemiconductor-fundamentals\tSemiconductor Fundamentals\t6\nmotors-controls\tMotors & Motor Controls\t6\ndigital-fundamentals\tDigital Fundamentals\t6\nelectrical-fundamentals\tElectrical Fundamentals\t6\nhvac-fundamentals\tHVAC Fundamentals\t6\nalignment\tPrecision Shaft Alignment\t5\nindustrial-troubleshooting\tIndustrial Troubleshooting Academy\t0\n",
+  "stderr": "",
+  "execution_time_ms": 285
+}

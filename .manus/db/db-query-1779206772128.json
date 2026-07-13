@@ -1,0 +1,164 @@
+{
+  "query": "SELECT cl.id, cl.moduleId, cm.title as moduleName, cl.title as lessonTitle, LENGTH(cl.content) as contentLength FROM course_lessons cl JOIN course_modules cm ON cm.id = cl.moduleId WHERE LENGTH(cl.content) < 7000 ORDER BY cm.id, cl.orderIndex LIMIT 22 OFFSET 60;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.id, cl.moduleId, cm.title as moduleName, cl.title as lessonTitle, LENGTH(cl.content) as contentLength FROM course_lessons cl JOIN course_modules cm ON cm.id = cl.moduleId WHERE LENGTH(cl.content) < 7000 ORDER BY cm.id, cl.orderIndex LIMIT 22 OFFSET 60;",
+  "rows": [
+    {
+      "id": "120018",
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonTitle": "Control Panel Wiring Diagrams and Terminal Strips",
+      "contentLength": "3786"
+    },
+    {
+      "id": "120019",
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonTitle": "PLC I/O Wiring Diagrams and Address Mapping",
+      "contentLength": "3815"
+    },
+    {
+      "id": "120020",
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonTitle": "Reading Safety Circuit Schematics",
+      "contentLength": "4893"
+    },
+    {
+      "id": "90013",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Machine Safety Fundamentals: Standards, Categories & Risk Assessment",
+      "contentLength": "3975"
+    },
+    {
+      "id": "90014",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Safety Devices: E-Stops, Light Curtains, Interlocks & Wiring",
+      "contentLength": "4412"
+    },
+    {
+      "id": "90015",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Safety PLC Basics & Troubleshooting Safety Circuits",
+      "contentLength": "4021"
+    },
+    {
+      "id": "120021",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Safety Relay Wiring and Configuration",
+      "contentLength": "5192"
+    },
+    {
+      "id": "120022",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Safety PLC Programming Concepts",
+      "contentLength": "5368"
+    },
+    {
+      "id": "120023",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Light Curtain Installation and Alignment",
+      "contentLength": "5938"
+    },
+    {
+      "id": "120024",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Emergency Stop Circuit Design and Testing",
+      "contentLength": "5090"
+    },
+    {
+      "id": "120025",
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonTitle": "Machine Risk Assessment Methodology",
+      "contentLength": "5166"
+    },
+    {
+      "id": "90016",
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonTitle": "PID Control Fundamentals for Maintenance Technicians",
+      "contentLength": "3755"
+    },
+    {
+      "id": "90017",
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonTitle": "Control Valves, Actuators & Final Control Elements",
+      "contentLength": "3827"
+    },
+    {
+      "id": "90018",
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonTitle": "Process Instrumentation Loops & Loop Diagrams",
+      "contentLength": "3609"
+    },
+    {
+      "id": "90019",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Industrial Power Systems: From Utility to Machine",
+      "contentLength": "4296"
+    },
+    {
+      "id": "90020",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Overcurrent Protection: Fuses, Breakers & Coordination",
+      "contentLength": "4339"
+    },
+    {
+      "id": "90021",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Grounding, Bonding & Ground Fault Protection",
+      "contentLength": "4494"
+    },
+    {
+      "id": "120030",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Motor Control Center (MCC) Architecture and Maintenance",
+      "contentLength": "4436"
+    },
+    {
+      "id": "120031",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Grounding and Bonding Requirements (NEC Article 250)",
+      "contentLength": "4611"
+    },
+    {
+      "id": "120032",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Power Quality Issues (Harmonics, Sags, Swells)",
+      "contentLength": "4536"
+    },
+    {
+      "id": "120033",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "UPS Systems and Emergency Power",
+      "contentLength": "4254"
+    },
+    {
+      "id": "120034",
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonTitle": "Medium Voltage Switchgear Safety and Operation",
+      "contentLength": "4602"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tmoduleId\tmoduleName\tlessonTitle\tcontentLength\n120018\t60004\tPrint Reading (Electrical)\tControl Panel Wiring Diagrams and Terminal Strips\t3786\n120019\t60004\tPrint Reading (Electrical)\tPLC I/O Wiring Diagrams and Address Mapping\t3815\n120020\t60004\tPrint Reading (Electrical)\tReading Safety Circuit Schematics\t4893\n90013\t60005\tSafety Systems\tMachine Safety Fundamentals: Standards, Categories & Risk Assessment\t3975\n90014\t60005\tSafety Systems\tSafety Devices: E-Stops, Light Curtains, Interlocks & Wiring\t4412\n90015\t60005\tSafety Systems\tSafety PLC Basics & Troubleshooting Safety Circuits\t4021\n120021\t60005\tSafety Systems\tSafety Relay Wiring and Configuration\t5192\n120022\t60005\tSafety Systems\tSafety PLC Programming Concepts\t5368\n120023\t60005\tSafety Systems\tLight Curtain Installation and Alignment\t5938\n120024\t60005\tSafety Systems\tEmergency Stop Circuit Design and Testing\t5090\n120025\t60005\tSafety Systems\tMachine Risk Assessment Methodology\t5166\n90016\t60006\tProcess Control\tPID Control Fundamentals for Maintenance Technicians\t3755\n90017\t60006\tProcess Control\tControl Valves, Actuators & Final Control Elements\t3827\n90018\t60006\tProcess Control\tProcess Instrumentation Loops & Loop Diagrams\t3609\n90019\t60007\tPower Distribution\tIndustrial Power Systems: From Utility to Machine\t4296\n90020\t60007\tPower Distribution\tOvercurrent Protection: Fuses, Breakers & Coordination\t4339\n90021\t60007\tPower Distribution\tGrounding, Bonding & Ground Fault Protection\t4494\n120030\t60007\tPower Distribution\tMotor Control Center (MCC) Architecture and Maintenance\t4436\n120031\t60007\tPower Distribution\tGrounding and Bonding Requirements (NEC Article 250)\t4611\n120032\t60007\tPower Distribution\tPower Quality Issues (Harmonics, Sags, Swells)\t4536\n120033\t60007\tPower Distribution\tUPS Systems and Emergency Power\t4254\n120034\t60007\tPower Distribution\tMedium Voltage Switchgear Safety and Operation\t4602\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

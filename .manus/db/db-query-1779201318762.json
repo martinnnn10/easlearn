@@ -1,0 +1,25 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('OSSD', content) - 30, 400) as section FROM course_lessons WHERE id = 120023;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('OSSD', content) - 30, 400) as section FROM course_lessons WHERE id = 120023;",
+  "rows": [
+    {
+      "section": "tput Signal Switching Device (OSSD) signals, initiating a machine stop."
+    },
+    {
+      "section": "### Resolution and Protected Height"
+    },
+    {
+      "section": "When selecting or replacing a light curtain, two key specifications must be matched:"
+    },
+    {
+      "section": "*   **Resolution:** The distance between the centerlines of adjacent beams. A 14mm resolution is typically used for finger protection, while 30mm is used for hand protection."
+    },
+    {
+      "section": "*   **Protected Height:** The "
+    }
+  ],
+  "messages": [],
+  "stdout": "section\ntput Signal Switching Device (OSSD) signals, initiating a machine stop.\n\n### Resolution and Protected Height\n\nWhen selecting or replacing a light curtain, two key specifications must be matched:\n*   **Resolution:** The distance between the centerlines of adjacent beams. A 14mm resolution is typically used for finger protection, while 30mm is used for hand protection.\n*   **Protected Height:** The \n",
+  "stderr": "",
+  "execution_time_ms": 269
+}

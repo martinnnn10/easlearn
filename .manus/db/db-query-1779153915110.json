@@ -1,0 +1,136 @@
+{
+  "query": "SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 60010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 1, 2000) as content_start FROM course_lessons WHERE id = 60010",
+  "rows": [
+    {
+      "content_start": "# Ladder Logic: Reading & Writing Basic Programs"
+    },
+    {
+      "content_start": "## The Universal Language of Industrial Control"
+    },
+    {
+      "content_start": "Ladder logic was designed to look like electrical schematics so that electricians could program PLCs without learning a traditional programming language. Each \"rung\" of the ladder represents a circuit path from the left power rail to the right power rail."
+    },
+    {
+      "content_start": "## Ladder Logic Structure"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "Left Rail                                    Right Rail"
+    },
+    {
+      "content_start": "   |                                              |"
+    },
+    {
+      "content_start": "   |---[ ]---[ ]---[ ]---( )---|                  |"
+    },
+    {
+      "content_start": "   |  Input1  Input2  Input3  Output1             |"
+    },
+    {
+      "content_start": "   |                                              |"
+    },
+    {
+      "content_start": "   |---[/]---+---[ ]---( )---|                    |"
+    },
+    {
+      "content_start": "   |  Input4  |  Input5  Output2                  |"
+    },
+    {
+      "content_start": "   |          |                                   |"
+    },
+    {
+      "content_start": "   |          +---[ ]---+                         |"
+    },
+    {
+      "content_start": "   |             Input6                           |"
+    },
+    {
+      "content_start": "   |                                              |"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "### Basic Elements"
+    },
+    {
+      "content_start": "| Symbol | Name | Function |"
+    },
+    {
+      "content_start": "|--------|------|----------|"
+    },
+    {
+      "content_start": "| ---[ ]--- | XIC (Examine If Closed) | TRUE when bit = 1 (NO contact) |"
+    },
+    {
+      "content_start": "| ---[/]--- | XIO (Examine If Open) | TRUE when bit = 0 (NC contact) |"
+    },
+    {
+      "content_start": "| ---( )--- | OTE (Output Energize) | Sets bit = 1 when rung is true |"
+    },
+    {
+      "content_start": "| ---(L)--- | OTL (Output Latch) | Sets bit = 1, stays latched |"
+    },
+    {
+      "content_start": "| ---(U)--- | OTU (Output Unlatch) | Resets latched bit to 0 |"
+    },
+    {
+      "content_start": "## Reading Ladder Logic: Left to Right, Top to Bottom"
+    },
+    {
+      "content_start": "### Rule 1: Series = AND"
+    },
+    {
+      "content_start": "Contacts in series ALL must be true for the rung to be true:"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "|---[Start_PB]---[Safety_OK]---[Not_Faulted]---(Motor_Run)---|"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "Motor_Run = Start_PB AND Safety_OK AND Not_Faulted"
+    },
+    {
+      "content_start": "### Rule 2: Parallel = OR"
+    },
+    {
+      "content_start": "Contacts in parallel — ANY one being true makes that branch true:"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "|---[Local_Start]---+---(Conveyor_Run)---|"
+    },
+    {
+      "content_start": "|                   |                     |"
+    },
+    {
+      "content_start": "|---[HMI_Start]----+                     |"
+    },
+    {
+      "content_start": "|                   |                     |"
+    },
+    {
+      "content_start": "|---[Auto_Start]---+                     |"
+    },
+    {
+      "content_start": "```"
+    },
+    {
+      "content_start": "Conveyor_Run = Local_St"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\n# Ladder Logic: Reading & Writing Basic Programs\n\n## The Universal Language of Industrial Control\n\nLadder logic was designed to look like electrical schematics so that electricians could program PLCs without learning a traditional programming language. Each \"rung\" of the ladder represents a circuit path from the left power rail to the right power rail.\n\n## Ladder Logic Structure\n\n```\nLeft Rail                                    Right Rail\n   |                                              |\n   |---[ ]---[ ]---[ ]---( )---|                  |\n   |  Input1  Input2  Input3  Output1             |\n   |                                              |\n   |---[/]---+---[ ]---( )---|                    |\n   |  Input4  |  Input5  Output2                  |\n   |          |                                   |\n   |          +---[ ]---+                         |\n   |             Input6                           |\n   |                                              |\n```\n\n### Basic Elements\n\n| Symbol | Name | Function |\n|--------|------|----------|\n| ---[ ]--- | XIC (Examine If Closed) | TRUE when bit = 1 (NO contact) |\n| ---[/]--- | XIO (Examine If Open) | TRUE when bit = 0 (NC contact) |\n| ---( )--- | OTE (Output Energize) | Sets bit = 1 when rung is true |\n| ---(L)--- | OTL (Output Latch) | Sets bit = 1, stays latched |\n| ---(U)--- | OTU (Output Unlatch) | Resets latched bit to 0 |\n\n## Reading Ladder Logic: Left to Right, Top to Bottom\n\n### Rule 1: Series = AND\n\nContacts in series ALL must be true for the rung to be true:\n\n```\n|---[Start_PB]---[Safety_OK]---[Not_Faulted]---(Motor_Run)---|\n```\n\nMotor_Run = Start_PB AND Safety_OK AND Not_Faulted\n\n### Rule 2: Parallel = OR\n\nContacts in parallel — ANY one being true makes that branch true:\n\n```\n|---[Local_Start]---+---(Conveyor_Run)---|\n|                   |                     |\n|---[HMI_Start]----+                     |\n|                   |                     |\n|---[Auto_Start]---+                     |\n```\n\nConveyor_Run = Local_St\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

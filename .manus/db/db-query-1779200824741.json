@@ -1,0 +1,28 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('dirty filter', content) - 100, 400) as section FROM course_lessons WHERE id = 60021;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('dirty filter', content) - 100, 400) as section FROM course_lessons WHERE id = 60021;",
+  "rows": [
+    {
+      "section": "on't go above 40 Hz | Speed limit parameter? Analog input scaled wrong? |"
+    },
+    {
+      "section": "| VFD trips on overload | Dirty filters (high static)? Belt too tight? Bearing seized? |"
+    },
+    {
+      "section": "| Hunting/oscillating speed | PID gains need tuning. Increase integral time, reduce P gain |"
+    },
+    {
+      "section": "| Motor hot at low speed | Below minimum cooling speed. Add forced cooling or raise min Hz |"
+    },
+    {
+      "section": "## Interactive: Ohm's Law Calculator"
+    },
+    {
+      "section": "Calculate po"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\non't go above 40 Hz | Speed limit parameter? Analog input scaled wrong? |\n| VFD trips on overload | Dirty filters (high static)? Belt too tight? Bearing seized? |\n| Hunting/oscillating speed | PID gains need tuning. Increase integral time, reduce P gain |\n| Motor hot at low speed | Below minimum cooling speed. Add forced cooling or raise min Hz |\n\n## Interactive: Ohm's Law Calculator\n\nCalculate po\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

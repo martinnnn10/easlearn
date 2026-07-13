@@ -1,0 +1,150 @@
+{
+  "query": "SELECT cl.id, cl.moduleId, cm.title as moduleName, cl.title as lessonTitle, LENGTH(cl.content) as contentLength FROM course_lessons cl JOIN course_modules cm ON cm.id = cl.moduleId WHERE LENGTH(cl.content) < 7000 ORDER BY cm.id, cl.orderIndex LIMIT 20 OFFSET 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.id, cl.moduleId, cm.title as moduleName, cl.title as lessonTitle, LENGTH(cl.content) as contentLength FROM course_lessons cl JOIN course_modules cm ON cm.id = cl.moduleId WHERE LENGTH(cl.content) < 7000 ORDER BY cm.id, cl.orderIndex LIMIT 20 OFFSET 20;",
+  "rows": [
+    {
+      "id": "60017",
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonTitle": "Industrial Power Supply Circuits",
+      "contentLength": "5224"
+    },
+    {
+      "id": "60018",
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonTitle": "VFD Power Stage: From Input to Output",
+      "contentLength": "6100"
+    },
+    {
+      "id": "60019",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "The Refrigeration Cycle",
+      "contentLength": "4845"
+    },
+    {
+      "id": "60020",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "HVAC Motor Controls & Starters",
+      "contentLength": "5187"
+    },
+    {
+      "id": "60021",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "VFDs in HVAC: Energy Savings & Control",
+      "contentLength": "5720"
+    },
+    {
+      "id": "60022",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "Compressor Types & Operation",
+      "contentLength": "4826"
+    },
+    {
+      "id": "60023",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "HVAC Controls & Building Automation",
+      "contentLength": "5774"
+    },
+    {
+      "id": "60024",
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonTitle": "HVAC Troubleshooting: Systematic Approach",
+      "contentLength": "6370"
+    },
+    {
+      "id": "150001",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "The Systematic Troubleshooting Process",
+      "contentLength": "6683"
+    },
+    {
+      "id": "150002",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "Electrical Measurement Strategy: What to Measure and Why",
+      "contentLength": "6183"
+    },
+    {
+      "id": "150003",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "Reading Electrical Prints Under Pressure",
+      "contentLength": "5279"
+    },
+    {
+      "id": "150004",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "VFD Troubleshooting Methodology",
+      "contentLength": "5658"
+    },
+    {
+      "id": "150005",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "PLC Fault Diagnosis and Recovery",
+      "contentLength": "6068"
+    },
+    {
+      "id": "150006",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "Multi-System Integration Troubleshooting",
+      "contentLength": "5746"
+    },
+    {
+      "id": "150007",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "Intermittent Fault Diagnosis: Finding the Ghost in the Machine",
+      "contentLength": "6925"
+    },
+    {
+      "id": "150008",
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonTitle": "Capstone: The Complete Troubleshooting Technician",
+      "contentLength": "5869"
+    },
+    {
+      "id": "90002",
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonTitle": "Managed Switches, VLANs & Network Segmentation",
+      "contentLength": "3849"
+    },
+    {
+      "id": "90003",
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonTitle": "PLC Network Communications & Troubleshooting",
+      "contentLength": "3530"
+    },
+    {
+      "id": "120001",
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonTitle": "EtherNet/IP Configuration with RSLinx",
+      "contentLength": "3783"
+    },
+    {
+      "id": "120002",
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonTitle": "IGMP Snooping and Multicast Management",
+      "contentLength": "3599"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tmoduleId\tmoduleName\tlessonTitle\tcontentLength\n60017\t30003\tSemiconductor Fundamentals\tIndustrial Power Supply Circuits\t5224\n60018\t30003\tSemiconductor Fundamentals\tVFD Power Stage: From Input to Output\t6100\n60019\t30004\tHVAC Fundamentals\tThe Refrigeration Cycle\t4845\n60020\t30004\tHVAC Fundamentals\tHVAC Motor Controls & Starters\t5187\n60021\t30004\tHVAC Fundamentals\tVFDs in HVAC: Energy Savings & Control\t5720\n60022\t30004\tHVAC Fundamentals\tCompressor Types & Operation\t4826\n60023\t30004\tHVAC Fundamentals\tHVAC Controls & Building Automation\t5774\n60024\t30004\tHVAC Fundamentals\tHVAC Troubleshooting: Systematic Approach\t6370\n150001\t30005\tIndustrial Troubleshooting Academy\tThe Systematic Troubleshooting Process\t6683\n150002\t30005\tIndustrial Troubleshooting Academy\tElectrical Measurement Strategy: What to Measure and Why\t6183\n150003\t30005\tIndustrial Troubleshooting Academy\tReading Electrical Prints Under Pressure\t5279\n150004\t30005\tIndustrial Troubleshooting Academy\tVFD Troubleshooting Methodology\t5658\n150005\t30005\tIndustrial Troubleshooting Academy\tPLC Fault Diagnosis and Recovery\t6068\n150006\t30005\tIndustrial Troubleshooting Academy\tMulti-System Integration Troubleshooting\t5746\n150007\t30005\tIndustrial Troubleshooting Academy\tIntermittent Fault Diagnosis: Finding the Ghost in the Machine\t6925\n150008\t30005\tIndustrial Troubleshooting Academy\tCapstone: The Complete Troubleshooting Technician\t5869\n90002\t60001\tIndustrial Networking\tManaged Switches, VLANs & Network Segmentation\t3849\n90003\t60001\tIndustrial Networking\tPLC Network Communications & Troubleshooting\t3530\n120001\t60001\tIndustrial Networking\tEtherNet/IP Configuration with RSLinx\t3783\n120002\t60001\tIndustrial Networking\tIGMP Snooping and Multicast Management\t3599\n",
+  "stderr": "",
+  "execution_time_ms": 283
+}

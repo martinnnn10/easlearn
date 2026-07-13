@@ -1,0 +1,22 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Diode Types', content), 200) as diode_check FROM course_lessons WHERE id = 60013",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Diode Types', content), 200) as diode_check FROM course_lessons WHERE id = 60013",
+  "rows": [
+    {
+      "diode_check": "Diode Types in Industrial Applications"
+    },
+    {
+      "diode_check": "| Type | Symbol | Application | Key Spec |"
+    },
+    {
+      "diode_check": "|------|--------|-------------|----------|"
+    },
+    {
+      "diode_check": "| Standard rectifier | <svg width=\"48\" height=\"24\" viewBox=\"0 0 48 24\"><li"
+    }
+  ],
+  "messages": [],
+  "stdout": "diode_check\nDiode Types in Industrial Applications\n\n| Type | Symbol | Application | Key Spec |\n|------|--------|-------------|----------|\n| Standard rectifier | <svg width=\"48\" height=\"24\" viewBox=\"0 0 48 24\"><li\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

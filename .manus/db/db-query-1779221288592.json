@@ -1,0 +1,79 @@
+{
+  "query": "SELECT SUBSTRING(content, 3000, 3000) as content_mid FROM course_lessons WHERE id = 60016;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, 3000, 3000) as content_mid FROM course_lessons WHERE id = 60016;",
+  "rows": [
+    {
+      "content_mid": "tage to regulate motor speed."
+    },
+    {
+      "content_mid": "### SCR Applications"
+    },
+    {
+      "content_mid": "- **DC Motor Drives:** Six SCRs are typically arranged in a three-phase full-wave bridge to convert incoming 480V AC into variable DC voltage for motor speed control."
+    },
+    {
+      "content_mid": "- **Soft Starters:** SCRs are placed back-to-back (anti-parallel) in each phase of an AC motor. By gradually advancing the firing angle, the voltage ramps up smoothly, preventing the massive inrush current of a cross-the-line start."
+    },
+    {
+      "content_mid": "- **Battery Chargers:** Large industrial forklift chargers use SCRs to regulate the charging current and voltage applied to the battery bank."
+    },
+    {
+      "content_mid": "> **Technician Tip:** When looking at an oscilloscope trace of an SCR drive output, the waveform won't look like a smooth DC line. It looks like a series of \"shark fins.\" If one of those fins is missing, you have a dead SCR or a missing gate firing pulse."
+    },
+    {
+      "content_mid": "## Core Technical Content: Triac Operation"
+    },
+    {
+      "content_mid": "While an SCR only conducts in one direction (DC), a **Triac** is designed to conduct in **both directions** (AC). You can think of a Triac as two SCRs wired back-to-back in parallel, sharing a single gate."
+    },
+    {
+      "content_mid": "### Bidirectional Control"
+    },
+    {
+      "content_mid": "A Triac has three terminals: **Main Terminal 1 (MT1)**, **Main Terminal 2 (MT2)**, and **Gate (G)**. "
+    },
+    {
+      "content_mid": "Because it conducts in both directions, it is ideal for controlling AC loads. A gate pulse can trigger the Triac into conduction regardless of whether MT2 is positive or negative relative to MT1. Like an SCR, it latches on until the AC current crosses zero."
+    },
+    {
+      "content_mid": "### Triac Applications"
+    },
+    {
+      "content_mid": "- **Heating Control:** Solid-state relays (SSRs) used for controlling resistive heater bands on plastic injection molding machines often use Triacs."
+    },
+    {
+      "content_mid": "- **Lighting Control:** Industrial dimming systems for large facility lighting."
+    },
+    {
+      "content_mid": "- **Small AC Motors:** Speed control for fractional horsepower AC fans and blowers."
+    },
+    {
+      "content_mid": "*Note: Triacs are generally limited to lower power applications compared to SCRs. For high-power AC control (like a 200 HP soft starter), engineers use two discrete SCRs in anti-parallel rather than a single Triac, because SCRs can handle much higher currents and thermal loads.*"
+    },
+    {
+      "content_mid": "## Protection: Snubbers, dV/dt, and dI/dt"
+    },
+    {
+      "content_mid": "Thyristors are rugged, but they have specific vulnerabilities, especially when driving inductive loads like motors or transformers."
+    },
+    {
+      "content_mid": "### dV/dt and dI/dt Limits"
+    },
+    {
+      "content_mid": "- **dV/dt (Rate of change of Voltage):** If the voltage across an SCR spikes too quickly, the internal capacitance of the semiconductor can cause it to turn ON without a gate signal. This is called \"false triggering\" and can cause catastrophic short circuits in a drive bridge."
+    },
+    {
+      "content_mid": "- **dI/dt (Rate of change of Current):** When an SCR first turns on, conduction starts in a tiny area of the silicon chip and spreads. If the current rises too fast before the conduction area can spread, localized heating will melt the silicon, destroying the SCR."
+    },
+    {
+      "content_mid": "### Snubber Circuits"
+    },
+    {
+      "content_mid": "To protect against dV/dt false triggering, a **snubber circuit** (a resistor and capacitor in series) is wired in parallel a"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_mid\ntage to regulate motor speed.\n\n### SCR Applications\n- **DC Motor Drives:** Six SCRs are typically arranged in a three-phase full-wave bridge to convert incoming 480V AC into variable DC voltage for motor speed control.\n- **Soft Starters:** SCRs are placed back-to-back (anti-parallel) in each phase of an AC motor. By gradually advancing the firing angle, the voltage ramps up smoothly, preventing the massive inrush current of a cross-the-line start.\n- **Battery Chargers:** Large industrial forklift chargers use SCRs to regulate the charging current and voltage applied to the battery bank.\n\n> **Technician Tip:** When looking at an oscilloscope trace of an SCR drive output, the waveform won't look like a smooth DC line. It looks like a series of \"shark fins.\" If one of those fins is missing, you have a dead SCR or a missing gate firing pulse.\n\n## Core Technical Content: Triac Operation\n\nWhile an SCR only conducts in one direction (DC), a **Triac** is designed to conduct in **both directions** (AC). You can think of a Triac as two SCRs wired back-to-back in parallel, sharing a single gate.\n\n### Bidirectional Control\nA Triac has three terminals: **Main Terminal 1 (MT1)**, **Main Terminal 2 (MT2)**, and **Gate (G)**. \nBecause it conducts in both directions, it is ideal for controlling AC loads. A gate pulse can trigger the Triac into conduction regardless of whether MT2 is positive or negative relative to MT1. Like an SCR, it latches on until the AC current crosses zero.\n\n### Triac Applications\n- **Heating Control:** Solid-state relays (SSRs) used for controlling resistive heater bands on plastic injection molding machines often use Triacs.\n- **Lighting Control:** Industrial dimming systems for large facility lighting.\n- **Small AC Motors:** Speed control for fractional horsepower AC fans and blowers.\n\n*Note: Triacs are generally limited to lower power applications compared to SCRs. For high-power AC control (like a 200 HP soft starter), engineers use two discrete SCRs in anti-parallel rather than a single Triac, because SCRs can handle much higher currents and thermal loads.*\n\n## Protection: Snubbers, dV/dt, and dI/dt\n\nThyristors are rugged, but they have specific vulnerabilities, especially when driving inductive loads like motors or transformers.\n\n### dV/dt and dI/dt Limits\n- **dV/dt (Rate of change of Voltage):** If the voltage across an SCR spikes too quickly, the internal capacitance of the semiconductor can cause it to turn ON without a gate signal. This is called \"false triggering\" and can cause catastrophic short circuits in a drive bridge.\n- **dI/dt (Rate of change of Current):** When an SCR first turns on, conduction starts in a tiny area of the silicon chip and spreads. If the current rises too fast before the conduction area can spread, localized heating will melt the silicon, destroying the SCR.\n\n### Snubber Circuits\nTo protect against dV/dt false triggering, a **snubber circuit** (a resistor and capacitor in series) is wired in parallel a\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}

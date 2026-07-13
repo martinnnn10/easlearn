@@ -1,0 +1,61 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('### Control Components', content), 800) as control_section FROM course_lessons WHERE id = 90010",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('### Control Components', content), 800) as control_section FROM course_lessons WHERE id = 90010",
+  "rows": [
+    {
+      "control_section": "### Control Components"
+    },
+    {
+      "control_section": "| Symbol | Component | Function |"
+    },
+    {
+      "control_section": "|--------|-----------|----------|"
+    },
+    {
+      "control_section": "| ─( )─ | Relay/contactor coil | Electromagnetic actuator |"
+    },
+    {
+      "control_section": "| ─] [─ | Normally open contact | Closes when coil is energized |"
+    },
+    {
+      "control_section": "| ─]/[─ | Normally closed contact | Opens when coil is energized |"
+    },
+    {
+      "control_section": "| ─] [─ (with T) | Timer contact | Changes state after time delay |"
+    },
+    {
+      "control_section": "| ─(OL)─ | Overload relay | Motor thermal protection |"
+    },
+    {
+      "control_section": "### Input Devices"
+    },
+    {
+      "control_section": "| Symbol | Component | Function |"
+    },
+    {
+      "control_section": "|--------|-----------|----------|"
+    },
+    {
+      "control_section": "| ─○/○─ | Pushbutton NO | Momentary close on press |"
+    },
+    {
+      "control_section": "| ─○╲○─ | Pushbutton NC | Momentary open on press |"
+    },
+    {
+      "control_section": "| ─○/○─ (maintained) | Selector switch | Stays in selected position |"
+    },
+    {
+      "control_section": "| ─LS─ | Limit switch | Position detection |"
+    },
+    {
+      "control_section": "| ─PS─ | Pressure switch | Pressure detection |"
+    },
+    {
+      "control_section": "| ─TS─ | Temperature switch | Temper"
+    }
+  ],
+  "messages": [],
+  "stdout": "control_section\n### Control Components\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─( )─ | Relay/contactor coil | Electromagnetic actuator |\n| ─] [─ | Normally open contact | Closes when coil is energized |\n| ─]/[─ | Normally closed contact | Opens when coil is energized |\n| ─] [─ (with T) | Timer contact | Changes state after time delay |\n| ─(OL)─ | Overload relay | Motor thermal protection |\n\n### Input Devices\n\n| Symbol | Component | Function |\n|--------|-----------|----------|\n| ─○/○─ | Pushbutton NO | Momentary close on press |\n| ─○╲○─ | Pushbutton NC | Momentary open on press |\n| ─○/○─ (maintained) | Selector switch | Stays in selected position |\n| ─LS─ | Limit switch | Position detection |\n| ─PS─ | Pressure switch | Pressure detection |\n| ─TS─ | Temperature switch | Temper\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

@@ -1,0 +1,22 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('1600 mm/s', content) - 50, 400) as section FROM course_lessons WHERE id = 120023;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('1600 mm/s', content) - 50, 400) as section FROM course_lessons WHERE id = 120023;",
+  "rows": [
+    {
+      "section": "$K$:** Approach speed of the body part (typically 1600 mm/s for hand/arm)."
+    },
+    {
+      "section": "*   **$T$:** Total stopping time of the system (machine stopping time + light curtain response time + safety relay response time)."
+    },
+    {
+      "section": "*   **$C$:** Depth penetration factor (depends on the resolution of the light curtain)."
+    },
+    {
+      "section": "> **Field Reality:** Never assume the safe distance is correct just because the light curtain is mounted "
+    }
+  ],
+  "messages": [],
+  "stdout": "section\n$K$:** Approach speed of the body part (typically 1600 mm/s for hand/arm).\n*   **$T$:** Total stopping time of the system (machine stopping time + light curtain response time + safety relay response time).\n*   **$C$:** Depth penetration factor (depends on the resolution of the light curtain).\n\n> **Field Reality:** Never assume the safe distance is correct just because the light curtain is mounted \n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

@@ -1,0 +1,35 @@
+ROOT CAUSE ANALYSIS - Scroll Bounce:
+
+The pan logic in InteractiveCircuitDiagramV3 uses:
+- handlePointerDown: sets isPanning=true, captures pointer
+- handlePointerMove: updates panOffset based on delta
+- handlePointerUp: sets isPanning=false
+
+The SVG transform is: scale(${scale}) translate(${panOffset.x / scale}px, ${panOffset.y / scale}px)
+
+POTENTIAL ISSUES:
+1. The setPointerCapture is called on e.target (which could be an SVG child element, not the container)
+   - If the target is an SVG element inside the container, pointer capture may not work as expected
+   - Should call setPointerCapture on the container ref instead
+
+2. On mobile, if the browser's native scroll/rubber-band is still competing despite touch-action: none,
+   the panOffset state update works but the VISUAL position bounces because the browser is also
+   applying its own scroll transform to the parent.
+
+3. The CSS fix I just applied (changing .sim-machine-viewport from overflow:auto to overflow:hidden
+   and adding touch-action:none) should fix the parent container scroll competition.
+
+4. But the REAL issue might be that on iOS Safari, the `touch-action: none` CSS property doesn't
+   fully prevent the browser's rubber-band/overscroll behavior on the page body. The body:has() 
+   rule sets position:fixed which should help, but iOS Safari sometimes still allows bounce.
+
+FIX STRATEGY:
+- The CSS changes already made should help significantly
+- Additionally, add e.preventDefault() in handlePointerDown to prevent any default touch behavior
+- Also add pointer capture on the container div (not e.target) for more reliable tracking
+- Add a touchmove event listener with {passive: false} that calls preventDefault() on the container
+
+For the PINCH-TO-ZOOM:
+- Track multiple pointers (pointer events support this)
+- Calculate distance between two pointers
+- Map distance change to scale change

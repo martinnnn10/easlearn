@@ -1,0 +1,34 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Ziegler', content), 500) as section FROM course_lessons WHERE id = 120026;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Ziegler', content), 500) as section FROM course_lessons WHERE id = 120026;",
+  "rows": [
+    {
+      "section": "Ziegler-Nichols Tuning Method**"
+    },
+    {
+      "section": "- **Trial-and-Error Tuning Method**"
+    },
+    {
+      "section": "Both methods have practical applications in the field, with advantages and limitations. Understanding these methods enables you to optimize control loops during commissioning and troubleshooting."
+    },
+    {
+      "section": "---"
+    },
+    {
+      "section": "## Prerequisites"
+    },
+    {
+      "section": "Before tuning PID loops, ensure you have:"
+    },
+    {
+      "section": "- Access to the PID controller interface (e.g., Allen-Bradley PanelView, Siemens SIMATIC HMI)"
+    },
+    {
+      "section": "- A calibrated process sensor (e.g., pressure transmitter 4-20 mA, model R"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nZiegler-Nichols Tuning Method**\n- **Trial-and-Error Tuning Method**\n\nBoth methods have practical applications in the field, with advantages and limitations. Understanding these methods enables you to optimize control loops during commissioning and troubleshooting.\n\n---\n\n## Prerequisites\n\nBefore tuning PID loops, ensure you have:\n\n- Access to the PID controller interface (e.g., Allen-Bradley PanelView, Siemens SIMATIC HMI)\n- A calibrated process sensor (e.g., pressure transmitter 4-20 mA, model R\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}

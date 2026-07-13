@@ -1,0 +1,109 @@
+{
+  "query": "SELECT cm.id, cm.slug, cm.title, cm.path, cm.totalLessons, cm.isPublished, COUNT(cl.id) as actualLessons FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id AND cl.isPublished = 1 GROUP BY cm.id ORDER BY cm.path, cm.orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id, cm.slug, cm.title, cm.path, cm.totalLessons, cm.isPublished, COUNT(cl.id) as actualLessons FROM course_modules cm LEFT JOIN course_lessons cl ON cl.moduleId = cm.id AND cl.isPublished = 1 GROUP BY cm.id ORDER BY cm.path, cm.orderIndex;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "path": "advanced",
+      "totalLessons": "18",
+      "isPublished": "1",
+      "actualLessons": "18"
+    },
+    {
+      "id": "2",
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "path": "advanced",
+      "totalLessons": "24",
+      "isPublished": "1",
+      "actualLessons": "24"
+    },
+    {
+      "id": "3",
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "path": "advanced",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "4",
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "path": "advanced",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "5",
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "path": "advanced",
+      "totalLessons": "5",
+      "isPublished": "1",
+      "actualLessons": "5"
+    },
+    {
+      "id": "6",
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "path": "advanced",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "30005",
+      "slug": "industrial-troubleshooting",
+      "title": "Industrial Troubleshooting Academy",
+      "path": "advanced",
+      "totalLessons": "15",
+      "isPublished": "1",
+      "actualLessons": "0"
+    },
+    {
+      "id": "30001",
+      "slug": "electrical-fundamentals",
+      "title": "Electrical Fundamentals",
+      "path": "foundational",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "30002",
+      "slug": "digital-fundamentals",
+      "title": "Digital Fundamentals",
+      "path": "foundational",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "30003",
+      "slug": "semiconductor-fundamentals",
+      "title": "Semiconductor Fundamentals",
+      "path": "foundational",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    },
+    {
+      "id": "30004",
+      "slug": "hvac-fundamentals",
+      "title": "HVAC Fundamentals",
+      "path": "foundational",
+      "totalLessons": "6",
+      "isPublished": "1",
+      "actualLessons": "6"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tpath\ttotalLessons\tisPublished\tactualLessons\n1\tpowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\tadvanced\t18\t1\t18\n2\tplc-fundamentals\tPLC Fundamentals & Troubleshooting\tadvanced\t24\t1\t24\n3\tfluid-power\tFluid Power Systems\tadvanced\t6\t1\t6\n4\tmotors-controls\tMotors & Motor Controls\tadvanced\t6\t1\t6\n5\talignment\tPrecision Shaft Alignment\tadvanced\t5\t1\t5\n6\tpreventative-maintenance\tPreventative Maintenance Programs\tadvanced\t6\t1\t6\n30005\tindustrial-troubleshooting\tIndustrial Troubleshooting Academy\tadvanced\t15\t1\t0\n30001\telectrical-fundamentals\tElectrical Fundamentals\tfoundational\t6\t1\t6\n30002\tdigital-fundamentals\tDigital Fundamentals\tfoundational\t6\t1\t6\n30003\tsemiconductor-fundamentals\tSemiconductor Fundamentals\tfoundational\t6\t1\t6\n30004\thvac-fundamentals\tHVAC Fundamentals\tfoundational\t6\t1\t6\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

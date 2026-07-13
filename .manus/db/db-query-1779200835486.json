@@ -1,0 +1,28 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('TXV stuck open', content) - 50, 300) as section FROM course_lessons WHERE id = 60024;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('TXV stuck open', content) - 50, 300) as section FROM course_lessons WHERE id = 60024;",
+  "rows": [
+    {
+      "section": "ow |"
+    },
+    {
+      "section": "| Suction pressure | High | Compressor weak, TXV stuck open |"
+    },
+    {
+      "section": "| Discharge pressure | High | Dirty condenser, overcharge, non-condensables |"
+    },
+    {
+      "section": "| Superheat | High (>25°F) | Low charge, restricted metering device |"
+    },
+    {
+      "section": "| Superheat | Low (<5°F) | Overcharge, TXV stuck open |"
+    },
+    {
+      "section": "| Subcooling | Low (<5°F) | L"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\now |\n| Suction pressure | High | Compressor weak, TXV stuck open |\n| Discharge pressure | High | Dirty condenser, overcharge, non-condensables |\n| Superheat | High (>25°F) | Low charge, restricted metering device |\n| Superheat | Low (<5°F) | Overcharge, TXV stuck open |\n| Subcooling | Low (<5°F) | L\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

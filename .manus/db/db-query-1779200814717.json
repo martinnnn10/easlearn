@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('condenser water', content) - 50, 400) as section FROM course_lessons WHERE id = 60021;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('condenser water', content) - 50, 400) as section FROM course_lessons WHERE id = 60021;",
+  "rows": [
+    {
+      "section": "r"
+    },
+    {
+      "section": "### 3. Cooling Tower Fans"
+    },
+    {
+      "section": "**Control Signal:** Condenser water return temperature (or approach temperature)."
+    },
+    {
+      "section": "**Typical Setup:**"
+    },
+    {
+      "section": "- Setpoint: 78-85°F condenser water supply"
+    },
+    {
+      "section": "- VFD modulates fan speed to maintain setpoint"
+    },
+    {
+      "section": "- Multiple fans: stage ON/OFF with lead fan on VFD"
+    },
+    {
+      "section": "- Minimum speed: 10-20% (to prevent motor overheating)"
+    },
+    {
+      "section": "### 4. Exhaust Fans (Parking Garages, Labs)"
+    },
+    {
+      "section": "**Control Signal:** CO lev"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nr\n\n### 3. Cooling Tower Fans\n\n**Control Signal:** Condenser water return temperature (or approach temperature).\n\n**Typical Setup:**\n- Setpoint: 78-85°F condenser water supply\n- VFD modulates fan speed to maintain setpoint\n- Multiple fans: stage ON/OFF with lead fan on VFD\n- Minimum speed: 10-20% (to prevent motor overheating)\n\n### 4. Exhaust Fans (Parking Garages, Labs)\n\n**Control Signal:** CO lev\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}

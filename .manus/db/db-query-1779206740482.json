@@ -1,0 +1,1226 @@
+{
+  "query": "SELECT cm.id as moduleId, cm.title as moduleName, cl.id as lessonId, cl.title as lessonTitle, cl.orderIndex, LENGTH(cl.content) as contentLength FROM course_modules cm JOIN course_lessons cl ON cl.moduleId = cm.id ORDER BY cm.id, cl.orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id as moduleId, cm.title as moduleName, cl.id as lessonId, cl.title as lessonTitle, cl.orderIndex, LENGTH(cl.content) as contentLength FROM course_modules cm JOIN course_lessons cl ON cl.moduleId = cm.id ORDER BY cm.id, cl.orderIndex;",
+  "rows": [
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "1",
+      "lessonTitle": "VFD Fundamentals & Operating Principles",
+      "orderIndex": "1",
+      "contentLength": "2953"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "2",
+      "lessonTitle": "PowerFlex Parameter Groups & Navigation",
+      "orderIndex": "2",
+      "contentLength": "8332"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "3",
+      "lessonTitle": "Basic Programming: Speed Reference, Accel/Decel, Motor Data",
+      "orderIndex": "3",
+      "contentLength": "7620"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "4",
+      "lessonTitle": "Fault Codes & Diagnostic Procedures",
+      "orderIndex": "4",
+      "contentLength": "8946"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "5",
+      "lessonTitle": "Common Failure Modes in Manufacturing",
+      "orderIndex": "5",
+      "contentLength": "8115"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "6",
+      "lessonTitle": "Advanced Features: PID, Multi-Speed, Communication",
+      "orderIndex": "6",
+      "contentLength": "9036"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30019",
+      "lessonTitle": "PowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance",
+      "orderIndex": "7",
+      "contentLength": "10596"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30020",
+      "lessonTitle": "Motor Nameplate Data Entry and Auto-Tune Procedures",
+      "orderIndex": "8",
+      "contentLength": "9522"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30021",
+      "lessonTitle": "Digital and Analog I/O Configuration for Start/Stop and Speed Reference",
+      "orderIndex": "9",
+      "contentLength": "11176"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30022",
+      "lessonTitle": "Multi-Speed Profiles and Preset Speed Selection",
+      "orderIndex": "10",
+      "contentLength": "7975"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30023",
+      "lessonTitle": "Process PID Control: Pressure, Flow, and Level Applications",
+      "orderIndex": "11",
+      "contentLength": "9843"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30024",
+      "lessonTitle": "Dynamic Braking and Regenerative Energy Management",
+      "orderIndex": "12",
+      "contentLength": "13877"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30025",
+      "lessonTitle": "PowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions",
+      "orderIndex": "13",
+      "contentLength": "10412"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30026",
+      "lessonTitle": "Drive Coordination: Master/Follower and Line Speed Synchronization",
+      "orderIndex": "14",
+      "contentLength": "8876"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30027",
+      "lessonTitle": "Thermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance",
+      "orderIndex": "15",
+      "contentLength": "10946"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30028",
+      "lessonTitle": "Power Quality Issues: Harmonics, Line Reactors, and dV/dt Filters",
+      "orderIndex": "16",
+      "contentLength": "10235"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30029",
+      "lessonTitle": "Predictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring",
+      "orderIndex": "17",
+      "contentLength": "10341"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonId": "30030",
+      "lessonTitle": "Capstone: Complete VFD System Commissioning from Specification to Startup",
+      "orderIndex": "18",
+      "contentLength": "11843"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "7",
+      "lessonTitle": "PLC Architecture & Hardware Components",
+      "orderIndex": "1",
+      "contentLength": "7735"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "8",
+      "lessonTitle": "Ladder Logic: Contacts, Coils, and Basic Instructions",
+      "orderIndex": "2",
+      "contentLength": "8467"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "9",
+      "lessonTitle": "I/O Module Troubleshooting & Wiring",
+      "orderIndex": "3",
+      "contentLength": "7488"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "10",
+      "lessonTitle": "Timers, Counters, and Comparison Instructions",
+      "orderIndex": "4",
+      "contentLength": "8891"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "11",
+      "lessonTitle": "Communication Faults: EtherNet/IP & DeviceNet",
+      "orderIndex": "5",
+      "contentLength": "7666"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "12",
+      "lessonTitle": "Online Troubleshooting & Forcing I/O",
+      "orderIndex": "6",
+      "contentLength": "7244"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30001",
+      "lessonTitle": "Data Types, Tags, and Memory Addressing in ControlLogix",
+      "orderIndex": "7",
+      "contentLength": "10147"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30002",
+      "lessonTitle": "Program Flow: Main Task, Periodic Tasks, and Event Tasks",
+      "orderIndex": "8",
+      "contentLength": "10783"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30003",
+      "lessonTitle": "Math Instructions: ADD, SUB, MUL, DIV, CPT, and Scaling Analog Signals",
+      "orderIndex": "9",
+      "contentLength": "10120"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30004",
+      "lessonTitle": "Sequencer Instructions (SQO, SQI, SQL) for Machine Automation",
+      "orderIndex": "10",
+      "contentLength": "9458"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30005",
+      "lessonTitle": "Subroutines, Add-On Instructions (AOI), and Code Reuse",
+      "orderIndex": "11",
+      "contentLength": "9057"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30006",
+      "lessonTitle": "Analog I/O Configuration: 4-20mA, 0-10V, Thermocouple Modules",
+      "orderIndex": "12",
+      "contentLength": "12457"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30007",
+      "lessonTitle": "PID Control in ControlLogix: Setup, Tuning, and Troubleshooting",
+      "orderIndex": "13",
+      "contentLength": "10978"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30008",
+      "lessonTitle": "Motion Control Basics: Servo Axes, MAPC, and Homing Sequences",
+      "orderIndex": "14",
+      "contentLength": "7308"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30009",
+      "lessonTitle": "EtherNet/IP Produced/Consumed Tags and Module Configuration",
+      "orderIndex": "15",
+      "contentLength": "11607"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30010",
+      "lessonTitle": "DeviceNet and ControlNet: Configuration and Fault Recovery",
+      "orderIndex": "16",
+      "contentLength": "9491"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30011",
+      "lessonTitle": "HMI Integration: FactoryTalk View Tag Binding and Alarming",
+      "orderIndex": "17",
+      "contentLength": "11611"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30012",
+      "lessonTitle": "Data Logging and Trending: Historizing Process Variables",
+      "orderIndex": "18",
+      "contentLength": "11605"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30013",
+      "lessonTitle": "Safety PLCs: GuardLogix, Safety I/O, and SIL Ratings",
+      "orderIndex": "19",
+      "contentLength": "10406"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30014",
+      "lessonTitle": "Structured Text Programming for Complex Calculations",
+      "orderIndex": "20",
+      "contentLength": "11295"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30015",
+      "lessonTitle": "Function Block Diagram (FBD) for Process Control Applications",
+      "orderIndex": "21",
+      "contentLength": "9127"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30016",
+      "lessonTitle": "Firmware Updates, Backup/Restore, and Disaster Recovery",
+      "orderIndex": "22",
+      "contentLength": "11389"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30017",
+      "lessonTitle": "Network Security: CIP Security, Firewalls, and Access Control",
+      "orderIndex": "23",
+      "contentLength": "10959"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonId": "30018",
+      "lessonTitle": "Capstone: Full System Commissioning from Wiring to First Run",
+      "orderIndex": "24",
+      "contentLength": "10877"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "13",
+      "lessonTitle": "Hydraulic System Fundamentals",
+      "orderIndex": "1",
+      "contentLength": "7655"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "14",
+      "lessonTitle": "Pneumatic System Fundamentals",
+      "orderIndex": "2",
+      "contentLength": "8790"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "15",
+      "lessonTitle": "Reading Hydraulic & Pneumatic Schematics",
+      "orderIndex": "3",
+      "contentLength": "8592"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "16",
+      "lessonTitle": "Valve Types & Troubleshooting",
+      "orderIndex": "4",
+      "contentLength": "5475"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "17",
+      "lessonTitle": "Pressure Diagnostics & Flow Testing",
+      "orderIndex": "5",
+      "contentLength": "8980"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonId": "18",
+      "lessonTitle": "Fluid Power Preventative Maintenance",
+      "orderIndex": "6",
+      "contentLength": "8369"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "19",
+      "lessonTitle": "AC & DC Motor Theory",
+      "orderIndex": "1",
+      "contentLength": "7583"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "20",
+      "lessonTitle": "Motor Control Circuits & Schematics",
+      "orderIndex": "2",
+      "contentLength": "9446"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "21",
+      "lessonTitle": "Motor Starter Troubleshooting",
+      "orderIndex": "3",
+      "contentLength": "8603"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "22",
+      "lessonTitle": "Overload Protection & Sizing",
+      "orderIndex": "4",
+      "contentLength": "8197"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "23",
+      "lessonTitle": "Single-Phase vs Three-Phase Diagnostics",
+      "orderIndex": "5",
+      "contentLength": "8416"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonId": "24",
+      "lessonTitle": "Motor Testing: Megger, Winding Resistance, Vibration",
+      "orderIndex": "6",
+      "contentLength": "6519"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonId": "25",
+      "lessonTitle": "Why Alignment Matters: Costs of Misalignment",
+      "orderIndex": "1",
+      "contentLength": "8897"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonId": "26",
+      "lessonTitle": "Dial Indicator Alignment Method",
+      "orderIndex": "2",
+      "contentLength": "9297"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonId": "27",
+      "lessonTitle": "Laser Alignment Systems & Procedures",
+      "orderIndex": "3",
+      "contentLength": "8939"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonId": "28",
+      "lessonTitle": "Soft Foot Detection & Correction",
+      "orderIndex": "4",
+      "contentLength": "8918"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonId": "29",
+      "lessonTitle": "Thermal Growth Compensation & Tolerances",
+      "orderIndex": "5",
+      "contentLength": "8264"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "30",
+      "lessonTitle": "Designing a PM Program for Manufacturing",
+      "orderIndex": "1",
+      "contentLength": "6712"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "31",
+      "lessonTitle": "Vibration Analysis Basics",
+      "orderIndex": "2",
+      "contentLength": "9124"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "32",
+      "lessonTitle": "Infrared Thermography for Electrical Systems",
+      "orderIndex": "3",
+      "contentLength": "7037"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "33",
+      "lessonTitle": "Lubrication Schedules & Best Practices",
+      "orderIndex": "4",
+      "contentLength": "7528"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "34",
+      "lessonTitle": "Condition-Based Monitoring vs Time-Based",
+      "orderIndex": "5",
+      "contentLength": "8038"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonId": "35",
+      "lessonTitle": "Root Cause Failure Analysis (RCFA)",
+      "orderIndex": "6",
+      "contentLength": "8720"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60001",
+      "lessonTitle": "Ohm's Law & Power Calculations",
+      "orderIndex": "1",
+      "contentLength": "3735"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60002",
+      "lessonTitle": "Kirchhoff's Voltage & Current Laws",
+      "orderIndex": "2",
+      "contentLength": "3977"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60003",
+      "lessonTitle": "AC vs. DC: Theory & Industrial Applications",
+      "orderIndex": "3",
+      "contentLength": "4319"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60004",
+      "lessonTitle": "Series & Parallel Circuits in Industrial Systems",
+      "orderIndex": "4",
+      "contentLength": "5005"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60005",
+      "lessonTitle": "Electrical Safety & Lockout/Tagout",
+      "orderIndex": "5",
+      "contentLength": "4694"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonId": "60006",
+      "lessonTitle": "Meters & Measurement Techniques",
+      "orderIndex": "6",
+      "contentLength": "5619"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60007",
+      "lessonTitle": "Binary, Hex & Number Systems for PLCs",
+      "orderIndex": "1",
+      "contentLength": "3463"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60008",
+      "lessonTitle": "Logic Gates & Boolean Algebra",
+      "orderIndex": "2",
+      "contentLength": "4204"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60009",
+      "lessonTitle": "Introduction to PLCs: Architecture & Operation",
+      "orderIndex": "3",
+      "contentLength": "4944"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60010",
+      "lessonTitle": "Ladder Logic: Reading & Writing Basic Programs",
+      "orderIndex": "4",
+      "contentLength": "5345"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60011",
+      "lessonTitle": "I/O Addressing & Wiring",
+      "orderIndex": "5",
+      "contentLength": "5726"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonId": "60012",
+      "lessonTitle": "Timers & Counters in PLC Programs",
+      "orderIndex": "6",
+      "contentLength": "5635"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60013",
+      "lessonTitle": "Diodes: Rectification & Protection",
+      "orderIndex": "1",
+      "contentLength": "6918"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60014",
+      "lessonTitle": "Transistors: Switching & Amplification",
+      "orderIndex": "2",
+      "contentLength": "4387"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60015",
+      "lessonTitle": "IGBTs & Power Electronics",
+      "orderIndex": "3",
+      "contentLength": "5838"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60016",
+      "lessonTitle": "Thyristors & SCRs: Phase Control",
+      "orderIndex": "4",
+      "contentLength": "5117"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60017",
+      "lessonTitle": "Industrial Power Supply Circuits",
+      "orderIndex": "5",
+      "contentLength": "5224"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonId": "60018",
+      "lessonTitle": "VFD Power Stage: From Input to Output",
+      "orderIndex": "6",
+      "contentLength": "6100"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60019",
+      "lessonTitle": "The Refrigeration Cycle",
+      "orderIndex": "1",
+      "contentLength": "4845"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60020",
+      "lessonTitle": "HVAC Motor Controls & Starters",
+      "orderIndex": "2",
+      "contentLength": "5187"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60021",
+      "lessonTitle": "VFDs in HVAC: Energy Savings & Control",
+      "orderIndex": "3",
+      "contentLength": "5720"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60022",
+      "lessonTitle": "Compressor Types & Operation",
+      "orderIndex": "4",
+      "contentLength": "4826"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60023",
+      "lessonTitle": "HVAC Controls & Building Automation",
+      "orderIndex": "5",
+      "contentLength": "5774"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonId": "60024",
+      "lessonTitle": "HVAC Troubleshooting: Systematic Approach",
+      "orderIndex": "6",
+      "contentLength": "6370"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150001",
+      "lessonTitle": "The Systematic Troubleshooting Process",
+      "orderIndex": "1",
+      "contentLength": "6683"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150002",
+      "lessonTitle": "Electrical Measurement Strategy: What to Measure and Why",
+      "orderIndex": "2",
+      "contentLength": "6183"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150003",
+      "lessonTitle": "Reading Electrical Prints Under Pressure",
+      "orderIndex": "3",
+      "contentLength": "5279"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150004",
+      "lessonTitle": "VFD Troubleshooting Methodology",
+      "orderIndex": "4",
+      "contentLength": "5658"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150005",
+      "lessonTitle": "PLC Fault Diagnosis and Recovery",
+      "orderIndex": "5",
+      "contentLength": "6068"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150006",
+      "lessonTitle": "Multi-System Integration Troubleshooting",
+      "orderIndex": "6",
+      "contentLength": "5746"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150007",
+      "lessonTitle": "Intermittent Fault Diagnosis: Finding the Ghost in the Machine",
+      "orderIndex": "7",
+      "contentLength": "6925"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonId": "150008",
+      "lessonTitle": "Capstone: The Complete Troubleshooting Technician",
+      "orderIndex": "8",
+      "contentLength": "5869"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "90001",
+      "lessonTitle": "Ethernet/IP Fundamentals for Industrial Networks",
+      "orderIndex": "1",
+      "contentLength": "7621"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "90002",
+      "lessonTitle": "Managed Switches, VLANs & Network Segmentation",
+      "orderIndex": "2",
+      "contentLength": "3849"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "90003",
+      "lessonTitle": "PLC Network Communications & Troubleshooting",
+      "orderIndex": "3",
+      "contentLength": "3530"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "120001",
+      "lessonTitle": "EtherNet/IP Configuration with RSLinx",
+      "orderIndex": "4",
+      "contentLength": "3783"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "120002",
+      "lessonTitle": "IGMP Snooping and Multicast Management",
+      "orderIndex": "5",
+      "contentLength": "3599"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "120003",
+      "lessonTitle": "Network Redundancy: DLR and PRP",
+      "orderIndex": "6",
+      "contentLength": "3604"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "120004",
+      "lessonTitle": "Wireshark for Industrial Packet Analysis",
+      "orderIndex": "7",
+      "contentLength": "7084"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonId": "120005",
+      "lessonTitle": "Cybersecurity Basics for OT Networks",
+      "orderIndex": "8",
+      "contentLength": "3713"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "90004",
+      "lessonTitle": "Proximity Sensors & Photoeyes: Selection, Wiring & Troubleshooting",
+      "orderIndex": "1",
+      "contentLength": "8323"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "90005",
+      "lessonTitle": "Analog Signals: 4-20mA, 0-10V & Scaling",
+      "orderIndex": "2",
+      "contentLength": "3891"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "90006",
+      "lessonTitle": "Temperature & Pressure Measurement in Industrial Systems",
+      "orderIndex": "3",
+      "contentLength": "3849"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "120006",
+      "lessonTitle": "Thermocouple Troubleshooting and Cold Junction Compensation",
+      "orderIndex": "4",
+      "contentLength": "4148"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "120007",
+      "lessonTitle": "RTD vs Thermocouple Selection and Wiring",
+      "orderIndex": "5",
+      "contentLength": "3448"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "120008",
+      "lessonTitle": "Pressure Transmitter Calibration with HART Communicator",
+      "orderIndex": "6",
+      "contentLength": "3626"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "120009",
+      "lessonTitle": "Level Measurement Technologies",
+      "orderIndex": "7",
+      "contentLength": "3537"
+    },
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonId": "120010",
+      "lessonTitle": "Analog Input Module Configuration and Scaling in PLCs",
+      "orderIndex": "8",
+      "contentLength": "3694"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "90007",
+      "lessonTitle": "Industrial Robot Types, Axes & Applications",
+      "orderIndex": "1",
+      "contentLength": "8055"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "90008",
+      "lessonTitle": "Robot-PLC Integration & Communication",
+      "orderIndex": "2",
+      "contentLength": "3405"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "90009",
+      "lessonTitle": "Robot Maintenance & Fault Recovery",
+      "orderIndex": "3",
+      "contentLength": "3730"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "120011",
+      "lessonTitle": "Robot Coordinate Systems: Joint, World, Tool, and User Frames",
+      "orderIndex": "4",
+      "contentLength": "4385"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "120012",
+      "lessonTitle": "Teach Pendant Operation and Safe Jogging Procedures",
+      "orderIndex": "5",
+      "contentLength": "3776"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "120013",
+      "lessonTitle": "I/O Configuration and Integration with PLCs",
+      "orderIndex": "6",
+      "contentLength": "3901"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "120014",
+      "lessonTitle": "Basic Pick-and-Place Program Structure",
+      "orderIndex": "7",
+      "contentLength": "4042"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonId": "120015",
+      "lessonTitle": "Robot Maintenance and Calibration Procedures",
+      "orderIndex": "8",
+      "contentLength": "3932"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "90010",
+      "lessonTitle": "Reading Electrical Schematics: Symbols, Conventions & Layout",
+      "orderIndex": "1",
+      "contentLength": "7690"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "90011",
+      "lessonTitle": "Panel Layout Drawings & Wire Tracing Techniques",
+      "orderIndex": "2",
+      "contentLength": "3113"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "90012",
+      "lessonTitle": "Three-Phase Power Distribution Prints",
+      "orderIndex": "3",
+      "contentLength": "5492"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "120016",
+      "lessonTitle": "Cross-Referencing Contacts and Coils Across Pages",
+      "orderIndex": "4",
+      "contentLength": "3648"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "120017",
+      "lessonTitle": "Reading VFD and Motor Starter One-Line Diagrams",
+      "orderIndex": "5",
+      "contentLength": "3910"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "120018",
+      "lessonTitle": "Control Panel Wiring Diagrams and Terminal Strips",
+      "orderIndex": "6",
+      "contentLength": "3786"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "120019",
+      "lessonTitle": "PLC I/O Wiring Diagrams and Address Mapping",
+      "orderIndex": "7",
+      "contentLength": "3815"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonId": "120020",
+      "lessonTitle": "Reading Safety Circuit Schematics",
+      "orderIndex": "8",
+      "contentLength": "4893"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "90013",
+      "lessonTitle": "Machine Safety Fundamentals: Standards, Categories & Risk Assessment",
+      "orderIndex": "1",
+      "contentLength": "3975"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "90014",
+      "lessonTitle": "Safety Devices: E-Stops, Light Curtains, Interlocks & Wiring",
+      "orderIndex": "2",
+      "contentLength": "4412"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "90015",
+      "lessonTitle": "Safety PLC Basics & Troubleshooting Safety Circuits",
+      "orderIndex": "3",
+      "contentLength": "4021"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "120021",
+      "lessonTitle": "Safety Relay Wiring and Configuration",
+      "orderIndex": "4",
+      "contentLength": "5192"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "120022",
+      "lessonTitle": "Safety PLC Programming Concepts",
+      "orderIndex": "5",
+      "contentLength": "5368"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "120023",
+      "lessonTitle": "Light Curtain Installation and Alignment",
+      "orderIndex": "6",
+      "contentLength": "5938"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "120024",
+      "lessonTitle": "Emergency Stop Circuit Design and Testing",
+      "orderIndex": "7",
+      "contentLength": "5090"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonId": "120025",
+      "lessonTitle": "Machine Risk Assessment Methodology",
+      "orderIndex": "8",
+      "contentLength": "5166"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "90016",
+      "lessonTitle": "PID Control Fundamentals for Maintenance Technicians",
+      "orderIndex": "1",
+      "contentLength": "3755"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "90017",
+      "lessonTitle": "Control Valves, Actuators & Final Control Elements",
+      "orderIndex": "2",
+      "contentLength": "3827"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "90018",
+      "lessonTitle": "Process Instrumentation Loops & Loop Diagrams",
+      "orderIndex": "3",
+      "contentLength": "3609"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "120026",
+      "lessonTitle": "PID Tuning Methods: Ziegler-Nichols and Trial-and-Error",
+      "orderIndex": "4",
+      "contentLength": "7752"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "120027",
+      "lessonTitle": "Cascade and Ratio Control Strategies",
+      "orderIndex": "6",
+      "contentLength": "9153"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "120028",
+      "lessonTitle": "Process Variable Transmitter Selection and Installation",
+      "orderIndex": "7",
+      "contentLength": "8343"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonId": "120029",
+      "lessonTitle": "DCS vs PLC Architecture for Process Control",
+      "orderIndex": "8",
+      "contentLength": "8952"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "90019",
+      "lessonTitle": "Industrial Power Systems: From Utility to Machine",
+      "orderIndex": "1",
+      "contentLength": "4296"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "90020",
+      "lessonTitle": "Overcurrent Protection: Fuses, Breakers & Coordination",
+      "orderIndex": "2",
+      "contentLength": "4339"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "90021",
+      "lessonTitle": "Grounding, Bonding & Ground Fault Protection",
+      "orderIndex": "3",
+      "contentLength": "4494"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "120030",
+      "lessonTitle": "Motor Control Center (MCC) Architecture and Maintenance",
+      "orderIndex": "4",
+      "contentLength": "4436"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "120031",
+      "lessonTitle": "Grounding and Bonding Requirements (NEC Article 250)",
+      "orderIndex": "5",
+      "contentLength": "4611"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "120032",
+      "lessonTitle": "Power Quality Issues (Harmonics, Sags, Swells)",
+      "orderIndex": "6",
+      "contentLength": "4536"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "120033",
+      "lessonTitle": "UPS Systems and Emergency Power",
+      "orderIndex": "7",
+      "contentLength": "4254"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonId": "120034",
+      "lessonTitle": "Medium Voltage Switchgear Safety and Operation",
+      "orderIndex": "8",
+      "contentLength": "4602"
+    }
+  ],
+  "messages": [],
+  "stdout": "moduleId\tmoduleName\tlessonId\tlessonTitle\torderIndex\tcontentLength\n1\tPowerFlex VFD Programming & Troubleshooting\t1\tVFD Fundamentals & Operating Principles\t1\t2953\n1\tPowerFlex VFD Programming & Troubleshooting\t2\tPowerFlex Parameter Groups & Navigation\t2\t8332\n1\tPowerFlex VFD Programming & Troubleshooting\t3\tBasic Programming: Speed Reference, Accel/Decel, Motor Data\t3\t7620\n1\tPowerFlex VFD Programming & Troubleshooting\t4\tFault Codes & Diagnostic Procedures\t4\t8946\n1\tPowerFlex VFD Programming & Troubleshooting\t5\tCommon Failure Modes in Manufacturing\t5\t8115\n1\tPowerFlex VFD Programming & Troubleshooting\t6\tAdvanced Features: PID, Multi-Speed, Communication\t6\t9036\n1\tPowerFlex VFD Programming & Troubleshooting\t30019\tPowerFlex 525 Hardware Installation: Wiring, Grounding, and EMC Compliance\t7\t10596\n1\tPowerFlex VFD Programming & Troubleshooting\t30020\tMotor Nameplate Data Entry and Auto-Tune Procedures\t8\t9522\n1\tPowerFlex VFD Programming & Troubleshooting\t30021\tDigital and Analog I/O Configuration for Start/Stop and Speed Reference\t9\t11176\n1\tPowerFlex VFD Programming & Troubleshooting\t30022\tMulti-Speed Profiles and Preset Speed Selection\t10\t7975\n1\tPowerFlex VFD Programming & Troubleshooting\t30023\tProcess PID Control: Pressure, Flow, and Level Applications\t11\t9843\n1\tPowerFlex VFD Programming & Troubleshooting\t30024\tDynamic Braking and Regenerative Energy Management\t12\t13877\n1\tPowerFlex VFD Programming & Troubleshooting\t30025\tPowerFlex 525 EtherNet/IP Setup: IP Configuration, Assembly Instances, and MSG Instructions\t13\t10412\n1\tPowerFlex VFD Programming & Troubleshooting\t30026\tDrive Coordination: Master/Follower and Line Speed Synchronization\t14\t8876\n1\tPowerFlex VFD Programming & Troubleshooting\t30027\tThermal Management: Heatsink Sizing, Ambient Derating, and Fan Maintenance\t15\t10946\n1\tPowerFlex VFD Programming & Troubleshooting\t30028\tPower Quality Issues: Harmonics, Line Reactors, and dV/dt Filters\t16\t10235\n1\tPowerFlex VFD Programming & Troubleshooting\t30029\tPredictive Maintenance: Drive Diagnostics, Capacitor Life, and Trend Monitoring\t17\t10341\n1\tPowerFlex VFD Programming & Troubleshooting\t30030\tCapstone: Complete VFD System Commissioning from Specification to Startup\t18\t11843\n2\tPLC Fundamentals & Troubleshooting\t7\tPLC Architecture & Hardware Components\t1\t7735\n2\tPLC Fundamentals & Troubleshooting\t8\tLadder Logic: Contacts, Coils, and Basic Instructions\t2\t8467\n2\tPLC Fundamentals & Troubleshooting\t9\tI/O Module Troubleshooting & Wiring\t3\t7488\n2\tPLC Fundamentals & Troubleshooting\t10\tTimers, Counters, and Comparison Instructions\t4\t8891\n2\tPLC Fundamentals & Troubleshooting\t11\tCommunication Faults: EtherNet/IP & DeviceNet\t5\t7666\n2\tPLC Fundamentals & Troubleshooting\t12\tOnline Troubleshooting & Forcing I/O\t6\t7244\n2\tPLC Fundamentals & Troubleshooting\t30001\tData Types, Tags, and Memory Addressing in ControlLogix\t7\t10147\n2\tPLC Fundamentals & Troubleshooting\t30002\tProgram Flow: Main Task, Periodic Tasks, and Event Tasks\t8\t10783\n2\tPLC Fundamentals & Troubleshooting\t30003\tMath Instructions: ADD, SUB, MUL, DIV, CPT, and Scaling Analog Signals\t9\t10120\n2\tPLC Fundamentals & Troubleshooting\t30004\tSequencer Instructions (SQO, SQI, SQL) for Machine Automation\t10\t9458\n2\tPLC Fundamentals & Troubleshooting\t30005\tSubroutines, Add-On Instructions (AOI), and Code Reuse\t11\t9057\n2\tPLC Fundamentals & Troubleshooting\t30006\tAnalog I/O Configuration: 4-20mA, 0-10V, Thermocouple Modules\t12\t12457\n2\tPLC Fundamentals & Troubleshooting\t30007\tPID Control in ControlLogix: Setup, Tuning, and Troubleshooting\t13\t10978\n2\tPLC Fundamentals & Troubleshooting\t30008\tMotion Control Basics: Servo Axes, MAPC, and Homing Sequences\t14\t7308\n2\tPLC Fundamentals & Troubleshooting\t30009\tEtherNet/IP Produced/Consumed Tags and Module Configuration\t15\t11607\n2\tPLC Fundamentals & Troubleshooting\t30010\tDeviceNet and ControlNet: Configuration and Fault Recovery\t16\t9491\n2\tPLC Fundamentals & Troubleshooting\t30011\tHMI Integration: FactoryTalk View Tag Binding and Alarming\t17\t11611\n2\tPLC Fundamentals & Troubleshooting\t30012\tData Logging and Trending: Historizing Process Variables\t18\t11605\n2\tPLC Fundamentals & Troubleshooting\t30013\tSafety PLCs: GuardLogix, Safety I/O, and SIL Ratings\t19\t10406\n2\tPLC Fundamentals & Troubleshooting\t30014\tStructured Text Programming for Complex Calculations\t20\t11295\n2\tPLC Fundamentals & Troubleshooting\t30015\tFunction Block Diagram (FBD) for Process Control Applications\t21\t9127\n2\tPLC Fundamentals & Troubleshooting\t30016\tFirmware Updates, Backup/Restore, and Disaster Recovery\t22\t11389\n2\tPLC Fundamentals & Troubleshooting\t30017\tNetwork Security: CIP Security, Firewalls, and Access Control\t23\t10959\n2\tPLC Fundamentals & Troubleshooting\t30018\tCapstone: Full System Commissioning from Wiring to First Run\t24\t10877\n3\tFluid Power Systems\t13\tHydraulic System Fundamentals\t1\t7655\n3\tFluid Power Systems\t14\tPneumatic System Fundamentals\t2\t8790\n3\tFluid Power Systems\t15\tReading Hydraulic & Pneumatic Schematics\t3\t8592\n3\tFluid Power Systems\t16\tValve Types & Troubleshooting\t4\t5475\n3\tFluid Power Systems\t17\tPressure Diagnostics & Flow Testing\t5\t8980\n3\tFluid Power Systems\t18\tFluid Power Preventative Maintenance\t6\t8369\n4\tMotors & Motor Controls\t19\tAC & DC Motor Theory\t1\t7583\n4\tMotors & Motor Controls\t20\tMotor Control Circuits & Schematics\t2\t9446\n4\tMotors & Motor Controls\t21\tMotor Starter Troubleshooting\t3\t8603\n4\tMotors & Motor Controls\t22\tOverload Protection & Sizing\t4\t8197\n4\tMotors & Motor Controls\t23\tSingle-Phase vs Three-Phase Diagnostics\t5\t8416\n4\tMotors & Motor Controls\t24\tMotor Testing: Megger, Winding Resistance, Vibration\t6\t6519\n5\tPrecision Shaft Alignment\t25\tWhy Alignment Matters: Costs of Misalignment\t1\t8897\n5\tPrecision Shaft Alignment\t26\tDial Indicator Alignment Method\t2\t9297\n5\tPrecision Shaft Alignment\t27\tLaser Alignment Systems & Procedures\t3\t8939\n5\tPrecision Shaft Alignment\t28\tSoft Foot Detection & Correction\t4\t8918\n5\tPrecision Shaft Alignment\t29\tThermal Growth Compensation & Tolerances\t5\t8264\n6\tPreventative Maintenance Programs\t30\tDesigning a PM Program for Manufacturing\t1\t6712\n6\tPreventative Maintenance Programs\t31\tVibration Analysis Basics\t2\t9124\n6\tPreventative Maintenance Programs\t32\tInfrared Thermography for Electrical Systems\t3\t7037\n6\tPreventative Maintenance Programs\t33\tLubrication Schedules & Best Practices\t4\t7528\n6\tPreventative Maintenance Programs\t34\tCondition-Based Monitoring vs Time-Based\t5\t8038\n6\tPreventative Maintenance Programs\t35\tRoot Cause Failure Analysis (RCFA)\t6\t8720\n30001\tElectrical Fundamentals\t60001\tOhm's Law & Power Calculations\t1\t3735\n30001\tElectrical Fundamentals\t60002\tKirchhoff's Voltage & Current Laws\t2\t3977\n30001\tElectrical Fundamentals\t60003\tAC vs. DC: Theory & Industrial Applications\t3\t4319\n30001\tElectrical Fundamentals\t60004\tSeries & Parallel Circuits in Industrial Systems\t4\t5005\n30001\tElectrical Fundamentals\t60005\tElectrical Safety & Lockout/Tagout\t5\t4694\n30001\tElectrical Fundamentals\t60006\tMeters & Measurement Techniques\t6\t5619\n30002\tDigital Fundamentals\t60007\tBinary, Hex & Number Systems for PLCs\t1\t3463\n30002\tDigital Fundamentals\t60008\tLogic Gates & Boolean Algebra\t2\t4204\n30002\tDigital Fundamentals\t60009\tIntroduction to PLCs: Architecture & Operation\t3\t4944\n30002\tDigital Fundamentals\t60010\tLadder Logic: Reading & Writing Basic Programs\t4\t5345\n30002\tDigital Fundamentals\t60011\tI/O Addressing & Wiring\t5\t5726\n30002\tDigital Fundamentals\t60012\tTimers & Counters in PLC Programs\t6\t5635\n30003\tSemiconductor Fundamentals\t60013\tDiodes: Rectification & Protection\t1\t6918\n30003\tSemiconductor Fundamentals\t60014\tTransistors: Switching & Amplification\t2\t4387\n30003\tSemiconductor Fundamentals\t60015\tIGBTs & Power Electronics\t3\t5838\n30003\tSemiconductor Fundamentals\t60016\tThyristors & SCRs: Phase Control\t4\t5117\n30003\tSemiconductor Fundamentals\t60017\tIndustrial Power Supply Circuits\t5\t5224\n30003\tSemiconductor Fundamentals\t60018\tVFD Power Stage: From Input to Output\t6\t6100\n30004\tHVAC Fundamentals\t60019\tThe Refrigeration Cycle\t1\t4845\n30004\tHVAC Fundamentals\t60020\tHVAC Motor Controls & Starters\t2\t5187\n30004\tHVAC Fundamentals\t60021\tVFDs in HVAC: Energy Savings & Control\t3\t5720\n30004\tHVAC Fundamentals\t60022\tCompressor Types & Operation\t4\t4826\n30004\tHVAC Fundamentals\t60023\tHVAC Controls & Building Automation\t5\t5774\n30004\tHVAC Fundamentals\t60024\tHVAC Troubleshooting: Systematic Approach\t6\t6370\n30005\tIndustrial Troubleshooting Academy\t150001\tThe Systematic Troubleshooting Process\t1\t6683\n30005\tIndustrial Troubleshooting Academy\t150002\tElectrical Measurement Strategy: What to Measure and Why\t2\t6183\n30005\tIndustrial Troubleshooting Academy\t150003\tReading Electrical Prints Under Pressure\t3\t5279\n30005\tIndustrial Troubleshooting Academy\t150004\tVFD Troubleshooting Methodology\t4\t5658\n30005\tIndustrial Troubleshooting Academy\t150005\tPLC Fault Diagnosis and Recovery\t5\t6068\n30005\tIndustrial Troubleshooting Academy\t150006\tMulti-System Integration Troubleshooting\t6\t5746\n30005\tIndustrial Troubleshooting Academy\t150007\tIntermittent Fault Diagnosis: Finding the Ghost in the Machine\t7\t6925\n30005\tIndustrial Troubleshooting Academy\t150008\tCapstone: The Complete Troubleshooting Technician\t8\t5869\n60001\tIndustrial Networking\t90001\tEthernet/IP Fundamentals for Industrial Networks\t1\t7621\n60001\tIndustrial Networking\t90002\tManaged Switches, VLANs & Network Segmentation\t2\t3849\n60001\tIndustrial Networking\t90003\tPLC Network Communications & Troubleshooting\t3\t3530\n60001\tIndustrial Networking\t120001\tEtherNet/IP Configuration with RSLinx\t4\t3783\n60001\tIndustrial Networking\t120002\tIGMP Snooping and Multicast Management\t5\t3599\n60001\tIndustrial Networking\t120003\tNetwork Redundancy: DLR and PRP\t6\t3604\n60001\tIndustrial Networking\t120004\tWireshark for Industrial Packet Analysis\t7\t7084\n60001\tIndustrial Networking\t120005\tCybersecurity Basics for OT Networks\t8\t3713\n60002\tSensors & Instrumentation\t90004\tProximity Sensors & Photoeyes: Selection, Wiring & Troubleshooting\t1\t8323\n60002\tSensors & Instrumentation\t90005\tAnalog Signals: 4-20mA, 0-10V & Scaling\t2\t3891\n60002\tSensors & Instrumentation\t90006\tTemperature & Pressure Measurement in Industrial Systems\t3\t3849\n60002\tSensors & Instrumentation\t120006\tThermocouple Troubleshooting and Cold Junction Compensation\t4\t4148\n60002\tSensors & Instrumentation\t120007\tRTD vs Thermocouple Selection and Wiring\t5\t3448\n60002\tSensors & Instrumentation\t120008\tPressure Transmitter Calibration with HART Communicator\t6\t3626\n60002\tSensors & Instrumentation\t120009\tLevel Measurement Technologies\t7\t3537\n60002\tSensors & Instrumentation\t120010\tAnalog Input Module Configuration and Scaling in PLCs\t8\t3694\n60003\tRobotics Fundamentals\t90007\tIndustrial Robot Types, Axes & Applications\t1\t8055\n60003\tRobotics Fundamentals\t90008\tRobot-PLC Integration & Communication\t2\t3405\n60003\tRobotics Fundamentals\t90009\tRobot Maintenance & Fault Recovery\t3\t3730\n60003\tRobotics Fundamentals\t120011\tRobot Coordinate Systems: Joint, World, Tool, and User Frames\t4\t4385\n60003\tRobotics Fundamentals\t120012\tTeach Pendant Operation and Safe Jogging Procedures\t5\t3776\n60003\tRobotics Fundamentals\t120013\tI/O Configuration and Integration with PLCs\t6\t3901\n60003\tRobotics Fundamentals\t120014\tBasic Pick-and-Place Program Structure\t7\t4042\n60003\tRobotics Fundamentals\t120015\tRobot Maintenance and Calibration Procedures\t8\t3932\n60004\tPrint Reading (Electrical)\t90010\tReading Electrical Schematics: Symbols, Conventions & Layout\t1\t7690\n60004\tPrint Reading (Electrical)\t90011\tPanel Layout Drawings & Wire Tracing Techniques\t2\t3113\n60004\tPrint Reading (Electrical)\t90012\tThree-Phase Power Distribution Prints\t3\t5492\n60004\tPrint Reading (Electrical)\t120016\tCross-Referencing Contacts and Coils Across Pages\t4\t3648\n60004\tPrint Reading (Electrical)\t120017\tReading VFD and Motor Starter One-Line Diagrams\t5\t3910\n60004\tPrint Reading (Electrical)\t120018\tControl Panel Wiring Diagrams and Terminal Strips\t6\t3786\n60004\tPrint Reading (Electrical)\t120019\tPLC I/O Wiring Diagrams and Address Mapping\t7\t3815\n60004\tPrint Reading (Electrical)\t120020\tReading Safety Circuit Schematics\t8\t4893\n60005\tSafety Systems\t90013\tMachine Safety Fundamentals: Standards, Categories & Risk Assessment\t1\t3975\n60005\tSafety Systems\t90014\tSafety Devices: E-Stops, Light Curtains, Interlocks & Wiring\t2\t4412\n60005\tSafety Systems\t90015\tSafety PLC Basics & Troubleshooting Safety Circuits\t3\t4021\n60005\tSafety Systems\t120021\tSafety Relay Wiring and Configuration\t4\t5192\n60005\tSafety Systems\t120022\tSafety PLC Programming Concepts\t5\t5368\n60005\tSafety Systems\t120023\tLight Curtain Installation and Alignment\t6\t5938\n60005\tSafety Systems\t120024\tEmergency Stop Circuit Design and Testing\t7\t5090\n60005\tSafety Systems\t120025\tMachine Risk Assessment Methodology\t8\t5166\n60006\tProcess Control\t90016\tPID Control Fundamentals for Maintenance Technicians\t1\t3755\n60006\tProcess Control\t90017\tControl Valves, Actuators & Final Control Elements\t2\t3827\n60006\tProcess Control\t90018\tProcess Instrumentation Loops & Loop Diagrams\t3\t3609\n60006\tProcess Control\t120026\tPID Tuning Methods: Ziegler-Nichols and Trial-and-Error\t4\t7752\n60006\tProcess Control\t120027\tCascade and Ratio Control Strategies\t6\t9153\n60006\tProcess Control\t120028\tProcess Variable Transmitter Selection and Installation\t7\t8343\n60006\tProcess Control\t120029\tDCS vs PLC Architecture for Process Control\t8\t8952\n60007\tPower Distribution\t90019\tIndustrial Power Systems: From Utility to Machine\t1\t4296\n60007\tPower Distribution\t90020\tOvercurrent Protection: Fuses, Breakers & Coordination\t2\t4339\n60007\tPower Distribution\t90021\tGrounding, Bonding & Ground Fault Protection\t3\t4494\n60007\tPower Distribution\t120030\tMotor Control Center (MCC) Architecture and Maintenance\t4\t4436\n60007\tPower Distribution\t120031\tGrounding and Bonding Requirements (NEC Article 250)\t5\t4611\n60007\tPower Distribution\t120032\tPower Quality Issues (Harmonics, Sags, Swells)\t6\t4536\n60007\tPower Distribution\t120033\tUPS Systems and Emergency Power\t7\t4254\n60007\tPower Distribution\t120034\tMedium Voltage Switchgear Safety and Operation\t8\t4602\n",
+  "stderr": "",
+  "execution_time_ms": 279
+}

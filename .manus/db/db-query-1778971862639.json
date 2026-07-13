@@ -1,0 +1,38 @@
+{
+  "query": "SELECT slug, LEFT(content, 1500) as content_preview FROM course_lessons WHERE slug LIKE '%ohm%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT slug, LEFT(content, 1500) as content_preview FROM course_lessons WHERE slug LIKE '%ohm%'",
+  "rows": [
+    {
+      "slug": "ohms-law-power",
+      "content_preview": "# Ohm's Law & Power Calculations"
+    }
+  ],
+  "messages": [
+    "## The Foundation of All Electrical Work",
+    "Every measurement you take with a multimeter, every wire size you select, every fuse rating you verify — it all comes back to Ohm's Law. This isn't abstract theory. This is the math that keeps you alive and keeps production running.",
+    "## Ohm's Law: The Three Relationships",
+    "Ohm's Law defines the relationship between **voltage (V)**, **current (I)**, and **resistance (R)** in any electrical circuit:",
+    "$$V = I \\times R$$",
+    "$$I = V / R$$",
+    "$$R = V / I$$",
+    "| Quantity | Symbol | Unit | Measured With |",
+    "|----------|--------|------|---------------|",
+    "| Voltage (EMF) | V or E | Volts (V) | Voltmeter (parallel) |",
+    "| Current | I | Amperes (A) | Ammeter (series) or clamp meter |",
+    "| Resistance | R | Ohms (Ω) | Ohmmeter (circuit de-energized) |",
+    "### Why This Matters on the Plant Floor",
+    "When you measure 480V across a motor starter and 0V at the motor terminals, Ohm's Law tells you there's a high-resistance connection (open circuit) somewhere between those two points. The voltage is being dropped across the fault.",
+    "When you measure 2.5A on a circuit rated for 2A, you know either resistance decreased (short developing) or voltage increased. Either way, something is wrong.",
+    "## Power Calculations",
+    "Power is the rate at which electrical energy is converted to another form (heat, motion, light):",
+    "$$P = V \\times I$$",
+    "$$P = I^2 \\times R$$",
+    "$$P = V^2 / R$$",
+    "### The Power Triangle in Practice",
+    "| Application | Formula Used | Example |",
+    "|-"
+  ],
+  "stdout": "slug\tcontent_preview\nohms-law-power\t# Ohm's Law & Power Calculations\n\n## The Foundation of All Electrical Work\n\nEvery measurement you take with a multimeter, every wire size you select, every fuse rating you verify — it all comes back to Ohm's Law. This isn't abstract theory. This is the math that keeps you alive and keeps production running.\n\n## Ohm's Law: The Three Relationships\n\nOhm's Law defines the relationship between **voltage (V)**, **current (I)**, and **resistance (R)** in any electrical circuit:\n\n$$V = I \\times R$$\n\n$$I = V / R$$\n\n$$R = V / I$$\n\n| Quantity | Symbol | Unit | Measured With |\n|----------|--------|------|---------------|\n| Voltage (EMF) | V or E | Volts (V) | Voltmeter (parallel) |\n| Current | I | Amperes (A) | Ammeter (series) or clamp meter |\n| Resistance | R | Ohms (Ω) | Ohmmeter (circuit de-energized) |\n\n### Why This Matters on the Plant Floor\n\nWhen you measure 480V across a motor starter and 0V at the motor terminals, Ohm's Law tells you there's a high-resistance connection (open circuit) somewhere between those two points. The voltage is being dropped across the fault.\n\nWhen you measure 2.5A on a circuit rated for 2A, you know either resistance decreased (short developing) or voltage increased. Either way, something is wrong.\n\n## Power Calculations\n\nPower is the rate at which electrical energy is converted to another form (heat, motion, light):\n\n$$P = V \\times I$$\n\n$$P = I^2 \\times R$$\n\n$$P = V^2 / R$$\n\n### The Power Triangle in Practice\n\n| Application | Formula Used | Example |\n|-\n",
+  "stderr": "",
+  "execution_time_ms": 267
+}

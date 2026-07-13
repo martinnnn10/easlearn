@@ -1,0 +1,82 @@
+{
+  "query": "SELECT cm.slug, COUNT(qq.id) as quizQuestions FROM course_modules cm LEFT JOIN quiz_questions qq ON qq.moduleId = cm.id GROUP BY cm.id ORDER BY cm.path, cm.orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.slug, COUNT(qq.id) as quizQuestions FROM course_modules cm LEFT JOIN quiz_questions qq ON qq.moduleId = cm.id GROUP BY cm.id ORDER BY cm.path, cm.orderIndex;",
+  "rows": [
+    {
+      "slug": "powerflex-vfd",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "plc-fundamentals",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "fluid-power",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "motors-controls",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "alignment",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "preventative-maintenance",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "industrial-troubleshooting",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "industrial-networking",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "robotics-fundamentals",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "process-control",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "electrical-fundamentals",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "digital-fundamentals",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "semiconductor-fundamentals",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "hvac-fundamentals",
+      "quizQuestions": "10"
+    },
+    {
+      "slug": "sensors-instrumentation",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "print-reading",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "safety-systems",
+      "quizQuestions": "0"
+    },
+    {
+      "slug": "power-distribution",
+      "quizQuestions": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\tquizQuestions\npowerflex-vfd\t10\nplc-fundamentals\t10\nfluid-power\t10\nmotors-controls\t10\nalignment\t10\npreventative-maintenance\t10\nindustrial-troubleshooting\t0\nindustrial-networking\t0\nrobotics-fundamentals\t0\nprocess-control\t0\nelectrical-fundamentals\t10\ndigital-fundamentals\t10\nsemiconductor-fundamentals\t10\nhvac-fundamentals\t10\nsensors-instrumentation\t0\nprint-reading\t0\nsafety-systems\t0\npower-distribution\t0\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

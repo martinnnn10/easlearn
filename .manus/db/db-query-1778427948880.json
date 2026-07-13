@@ -1,0 +1,46 @@
+{
+  "query": "SELECT id, slug, title, orderIndex FROM course_modules ORDER BY orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, slug, title, orderIndex FROM course_modules ORDER BY orderIndex;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "powerflex-vfd",
+      "title": "PowerFlex VFD Programming & Troubleshooting",
+      "orderIndex": "1"
+    },
+    {
+      "id": "2",
+      "slug": "plc-fundamentals",
+      "title": "PLC Fundamentals & Troubleshooting",
+      "orderIndex": "2"
+    },
+    {
+      "id": "3",
+      "slug": "fluid-power",
+      "title": "Fluid Power Systems",
+      "orderIndex": "3"
+    },
+    {
+      "id": "4",
+      "slug": "motors-controls",
+      "title": "Motors & Motor Controls",
+      "orderIndex": "4"
+    },
+    {
+      "id": "5",
+      "slug": "alignment",
+      "title": "Precision Shaft Alignment",
+      "orderIndex": "5"
+    },
+    {
+      "id": "6",
+      "slug": "preventative-maintenance",
+      "title": "Preventative Maintenance Programs",
+      "orderIndex": "6"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\torderIndex\n1\tpowerflex-vfd\tPowerFlex VFD Programming & Troubleshooting\t1\n2\tplc-fundamentals\tPLC Fundamentals & Troubleshooting\t2\n3\tfluid-power\tFluid Power Systems\t3\n4\tmotors-controls\tMotors & Motor Controls\t4\n5\talignment\tPrecision Shaft Alignment\t5\n6\tpreventative-maintenance\tPreventative Maintenance Programs\t6\n",
+  "stderr": "",
+  "execution_time_ms": 415
+}

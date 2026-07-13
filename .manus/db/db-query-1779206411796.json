@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, title, orderIndex, LENGTH(content) as content_length FROM course_lessons WHERE moduleId = 60003 AND orderIndex > 3 ORDER BY orderIndex;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, orderIndex, LENGTH(content) as content_length FROM course_lessons WHERE moduleId = 60003 AND orderIndex > 3 ORDER BY orderIndex;",
+  "rows": [
+    {
+      "id": "120011",
+      "title": "Robot Coordinate Systems: Joint, World, Tool, and User Frames",
+      "orderIndex": "4",
+      "content_length": "4385"
+    },
+    {
+      "id": "120012",
+      "title": "Teach Pendant Operation and Safe Jogging Procedures",
+      "orderIndex": "5",
+      "content_length": "3776"
+    },
+    {
+      "id": "120013",
+      "title": "I/O Configuration and Integration with PLCs",
+      "orderIndex": "6",
+      "content_length": "3901"
+    },
+    {
+      "id": "120014",
+      "title": "Basic Pick-and-Place Program Structure",
+      "orderIndex": "7",
+      "content_length": "4042"
+    },
+    {
+      "id": "120015",
+      "title": "Robot Maintenance and Calibration Procedures",
+      "orderIndex": "8",
+      "content_length": "3932"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\torderIndex\tcontent_length\n120011\tRobot Coordinate Systems: Joint, World, Tool, and User Frames\t4\t4385\n120012\tTeach Pendant Operation and Safe Jogging Procedures\t5\t3776\n120013\tI/O Configuration and Integration with PLCs\t6\t3901\n120014\tBasic Pick-and-Place Program Structure\t7\t4042\n120015\tRobot Maintenance and Calibration Procedures\t8\t3932\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

@@ -1,0 +1,172 @@
+{
+  "query": "SELECT cm.id as moduleId, cm.title as moduleName, COUNT(cl.id) as lessonCount, ROUND(AVG(LENGTH(cl.content))) as avgLength, MIN(LENGTH(cl.content)) as minLength, MAX(LENGTH(cl.content)) as maxLength, SUM(CASE WHEN LENGTH(cl.content) < 7000 THEN 1 ELSE 0 END) as substandard_count FROM course_modules cm JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title ORDER BY avgLength ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id as moduleId, cm.title as moduleName, COUNT(cl.id) as lessonCount, ROUND(AVG(LENGTH(cl.content))) as avgLength, MIN(LENGTH(cl.content)) as minLength, MAX(LENGTH(cl.content)) as maxLength, SUM(CASE WHEN LENGTH(cl.content) < 7000 THEN 1 ELSE 0 END) as substandard_count FROM course_modules cm JOIN course_lessons cl ON cl.moduleId = cm.id GROUP BY cm.id, cm.title ORDER BY avgLength ASC;",
+  "rows": [
+    {
+      "moduleId": "60002",
+      "moduleName": "Sensors & Instrumentation",
+      "lessonCount": "8",
+      "avgLength": "4315",
+      "minLength": "3448",
+      "maxLength": "8323",
+      "substandard_count": "7"
+    },
+    {
+      "moduleId": "60003",
+      "moduleName": "Robotics Fundamentals",
+      "lessonCount": "8",
+      "avgLength": "4403",
+      "minLength": "3405",
+      "maxLength": "8055",
+      "substandard_count": "7"
+    },
+    {
+      "moduleId": "60007",
+      "moduleName": "Power Distribution",
+      "lessonCount": "8",
+      "avgLength": "4446",
+      "minLength": "4254",
+      "maxLength": "4611",
+      "substandard_count": "8"
+    },
+    {
+      "moduleId": "60004",
+      "moduleName": "Print Reading (Electrical)",
+      "lessonCount": "8",
+      "avgLength": "4543",
+      "minLength": "3113",
+      "maxLength": "7690",
+      "substandard_count": "7"
+    },
+    {
+      "moduleId": "30001",
+      "moduleName": "Electrical Fundamentals",
+      "lessonCount": "6",
+      "avgLength": "4558",
+      "minLength": "3735",
+      "maxLength": "5619",
+      "substandard_count": "6"
+    },
+    {
+      "moduleId": "60001",
+      "moduleName": "Industrial Networking",
+      "lessonCount": "8",
+      "avgLength": "4598",
+      "minLength": "3530",
+      "maxLength": "7621",
+      "substandard_count": "6"
+    },
+    {
+      "moduleId": "30002",
+      "moduleName": "Digital Fundamentals",
+      "lessonCount": "6",
+      "avgLength": "4886",
+      "minLength": "3463",
+      "maxLength": "5726",
+      "substandard_count": "6"
+    },
+    {
+      "moduleId": "60005",
+      "moduleName": "Safety Systems",
+      "lessonCount": "8",
+      "avgLength": "4895",
+      "minLength": "3975",
+      "maxLength": "5938",
+      "substandard_count": "8"
+    },
+    {
+      "moduleId": "30004",
+      "moduleName": "HVAC Fundamentals",
+      "lessonCount": "6",
+      "avgLength": "5454",
+      "minLength": "4826",
+      "maxLength": "6370",
+      "substandard_count": "6"
+    },
+    {
+      "moduleId": "30003",
+      "moduleName": "Semiconductor Fundamentals",
+      "lessonCount": "6",
+      "avgLength": "5597",
+      "minLength": "4387",
+      "maxLength": "6918",
+      "substandard_count": "6"
+    },
+    {
+      "moduleId": "30005",
+      "moduleName": "Industrial Troubleshooting Academy",
+      "lessonCount": "8",
+      "avgLength": "6051",
+      "minLength": "5279",
+      "maxLength": "6925",
+      "substandard_count": "8"
+    },
+    {
+      "moduleId": "60006",
+      "moduleName": "Process Control",
+      "lessonCount": "7",
+      "avgLength": "6484",
+      "minLength": "3609",
+      "maxLength": "9153",
+      "substandard_count": "3"
+    },
+    {
+      "moduleId": "6",
+      "moduleName": "Preventative Maintenance Programs",
+      "lessonCount": "6",
+      "avgLength": "7860",
+      "minLength": "6712",
+      "maxLength": "9124",
+      "substandard_count": "1"
+    },
+    {
+      "moduleId": "3",
+      "moduleName": "Fluid Power Systems",
+      "lessonCount": "6",
+      "avgLength": "7977",
+      "minLength": "5475",
+      "maxLength": "8980",
+      "substandard_count": "1"
+    },
+    {
+      "moduleId": "4",
+      "moduleName": "Motors & Motor Controls",
+      "lessonCount": "6",
+      "avgLength": "8127",
+      "minLength": "6519",
+      "maxLength": "9446",
+      "substandard_count": "1"
+    },
+    {
+      "moduleId": "5",
+      "moduleName": "Precision Shaft Alignment",
+      "lessonCount": "5",
+      "avgLength": "8863",
+      "minLength": "8264",
+      "maxLength": "9297",
+      "substandard_count": "0"
+    },
+    {
+      "moduleId": "1",
+      "moduleName": "PowerFlex VFD Programming & Troubleshooting",
+      "lessonCount": "18",
+      "avgLength": "9480",
+      "minLength": "2953",
+      "maxLength": "13877",
+      "substandard_count": "1"
+    },
+    {
+      "moduleId": "2",
+      "moduleName": "PLC Fundamentals & Troubleshooting",
+      "lessonCount": "24",
+      "avgLength": "9840",
+      "minLength": "7244",
+      "maxLength": "12457",
+      "substandard_count": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "moduleId\tmoduleName\tlessonCount\tavgLength\tminLength\tmaxLength\tsubstandard_count\n60002\tSensors & Instrumentation\t8\t4315\t3448\t8323\t7\n60003\tRobotics Fundamentals\t8\t4403\t3405\t8055\t7\n60007\tPower Distribution\t8\t4446\t4254\t4611\t8\n60004\tPrint Reading (Electrical)\t8\t4543\t3113\t7690\t7\n30001\tElectrical Fundamentals\t6\t4558\t3735\t5619\t6\n60001\tIndustrial Networking\t8\t4598\t3530\t7621\t6\n30002\tDigital Fundamentals\t6\t4886\t3463\t5726\t6\n60005\tSafety Systems\t8\t4895\t3975\t5938\t8\n30004\tHVAC Fundamentals\t6\t5454\t4826\t6370\t6\n30003\tSemiconductor Fundamentals\t6\t5597\t4387\t6918\t6\n30005\tIndustrial Troubleshooting Academy\t8\t6051\t5279\t6925\t8\n60006\tProcess Control\t7\t6484\t3609\t9153\t3\n6\tPreventative Maintenance Programs\t6\t7860\t6712\t9124\t1\n3\tFluid Power Systems\t6\t7977\t5475\t8980\t1\n4\tMotors & Motor Controls\t6\t8127\t6519\t9446\t1\n5\tPrecision Shaft Alignment\t5\t8863\t8264\t9297\t0\n1\tPowerFlex VFD Programming & Troubleshooting\t18\t9480\t2953\t13877\t1\n2\tPLC Fundamentals & Troubleshooting\t24\t9840\t7244\t12457\t0\n",
+  "stderr": "",
+  "execution_time_ms": 331
+}

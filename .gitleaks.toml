@@ -1,0 +1,34 @@
+# gitleaks configuration — secret scanning gate for CI and pre-commit.
+# Run locally:   gitleaks detect --source . --config .gitleaks.toml --verbose
+# Scan history:  gitleaks detect --source . --config .gitleaks.toml --log-opts="--all"
+#
+# Extends the built-in ruleset (AWS, Stripe, generic API keys, JWT, private keys,
+# DB connection strings, etc.) and adds project-specific rules + allowlist.
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "mysql-connection-string"
+description = "MySQL/TiDB connection string with embedded credentials"
+regex = '''mysql:\/\/[^:\s]+:[^@\s]+@[^\/\s]+'''
+tags = ["database", "credentials"]
+
+[[rules]]
+id = "manus-forge-key"
+description = "Manus Forge API key"
+regex = '''(?i)(forge_api_key|FORGE_API_KEY)["'\s:=]+[A-Za-z0-9_\-]{16,}'''
+tags = ["api", "forge"]
+
+[allowlist]
+description = "Placeholders and committed examples are not real secrets"
+paths = [
+  '''\.project-config\.example\.json''',
+  '''\.gitleaks\.toml''',
+  '''pnpm-lock\.yaml''',
+]
+regexes = [
+  '''REDACTED''',
+  '''USER:PASSWORD@HOST''',
+  '''sk_test_[A-Za-z0-9]+EXAMPLE''',
+]

@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '| Controller Type | Kp                 | Ki (Integral time Ti)     | Kd (Derivative time Td)  |',\n    '| Controller Type | Kp                 | Ti (Integral Time)        | Td (Derivative Time)     |'\n  ),\n  '- **Note:** Ki and Kd are typically implemented as time constants in seconds.',\n  '- **Note:** Ziegler-Nichols uses the **time-constant form**: Ti (integral time in seconds) and Td (derivative time in seconds). To convert to gain form: Ki = Kp/Ti and Kd = Kp × Td. Most Allen-Bradley and Siemens controllers accept time-constant form directly.'\n) WHERE id = 120026;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '| Controller Type | Kp                 | Ki (Integral time Ti)     | Kd (Derivative time Td)  |',\n    '| Controller Type | Kp                 | Ti (Integral Time)        | Td (Derivative Time)     |'\n  ),\n  '- **Note:** Ki and Kd are typically implemented as time constants in seconds.',\n  '- **Note:** Ziegler-Nichols uses the **time-constant form**: Ti (integral time in seconds) and Td (derivative time in seconds). To convert to gain form: Ki = Kp/Ti and Kd = Kp × Td. Most Allen-Bradley and Siemens controllers accept time-constant form directly.'\n) WHERE id = 120026;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 275
+}

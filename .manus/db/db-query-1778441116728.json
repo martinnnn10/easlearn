@@ -1,0 +1,90 @@
+{
+  "query": "DESCRIBE scenario_completions;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute DESCRIBE scenario_completions;",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "userId",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "scenarioSlug",
+      "Type": "varchar(100)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "scenarioTitle",
+      "Type": "varchar(255)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "difficulty",
+      "Type": "enum('beginner','intermediate','advanced')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "score",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "maxScore",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "timeSeconds",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "hintsUsed",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "completedAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nuserId\tint\tNO\t\tNULL\t\nscenarioSlug\tvarchar(100)\tNO\t\tNULL\t\nscenarioTitle\tvarchar(255)\tNO\t\tNULL\t\ndifficulty\tenum('beginner','intermediate','advanced')\tNO\t\tNULL\t\nscore\tint\tNO\t\tNULL\t\nmaxScore\tint\tNO\t\tNULL\t\ntimeSeconds\tint\tNO\t\tNULL\t\nhintsUsed\tint\tNO\t\t0\t\ncompletedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\n",
+  "stderr": "",
+  "execution_time_ms": 344
+}

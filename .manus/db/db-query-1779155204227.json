@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, title, moduleId, LENGTH(content) as len FROM course_lessons ORDER BY LENGTH(content) ASC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, moduleId, LENGTH(content) as len FROM course_lessons ORDER BY LENGTH(content) ASC LIMIT 10",
+  "rows": [
+    {
+      "id": "1",
+      "title": "VFD Fundamentals & Operating Principles",
+      "moduleId": "1",
+      "len": "2953"
+    },
+    {
+      "id": "90011",
+      "title": "Panel Layout Drawings & Wire Tracing Techniques",
+      "moduleId": "60004",
+      "len": "3113"
+    },
+    {
+      "id": "90008",
+      "title": "Robot-PLC Integration & Communication",
+      "moduleId": "60003",
+      "len": "3405"
+    },
+    {
+      "id": "120007",
+      "title": "RTD vs Thermocouple Selection and Wiring",
+      "moduleId": "60002",
+      "len": "3448"
+    },
+    {
+      "id": "60007",
+      "title": "Binary, Hex & Number Systems for PLCs",
+      "moduleId": "30002",
+      "len": "3463"
+    },
+    {
+      "id": "120004",
+      "title": "Wireshark for Industrial Packet Analysis",
+      "moduleId": "60001",
+      "len": "3501"
+    },
+    {
+      "id": "90003",
+      "title": "PLC Network Communications & Troubleshooting",
+      "moduleId": "60001",
+      "len": "3530"
+    },
+    {
+      "id": "120009",
+      "title": "Level Measurement Technologies",
+      "moduleId": "60002",
+      "len": "3537"
+    },
+    {
+      "id": "120002",
+      "title": "IGMP Snooping and Multicast Management",
+      "moduleId": "60001",
+      "len": "3599"
+    },
+    {
+      "id": "120003",
+      "title": "Network Redundancy: DLR and PRP",
+      "moduleId": "60001",
+      "len": "3604"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tmoduleId\tlen\n1\tVFD Fundamentals & Operating Principles\t1\t2953\n90011\tPanel Layout Drawings & Wire Tracing Techniques\t60004\t3113\n90008\tRobot-PLC Integration & Communication\t60003\t3405\n120007\tRTD vs Thermocouple Selection and Wiring\t60002\t3448\n60007\tBinary, Hex & Number Systems for PLCs\t30002\t3463\n120004\tWireshark for Industrial Packet Analysis\t60001\t3501\n90003\tPLC Network Communications & Troubleshooting\t60001\t3530\n120009\tLevel Measurement Technologies\t60002\t3537\n120002\tIGMP Snooping and Multicast Management\t60001\t3599\n120003\tNetwork Redundancy: DLR and PRP\t60001\t3604\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

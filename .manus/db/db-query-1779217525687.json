@@ -1,0 +1,70 @@
+{
+  "query": "SELECT DISTINCT linkedScenarioId FROM course_lessons WHERE linkedScenarioId IS NOT NULL LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT DISTINCT linkedScenarioId FROM course_lessons WHERE linkedScenarioId IS NOT NULL LIMIT 20;",
+  "rows": [
+    {
+      "linkedScenarioId": "4"
+    },
+    {
+      "linkedScenarioId": "1"
+    },
+    {
+      "linkedScenarioId": "30006"
+    },
+    {
+      "linkedScenarioId": "11"
+    },
+    {
+      "linkedScenarioId": "5"
+    },
+    {
+      "linkedScenarioId": "30001"
+    },
+    {
+      "linkedScenarioId": "6"
+    },
+    {
+      "linkedScenarioId": "30007"
+    },
+    {
+      "linkedScenarioId": "8"
+    },
+    {
+      "linkedScenarioId": "30003"
+    },
+    {
+      "linkedScenarioId": "7"
+    },
+    {
+      "linkedScenarioId": "10"
+    },
+    {
+      "linkedScenarioId": "30004"
+    },
+    {
+      "linkedScenarioId": "30002"
+    },
+    {
+      "linkedScenarioId": "3"
+    },
+    {
+      "linkedScenarioId": "2"
+    },
+    {
+      "linkedScenarioId": "30005"
+    },
+    {
+      "linkedScenarioId": "30008"
+    },
+    {
+      "linkedScenarioId": "12"
+    },
+    {
+      "linkedScenarioId": "9"
+    }
+  ],
+  "messages": [],
+  "stdout": "linkedScenarioId\n4\n1\n30006\n11\n5\n30001\n6\n30007\n8\n30003\n7\n10\n30004\n30002\n3\n2\n30005\n30008\n12\n9\n",
+  "stderr": "",
+  "execution_time_ms": 1204
+}

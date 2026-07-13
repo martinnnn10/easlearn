@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, title, LENGTH(content) as content_len, \n  (LENGTH(content) - LENGTH(REPLACE(content, '<svg', ''))) / 4 as svg_count\nFROM lessons \nWHERE content LIKE '%<svg%' OR content LIKE '%symbol%' OR content LIKE '%schematic%'\nORDER BY svg_count DESC\nLIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, LENGTH(content) as content_len, \n  (LENGTH(content) - LENGTH(REPLACE(content, '<svg', ''))) / 4 as svg_count\nFROM lessons \nWHERE content LIKE '%<svg%' OR content LIKE '%symbol%' OR content LIKE '%schematic%'\nORDER BY svg_count DESC\nLIMIT 50;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table 'dbvv3kqq9k9twbpcpty97y.lessons' doesn't exist"
+  ]
+}

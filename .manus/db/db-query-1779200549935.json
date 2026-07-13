@@ -1,0 +1,40 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Sinking vs. Sourcing', content), 500) as section FROM course_lessons WHERE id = 60011;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Sinking vs. Sourcing', content), 500) as section FROM course_lessons WHERE id = 60011;",
+  "rows": [
+    {
+      "section": "Sinking vs. Sourcing"
+    },
+    {
+      "section": "**Sinking Input Module** (most common in North America):"
+    },
+    {
+      "section": "- Module provides the path to ground (0V)"
+    },
+    {
+      "section": "- Field device provides the positive (+) voltage"
+    },
+    {
+      "section": "- PNP (sourcing) sensors connect directly"
+    },
+    {
+      "section": "**Sourcing Input Module:**"
+    },
+    {
+      "section": "- Module provides the positive (+) voltage"
+    },
+    {
+      "section": "- Field device switches the path to ground"
+    },
+    {
+      "section": "- NPN (sinking) sensors connect directly"
+    },
+    {
+      "section": "> **Rule of Thumb:** In North America, most systems use **sinking input modules** with **PNP (sourcing) sensors**. In Europe/Asia, s"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nSinking vs. Sourcing\n\n**Sinking Input Module** (most common in North America):\n- Module provides the path to ground (0V)\n- Field device provides the positive (+) voltage\n- PNP (sourcing) sensors connect directly\n\n**Sourcing Input Module:**\n- Module provides the positive (+) voltage\n- Field device switches the path to ground\n- NPN (sinking) sensors connect directly\n\n> **Rule of Thumb:** In North America, most systems use **sinking input modules** with **PNP (sourcing) sensors**. In Europe/Asia, s\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

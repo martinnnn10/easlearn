@@ -1,0 +1,11 @@
+CONFIRMED: The AdminLogin component has a useEffect that checks isAuthenticated and immediately
+redirects to /admin. Since the dev browser session is already authenticated as admin, it redirects.
+
+The user's phone was NOT authenticated, so they should have seen the AdminLogin page. But they
+reported 404. This means the deployed version didn't include the AdminLogin component yet.
+
+After saving the new checkpoint and publishing, the /eas-owner route will work correctly.
+The user just needs to publish the latest checkpoint.
+
+For the user's case (not authenticated on phone), the AdminLogin page will show the 
+"Sign In as Owner" button correctly.

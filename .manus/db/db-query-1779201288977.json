@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  '$K$:** Approach speed of the body part (typically 1600 mm/s for hand/arm).',\n  '$K$:** Approach speed of the body part. Per ISO 13855: use **K = 1600 mm/s** when the calculated safety distance S ≥ 500 mm (parallel approach). If S < 500 mm, you **must** recalculate using **K = 2000 mm/s** (perpendicular/reaching approach).'\n) WHERE id = 120023;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  '$K$:** Approach speed of the body part (typically 1600 mm/s for hand/arm).',\n  '$K$:** Approach speed of the body part. Per ISO 13855: use **K = 1600 mm/s** when the calculated safety distance S ≥ 500 mm (parallel approach). If S < 500 mm, you **must** recalculate using **K = 2000 mm/s** (perpendicular/reaching approach).'\n) WHERE id = 120023;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 271
+}

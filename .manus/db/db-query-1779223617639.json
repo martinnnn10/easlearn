@@ -1,0 +1,19 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('Schottky', content) - 50, 800) as schottky_svg FROM course_lessons WHERE slug = 'diode-fundamentals' LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('Schottky', content) - 50, 800) as schottky_svg FROM course_lessons WHERE slug = 'diode-fundamentals' LIMIT 1",
+  "rows": [
+    {
+      "schottky_svg": "reshold (approximately 0.7V for silicon, 0.3V for Schottky, 1.8-3.3V for LEDs), the depletion region collapses, majority carriers cross the junction, and current flows through the device. The diode presents very low resistance (typically < 1 ohm) in this state."
+    },
+    {
+      "schottky_svg": "**Reverse Bias (Blocking State):** When the Cathode is made positive relative to the Anode, the depletion region widens, no majority carriers cross the junction, and the diode blocks current flow. Only a negligible leakage current (typically nanoamps to microamps) flows. The diode presents extremely high resistance (megohms) in this state."
+    },
+    {
+      "schottky_svg": "**Reverse Breakdown:** If reverse voltage exceeds the diode's rated Peak Inverse Voltage (PIV), avalanche breakdown occurs and large reverse current flows. For standard rectifiers this is a dest"
+    }
+  ],
+  "messages": [],
+  "stdout": "schottky_svg\nreshold (approximately 0.7V for silicon, 0.3V for Schottky, 1.8-3.3V for LEDs), the depletion region collapses, majority carriers cross the junction, and current flows through the device. The diode presents very low resistance (typically < 1 ohm) in this state.\n\n**Reverse Bias (Blocking State):** When the Cathode is made positive relative to the Anode, the depletion region widens, no majority carriers cross the junction, and the diode blocks current flow. Only a negligible leakage current (typically nanoamps to microamps) flows. The diode presents extremely high resistance (megohms) in this state.\n\n**Reverse Breakdown:** If reverse voltage exceeds the diode's rated Peak Inverse Voltage (PIV), avalanche breakdown occurs and large reverse current flows. For standard rectifiers this is a dest\n",
+  "stderr": "",
+  "execution_time_ms": 267
+}

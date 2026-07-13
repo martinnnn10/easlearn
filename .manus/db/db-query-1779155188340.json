@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, title, isPublished FROM course_modules WHERE id = 30005",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT id, title, isPublished FROM course_modules WHERE id = 30005",
+  "rows": [
+    {
+      "id": "30005",
+      "title": "Industrial Troubleshooting Academy",
+      "isPublished": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tisPublished\n30005\tIndustrial Troubleshooting Academy\t1\n",
+  "stderr": "",
+  "execution_time_ms": 307
+}

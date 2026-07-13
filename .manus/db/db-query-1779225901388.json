@@ -1,0 +1,11 @@
+{
+  "query": "SELECT SUBSTRING(content, LOCATE('## Schematic Symbols', content), 300) as symbols_section FROM course_lessons WHERE id = 60016",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT SUBSTRING(content, LOCATE('## Schematic Symbols', content), 300) as symbols_section FROM course_lessons WHERE id = 60016",
+  "rows": [],
+  "messages": [
+    "symbols_section"
+  ],
+  "stdout": "symbols_section\n\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

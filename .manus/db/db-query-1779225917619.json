@@ -1,0 +1,16 @@
+{
+  "query": "SELECT LENGTH(content) as len, LOCATE('svg', content) as has_svg, LOCATE('## Triac', content) as triac_pos, LOCATE('## DIAC', content) as diac_pos FROM course_lessons WHERE id = 60016",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT LENGTH(content) as len, LOCATE('svg', content) as has_svg, LOCATE('## Triac', content) as triac_pos, LOCATE('## DIAC', content) as diac_pos FROM course_lessons WHERE id = 60016",
+  "rows": [
+    {
+      "len": "13421",
+      "has_svg": "0",
+      "triac_pos": "4491",
+      "diac_pos": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "len\thas_svg\ttriac_pos\tdiac_pos\n13421\t0\t4491\t0\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}
