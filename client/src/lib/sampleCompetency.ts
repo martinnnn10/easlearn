@@ -94,7 +94,8 @@ export interface SampleMember {
 function member(userId: string, name: string, role: string, scores: Partial<Record<SkillDomain, number>>): SampleMember {
   const labels: Record<SkillDomain, string> = {
     vfd: "VFD Diagnostics", plc: "PLC Diagnostics", motors: "Motor Control", safety: "Safety Circuits",
-    electrical: "Electrical Power", networking: "Industrial Networking", sensors: "Sensors & Instrumentation", integration: "System Integration",
+    electrical: "Electrical Power", networking: "Industrial Networking", sensors: "Sensors & Instrumentation",
+    fluid_power: "Hydraulic Troubleshooting", integration: "System Integration",
   };
   const domains = Object.keys(labels) as SkillDomain[];
   const cells = domains.map((d) => {
