@@ -12,7 +12,7 @@ import { Link, useLocation } from "wouter";
 import SEO from "@/components/SEO";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
-import { Gauge, Network } from "lucide-react";
+import { Gauge, Network, Droplet } from "lucide-react";
 import { RelaySimulator, PLCLogicVisualizer, OhmsLawCalculator, CircuitFlowAnimator, VirtualMultimeterLab, LadderLogicSimulatorLab, VFDParameterLab, DiodeTestingLab, TransistorTestingLab, ThyristorTestingLab, ComponentIDChallenge, MotorStarterSimulator, WiringDiagramLab, ConveyorTroubleshootingLab, PowerFlexDiagnosticLab } from "@/components/interactive";
 import SimulatorOnboarding from "@/components/SimulatorOnboarding";
 import { isLocalQaFullDeck } from "@shared/lessonCardNav";
@@ -164,6 +164,32 @@ export default function InteractiveLabs() {
         </div>
       </section>
 
+      {/* Featured lab — full-page diagnostic simulator (its own route) */}
+      <section className="container relative -mt-6 mb-4 landscape:hidden">
+        <Link
+          href="/labs/hydraulic"
+          className="group flex flex-col sm:flex-row sm:items-center gap-4 rounded-xl border border-[oklch(0.55_0.14_250/25%)] bg-gradient-to-r from-[oklch(0.14_0.03_250)] to-[oklch(0.10_0.01_250)] p-5 hover:border-[oklch(0.55_0.14_250/45%)] transition-colors"
+        >
+          <div className="flex items-center gap-3 flex-1">
+            <div className="shrink-0 w-11 h-11 rounded-lg bg-[oklch(0.55_0.14_250/15%)] flex items-center justify-center">
+              <Droplet className="w-6 h-6 text-[oklch(0.68_0.14_250)]" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-white font-heading tracking-wide">Hydraulic Pressure Loss Lab</h3>
+                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-[oklch(0.55_0.14_250/20%)] text-[oklch(0.70_0.14_250)]">New</span>
+              </div>
+              <p className="text-sm text-[oklch(0.62_0.008_250)] mt-0.5 max-w-xl">
+                Diagnose weak/slow cylinder movement using pressure readings, flow symptoms, and safe isolation. Emits Hydraulic Troubleshooting readiness to your Skills Passport.
+              </p>
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-1.5 shrink-0 rounded-lg bg-[oklch(0.30_0.10_155)] px-4 py-2.5 text-sm font-medium text-white group-hover:gap-2.5 transition-all">
+            Start Hydraulic Lab <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+      </section>
+
       {/* Tab Navigation — non-sticky in landscape to preserve vertical space */}
       <section className="sticky landscape:static top-[calc(4rem+env(safe-area-inset-top,0px))] z-30 bg-[oklch(0.07_0.003_250)/95%] backdrop-blur-md border-b border-[oklch(0.14_0.004_250)] overflow-hidden">
         <div className="container max-w-full">
@@ -195,6 +221,13 @@ export default function InteractiveLabs() {
                   </button>
                 );
               })}
+            <Link
+              href="/labs/hydraulic"
+              className="flex items-center gap-2 px-4 py-2.5 min-h-11 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 transition-all text-[oklch(0.55_0.008_250)] hover:text-white hover:bg-[oklch(0.12_0.003_250)]"
+            >
+              <Droplet className="w-4 h-4" />
+              Hydraulic Pressure Loss
+            </Link>
             <span className="flex items-center px-2 ml-2 text-[10px] font-mono uppercase tracking-wider text-[oklch(0.45_0.006_250)] shrink-0 border-l border-[oklch(0.18_0.004_250)]">
               Practice Tools
             </span>
