@@ -47,6 +47,7 @@ import TutorialDetail from "./pages/TutorialDetail";
 import Resources from "./pages/Resources";
 import InteractiveLabs from "./pages/InteractiveLabs";
 import VFDSandbox from "./pages/VFDSandbox";
+import HydraulicLab from "./pages/HydraulicLab";
 import Certifications from "./pages/Certifications";
 import SkillMatrix from "./pages/SkillMatrix";
 import Videos from "./pages/Videos";
@@ -136,6 +137,7 @@ function Router() {
       <Route path="/resources" component={Resources} />
       <Route path="/labs" component={InteractiveLabs} />
       <Route path="/labs/sandbox" component={VFDSandbox} />
+      <Route path="/labs/hydraulic" component={HydraulicLab} />
       <Route path="/programs">
         <Redirect to="/courses" />
       </Route>
