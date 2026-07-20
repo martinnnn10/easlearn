@@ -165,7 +165,7 @@ export default function InteractiveLabs() {
       </section>
 
       {/* Featured lab — full-page diagnostic simulator (its own route) */}
-      <section className="container relative -mt-6 mb-4 landscape:hidden">
+      <section className="container relative -mt-6 mb-4">
         <Link
           href="/labs/hydraulic"
           className="group flex flex-col sm:flex-row sm:items-center gap-4 rounded-xl border border-[oklch(0.55_0.14_250/25%)] bg-gradient-to-r from-[oklch(0.14_0.03_250)] to-[oklch(0.10_0.01_250)] p-5 hover:border-[oklch(0.55_0.14_250/45%)] transition-colors"

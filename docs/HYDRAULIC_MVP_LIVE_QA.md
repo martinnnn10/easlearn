@@ -8,6 +8,30 @@ Verifies the pilot loop: **sim attempt → evidence persists → `fluid_power` r
 
 ---
 
+## Local browser QA (headless Chromium against the built client, no DB) — this session
+
+The production client build was served locally (SPA static server) and driven with real Chromium. This verifies **everything that does not require the server/DB** — the UI, the full diagnostic flow, the safety gate, discovery, and mobile layout. Evidence emission is a no-op here (unauthenticated, no server), so DB persistence + dashboards remain PENDING.
+
+| Check | Result |
+|---|---|
+| `/labs/hydraulic` renders the sim | ✅ (`hydqa-1-brief`, `hydqa-2-investigate`) |
+| Schematic + probing (readings appear, color-toned, F1 signature correct: P1 1950 green, filter ΔP 350 red, P2 900 red) | ✅ (`hydqa-2-investigate`) |
+| Full flow brief → investigate → diagnose → act → closeout → **debrief** ("Methodology · proficient") | ✅ (`hydqa-act`, `hydqa-closeout`, `hydqa-debrief`) |
+| Diagnosis completes; wrong call allows retry | ✅ |
+| **Unsafe action → "Stored hydraulic energy" warning modal with "Do it anyway"/"Cancel"** | ✅ (`hydqa-4-unsafe-modal`) |
+| Closeout textareas fillable + submittable | ✅ |
+| No runtime/page errors through the whole flow | ✅ (only expected API-404s from having no server) |
+| Mobile 375px: no horizontal overflow, no overlay blocks the primary action | ✅ (`hydqa-5-mobile`) |
+| `/labs` featured card + CTA "Start Hydraulic Lab" + flagship tab entry present & **visible on desktop** | ✅ **after bug fix** (see Bugs) |
+
+**Bug found & fixed this session:** the `/labs` featured card carried `landscape:hidden`, so it was `display:none` on desktop (landscape orientation) — present in the DOM but invisible, defeating "appears as a featured card." **Fixed** by removing `landscape:hidden` (1-line change); re-verified `isVisible: true` and the description text visible on a 1280×900 desktop viewport. tsc clean, 289 tests still pass.
+
+**Minor UX note (not fixed — no behavior change requested):** on a *correct* diagnosis the sim auto-advances to the Act phase, so the "Sound call…" reasoning feedback flashes rather than pausing. Consider a brief confirm step so the learner reads why they were right. Non-blocking.
+
+**Still requires the live env (server + DB):** competency_evidence persistence, Manager Dashboard, Skills Passport — these render server-fetched data and cannot be exercised without `DATABASE_URL`.
+
+---
+
 ## 1. Test environment
 
 | | Authoring sandbox (this run) | Live pilot env (to run) |
@@ -93,9 +117,10 @@ The safety violation dominates **both** the `safety` domain and the task `fluid_
 
 **Code-complete, self-contained, and loop-verified — NOT yet pilot-ready.** Per the standing rule, the pilot-ready call is withheld until live DB persistence is verified, which could **not** be done from this session (no DB / no deploy / no browser — re-confirmed).
 
-- ✅ Discovery: featured card + flagship tab on `/labs`, route `/labs/hydraulic`.
+- ✅ **UI browser-verified** (headless Chromium on the built client): full diagnostic flow, unsafe-action warning modal, closeout, debrief, and mobile layout all work with no page errors.
+- ✅ Discovery: featured card + flagship tab on `/labs`, route `/labs/hydraulic` — **card now visible on desktop after fixing a `landscape:hidden` bug this session.**
 - ✅ Evidence emission wired to `trpc.assessment.recordEvidence`; the full row set and readiness math verified DB-free (loop test + dry-run smoke).
-- ✅ Safety gate verified (unsafe → Needs Safety Review on both domains).
+- ✅ Safety gate verified — in logic (unsafe → Needs Safety Review on both domains) and in the live UI (warning modal fires).
 - ✅ Both required migrations exist in the repo (`0037_competency_evidence`, `0038_rate_limit_events`).
 - ✅ Clean, self-contained PR branch `claude/hydraulic-pressure-loss-mvp` — builds and tests green on the bare platform baseline (no electrical/strategy commits).
 - ⏳ **To close before calling manager readiness "proven"** (run in the live env with `DATABASE_URL`, after applying the two migrations):
