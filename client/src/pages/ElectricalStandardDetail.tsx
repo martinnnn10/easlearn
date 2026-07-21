@@ -1,7 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { ArrowLeft, Info } from "lucide-react";
 import SEO from "@/components/SEO";
-import { getSymbolById, CATEGORY_META } from "@shared/electricalSymbolRegistry";
+import { getSymbolById, CATEGORY_META, SYMBOL_PRINT_TAGS } from "@shared/electricalSymbolRegistry";
 import StandardsSymbolPreview from "@/components/standards/StandardsSymbolPreview";
 import type { SymbolPrimitiveId } from "@shared/electricalSymbolRegistry";
 import { LESSON_PRACTICE_MAP } from "@shared/lessonPracticeMap";
@@ -57,8 +57,18 @@ export default function ElectricalStandardDetail() {
             </div>
           </div>
 
-          <h1 className="text-2xl font-heading text-white mb-2">{entry.name}</h1>
-          <p className="text-[oklch(0.60_0.008_250)] leading-relaxed mb-4">{entry.description}</p>
+          <div className="flex items-center flex-wrap gap-3 mb-2">
+            <h1 className="text-2xl font-heading text-white">{entry.name}</h1>
+            {SYMBOL_PRINT_TAGS[entry.id] && (
+              <span
+                title="Typical print tag"
+                className="text-xs font-mono px-2 py-0.5 rounded border border-[oklch(0.30_0.02_155)] text-[oklch(0.62_0.10_155)] bg-[oklch(0.55_0.12_155/8%)]"
+              >
+                {SYMBOL_PRINT_TAGS[entry.id]}
+              </span>
+            )}
+          </div>
+          <p className="text-[oklch(0.62_0.008_250)] leading-relaxed mb-4">{entry.description}</p>
 
           {entry.contextNote && (
             <div className="flex items-start gap-2 mb-4 rounded-lg border border-[oklch(0.72_0.11_75/25%)] bg-[oklch(0.72_0.11_75/8%)] px-3 py-2.5">
@@ -175,9 +185,6 @@ export default function ElectricalStandardDetail() {
           <h2 className="text-sm font-mono text-[oklch(0.55_0.12_155)] uppercase tracking-wider mb-3">Category</h2>
           <p className="text-sm text-white">{CATEGORY_META[entry.category].title}</p>
           <p className="text-xs text-[oklch(0.50_0.008_250)] mt-1">{CATEGORY_META[entry.category].description}</p>
-          <p className="text-[10px] font-mono text-[oklch(0.40_0.006_250)] mt-3">
-            Primitive: {entry.primitive} · Registry ID: {entry.id}
-          </p>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import {
   getLearnerGroups,
   searchSymbols,
   PRINT_READING_STANDARDS,
+  SYMBOL_PRINT_TAGS,
 } from "@shared/electricalSymbolRegistry";
 import type { ElectricalSymbolEntry } from "@shared/electricalSymbolRegistry";
 import { TROUBLESHOOTING_REFERENCES } from "@shared/troubleshootingReferenceCatalog";
@@ -31,10 +32,10 @@ export default function ElectricalStandardsLibrary() {
             <BookOpen className="w-8 h-8 text-[oklch(0.55_0.12_155)]" />
             <h1 className="text-3xl font-heading text-white tracking-wide">Electrical Symbol Library</h1>
           </div>
-          <p className="text-[oklch(0.60_0.008_250)] leading-relaxed mb-6 max-w-3xl">
-            The symbols you meet on real motor-control schematics and ladder-logic prints, grouped the
-            way a technician reads a panel — power circuit, control circuit, operator devices, safety,
-            and I/O. Every symbol traces to US manufacturing standards (NEMA / JIC / NFPA 79).
+          <p className="text-base text-[oklch(0.62_0.008_250)] leading-relaxed mb-6 max-w-3xl">
+            Common schematic symbols used in EASLearn labs and troubleshooting lessons. Grouped the way
+            a technician reads a panel — power circuit, control circuit, operator devices, safety, and
+            I/O. Every symbol traces to US manufacturing standards (NEMA / JIC / NFPA 79).
           </p>
           <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[oklch(0.45_0.006_250)]" />
@@ -70,12 +71,12 @@ export default function ElectricalStandardsLibrary() {
             groups.map((group) => (
               <div key={group.id}>
                 <div className="flex items-baseline justify-between gap-4 mb-1">
-                  <h2 className="text-xl font-semibold text-white">{group.title}</h2>
-                  <span className="text-[11px] font-mono text-[oklch(0.42_0.006_250)] shrink-0">
+                  <h2 className="text-2xl font-semibold text-white">{group.title}</h2>
+                  <span className="text-xs font-mono text-[oklch(0.44_0.006_250)] shrink-0">
                     {group.symbols.length} symbols
                   </span>
                 </div>
-                <p className="text-sm text-[oklch(0.52_0.008_250)] mb-5">{group.description}</p>
+                <p className="text-base text-[oklch(0.55_0.008_250)] mb-5">{group.description}</p>
                 <div className="grid md:grid-cols-2 gap-4">
                   {group.symbols.map((entry) => (
                     <SymbolCard key={entry.id} entry={entry} />
@@ -135,14 +136,24 @@ function SymbolCard({ entry }: { entry: ElectricalSymbolEntry }) {
           <StandardsSymbolPreview symbolId={entry.id as SymbolPrimitiveId} />
         </div>
         <div className="min-w-0 flex flex-col">
-          <h3 className="text-base font-semibold text-white leading-tight">{entry.name}</h3>
-          <p className="text-xs text-[oklch(0.58_0.008_250)] mt-1.5 leading-relaxed line-clamp-3">
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="text-lg font-semibold text-white leading-tight">{entry.name}</h3>
+            {SYMBOL_PRINT_TAGS[entry.id] && (
+              <span
+                title="Typical print tag"
+                className="shrink-0 mt-0.5 text-[11px] font-mono px-1.5 py-0.5 rounded border border-[oklch(0.30_0.02_155)] text-[oklch(0.62_0.10_155)] bg-[oklch(0.55_0.12_155/8%)]"
+              >
+                {SYMBOL_PRINT_TAGS[entry.id]}
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-[oklch(0.60_0.008_250)] mt-1.5 leading-relaxed line-clamp-3">
             {entry.description}
           </p>
           {entry.contextNote && (
             <div className="mt-auto pt-2.5 flex items-start gap-1.5">
-              <Info className="w-3.5 h-3.5 text-[oklch(0.72_0.11_75)] shrink-0 mt-px" />
-              <span className="text-[11px] leading-snug text-[oklch(0.72_0.11_75)]">{entry.contextNote}</span>
+              <Info className="w-4 h-4 text-[oklch(0.72_0.11_75)] shrink-0 mt-px" />
+              <span className="text-xs leading-snug text-[oklch(0.74_0.11_75)]">{entry.contextNote}</span>
             </div>
           )}
         </div>

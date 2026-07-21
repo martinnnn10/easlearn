@@ -634,10 +634,48 @@ export const LEARNER_SYMBOL_GROUPS: LearnerSymbolGroup[] = [
   {
     id: "plc-sensors-drives",
     title: "PLC, Sensors, and Drives",
-    description: "Field I/O, sensors, variable-frequency drives, and wiring points.",
-    symbolIds: ["plc_input", "plc_output", "photoeye", "vfd", "terminal"],
+    description: "Field I/O, sensors, and variable-frequency drives.",
+    symbolIds: ["plc_input", "plc_output", "photoeye", "vfd"],
+  },
+  {
+    id: "wiring-connection-points",
+    title: "Wiring and Connection Points",
+    description: "Terminals and junctions where conductors land and cross-reference.",
+    symbolIds: ["terminal"],
   },
 ];
+
+/**
+ * Representative print reference designators — the kind of tag a learner sees next to
+ * the symbol on a real drawing (e.g. F1, CB1, M1). Examples, not fixed identities.
+ */
+export const SYMBOL_PRINT_TAGS: Record<SymbolPrimitiveId, string> = {
+  disconnect: "DISC",
+  fuse: "F1",
+  breaker: "CB1",
+  transformer: "CPT",
+  contactor_power: "M1",
+  overload_heater: "OL1",
+  motor: "MTR",
+  contact_no: "CR1",
+  contact_nc: "CR2",
+  coil: "CR",
+  contactor_aux: "M-aux",
+  overload_nc: "95-96",
+  timer_contact: "TR1",
+  pb_no: "PB1",
+  pb_nc: "PB2",
+  selector_switch: "SS1",
+  limit_switch: "LS1",
+  estop: "ES1",
+  guard_switch: "GS1",
+  safety_relay: "SR1",
+  plc_input: "I:1/0",
+  plc_output: "O:2/0",
+  photoeye: "PE1",
+  vfd: "VFD",
+  terminal: "TB1",
+};
 
 /** Resolves the learner groups to their full symbol entries, skipping any unknown ids. */
 export function getLearnerGroups(): Array<

@@ -77,8 +77,8 @@ describe("electricalSymbolRegistry — integrity", () => {
 });
 
 describe("electricalSymbolRegistry — learner groups", () => {
-  it("exposes exactly 5 learner-facing groups", () => {
-    expect(LEARNER_SYMBOL_GROUPS.length).toBe(5);
+  it("exposes exactly 6 learner-facing groups", () => {
+    expect(LEARNER_SYMBOL_GROUPS.length).toBe(6);
   });
 
   it("covers every symbol exactly once across the groups", () => {
