@@ -32,8 +32,6 @@ import {
   DiagramPhotoeye,
   DiagramTerminal,
   DiagramTransformer,
-  HW_NOContact,
-  HW_NCContact,
 } from "@/lib/electricalDiagramPrimitives";
 
 const COLOR = "oklch(0.65 0.10 155)";
@@ -51,23 +49,29 @@ function SymbolGraphic({ id }: { id: SymbolPrimitiveId }) {
   const cy = 40;
   // Scale factors tuned so symbols fill ~70-80% of the 80x80 viewBox
   switch (id) {
-    // === Motor Controls / Hardwired Schematic Symbols ===
+    // === Motor Controls / Ladder & Relay Symbols ===
     case "contact_no":
-      return <HW_NOContact cx={cx} cy={cy} color={COLOR} scale={1.8} />;
+      return <DiagramNOContact cx={cx} cy={cy} color={COLOR} scale={1.7} />;
     case "contact_nc":
-      return <HW_NCContact cx={cx} cy={cy} color={COLOR} scale={1.8} />;
+      return <DiagramNCContact cx={cx} cy={cy} color={COLOR} scale={1.7} />;
     case "coil":
       return <DiagramCoil cx={cx} cy={cy} color={COLOR} scale={2.0} />;
     case "overload_heater":
       return <DiagramOverloadHeater cx={cx} cy={cy} color={COLOR} scale={2.0} />;
     case "overload_nc":
-      return <HW_NCContact cx={cx} cy={cy} color={COLOR} scale={1.8} />;
+      return (
+        <g>
+          <DiagramNCContact cx={cx} cy={cy} color={COLOR} scale={1.7} />
+          <text x={cx} y={cy - 24} textAnchor="middle" fill={COLOR} stroke="none"
+            style={{ fontFamily: "var(--diag-font-mono)", fontSize: "12px", fontWeight: 600 }}>OL</text>
+        </g>
+      );
     case "contactor_aux":
       return <DiagramContactorAux cx={cx} cy={cy + 4} color={COLOR} scale={1.6} />;
     case "selector_switch":
       return <DiagramSelectorSwitchHW cx={cx} cy={cy + 6} color={COLOR} scale={1.5} />;
     case "contactor_power":
-      return <DiagramContactorPole cx={cx} cy={cy} color={COLOR} scale={2.2} />;
+      return <DiagramContactorPole cx={cx} cy={cy} color={COLOR} closed={false} scale={2.2} />;
     case "motor":
       return <DiagramMotor cx={cx} cy={cy} color={COLOR} scale={2.0} />;
     case "pb_no":

@@ -164,14 +164,32 @@ export function DiagramDisconnect({ cx, cy, color, energized, scale = 1 }: GProp
   );
 }
 
-/** Control transformer — coupled inductors */
+/** Control transformer — two windings (three bumps each) flanking a laminated iron
+ *  core (two vertical lines). Primary on the left, secondary on the right, per
+ *  NEMA / IEEE 315. Bumps bulge toward the core. */
 export function DiagramTransformer({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 2);
+  const bump = s(scale, 3.2);
+  const backL = cx - s(scale, 6);
+  const backR = cx + s(scale, 6);
+  const topY = cy - s(scale, 9.6);
+  // Three arcs down each winding backbone; left bumps to the right (sweep 1), right to the left (sweep 0).
+  const winding = (x: number, sweep: 0 | 1) =>
+    `M${x},${topY} ` +
+    `a${bump},${bump} 0 0 ${sweep} 0,${bump * 2} ` +
+    `a${bump},${bump} 0 0 ${sweep} 0,${bump * 2} ` +
+    `a${bump},${bump} 0 0 ${sweep} 0,${bump * 2}`;
   return (
     <g stroke={color} strokeWidth={w} fill="none">
-      <path d={`M${cx - s(scale, 10)},${cy - s(scale, 6)} C${cx - s(scale, 6)},${cy - s(scale, 6)} ${cx - s(scale, 6)},${cy} ${cx - s(scale, 10)},${cy} C${cx - s(scale, 6)},${cy} ${cx - s(scale, 6)},${cy + s(scale, 6)} ${cx - s(scale, 10)},${cy + s(scale, 6)}`} />
-      <line x1={cx} y1={cy - s(scale, 10)} x2={cx} y2={cy + s(scale, 10)} />
-      <path d={`M${cx + s(scale, 10)},${cy - s(scale, 6)} C${cx + s(scale, 6)},${cy - s(scale, 6)} ${cx + s(scale, 6)},${cy} ${cx + s(scale, 10)},${cy} C${cx + s(scale, 6)},${cy} ${cx + s(scale, 6)},${cy + s(scale, 6)} ${cx + s(scale, 10)},${cy + s(scale, 6)}`} />
+      {/* leads */}
+      <line x1={backL - s(scale, 12)} y1={cy} x2={backL} y2={cy} />
+      <line x1={backR} y1={cy} x2={backR + s(scale, 12)} y2={cy} />
+      {/* windings */}
+      <path d={winding(backL, 1)} />
+      <path d={winding(backR, 0)} />
+      {/* laminated core */}
+      <line x1={cx - s(scale, 1.4)} y1={cy - s(scale, 11)} x2={cx - s(scale, 1.4)} y2={cy + s(scale, 11)} strokeWidth={s(scale, 1.4)} />
+      <line x1={cx + s(scale, 1.4)} y1={cy - s(scale, 11)} x2={cx + s(scale, 1.4)} y2={cy + s(scale, 11)} strokeWidth={s(scale, 1.4)} />
     </g>
   );
 }
@@ -192,40 +210,51 @@ export function DiagramOverloadHeater({ cx, cy, color, scale = 1 }: GProps): Rea
   );
 }
 
-/** Motor — circle with M (NEMA / JIC) */
+/** Motor — circle with M (NEMA / JIC): a plain circle with the device letter centered.
+ *  The label sets stroke="none" so it is not outlined by the group's stroke. */
 export function DiagramMotor({ cx, cy, color, scale = 1, label = "M" }: GProps & { label?: string }): ReactNode {
   const r = s(scale, 14);
   const w = s(scale, 2);
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       <circle cx={cx} cy={cy} r={r} />
+      <line x1={cx - r - s(scale, 10)} y1={cy} x2={cx - r} y2={cy} />
+      <line x1={cx + r} y1={cy} x2={cx + r + s(scale, 10)} y2={cy} />
       <text
         x={cx}
-        y={cy + s(scale, 4)}
+        y={cy}
         textAnchor="middle"
-        className="diag-text-primary"
+        dominantBaseline="central"
         fill={color}
-        style={{ fontFamily: "var(--diag-font-mono)" }}
+        stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 13)}px`, fontWeight: 700 }}
       >
         {label}
       </text>
-      <line x1={cx - r - s(scale, 10)} y1={cy} x2={cx - r} y2={cy} />
-      <line x1={cx + r} y1={cy} x2={cx + r + s(scale, 10)} y2={cy} />
     </g>
   );
 }
 
-/** Contactor power pole — blade contact (distinct from breaker X). Enlarged for legibility. */
+/** Contactor power pole — a NO power contact whose movable blade pivots at the left
+ *  terminal: closed rests on the right terminal, open lifts away. Heavier line weight
+ *  than a control contact marks it as a main (power) pole. */
 export function DiagramContactorPole({ cx, cy, color, closed = true, scale = 1 }: GProps & { closed?: boolean }): ReactNode {
-  const w = s(scale, 2.5);
-  const bladeY = closed ? cy + s(scale, 10) : cy - s(scale, 14);
+  const w = s(scale, 2.4);
+  const dotR = s(scale, 2.6);
+  const leftDotX = cx - s(scale, 10);
+  const rightDotX = cx + s(scale, 10);
+  const tipX = closed ? rightDotX : cx + s(scale, 4);
+  const tipY = closed ? cy : cy - s(scale, 13);
   return (
     <g stroke={color} strokeWidth={w} fill={color}>
-      <line x1={cx - s(scale, 20)} y1={cy} x2={cx - s(scale, 8)} y2={cy} />
-      <circle cx={cx - s(scale, 6)} cy={cy} r={s(scale, 3.5)} />
-      <line x1={cx - s(scale, 6)} y1={cy} x2={cx + s(scale, 10)} y2={bladeY} strokeWidth={s(scale, 2.5)} />
-      <circle cx={cx + s(scale, 12)} cy={cy} r={s(scale, 3.5)} />
-      <line x1={cx + s(scale, 14)} y1={cy} x2={cx + s(scale, 22)} y2={cy} />
+      {/* leads */}
+      <line x1={leftDotX - s(scale, 12)} y1={cy} x2={leftDotX} y2={cy} />
+      <line x1={rightDotX} y1={cy} x2={rightDotX + s(scale, 12)} y2={cy} />
+      {/* terminals */}
+      <circle cx={leftDotX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightDotX} cy={cy} r={dotR} stroke="none" />
+      {/* movable blade */}
+      <line x1={leftDotX} y1={cy} x2={tipX} y2={tipY} fill="none" strokeLinecap="round" />
     </g>
   );
 }
@@ -234,84 +263,118 @@ export function DiagramContactorPole({ cx, cy, color, closed = true, scale = 1 }
  *  Per JIC EGP-1: NO contact (diagonal blade) + vertical actuator stem + arc with position detents. */
 export function DiagramSelectorSwitchHW({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 1.8);
+  const dotR = s(scale, 2.2);
+  const leftDotX = cx - s(scale, 13);
+  const rightDotX = cx + s(scale, 13);
   return (
-    <g stroke={color} strokeWidth={w} fill="none">
-      {/* Hardwired NO contact base */}
-      <HW_NOContact cx={cx} cy={cy + s(scale, 8)} color={color} scale={scale * 0.8} />
-      {/* Actuator stem from contact up */}
-      <line x1={cx} y1={cy - s(scale, 2)} x2={cx} y2={cy - s(scale, 14)} />
-      {/* Knob arc with position detents */}
-      <path d={`M${cx - s(scale, 10)},${cy - s(scale, 16)} A${s(scale, 10)},${s(scale, 10)} 0 0,1 ${cx + s(scale, 10)},${cy - s(scale, 16)}`} />
-      {/* Position marks (1 and 2) */}
-      <line x1={cx - s(scale, 7)} y1={cy - s(scale, 23)} x2={cx - s(scale, 7)} y2={cy - s(scale, 18)} />
-      <line x1={cx + s(scale, 7)} y1={cy - s(scale, 23)} x2={cx + s(scale, 7)} y2={cy - s(scale, 18)} />
-      {/* Position labels */}
-      <text x={cx - s(scale, 7)} y={cy - s(scale, 26)} textAnchor="middle" fill={color} stroke="none"
+    <g stroke={color} strokeWidth={w} fill={color}>
+      {/* leads + terminals */}
+      <line x1={leftDotX - s(scale, 8)} y1={cy} x2={leftDotX} y2={cy} />
+      <line x1={rightDotX} y1={cy} x2={rightDotX + s(scale, 8)} y2={cy} />
+      <circle cx={leftDotX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightDotX} cy={cy} r={dotR} stroke="none" />
+      {/* movable blade pivoting at the left terminal (shown selected toward position 2) */}
+      <line x1={leftDotX} y1={cy} x2={cx + s(scale, 6)} y2={cy - s(scale, 11)} fill="none" strokeLinecap="round" />
+      {/* knob shaft up to a detent arc */}
+      <line x1={cx} y1={cy - s(scale, 6)} x2={cx} y2={cy - s(scale, 15)} fill="none" />
+      <path d={`M${cx - s(scale, 9)},${cy - s(scale, 15)} A${s(scale, 9)},${s(scale, 9)} 0 0 1 ${cx + s(scale, 9)},${cy - s(scale, 15)}`} fill="none" />
+      {/* position detents + labels */}
+      <line x1={cx - s(scale, 6)} y1={cy - s(scale, 22)} x2={cx - s(scale, 6)} y2={cy - s(scale, 17)} fill="none" />
+      <line x1={cx + s(scale, 6)} y1={cy - s(scale, 22)} x2={cx + s(scale, 6)} y2={cy - s(scale, 17)} fill="none" />
+      <text x={cx - s(scale, 6)} y={cy - s(scale, 25)} textAnchor="middle" fill={color} stroke="none"
         style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 7)}px` }}>1</text>
-      <text x={cx + s(scale, 7)} y={cy - s(scale, 26)} textAnchor="middle" fill={color} stroke="none"
+      <text x={cx + s(scale, 6)} y={cy - s(scale, 25)} textAnchor="middle" fill={color} stroke="none"
         style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 7)}px` }}>2</text>
     </g>
   );
 }
 
-/** Hardwired guard/interlock switch — NC contact (diagonal blade + bridge) + roller lever actuator.
- *  Per JIC EGP-1 / NEMA ICS 5: NC contact with roller-lever actuator arm. */
+/** Guard / interlock switch — an NC contact in the safety string, tagged GS.
+ *  A guarded door / gate interlock opens (breaks the string) when the guard is moved,
+ *  so its schematic element is a normally-closed contact. */
 export function DiagramGuardSwitch({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   return (
-    <g stroke={color} fill="none">
-      {/* Hardwired NC contact base */}
-      <HW_NCContact cx={cx} cy={cy + s(scale, 6)} color={color} scale={scale * 0.75} />
-      {/* Actuator arm with roller */}
-      <line x1={cx} y1={cy - s(scale, 4)} x2={cx} y2={cy - s(scale, 1)} stroke={color} strokeWidth={s(scale, 1.5)} />
-      <line x1={cx} y1={cy - s(scale, 4)} x2={cx + s(scale, 12)} y2={cy - s(scale, 12)} stroke={color} strokeWidth={s(scale, 1.5)} />
-      <circle cx={cx + s(scale, 14)} cy={cy - s(scale, 13)} r={s(scale, 3.5)} stroke={color} strokeWidth={s(scale, 1.5)} />
-      {/* Guard interlock label */}
-      <text x={cx - s(scale, 10)} y={cy - s(scale, 16)} textAnchor="middle" fill={color} stroke="none"
-        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 8)}px` }}>GS</text>
+    <g>
+      <DiagramNCContact cx={cx} cy={cy} color={color} scale={scale * 0.9} />
+      <text x={cx} y={cy - s(scale, 20)} textAnchor="middle" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 600 }}>GS</text>
     </g>
   );
 }
 
-/** Pushbutton NO — hardwired: diagonal blade NO contact + vertical stem + button cap.
- *  Per JIC EGP-1: NO contact with pushbutton actuator above. */
+/** Pushbutton NO (momentary) — NEMA form: two fixed contacts with a movable contact
+ *  bar held ABOVE them (open), a plunger stem, and a button cap. Pressing lowers the
+ *  bar to bridge the contacts. */
 export function DiagramPushbuttonNO({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 1.8);
+  const dotR = s(scale, 2.2);
+  const leftX = cx - s(scale, 11);
+  const rightX = cx + s(scale, 11);
   return (
-    <g stroke={color} strokeWidth={w} fill="none">
-      <HW_NOContact cx={cx} cy={cy + s(scale, 4)} color={color} scale={scale * 0.8} />
-      {/* Actuator stem */}
-      <line x1={cx} y1={cy - s(scale, 6)} x2={cx} y2={cy - s(scale, 16)} />
-      {/* Button cap */}
-      <line x1={cx - s(scale, 8)} y1={cy - s(scale, 16)} x2={cx + s(scale, 8)} y2={cy - s(scale, 16)} />
+    <g stroke={color} strokeWidth={w} fill={color}>
+      {/* leads + fixed contacts */}
+      <line x1={leftX - s(scale, 9)} y1={cy} x2={leftX} y2={cy} />
+      <line x1={rightX} y1={cy} x2={rightX + s(scale, 9)} y2={cy} />
+      <circle cx={leftX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightX} cy={cy} r={dotR} stroke="none" />
+      {/* fixed contact tips reaching up toward the movable bar */}
+      <line x1={leftX} y1={cy} x2={leftX} y2={cy - s(scale, 2)} fill="none" />
+      <line x1={rightX} y1={cy} x2={rightX} y2={cy - s(scale, 2)} fill="none" />
+      {/* movable contact bar, held raised (open) */}
+      <line x1={leftX} y1={cy - s(scale, 5)} x2={rightX} y2={cy - s(scale, 5)} fill="none" />
+      {/* plunger + button cap */}
+      <line x1={cx} y1={cy - s(scale, 5)} x2={cx} y2={cy - s(scale, 15)} fill="none" />
+      <line x1={cx - s(scale, 7)} y1={cy - s(scale, 15)} x2={cx + s(scale, 7)} y2={cy - s(scale, 15)} fill="none" strokeLinecap="round" />
     </g>
   );
 }
 
-/** Pushbutton NC — hardwired: diagonal blade NC contact + vertical stem + button cap.
- *  Per JIC EGP-1: NC contact with pushbutton actuator above. */
+/** Pushbutton NC (momentary) — NEMA form: the movable contact bar bridges the two
+ *  fixed contacts (closed); a plunger + button cap sits above. Pressing lifts the bar
+ *  to break the circuit. */
 export function DiagramPushbuttonNC({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 1.8);
+  const dotR = s(scale, 2.2);
+  const leftX = cx - s(scale, 11);
+  const rightX = cx + s(scale, 11);
+  const barY = cy - s(scale, 3);
   return (
-    <g stroke={color} strokeWidth={w} fill="none">
-      <HW_NCContact cx={cx} cy={cy + s(scale, 4)} color={color} scale={scale * 0.8} />
-      {/* Actuator stem */}
-      <line x1={cx} y1={cy - s(scale, 6)} x2={cx} y2={cy - s(scale, 16)} />
-      {/* Button cap */}
-      <line x1={cx - s(scale, 8)} y1={cy - s(scale, 16)} x2={cx + s(scale, 8)} y2={cy - s(scale, 16)} />
+    <g stroke={color} strokeWidth={w} fill={color}>
+      {/* leads + fixed contacts */}
+      <line x1={leftX - s(scale, 9)} y1={cy} x2={leftX} y2={cy} />
+      <line x1={rightX} y1={cy} x2={rightX + s(scale, 9)} y2={cy} />
+      <circle cx={leftX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightX} cy={cy} r={dotR} stroke="none" />
+      {/* movable bar bridging both contacts (closed) */}
+      <line x1={leftX} y1={barY} x2={rightX} y2={barY} fill="none" />
+      <line x1={leftX} y1={cy} x2={leftX} y2={barY} fill="none" />
+      <line x1={rightX} y1={cy} x2={rightX} y2={barY} fill="none" />
+      {/* plunger + button cap */}
+      <line x1={cx} y1={barY} x2={cx} y2={cy - s(scale, 15)} fill="none" />
+      <line x1={cx - s(scale, 7)} y1={cy - s(scale, 15)} x2={cx + s(scale, 7)} y2={cy - s(scale, 15)} fill="none" strokeLinecap="round" />
     </g>
   );
 }
 
-/** Limit switch — hardwired NO contact + roller lever actuator.
- *  Per JIC EGP-1 / NEMA ICS 5: NO contact with angled actuator arm + roller at tip. */
+/** Limit switch (NO) — a switch whose movable blade pivots at the left terminal and
+ *  carries a roller-lever actuator; the roller is a FILLED circle at the lever tip
+ *  (NEMA ICS 1 / ANSI Y32.2). Drawn held-open. */
 export function DiagramLimitSwitch({ cx, cy, color, scale = 1 }: GProps): ReactNode {
+  const w = s(scale, 1.8);
+  const dotR = s(scale, 2.4);
+  const leftDotX = cx - s(scale, 13);
+  const rightDotX = cx + s(scale, 13);
   return (
-    <g stroke={color} fill="none">
-      <HW_NOContact cx={cx} cy={cy + s(scale, 6)} color={color} scale={scale * 0.75} />
-      {/* Actuator arm with roller */}
-      <line x1={cx} y1={cy - s(scale, 4)} x2={cx} y2={cy - s(scale, 1)} stroke={color} strokeWidth={s(scale, 1.5)} />
-      <line x1={cx} y1={cy - s(scale, 4)} x2={cx + s(scale, 12)} y2={cy - s(scale, 12)} stroke={color} strokeWidth={s(scale, 1.5)} />
-      <circle cx={cx + s(scale, 14)} cy={cy - s(scale, 13)} r={s(scale, 3.5)} stroke={color} strokeWidth={s(scale, 1.5)} />
+    <g stroke={color} strokeWidth={w} fill={color}>
+      {/* leads + terminals */}
+      <line x1={leftDotX - s(scale, 9)} y1={cy} x2={leftDotX} y2={cy} />
+      <line x1={rightDotX} y1={cy} x2={rightDotX + s(scale, 9)} y2={cy} />
+      <circle cx={leftDotX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightDotX} cy={cy} r={dotR} stroke="none" />
+      {/* movable blade / operating lever (held open), pivoting at the left terminal */}
+      <line x1={leftDotX} y1={cy} x2={cx + s(scale, 9)} y2={cy - s(scale, 16)} fill="none" strokeLinecap="round" />
+      {/* roller at the lever tip — filled */}
+      <circle cx={cx + s(scale, 11)} cy={cy - s(scale, 17)} r={s(scale, 3)} fill={color} stroke={color} strokeWidth={s(scale, 1)} />
     </g>
   );
 }
@@ -320,23 +383,31 @@ export function DiagramLimitSwitch({ cx, cy, color, scale = 1 }: GProps): ReactN
  *  Per JIC EGP-1: NC contact with mushroom-head pushbutton actuator. */
 export function DiagramEStop({ cx, cy, color, scale = 1, energized = false }: GProps & { energized?: boolean }): ReactNode {
   const w = s(scale, 1.8);
-  const headY = cy - s(scale, 18);
+  const dotR = s(scale, 2.2);
+  const leftX = cx - s(scale, 11);
+  const rightX = cx + s(scale, 11);
+  const barY = cy - s(scale, 3);
+  const capY = cy - s(scale, 15);
   return (
-    <g stroke={color} strokeWidth={w} fill="none">
-      {/* Mushroom head */}
-      <rect
-        x={cx - s(scale, 10)}
-        y={headY - s(scale, 6)}
-        width={s(scale, 20)}
-        height={s(scale, 8)}
-        rx={s(scale, 4)}
+    <g stroke={color} strokeWidth={w} fill={color}>
+      {/* leads + fixed contacts */}
+      <line x1={leftX - s(scale, 9)} y1={cy} x2={leftX} y2={cy} />
+      <line x1={rightX} y1={cy} x2={rightX + s(scale, 9)} y2={cy} />
+      <circle cx={leftX} cy={cy} r={dotR} stroke="none" />
+      <circle cx={rightX} cy={cy} r={dotR} stroke="none" />
+      {/* movable bar bridging the contacts (NC, maintained closed until pressed) */}
+      <line x1={leftX} y1={barY} x2={rightX} y2={barY} fill="none" />
+      <line x1={leftX} y1={cy} x2={leftX} y2={barY} fill="none" />
+      <line x1={rightX} y1={cy} x2={rightX} y2={barY} fill="none" />
+      {/* plunger */}
+      <line x1={cx} y1={barY} x2={cx} y2={capY} fill="none" />
+      {/* mushroom head — wide shallow dome */}
+      <path
+        d={`M${cx - s(scale, 10)},${capY} Q${cx},${capY - s(scale, 9)} ${cx + s(scale, 10)},${capY}`}
         fill={energized ? color : "none"}
         opacity={energized ? 0.25 : 1}
       />
-      {/* Stem */}
-      <line x1={cx} y1={headY + s(scale, 2)} x2={cx} y2={cy - s(scale, 6)} />
-      {/* Hardwired NC contact */}
-      <HW_NCContact cx={cx} cy={cy + s(scale, 6)} color={color} scale={scale * 0.75} />
+      <line x1={cx - s(scale, 10)} y1={capY} x2={cx + s(scale, 10)} y2={capY} fill="none" />
     </g>
   );
 }
@@ -347,8 +418,8 @@ export function DiagramPLCInput({ cx, cy, color, scale = 1, energized = true }: 
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       <rect x={cx - s(scale, 20)} y={cy - s(scale, 15)} width={s(scale, 40)} height={s(scale, 32)} rx={s(scale, 4)} fill="oklch(0.15 0.01 240 / 0.7)" strokeDasharray={energized ? "none" : "2,1"} />
-      <rect x={cx - s(scale, 18)} y={cy - s(scale, 13)} width={s(scale, 16)} height={s(scale, 10)} rx={s(scale, 2)} fill="oklch(0.45 0.12 250 / 0.8)" />
-      <text x={cx - s(scale, 10)} y={cy - s(scale, 5)} textAnchor="middle" className="diag-text-state font-bold" fill="white" style={{ fontFamily: "var(--diag-font-mono)" }}>
+      <rect x={cx - s(scale, 18)} y={cy - s(scale, 13)} width={s(scale, 16)} height={s(scale, 10)} rx={s(scale, 2)} fill="oklch(0.45 0.12 250 / 0.85)" stroke="none" />
+      <text x={cx - s(scale, 10)} y={cy - s(scale, 8)} textAnchor="middle" dominantBaseline="central" fill="white" stroke="none" style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 7)}px`, fontWeight: 700 }}>
         IN
       </text>
       <line x1={cx - s(scale, 20)} y1={cy} x2={cx - s(scale, 28)} y2={cy} />
@@ -363,8 +434,8 @@ export function DiagramPLCOutput({ cx, cy, color, scale = 1, energized = true }:
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       <rect x={cx - s(scale, 20)} y={cy - s(scale, 15)} width={s(scale, 40)} height={s(scale, 32)} rx={s(scale, 4)} fill="oklch(0.15 0.01 240 / 0.7)" strokeDasharray={energized ? "none" : "2,1"} />
-      <rect x={cx + s(scale, 2)} y={cy - s(scale, 13)} width={s(scale, 16)} height={s(scale, 10)} rx={s(scale, 2)} fill="oklch(0.45 0.12 155 / 0.8)" />
-      <text x={cx + s(scale, 10)} y={cy - s(scale, 5)} textAnchor="middle" className="diag-text-state font-bold" fill="white" style={{ fontFamily: "var(--diag-font-mono)" }}>
+      <rect x={cx + s(scale, 2)} y={cy - s(scale, 13)} width={s(scale, 16)} height={s(scale, 10)} rx={s(scale, 2)} fill="oklch(0.45 0.12 155 / 0.85)" stroke="none" />
+      <text x={cx + s(scale, 10)} y={cy - s(scale, 8)} textAnchor="middle" dominantBaseline="central" fill="white" stroke="none" style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 7)}px`, fontWeight: 700 }}>
         OUT
       </text>
       <line x1={cx - s(scale, 20)} y1={cy} x2={cx - s(scale, 28)} y2={cy} />
@@ -387,16 +458,16 @@ export function DiagramVFD({
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       <rect x={cx - s(scale, 18)} y={cy - s(scale, 14)} width={s(scale, 36)} height={s(scale, 28)} rx={s(scale, 3)} />
-      <text x={cx} y={cy - s(scale, 2)} textAnchor="middle" className="diag-text-state" fill={color} style={{ fontFamily: "var(--diag-font-mono)" }}>
+      <text x={cx} y={cy - s(scale, 2)} textAnchor="middle" fill={color} stroke="none" style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 600 }}>
         VFD
       </text>
       <text
         x={cx}
         y={cy + s(scale, 10)}
         textAnchor="middle"
-        className="diag-text-state"
-        fill={energized ? "oklch(0.55 0.12 155)" : "oklch(0.55 0.18 25)"}
-        style={{ fontFamily: "var(--diag-font-mono)" }}
+        fill={energized ? "oklch(0.6 0.14 155)" : "oklch(0.6 0.19 25)"}
+        stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 8)}px`, fontWeight: 600 }}
       >
         {label}
       </text>
@@ -442,23 +513,13 @@ export function DiagramPhotoeye({
       />
       <text
         x={cx}
-        y={cy + s(scale, 2)}
+        y={cy + s(scale, 10)}
         textAnchor="middle"
-        className="diag-text-xs font-bold"
         fill={color}
-        style={{ fontFamily: "var(--diag-font-mono)" }}
+        stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 700 }}
       >
         PE
-      </text>
-      <text
-        x={cx}
-        y={cy + s(scale, 12)}
-        textAnchor="middle"
-        className="diag-text-xs"
-        fill={color}
-        style={{ fontFamily: "var(--diag-font-mono)" }}
-      >
-        + 0 Sig
       </text>
       <line x1={cx - s(scale, 22)} y1={cy} x2={cx - s(scale, 30)} y2={cy} />
       <line x1={cx + s(scale, 22)} y1={cy} x2={cx + s(scale, 30)} y2={cy} />
@@ -479,12 +540,12 @@ function ContactTag({ cx, cy, color, scale = 1, tag, dy = 24 }: GProps & { tag: 
   );
 }
 
-/** Contactor auxiliary contact — hardwired NO contact, tagged M (seal-in / interlock).
- *  For the Standards Library (Motor Controls category), renders with diagonal blade geometry. */
+/** Contactor auxiliary contact — a NO control contact tagged M (seal-in / interlock).
+ *  Drawn with the standard ladder contact geometry (-| |-). */
 export function DiagramContactorAux({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   return (
     <g>
-      <HW_NOContact cx={cx} cy={cy} color={color} scale={scale} />
+      <DiagramNOContact cx={cx} cy={cy} color={color} scale={scale} />
       <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="M" dy={22} />
     </g>
   );
@@ -512,19 +573,25 @@ export function DiagramSafetyRelay({ cx, cy, color, scale = 1 }: GProps): ReactN
   );
 }
 
-/** Timer contact — hardwired NO contact with timing arc indicator.
- *  Per JIC EGP-1: NO contact + small timing arc near blade. */
+/** Timer contact — on-delay normally-open, timed-closed (NOTC): a NO contact with a
+ *  "parachute" canopy hung below the movable contact (NEMA time-delay symbol). Tagged TR. */
 export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): ReactNode {
+  const w = s(scale, 1.8);
+  const half = s(scale, 8);
+  const bar = s(scale, 11);
   return (
-    <g>
-      <HW_NOContact cx={cx} cy={cy + s(scale, 4)} color={color} scale={scale} />
-      {/* Timing arc indicator */}
-      <path d={`M${cx - s(scale, 6)},${cy - s(scale, 14)} A${s(scale, 6)},${s(scale, 6)} 0 0,1 ${cx + s(scale, 6)},${cy - s(scale, 14)}`}
-        stroke={color} strokeWidth={s(scale, 1.5)} fill="none" />
-      {/* Arrow on timing arc */}
-      <polyline points={`${cx + s(scale, 4)},${cy - s(scale, 17)} ${cx + s(scale, 6)},${cy - s(scale, 14)} ${cx + s(scale, 9)},${cy - s(scale, 15)}`}
-        stroke={color} strokeWidth={s(scale, 1.2)} fill="none" />
-      <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="TMR" dy={26} />
+    <g stroke={color} strokeWidth={w} fill="none">
+      {/* NO contact — vertical bars */}
+      <line x1={cx - half} y1={cy - bar} x2={cx - half} y2={cy + bar} />
+      <line x1={cx + half} y1={cy - bar} x2={cx + half} y2={cy + bar} />
+      <line x1={cx - half - s(scale, 10)} y1={cy} x2={cx - half} y2={cy} />
+      <line x1={cx + half} y1={cy} x2={cx + half + s(scale, 10)} y2={cy} />
+      {/* on-delay parachute — canopy below the contact + suspension line to the moving bar */}
+      <line x1={cx} y1={cy + bar} x2={cx} y2={cy + s(scale, 16)} strokeWidth={s(scale, 1.2)} />
+      <path d={`M${cx - s(scale, 9)},${cy + s(scale, 16)} A${s(scale, 9)},${s(scale, 6)} 0 0 0 ${cx + s(scale, 9)},${cy + s(scale, 16)}`}
+        strokeWidth={s(scale, 1.5)} />
+      <text x={cx} y={cy - s(scale, 17)} textAnchor="middle" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 600 }}>TR</text>
     </g>
   );
 }
