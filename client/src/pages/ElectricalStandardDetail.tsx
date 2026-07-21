@@ -1,5 +1,5 @@
 import { Link, useRoute } from "wouter";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Info } from "lucide-react";
 import SEO from "@/components/SEO";
 import { getSymbolById, CATEGORY_META } from "@shared/electricalSymbolRegistry";
 import StandardsSymbolPreview from "@/components/standards/StandardsSymbolPreview";
@@ -51,12 +51,21 @@ export default function ElectricalStandardDetail() {
         </Link>
 
         <div className="card-panel p-6 mb-6">
-          <div className="bg-[oklch(0.06_0.003_250)] rounded-lg border border-[oklch(0.14_0.004_250)] p-6 mb-6">
-            <StandardsSymbolPreview symbolId={entry.id as SymbolPrimitiveId} />
+          <div className="bg-[oklch(0.06_0.003_250)] rounded-lg border border-[oklch(0.14_0.004_250)] p-6 mb-6 flex items-center justify-center">
+            <div className="w-56 h-56 max-w-full">
+              <StandardsSymbolPreview symbolId={entry.id as SymbolPrimitiveId} />
+            </div>
           </div>
 
           <h1 className="text-2xl font-heading text-white mb-2">{entry.name}</h1>
           <p className="text-[oklch(0.60_0.008_250)] leading-relaxed mb-4">{entry.description}</p>
+
+          {entry.contextNote && (
+            <div className="flex items-start gap-2 mb-4 rounded-lg border border-[oklch(0.72_0.11_75/25%)] bg-[oklch(0.72_0.11_75/8%)] px-3 py-2.5">
+              <Info className="w-4 h-4 text-[oklch(0.72_0.11_75)] shrink-0 mt-0.5" />
+              <p className="text-sm text-[oklch(0.78_0.10_75)] leading-relaxed">{entry.contextNote}</p>
+            </div>
+          )}
 
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>

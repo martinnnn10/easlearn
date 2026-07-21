@@ -53,6 +53,9 @@ export interface ElectricalSymbolEntry {
   iecReference: string;
   nemaJicReference: string;
   typicalUse: string;
+  /** One-line learner-facing clarifier for confusable pairs (power vs control,
+   *  device vs contact). Shown as a highlighted note on the card and detail. */
+  contextNote?: string;
   category: StandardsCategory;
   /** Maps to Diagram* component in electricalDiagramPrimitives */
   primitive: string;
@@ -161,6 +164,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-07",
     nemaJicReference: "NEMA ICS 1 — ( ) with device tag M, CR, K",
     typicalUse: "Motor starter coils, control relays, interposing relays",
+    contextNote: "Energizes the contactor.",
     category: "motor_controls",
     primitive: "DiagramCoil",
     aliases: ["coil", "CR", "K", "M coil", "( )"],
@@ -176,6 +180,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-07",
     nemaJicReference: "NEMA ICS 2 — overload relay heater in series with coil path",
     typicalUse: "Motor branch overload, starter trip diagnostics",
+    contextNote: "Used in the power circuit.",
     category: "motor_controls",
     primitive: "DiagramOverloadHeater",
     aliases: ["OL", "overload", "heater", "thermal overload", "95-96"],
@@ -191,6 +196,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-07",
     nemaJicReference: "NEMA ICS 2 — OL contact 95-96 in the control string",
     typicalUse: "Motor-starter control rung, overload trip logic",
+    contextNote: "Used in the control circuit. Opens when the overload trips.",
     category: "motor_controls",
     primitive: "DiagramNCContact",
     aliases: ["OL contact", "95-96", "overload NC", "overload monitoring contact"],
@@ -206,6 +212,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-07",
     nemaJicReference: "NEMA ICS 2 — M aux (13-14 NO)",
     typicalUse: "Start/stop seal-in, run confirmation, interlocks",
+    contextNote: "Used for seal-in / status logic.",
     category: "motor_controls",
     primitive: "DiagramContactorAux",
     aliases: ["M aux", "seal-in contact", "aux contact", "13-14"],
@@ -311,6 +318,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-07",
     nemaJicReference: "NEMA ICS 2 — contactor poles on three-line diagrams",
     typicalUse: "Three-line MCC diagrams, power switching",
+    contextNote: "Carries motor / load current.",
     category: "motor_controls",
     primitive: "DiagramContactorPole",
     aliases: ["contactor", "K", "M power pole"],
@@ -341,6 +349,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
     iecReference: "IEC 60617-06",
     nemaJicReference: "NEMA MG 1 / JIC — M inside circle",
     typicalUse: "One-line and three-line load identification",
+    contextNote: "Represents the load / motor, not a contact.",
     category: "motor_controls",
     primitive: "DiagramMotor",
     aliases: ["motor", "M", "induction motor"],
@@ -504,12 +513,13 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
   },
   {
     id: "vfd",
-    name: "Variable Frequency Drive",
-    description: "Power conversion block with control terminals.",
-    function: "Adjustable speed motor control with integrated protection.",
+    name: "VFD Fault Contact",
+    description: "Drive fault output — a contact/signal that changes state when the VFD trips (shown here as the drive's FAULT relay), not the whole drive.",
+    function: "Signals a drive fault to the control circuit or PLC so the machine can stop and annunciate. Wired from the VFD's fault relay output.",
     iecReference: "IEC 61800",
-    nemaJicReference: "NEMA ICS 61800 / PowerFlex parameter conventions",
-    typicalUse: "Conveyor drives, pump/fan speed control, motor speed and fault diagnostics",
+    nemaJicReference: "NEMA ICS 61800 / PowerFlex fault relay (e.g. RDY/FLT) conventions",
+    typicalUse: "Drive fault interlock to PLC input, fault annunciation, motor speed/fault diagnostics",
+    contextNote: "Represents a drive fault output / contact, not the entire drive.",
     category: "vfd_wiring",
     primitive: "DiagramVFD",
     aliases: ["VFD", "drive", "inverter"],
@@ -582,4 +592,63 @@ export function getOrderedCategories(): StandardsCategory[] {
   return (Object.keys(CATEGORY_META) as StandardsCategory[]).sort(
     (a, b) => CATEGORY_META[a].order - CATEGORY_META[b].order
   );
+}
+
+/**
+ * Learner-facing groupings for the Standards Library page. These are the sections a
+ * technician navigates by — power vs control, operator devices, safety, and I/O —
+ * independent of the finer `StandardsCategory` used for provenance/metadata.
+ */
+export interface LearnerSymbolGroup {
+  id: string;
+  title: string;
+  description: string;
+  symbolIds: SymbolPrimitiveId[];
+}
+
+export const LEARNER_SYMBOL_GROUPS: LearnerSymbolGroup[] = [
+  {
+    id: "power-devices",
+    title: "Power Devices",
+    description: "Devices in the power circuit that carry motor and load current.",
+    symbolIds: ["disconnect", "fuse", "breaker", "transformer", "contactor_power", "overload_heater", "motor"],
+  },
+  {
+    id: "control-contacts",
+    title: "Control Contacts",
+    description: "Control-circuit contacts and coils that build the ladder logic.",
+    symbolIds: ["contact_no", "contact_nc", "coil", "contactor_aux", "overload_nc", "timer_contact"],
+  },
+  {
+    id: "pushbuttons-switches",
+    title: "Pushbuttons and Switches",
+    description: "Operator- and machine-actuated input devices.",
+    symbolIds: ["pb_no", "pb_nc", "selector_switch", "limit_switch"],
+  },
+  {
+    id: "safety-devices",
+    title: "Safety Devices",
+    description: "Emergency-stop, guarding, and safety-monitoring devices.",
+    symbolIds: ["estop", "guard_switch", "safety_relay"],
+  },
+  {
+    id: "plc-sensors-drives",
+    title: "PLC, Sensors, and Drives",
+    description: "Field I/O, sensors, variable-frequency drives, and wiring points.",
+    symbolIds: ["plc_input", "plc_output", "photoeye", "vfd", "terminal"],
+  },
+];
+
+/** Resolves the learner groups to their full symbol entries, skipping any unknown ids. */
+export function getLearnerGroups(): Array<
+  Omit<LearnerSymbolGroup, "symbolIds"> & { symbols: ElectricalSymbolEntry[] }
+> {
+  return LEARNER_SYMBOL_GROUPS.map((g) => ({
+    id: g.id,
+    title: g.title,
+    description: g.description,
+    symbols: g.symbolIds
+      .map((id) => getSymbolById(id))
+      .filter((e): e is ElectricalSymbolEntry => e !== undefined),
+  }));
 }

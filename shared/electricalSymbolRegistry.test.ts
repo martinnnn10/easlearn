@@ -4,6 +4,8 @@ import {
   getSymbolById,
   getSymbolsByCategory,
   searchSymbols,
+  LEARNER_SYMBOL_GROUPS,
+  getLearnerGroups,
 } from "./electricalSymbolRegistry";
 
 const PHOTOEYE_ALIASES = [
@@ -71,5 +73,25 @@ describe("electricalSymbolRegistry — integrity", () => {
   it("lists photoeye under instrumentation", () => {
     const instrumentation = getSymbolsByCategory("instrumentation");
     expect(instrumentation.some((e) => e.id === "photoeye")).toBe(true);
+  });
+});
+
+describe("electricalSymbolRegistry — learner groups", () => {
+  it("exposes exactly 5 learner-facing groups", () => {
+    expect(LEARNER_SYMBOL_GROUPS.length).toBe(5);
+  });
+
+  it("covers every symbol exactly once across the groups", () => {
+    const grouped = LEARNER_SYMBOL_GROUPS.flatMap((g) => g.symbolIds);
+    const registryIds = ELECTRICAL_SYMBOL_REGISTRY.map((e) => e.id);
+    expect(new Set(grouped).size).toBe(grouped.length); // no symbol in two groups
+    expect([...grouped].sort()).toEqual([...registryIds].sort()); // no omissions / extras
+  });
+
+  it("resolves each group id to its registry entries", () => {
+    for (const g of getLearnerGroups()) {
+      const src = LEARNER_SYMBOL_GROUPS.find((x) => x.id === g.id)!;
+      expect(g.symbols.map((s) => s.id)).toEqual(src.symbolIds);
+    }
   });
 });

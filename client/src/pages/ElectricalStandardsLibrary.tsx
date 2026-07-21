@@ -1,14 +1,13 @@
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
-import { Search, BookOpen, Wrench } from "lucide-react";
+import { Search, BookOpen, Wrench, Info } from "lucide-react";
 import SEO from "@/components/SEO";
 import {
-  CATEGORY_META,
-  getOrderedCategories,
-  getSymbolsByCategory,
+  getLearnerGroups,
   searchSymbols,
   PRINT_READING_STANDARDS,
 } from "@shared/electricalSymbolRegistry";
+import type { ElectricalSymbolEntry } from "@shared/electricalSymbolRegistry";
 import { TROUBLESHOOTING_REFERENCES } from "@shared/troubleshootingReferenceCatalog";
 import StandardsSymbolPreview from "@/components/standards/StandardsSymbolPreview";
 import type { SymbolPrimitiveId } from "@shared/electricalSymbolRegistry";
@@ -16,7 +15,7 @@ import type { SymbolPrimitiveId } from "@shared/electricalSymbolRegistry";
 export default function ElectricalStandardsLibrary() {
   const [query, setQuery] = useState("");
   const results = useMemo(() => searchSymbols(query), [query]);
-  const categories = getOrderedCategories();
+  const groups = getLearnerGroups();
 
   return (
     <div className="min-h-screen bg-background">
@@ -27,16 +26,17 @@ export default function ElectricalStandardsLibrary() {
       />
 
       <section className="py-16 border-b border-[oklch(0.18_0.004_250)]">
-        <div className="container max-w-4xl">
+        <div className="container max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-[oklch(0.55_0.12_155)]" />
-            <h1 className="text-3xl font-heading text-white tracking-wide">Electrical Standards Library</h1>
+            <h1 className="text-3xl font-heading text-white tracking-wide">Electrical Symbol Library</h1>
           </div>
-          <p className="text-[oklch(0.60_0.008_250)] leading-relaxed mb-6">
-            Every symbol used in EASLearn simulators and lessons traces to US manufacturing standards — NEMA / JIC / NFPA 79.
-            Search by name, alias, or function.
+          <p className="text-[oklch(0.60_0.008_250)] leading-relaxed mb-6 max-w-3xl">
+            The symbols you meet on real motor-control schematics and ladder-logic prints, grouped the
+            way a technician reads a panel — power circuit, control circuit, operator devices, safety,
+            and I/O. Every symbol traces to US manufacturing standards (NEMA / JIC / NFPA 79).
           </p>
-          <div className="relative">
+          <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[oklch(0.45_0.006_250)]" />
             <input
               type="search"
@@ -50,45 +50,52 @@ export default function ElectricalStandardsLibrary() {
       </section>
 
       <section className="py-12">
-        <div className="container max-w-4xl space-y-10">
+        <div className="container max-w-5xl space-y-12">
           {query ? (
             <div>
-              <h2 className="text-sm font-mono text-[oklch(0.55_0.12_155)] uppercase tracking-wider mb-4">
+              <h2 className="text-sm font-mono text-[oklch(0.55_0.12_155)] uppercase tracking-wider mb-5">
                 Search Results ({results.length})
               </h2>
-              <div className="grid gap-3">
-                {results.map((entry) => (
-                  <SymbolCard key={entry.id} id={entry.id} name={entry.name} category={entry.category} />
-                ))}
-              </div>
+              {results.length === 0 ? (
+                <p className="text-sm text-[oklch(0.50_0.008_250)]">No symbols match “{query}”.</p>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {results.map((entry) => (
+                    <SymbolCard key={entry.id} entry={entry} />
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
-            categories.map((cat) => {
-              const items = getSymbolsByCategory(cat);
-              if (items.length === 0) return null;
-              const meta = CATEGORY_META[cat];
-              return (
-                <div key={cat}>
-                  <h2 className="text-lg font-semibold text-white mb-1">{meta.title}</h2>
-                  <p className="text-sm text-[oklch(0.50_0.008_250)] mb-4">{meta.description}</p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {items.map((entry) => (
-                      <SymbolCard key={entry.id} id={entry.id} name={entry.name} category={entry.category} />
-                    ))}
-                  </div>
+            groups.map((group) => (
+              <div key={group.id}>
+                <div className="flex items-baseline justify-between gap-4 mb-1">
+                  <h2 className="text-xl font-semibold text-white">{group.title}</h2>
+                  <span className="text-[11px] font-mono text-[oklch(0.42_0.006_250)] shrink-0">
+                    {group.symbols.length} symbols
+                  </span>
                 </div>
-              );
-            })
+                <p className="text-sm text-[oklch(0.52_0.008_250)] mb-5">{group.description}</p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {group.symbols.map((entry) => (
+                    <SymbolCard key={entry.id} entry={entry} />
+                  ))}
+                </div>
+              </div>
+            ))
           )}
 
           {!query && (
             <div>
-              <h2 className="text-lg font-semibold text-white mb-4">Print Reading Standards</h2>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <h2 className="text-xl font-semibold text-white mb-1">Print Reading Standards</h2>
+              <p className="text-sm text-[oklch(0.52_0.008_250)] mb-5">
+                How the symbols above are laid out on real drawings.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4">
                 {PRINT_READING_STANDARDS.map((p) => (
                   <div key={p.id} className="card-panel p-4">
                     <h3 className="text-sm font-semibold text-white mb-1">{p.name}</h3>
-                    <p className="text-xs text-[oklch(0.55_0.008_250)] mb-2">{p.description}</p>
+                    <p className="text-xs text-[oklch(0.55_0.008_250)] mb-2 leading-relaxed">{p.description}</p>
                     <p className="text-[10px] font-mono text-[oklch(0.45_0.006_250)]">{p.nemaJicReference}</p>
                   </div>
                 ))}
@@ -96,38 +103,48 @@ export default function ElectricalStandardsLibrary() {
             </div>
           )}
 
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Wrench className="w-5 h-5 text-[oklch(0.55_0.12_155)]" />
-              <h2 className="text-lg font-semibold text-white">Field Troubleshooting References</h2>
+          {!query && (
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <Wrench className="w-5 h-5 text-[oklch(0.55_0.12_155)]" />
+                <h2 className="text-xl font-semibold text-white">Field Troubleshooting References</h2>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {TROUBLESHOOTING_REFERENCES.map((ref) => (
+                  <Link key={ref.id} href={`/reference/troubleshooting/${ref.id}`}>
+                    <div className="card-panel p-4 hover:border-[oklch(0.55_0.12_155/30%)] transition-colors cursor-pointer h-full">
+                      <h3 className="text-sm font-semibold text-white mb-1">{ref.title}</h3>
+                      <p className="text-xs text-[oklch(0.55_0.008_250)] line-clamp-2 leading-relaxed">{ref.summary}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {TROUBLESHOOTING_REFERENCES.map((ref) => (
-                <Link key={ref.id} href={`/reference/troubleshooting/${ref.id}`}>
-                  <div className="card-panel p-4 hover:border-[oklch(0.55_0.12_155/30%)] transition-colors cursor-pointer h-full">
-                    <h3 className="text-sm font-semibold text-white mb-1">{ref.title}</h3>
-                    <p className="text-xs text-[oklch(0.55_0.008_250)] line-clamp-2">{ref.summary}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
   );
 }
 
-function SymbolCard({ id, name, category }: { id: string; name: string; category: string }) {
+function SymbolCard({ entry }: { entry: ElectricalSymbolEntry }) {
   return (
-    <Link href={`/reference/electrical/${id}`}>
-      <div className="card-panel p-4 flex gap-4 hover:border-[oklch(0.55_0.12_155/30%)] transition-colors cursor-pointer">
-        <div className="w-24 shrink-0 bg-[oklch(0.06_0.003_250)] rounded border border-[oklch(0.14_0.004_250)] p-2 flex items-center">
-          <StandardsSymbolPreview symbolId={id as SymbolPrimitiveId} />
+    <Link href={`/reference/electrical/${entry.id}`}>
+      <div className="card-panel p-4 flex gap-4 hover:border-[oklch(0.55_0.12_155/30%)] transition-colors cursor-pointer h-full">
+        <div className="w-28 h-28 shrink-0 bg-[oklch(0.06_0.003_250)] rounded-lg border border-[oklch(0.14_0.004_250)] p-2 flex items-center justify-center">
+          <StandardsSymbolPreview symbolId={entry.id as SymbolPrimitiveId} />
         </div>
-        <div className="min-w-0">
-          <h3 className="text-sm font-semibold text-white leading-tight">{name}</h3>
-          <p className="text-[10px] font-mono text-[oklch(0.45_0.006_250)] mt-1 uppercase">{category.replace(/_/g, " ")}</p>
+        <div className="min-w-0 flex flex-col">
+          <h3 className="text-base font-semibold text-white leading-tight">{entry.name}</h3>
+          <p className="text-xs text-[oklch(0.58_0.008_250)] mt-1.5 leading-relaxed line-clamp-3">
+            {entry.description}
+          </p>
+          {entry.contextNote && (
+            <div className="mt-auto pt-2.5 flex items-start gap-1.5">
+              <Info className="w-3.5 h-3.5 text-[oklch(0.72_0.11_75)] shrink-0 mt-px" />
+              <span className="text-[11px] leading-snug text-[oklch(0.72_0.11_75)]">{entry.contextNote}</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>
