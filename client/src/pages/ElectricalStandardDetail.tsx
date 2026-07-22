@@ -80,6 +80,32 @@ export default function ElectricalStandardDetail() {
   // Published taxonomy symbols (PLC instructions, functional blocks) render first.
   if (symbolId && getPublicSymbolById(symbolId)) return <TaxonomyDetail id={symbolId} />;
 
+  // Symbols restructured/removed in the taxonomy remediation must not render their old glyph.
+  const RESTRUCTURED: Record<string, string> = {
+    timer_contact: "Timer symbols were removed pending the exact NEMA ICS 19 timer-relay family (and are separated from PLC timer instructions).",
+    safety_relay: "The safety relay is now a functional module, not a coil — see “Safety Relay / Monitoring Module”.",
+    vfd: "The generic VFD fault contact was replaced by “VFD Relay Output — Configurable”.",
+  };
+  if (symbolId && RESTRUCTURED[symbolId]) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container max-w-3xl py-12">
+          <Link href="/reference/electrical" className="inline-flex items-center gap-2 text-sm text-[oklch(0.55_0.008_250)] hover:text-white mb-8">
+            <ArrowLeft className="w-4 h-4" /> Symbol Library
+          </Link>
+          <div className="card-panel p-6 flex items-start gap-3">
+            <Info className="w-5 h-5 text-[oklch(0.72_0.11_75)] shrink-0 mt-0.5" />
+            <div>
+              <h1 className="text-xl font-heading text-white mb-2">Symbol restructured</h1>
+              <p className="text-sm text-[oklch(0.62_0.008_250)] leading-relaxed">{RESTRUCTURED[symbolId]}</p>
+              <Link href="/reference/electrical" className="inline-block mt-4 text-sm text-[oklch(0.62_0.10_155)] hover:text-white">Go to the Symbol Library →</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Legacy registry detail (kept so existing lesson deep-links do not break).
   const entry = symbolId ? getSymbolById(symbolId) : undefined;
 
