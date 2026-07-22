@@ -2,11 +2,62 @@ import { Link, useRoute } from "wouter";
 import { ArrowLeft, Info } from "lucide-react";
 import SEO from "@/components/SEO";
 import { getSymbolById, CATEGORY_META, SYMBOL_PRINT_TAGS, SYMBOL_REPRESENTATION } from "@shared/electricalSymbolRegistry";
+import { getPublicSymbolById, CONTEXT_LABEL } from "@shared/electricalSymbolTaxonomy";
 import StandardsSymbolPreview from "@/components/standards/StandardsSymbolPreview";
+import TaxonomySymbolPreview from "@/components/standards/TaxonomySymbolPreview";
 import type { SymbolPrimitiveId } from "@shared/electricalSymbolRegistry";
 import { LESSON_PRACTICE_MAP } from "@shared/lessonPracticeMap";
 import { getCatalogEntry } from "@shared/simulatorCatalog";
 import NotFound from "@/pages/NotFound";
+
+function TaxonomyDetail({ id }: { id: string }) {
+  const sym = getPublicSymbolById(id)!;
+  return (
+    <div className="min-h-screen bg-background">
+      <SEO title={`${sym.name} — Symbol Library`} description={sym.description} path={`/reference/electrical/${sym.id}`} />
+      <div className="container max-w-3xl py-12">
+        <Link href="/reference/electrical" className="inline-flex items-center gap-2 text-sm text-[oklch(0.55_0.008_250)] hover:text-white mb-8">
+          <ArrowLeft className="w-4 h-4" /> Symbol Library
+        </Link>
+        <div className="card-panel p-6 mb-6">
+          <div className="bg-[oklch(0.06_0.003_250)] rounded-lg border border-[oklch(0.14_0.004_250)] p-6 mb-6 flex items-center justify-center">
+            <div className="w-56 h-56 max-w-full">
+              <TaxonomySymbolPreview renderKey={sym.renderKey} />
+            </div>
+          </div>
+          <div className="flex items-center flex-wrap gap-3 mb-2">
+            <h1 className="text-2xl font-heading text-white">{sym.name}</h1>
+            {sym.exampleTag && (
+              <span title="Example print tag — varies by plant" className="text-xs font-mono px-2 py-0.5 rounded border border-[oklch(0.30_0.02_155)] text-[oklch(0.62_0.10_155)] bg-[oklch(0.55_0.12_155/8%)]">{sym.exampleTag}</span>
+            )}
+          </div>
+          <p className="text-[11px] font-mono uppercase tracking-wide text-[oklch(0.52_0.05_155)] mb-2">{CONTEXT_LABEL[sym.context]}</p>
+          <p className="text-[oklch(0.62_0.008_250)] leading-relaxed mb-4">{sym.description}</p>
+          {sym.note && (
+            <div className="flex items-start gap-2 mb-4 rounded-lg border border-[oklch(0.72_0.11_75/25%)] bg-[oklch(0.72_0.11_75/8%)] px-3 py-2.5">
+              <Info className="w-4 h-4 text-[oklch(0.72_0.11_75)] shrink-0 mt-0.5" />
+              <p className="text-sm text-[oklch(0.78_0.10_75)] leading-relaxed">{sym.note}</p>
+            </div>
+          )}
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div>
+              <span className="text-[10px] font-mono text-[oklch(0.45_0.006_250)] uppercase block mb-1">Represents</span>
+              <p className="text-[oklch(0.65_0.008_250)]">{sym.represents}</p>
+            </div>
+            <div>
+              <span className="text-[10px] font-mono text-[oklch(0.45_0.006_250)] uppercase block mb-1">Source</span>
+              <p className="text-[oklch(0.65_0.008_250)]">{sym.source}</p>
+            </div>
+          </div>
+        </div>
+        <p className="text-xs text-[oklch(0.45_0.006_250)] leading-relaxed">
+          Geometry source-confirmed for this card (PLC instruction / functional block). Any print tag shown
+          {sym.exampleTag ? ` (e.g. ${sym.exampleTag})` : ""} is an example for reference only; actual plant prints may vary.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function resolveLessonHref(lessonSlug: string): { href: string; title: string; moduleSlug: string } | null {
   for (const path of LESSON_PRACTICE_MAP) {
@@ -25,6 +76,11 @@ function resolveLessonHref(lessonSlug: string): { href: string; title: string; m
 export default function ElectricalStandardDetail() {
   const [, params] = useRoute("/reference/electrical/:symbolId");
   const symbolId = params?.symbolId;
+
+  // Published taxonomy symbols (PLC instructions, functional blocks) render first.
+  if (symbolId && getPublicSymbolById(symbolId)) return <TaxonomyDetail id={symbolId} />;
+
+  // Legacy registry detail (kept so existing lesson deep-links do not break).
   const entry = symbolId ? getSymbolById(symbolId) : undefined;
 
   if (!entry) return <NotFound />;

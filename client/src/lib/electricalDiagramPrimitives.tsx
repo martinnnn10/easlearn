@@ -600,6 +600,92 @@ export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): React
   );
 }
 
+// ─── PLC LADDER INSTRUCTIONS (Rockwell geometry — source-confirmed, not ICS-19-gated) ───
+
+/** PLC output coil — two facing arcs "-( )-" (OTE). Optional letter for OTL (L), OTU (U),
+ *  or a short label (RES). Rockwell ladder coil form. */
+export function DiagramLadderCoil({ cx, cy, color, scale = 1, letter }: GProps & { letter?: string }): ReactNode {
+  const w = s(scale, 2);
+  const r = s(scale, 12);
+  const rr = s(scale, 15);
+  return (
+    <g stroke={color} strokeWidth={w} fill="none">
+      <line x1={cx - r - s(scale, 12)} y1={cy} x2={cx - r} y2={cy} />
+      <line x1={cx + r} y1={cy} x2={cx + r + s(scale, 12)} y2={cy} />
+      <path d={`M ${cx - r} ${cy - r} A ${rr} ${rr} 0 0 0 ${cx - r} ${cy + r}`} />
+      <path d={`M ${cx + r} ${cy - r} A ${rr} ${rr} 0 0 1 ${cx + r} ${cy + r}`} />
+      {letter && (
+        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fill={color} stroke="none"
+          style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, letter.length > 1 ? 7 : 12)}px`, fontWeight: 700 }}>{letter}</text>
+      )}
+    </g>
+  );
+}
+
+/** PLC timer/counter instruction box (TON/TOF/RTO) — mnemonic header + block. Rockwell form. */
+export function DiagramTimerInstruction({ cx, cy, color, scale = 1, mnemonic = "TON" }: GProps & { mnemonic?: string }): ReactNode {
+  const w = s(scale, 1.6);
+  const hw = s(scale, 19);
+  const hh = s(scale, 14);
+  return (
+    <g stroke={color} strokeWidth={w} fill="none">
+      <rect x={cx - hw} y={cy - hh} width={hw * 2} height={hh * 2} rx={s(scale, 2)} />
+      <line x1={cx - hw} y1={cy - hh + s(scale, 10)} x2={cx + hw} y2={cy - hh + s(scale, 10)} strokeWidth={s(scale, 1)} />
+      <text x={cx} y={cy - hh + s(scale, 5)} textAnchor="middle" dominantBaseline="central" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 8)}px`, fontWeight: 700 }}>{mnemonic}</text>
+      <text x={cx} y={cy + s(scale, 4)} textAnchor="middle" dominantBaseline="central" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 6)}px` }}>TIMER</text>
+      <line x1={cx - hw - s(scale, 8)} y1={cy} x2={cx - hw} y2={cy} />
+      <line x1={cx + hw} y1={cy} x2={cx + hw + s(scale, 8)} y2={cy} />
+    </g>
+  );
+}
+
+// ─── FUNCTIONAL BLOCKS (vendor geometry — labeled blocks with terminals) ───
+
+/** Generic functional block — a labeled rectangle with named terminal stubs on each side.
+ *  Used for safety monitoring modules, PLC I/O hardware, and configurable drive relay outputs. */
+export function DiagramFunctionalBlock({
+  cx, cy, color, scale = 1, title, subtitle, leftTerms = [], rightTerms = [],
+}: GProps & { title: string; subtitle?: string; leftTerms?: string[]; rightTerms?: string[] }): ReactNode {
+  const w = s(scale, 1.4);
+  const hw = s(scale, 26);
+  const hh = s(scale, 20);
+  const rows = Math.max(leftTerms.length, rightTerms.length, 1);
+  const top = cy - hh + s(scale, 16);
+  const gap = (hh * 2 - s(scale, 20)) / (rows + 1);
+  const termFont = { fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 5)}px` } as const;
+  return (
+    <g stroke={color} strokeWidth={w} fill="none">
+      <rect x={cx - hw} y={cy - hh} width={hw * 2} height={hh * 2} rx={s(scale, 3)} />
+      <text x={cx} y={cy - hh + s(scale, 7)} textAnchor="middle" dominantBaseline="central" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 7)}px`, fontWeight: 700 }}>{title}</text>
+      {subtitle && (
+        <text x={cx} y={cy - hh + s(scale, 13.5)} textAnchor="middle" dominantBaseline="central" fill={color} stroke="none"
+          style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 5)}px` }}>{subtitle}</text>
+      )}
+      {leftTerms.map((t, i) => {
+        const y = top + gap * (i + 1);
+        return (
+          <g key={`l${i}`}>
+            <line x1={cx - hw - s(scale, 8)} y1={y} x2={cx - hw} y2={y} />
+            <text x={cx - hw + s(scale, 3)} y={y} dominantBaseline="central" fill={color} stroke="none" style={termFont}>{t}</text>
+          </g>
+        );
+      })}
+      {rightTerms.map((t, i) => {
+        const y = top + gap * (i + 1);
+        return (
+          <g key={`r${i}`}>
+            <line x1={cx + hw} y1={y} x2={cx + hw + s(scale, 8)} y2={y} />
+            <text x={cx + hw - s(scale, 3)} y={y} textAnchor="end" dominantBaseline="central" fill={color} stroke="none" style={termFont}>{t}</text>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
 /** Registry lookup — maps symbol ID to primitive component name */
 export const SYMBOL_PRIMITIVE_MAP = {
   contact_no: "DiagramNOContact",
