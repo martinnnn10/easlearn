@@ -37,7 +37,7 @@ const COLOR = "oklch(0.65 0.10 155)";
 
 export default function StandardsSymbolPreview({ symbolId }: { symbolId: SymbolPrimitiveId }) {
   return (
-    <svg viewBox="0 0 80 80" className="w-full h-full electrical-diagram" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 -16 80 96" className="w-full h-full electrical-diagram" preserveAspectRatio="xMidYMid meet">
       <SymbolGraphic id={symbolId} />
     </svg>
   );

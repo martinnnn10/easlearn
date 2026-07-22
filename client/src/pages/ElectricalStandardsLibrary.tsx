@@ -7,6 +7,7 @@ import {
   searchSymbols,
   PRINT_READING_STANDARDS,
   SYMBOL_PRINT_TAGS,
+  SYMBOL_REPRESENTATION,
 } from "@shared/electricalSymbolRegistry";
 import type { ElectricalSymbolEntry } from "@shared/electricalSymbolRegistry";
 import { TROUBLESHOOTING_REFERENCES } from "@shared/troubleshootingReferenceCatalog";
@@ -154,7 +155,12 @@ function SymbolCard({ entry }: { entry: ElectricalSymbolEntry }) {
               </span>
             )}
           </div>
-          <p className="text-sm text-[oklch(0.60_0.008_250)] mt-1.5 leading-relaxed line-clamp-3">
+          {SYMBOL_REPRESENTATION[entry.id] && (
+            <span className="mt-1 text-[10px] font-mono uppercase tracking-wide text-[oklch(0.52_0.05_155)]">
+              {SYMBOL_REPRESENTATION[entry.id]}
+            </span>
+          )}
+          <p className="text-sm text-[oklch(0.60_0.008_250)] mt-1 leading-relaxed line-clamp-3">
             {entry.description}
           </p>
           {entry.contextNote && (

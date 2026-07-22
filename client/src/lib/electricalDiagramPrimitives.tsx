@@ -573,12 +573,14 @@ export function DiagramSafetyRelay({ cx, cy, color, scale = 1 }: GProps): ReactN
   );
 }
 
-/** Timer contact — on-delay normally-open, timed-closed (NOTC): a NO contact with a
- *  "parachute" canopy hung below the movable contact (NEMA time-delay symbol). Tagged TR. */
+/** Timer contact — on-delay normally-open, timed-closed (NOTC): a NO contact with the
+ *  NEMA on-delay time-delay symbol — a canopy/dome over the moving contact (drawn
+ *  concave-down) plus an arrowhead for the timed (delayed) motion. Tagged TR. */
 export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 1.8);
   const half = s(scale, 8);
   const bar = s(scale, 11);
+  const domeY = cy - s(scale, 14);
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       {/* NO contact — vertical bars */}
@@ -586,12 +588,14 @@ export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): React
       <line x1={cx + half} y1={cy - bar} x2={cx + half} y2={cy + bar} />
       <line x1={cx - half - s(scale, 10)} y1={cy} x2={cx - half} y2={cy} />
       <line x1={cx + half} y1={cy} x2={cx + half + s(scale, 10)} y2={cy} />
-      {/* on-delay parachute — canopy below the contact + suspension line to the moving bar */}
-      <line x1={cx} y1={cy + bar} x2={cx} y2={cy + s(scale, 16)} strokeWidth={s(scale, 1.2)} />
-      <path d={`M${cx - s(scale, 9)},${cy + s(scale, 16)} A${s(scale, 9)},${s(scale, 6)} 0 0 0 ${cx + s(scale, 9)},${cy + s(scale, 16)}`}
-        strokeWidth={s(scale, 1.5)} />
-      <text x={cx} y={cy - s(scale, 17)} textAnchor="middle" fill={color} stroke="none"
-        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 600 }}>TR</text>
+      {/* on-delay time-delay symbol: stem up to a canopy/dome (concave-down, NOT a cup),
+          with an arrowhead showing the timed motion */}
+      <line x1={cx} y1={cy - bar} x2={cx} y2={domeY} strokeWidth={s(scale, 1.3)} />
+      <path d={`M${cx - s(scale, 9)},${domeY} A${s(scale, 9)},${s(scale, 7)} 0 0 1 ${cx + s(scale, 9)},${domeY}`} strokeWidth={s(scale, 1.5)} />
+      <polyline points={`${cx + s(scale, 5.5)},${domeY - s(scale, 3.5)} ${cx + s(scale, 9)},${domeY} ${cx + s(scale, 4.5)},${domeY + s(scale, 0.5)}`}
+        strokeWidth={s(scale, 1.2)} fill="none" />
+      <text x={cx} y={cy + s(scale, 19)} textAnchor="middle" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 8)}px`, fontWeight: 600 }}>TR</text>
     </g>
   );
 }

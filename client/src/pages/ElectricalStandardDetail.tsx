@@ -1,7 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { ArrowLeft, Info } from "lucide-react";
 import SEO from "@/components/SEO";
-import { getSymbolById, CATEGORY_META, SYMBOL_PRINT_TAGS } from "@shared/electricalSymbolRegistry";
+import { getSymbolById, CATEGORY_META, SYMBOL_PRINT_TAGS, SYMBOL_REPRESENTATION } from "@shared/electricalSymbolRegistry";
 import StandardsSymbolPreview from "@/components/standards/StandardsSymbolPreview";
 import type { SymbolPrimitiveId } from "@shared/electricalSymbolRegistry";
 import { LESSON_PRACTICE_MAP } from "@shared/lessonPracticeMap";
@@ -68,6 +68,11 @@ export default function ElectricalStandardDetail() {
               </span>
             )}
           </div>
+          {SYMBOL_REPRESENTATION[entry.id] && (
+            <p className="text-[11px] font-mono uppercase tracking-wide text-[oklch(0.52_0.05_155)] mb-2">
+              {SYMBOL_REPRESENTATION[entry.id]}
+            </p>
+          )}
           <p className="text-[oklch(0.62_0.008_250)] leading-relaxed mb-4">{entry.description}</p>
 
           {entry.contextNote && (

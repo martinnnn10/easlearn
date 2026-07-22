@@ -253,10 +253,10 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
   },
   {
     id: "safety_relay",
-    name: "Safety Relay Coil",
-    description: "The coil element of a safety monitoring relay (drawn as a relay coil, tagged SR). The physical device is a dual-channel safety module; here it represents that module's coil.",
+    name: "Safety Relay (Coil Symbol)",
+    description: "The schematic COIL symbol for a safety relay — how the relay appears on a ladder/elementary drawing, not the physical module. The real device is a dual-channel safety controller with monitored inputs and force-guided output contacts.",
     function: "Monitors E-stop/guard channels and directly de-energizes the machine contactor — not a standard PLC.",
-    contextNote: "Shown as a coil. The physical safety relay is a dual-channel monitoring module.",
+    contextNote: "This is the control/schematic coil representation, not the full physical safety-relay module.",
     iecReference: "IEC 61508 / ISO 13849",
     nemaJicReference: "NFPA 79 — safety relay / safety controller",
     typicalUse: "E-stop and guard monitoring, PLd–e safety functions",
@@ -270,7 +270,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
   {
     id: "timer_contact",
     name: "Timer Contact — NO, On-Delay",
-    description: "Normally-open, timed-closed (NOTC) on-delay contact: a NO contact with a timing parachute. It closes a preset time AFTER its rung energizes.",
+    description: "Normally-open, timed-closed (NOTC) on-delay contact: a NO contact drawn with the on-delay time-delay symbol. It closes a preset time AFTER its rung energizes.",
     function: "Closes a set time after its rung is energized (on-delay, NOTC); paired with a TON timer/instruction.",
     contextNote: "Normally open; closes after the on-delay time. It is not instantaneous and not a timed-NC contact.",
     iecReference: "IEC 61131-3",
@@ -631,8 +631,8 @@ export const LEARNER_SYMBOL_GROUPS: LearnerSymbolGroup[] = [
   },
   {
     id: "safety-devices",
-    title: "Safety Devices",
-    description: "Emergency-stop, guarding, and safety-monitoring devices.",
+    title: "Safety Circuit Symbols",
+    description: "How safety functions appear on a schematic — a physical operator (E-stop), a contact (guard interlock), and a coil (safety relay). The label on each card says which.",
     symbolIds: ["estop", "guard_switch", "safety_relay"],
   },
   {
@@ -679,6 +679,40 @@ export const SYMBOL_PRINT_TAGS: Record<SymbolPrimitiveId, string> = {
   photoeye: "PE1",
   vfd: "VFD1-FLT",
   terminal: "TB1",
+};
+
+/**
+ * What each card *is*, in one consistent phrase — so a learner always knows whether
+ * they are looking at a schematic contact, a coil, a physical device, an I/O block, or
+ * a wiring point, and whether it is an exact symbol or a training simplification
+ * ("· simplified"). Shown as a small label on every card.
+ */
+export const SYMBOL_REPRESENTATION: Record<SymbolPrimitiveId, string> = {
+  disconnect: "Device symbol",
+  fuse: "Device symbol",
+  breaker: "Device symbol · simplified",
+  transformer: "Device symbol",
+  contactor_power: "Contact · power pole",
+  overload_heater: "Element symbol · simplified",
+  motor: "Load / machine symbol",
+  contact_no: "Schematic contact",
+  contact_nc: "Schematic contact",
+  coil: "Schematic coil",
+  contactor_aux: "Schematic contact",
+  overload_nc: "Schematic contact",
+  timer_contact: "Schematic contact · timed",
+  pb_no: "Physical operator device",
+  pb_nc: "Physical operator device",
+  selector_switch: "Physical operator device",
+  limit_switch: "Physical field device",
+  estop: "Physical operator device",
+  guard_switch: "Schematic contact",
+  safety_relay: "Schematic coil",
+  plc_input: "I/O block · simplified",
+  plc_output: "I/O block · simplified",
+  photoeye: "Field device · simplified",
+  vfd: "Schematic contact · drive output",
+  terminal: "Wiring / junction point",
 };
 
 /** Resolves the learner groups to their full symbol entries, skipping any unknown ids. */
