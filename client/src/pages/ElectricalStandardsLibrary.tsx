@@ -25,6 +25,9 @@ export default function ElectricalStandardsLibrary() {
     );
   }, [q]);
   const pendingCount = pendingRecordCount();
+  // Internal engineering/QA view (?qa=1) shows the full withheld remediation backlog.
+  // The public learner page shows only a short honest note instead.
+  const isQA = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("qa") === "1";
 
   return (
     <div className="min-h-screen bg-background">
@@ -110,37 +113,48 @@ export default function ElectricalStandardsLibrary() {
                 </div>
               ))}
 
-              {/* Withheld-pending panel */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Lock className="w-5 h-5 text-[oklch(0.62_0.10_75)]" />
-                  <h2 className="text-2xl font-semibold text-white">Withheld pending source + SME review</h2>
-                  <span className="text-xs font-mono text-[oklch(0.44_0.006_250)]">{pendingCount} records</span>
+              {/* Public: a short honest note. Hardwired remediation backlog lives in the QA view (?qa=1). */}
+              {!isQA ? (
+                <div className="flex items-start gap-2 rounded-xl border border-[oklch(0.20_0.004_250)] bg-[oklch(0.07_0.003_250)] p-5">
+                  <Lock className="w-5 h-5 text-[oklch(0.62_0.10_75)] shrink-0 mt-0.5" />
+                  <p className="text-sm text-[oklch(0.60_0.008_250)] leading-relaxed">
+                    <span className="text-white font-semibold">Hardwired schematic references are undergoing standards and SME review.</span>{" "}
+                    Their meaning and circuit context are settled, but their exact NEMA/JIC glyphs are being verified
+                    against licensed NEMA ICS 19 and reviewed by a qualified subject-matter expert before publication —
+                    we show a symbol only once its geometry is confirmed.
+                  </p>
                 </div>
-                <p className="text-base text-[oklch(0.55_0.008_250)] mb-5 max-w-3xl">
-                  These symbols have confirmed meaning and context, but their exact NEMA/JIC glyph geometry is
-                  pending licensed ICS 19 confirmation and qualified SME review. Their records exist in the
-                  taxonomy; the glyphs are not drawn until verified.
-                </p>
-                <div className="space-y-5">
-                  {PENDING_LIBRARY.map((g) => (
-                    <div key={g.id} className="card-panel p-5">
-                      <h3 className="text-base font-semibold text-white">{g.title}</h3>
-                      <p className="text-xs text-[oklch(0.52_0.008_250)] mt-1 mb-3 leading-relaxed">{g.note}</p>
-                      <ul className="space-y-2">
-                        {g.records.map((r) => (
-                          <li key={r.name} className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                            <span className="text-[oklch(0.72_0.008_250)]">{r.name}</span>
-                            {r.noNc && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[oklch(0.12_0.003_250)] text-[oklch(0.55_0.008_250)]">{r.noNc}</span>}
-                            <span className="text-[10px] font-mono uppercase tracking-wide text-[oklch(0.62_0.10_75)]">{r.status.replace(/_/g, " ")}</span>
-                            <span className="text-xs text-[oklch(0.45_0.006_250)] basis-full">{r.reason}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+              ) : (
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Lock className="w-5 h-5 text-[oklch(0.62_0.10_75)]" />
+                    <h2 className="text-2xl font-semibold text-white">Withheld pending source + SME review</h2>
+                    <span className="text-xs font-mono text-[oklch(0.44_0.006_250)]">{pendingCount} records · QA view</span>
+                  </div>
+                  <p className="text-base text-[oklch(0.55_0.008_250)] mb-5 max-w-3xl">
+                    Internal engineering view (<span className="font-mono">?qa=1</span>). Meaning and context are
+                    source-confirmed; exact NEMA/JIC glyph geometry is pending licensed ICS 19 + SME review.
+                  </p>
+                  <div className="space-y-5">
+                    {PENDING_LIBRARY.map((g) => (
+                      <div key={g.id} className="card-panel p-5">
+                        <h3 className="text-base font-semibold text-white">{g.title}</h3>
+                        <p className="text-xs text-[oklch(0.52_0.008_250)] mt-1 mb-3 leading-relaxed">{g.note}</p>
+                        <ul className="space-y-2">
+                          {g.records.map((r) => (
+                            <li key={r.name} className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                              <span className="text-[oklch(0.72_0.008_250)]">{r.name}</span>
+                              {r.noNc && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[oklch(0.12_0.003_250)] text-[oklch(0.55_0.008_250)]">{r.noNc}</span>}
+                              <span className="text-[10px] font-mono uppercase tracking-wide text-[oklch(0.62_0.10_75)]">{r.status.replace(/_/g, " ")}</span>
+                              <span className="text-xs text-[oklch(0.45_0.006_250)] basis-full">{r.reason}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <h2 className="text-xl font-semibold text-white mb-1">Print Reading Standards</h2>

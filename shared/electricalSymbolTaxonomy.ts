@@ -175,20 +175,20 @@ export const PUBLISHED_SECTIONS: PublishedSection[] = [
     title: "Functional Blocks & PLC Hardware",
     context: "FUNCTIONAL_BLOCK",
     description:
-      "Multi-terminal functional equipment blocks — a safety monitoring module, PLC I/O hardware, a configurable drive relay output, and field sensors. Drawn as labeled blocks with terminals per vendor documentation, not as single schematic glyphs.",
+      "Multi-terminal functional equipment blocks — a safety monitoring module, PLC I/O hardware, a configurable drive relay output, and field sensors. These are REPRESENTATIVE depictions that teach functional architecture; the exact terminals and labels vary by manufacturer and model — confirm against the device datasheet.",
     symbols: [
       {
         id: "safety_module",
-        name: "Safety Relay / Monitoring Module",
+        name: "Representative Safety Relay / Monitoring Module",
         context: "FUNCTIONAL_BLOCK",
-        represents: "Functional safety module",
+        represents: "Functional safety module (representative)",
         renderKey: "safety_module",
         description:
-          "A functional safety module: monitored dual-channel inputs, a reset/monitoring input, force-guided safety outputs, and an auxiliary signaling output. It is NOT a simple relay coil.",
-        source: "Siemens SIRIUS safety relay; Rockwell Guardmaster cut sheet",
+          "A REPRESENTATIVE functional safety module — teaching its architecture: monitored dual-channel inputs, a reset/monitoring input, force-guided safety outputs, and an auxiliary signaling output. It is NOT a simple relay coil. The inputs, outputs, and terminal names shown are illustrative — they VARY by manufacturer and model — and this is not a universal physical symbol or a universal terminal assignment.",
+        source: "Representative of the safety-relay class (e.g. Siemens SIRIUS 3SK, Rockwell Guardmaster 440R). Not a specific model; confirm terminals against your device datasheet.",
         designation: "SR",
         exampleTag: "SR1",
-        note: "Replaces the old 'Safety Relay Coil' card.",
+        note: "Representative architecture — terminal names/assignments vary by make and model. Replaces the old 'Safety Relay Coil' card.",
       },
       {
         id: "plc_input_module",
