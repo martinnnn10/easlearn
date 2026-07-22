@@ -61,7 +61,7 @@ export default function ElectricalStandardDetail() {
             <h1 className="text-2xl font-heading text-white">{entry.name}</h1>
             {SYMBOL_PRINT_TAGS[entry.id] && (
               <span
-                title="Typical print tag"
+                title="Example print tag — varies by plant"
                 className="text-xs font-mono px-2 py-0.5 rounded border border-[oklch(0.30_0.02_155)] text-[oklch(0.62_0.10_155)] bg-[oklch(0.55_0.12_155/8%)]"
               >
                 {SYMBOL_PRINT_TAGS[entry.id]}
@@ -186,6 +186,12 @@ export default function ElectricalStandardDetail() {
           <p className="text-sm text-white">{CATEGORY_META[entry.category].title}</p>
           <p className="text-xs text-[oklch(0.50_0.008_250)] mt-1">{CATEGORY_META[entry.category].description}</p>
         </div>
+
+        <p className="mt-6 text-xs text-[oklch(0.45_0.006_250)] leading-relaxed">
+          Simplified EASLearn training symbol based on common North American motor-control conventions
+          (NEMA / JIC / NFPA 79); actual plant or OEM prints may vary. Any print tag shown
+          {SYMBOL_PRINT_TAGS[entry.id] ? ` (e.g. ${SYMBOL_PRINT_TAGS[entry.id]})` : ""} is an example for reference only.
+        </p>
       </div>
     </div>
   );

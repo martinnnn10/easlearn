@@ -32,11 +32,18 @@ export default function ElectricalStandardsLibrary() {
             <BookOpen className="w-8 h-8 text-[oklch(0.55_0.12_155)]" />
             <h1 className="text-3xl font-heading text-white tracking-wide">Electrical Symbol Library</h1>
           </div>
-          <p className="text-base text-[oklch(0.62_0.008_250)] leading-relaxed mb-6 max-w-3xl">
-            Common schematic symbols used in EASLearn labs and troubleshooting lessons. Grouped the way
-            a technician reads a panel — power circuit, control circuit, operator devices, safety, and
-            I/O. Every symbol traces to US manufacturing standards (NEMA / JIC / NFPA 79).
+          <p className="text-base text-[oklch(0.62_0.008_250)] leading-relaxed mb-4 max-w-3xl">
+            Common schematic symbols used in EASLearn labs and troubleshooting lessons, grouped the way
+            a technician reads a panel — power circuit, control circuit, operator devices, safety, and I/O.
           </p>
+          <div className="flex items-start gap-2 mb-6 max-w-3xl rounded-lg border border-[oklch(0.20_0.004_250)] bg-[oklch(0.09_0.003_250)] px-3 py-2.5">
+            <Info className="w-4 h-4 text-[oklch(0.55_0.008_250)] shrink-0 mt-0.5" />
+            <p className="text-xs leading-relaxed text-[oklch(0.55_0.008_250)]">
+              These are <span className="text-[oklch(0.68_0.008_250)]">simplified EASLearn training symbols</span> based
+              on common North American motor-control conventions (NEMA / JIC / NFPA 79). Actual plant or OEM prints may vary.
+              The example print tags shown on each symbol (F1, CB1, PB1…) are for reference only — real prints may use different tag names.
+            </p>
+          </div>
           <div className="relative max-w-2xl">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[oklch(0.45_0.006_250)]" />
             <input
@@ -140,7 +147,7 @@ function SymbolCard({ entry }: { entry: ElectricalSymbolEntry }) {
             <h3 className="text-lg font-semibold text-white leading-tight">{entry.name}</h3>
             {SYMBOL_PRINT_TAGS[entry.id] && (
               <span
-                title="Typical print tag"
+                title="Example print tag — varies by plant"
                 className="shrink-0 mt-0.5 text-[11px] font-mono px-1.5 py-0.5 rounded border border-[oklch(0.30_0.02_155)] text-[oklch(0.62_0.10_155)] bg-[oklch(0.55_0.12_155/8%)]"
               >
                 {SYMBOL_PRINT_TAGS[entry.id]}

@@ -39,7 +39,7 @@ export default function CompetencyGraph() {
     return (
       <div className="min-h-screen bg-[#0a0f0a] text-white">
         <SEO title="Competency Graph — Demonstrated Capability" description="See how EASLearn measures demonstrated maintenance competency: methodology tier, diagnostic confidence, domain readiness, decay, safety, and manager validation." path="/competency" />
-        <PreviewFrame title="Competency Graph" subtitle="Demonstrated, not declared — built from how an operator actually diagnoses. This is a live sample profile.">
+        <PreviewFrame title="Competency Graph" subtitle="Demonstrated, not declared — built from how an operator actually diagnoses. The profile shown below is sample data.">
           <CompetencyPreview />
         </PreviewFrame>
       </div>

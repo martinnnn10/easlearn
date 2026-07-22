@@ -1,4 +1,13 @@
-# Electrical Symbol Library — Standards QA & Certification
+# Electrical Symbol Library — QA Review (EASLearn training conventions)
+
+> **This is an internal QA review, not an external or third-party certification.**
+> The symbols are **simplified EASLearn training symbols** based on common North
+> American motor-control schematic conventions (NEMA ICS, JIC EGP-1, NFPA 79,
+> ANSI/IEEE 315) and RSLogix ladder practice. They were reviewed against those
+> published conventions and the rendered geometry — **not** validated against a
+> live copyrighted standards document, and **not** certified by any standards body.
+> Actual plant/OEM prints may vary. Do not describe this library as "certified,"
+> "standards-certified," or an "official NEMA/JIC library."
 
 **Scope:** every symbol in the EASLearn Electrical Symbol Library (`/symbols`).
 **Convention set:** North American motor-control / NEMA ICS 1 & ICS 2, JIC EGP-1,
@@ -140,4 +149,6 @@ them for strict, unique schematic glyphs:
 
 ## Final verdict
 
-**APPROVED — Symbol library is ready for demo.**
+**QA-REVIEWED against EASLearn training conventions — approved for learner-facing use.**
+
+(Internal review only — not an external standards certification.)

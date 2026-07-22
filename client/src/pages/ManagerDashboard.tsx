@@ -95,7 +95,7 @@ export default function ManagerDashboard() {
     return (
       <div className="min-h-screen bg-[#0a0f0a] text-white">
         <SEO title="Manager Dashboard — Workforce Competency at a Glance" description="See who's ready, who needs review, who has a safety risk, and where your team's skill gaps are — from one evidence model." path="/manager" />
-        <PreviewFrame title="Manager Dashboard" subtitle="Workforce competency, demonstrated — decisions, not just reports. This is a live sample team.">
+        <PreviewFrame title="Manager Dashboard" subtitle="Workforce competency, demonstrated — decisions, not just reports. The team shown below is sample data.">
           <ManagerDashboardPreview />
         </PreviewFrame>
       </div>

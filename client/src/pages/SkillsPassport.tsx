@@ -29,7 +29,7 @@ export default function SkillsPassport() {
         <SEO title="Skills Passport — Verified Maintenance Proof" description="A shareable, employer-verifiable record of an operator's demonstrated troubleshooting competency: verified skills, completed simulations, certificates, and job-readiness." path="/skills-passport" />
         <PreviewFrame
           title="Skills Passport"
-          subtitle="A shareable, employer-verifiable record of what an operator can actually diagnose. This is a live sample passport."
+          subtitle="A shareable, employer-verifiable record of what an operator can actually diagnose. The passport shown below is sample data."
         >
           <SkillsPassportPreview />
         </PreviewFrame>
