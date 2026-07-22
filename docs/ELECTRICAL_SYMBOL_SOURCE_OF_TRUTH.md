@@ -1,253 +1,243 @@
-# EASLearn Electrical Symbol — Source of Truth & Remediation Plan
+# EASLearn Electrical Symbol — Source of Truth & Remediation Plan (rev 2)
 
-**Status: PLANNING / FOR REVIEW. No code has been changed for this document.**
-This is the Phase 1–3 remediation package requested before any implementation. It is
-gated on human review and the acquisition of licensed standards; nothing here is a
-certification.
+**Status: PLANNING / FOR REVIEW. No code changed for this document.**
+Phase 1–3 remediation package. Gated on human SME review and, for *exact glyph geometry
+only*, on licensed NEMA ICS 19. This is not a certification.
 
 ---
 
-## 0. Hard constraints (read first — they bound every claim in this doc)
+## 0. What is resolvable now vs what is genuinely blocked
 
-1. **Licensed sources are not available to this author.** NEMA ICS 19, NFPA 79, and
-   Eaton MZ081001EN are paywalled. This build environment additionally **blocks outbound
-   web requests**, so even the public vendor pages (Rockwell, Schneider, Siemens,
-   AutomationDirect) **cannot be fetched** here. Consequently:
-   - No exact page/section citation from ICS 19 / NFPA 79 / Eaton is asserted below.
-   - Any symbol whose *exact geometry* must match ICS 19 is marked **WAITING FOR SOURCE**.
-   - Vendor-documented behavior (e.g. Rockwell XIC/XIO semantics, Schneider limit-switch
-     NO/NC, safety-relay module architecture) is stated from established engineering
-     knowledge and attributed to the primary vendor document, but flagged
-     **"verify against live doc"** because it was not fetched here.
-2. **No SME sign-off exists.** Every `SME` column is `PENDING`. AI review is not
-   certification (your Phase 4).
-3. **No "certified / official / exact" language** is used. These remain simplified
-   training symbols until a licensed source + SME confirm each one.
+Earlier revision over-used a single "WAITING_FOR_SOURCE" state. Corrected. Three things
+are separable per symbol:
+
+1. **Semantic meaning** — what the device/instruction *is* and does.
+2. **Circuit/context** — power vs control vs one-line vs PLC vs functional block.
+3. **Exact glyph geometry** — the precise NEMA/JIC line-art.
+
+**(1) and (2) are resolvable now** from official public material (NEMA ICS 19 scope
+listing; NFPA 79 structure/designations via NFPA LiNK preview; Rockwell instruction
+documentation; Schneider limit-switch/NO-NC documentation; Siemens SIRIUS safety-relay
+documentation). **(3) — exact NEMA line-art — needs licensed ICS 19** for the hardwired
+symbols (PLC and functional-block geometry are set by vendor docs, not ICS 19).
+
+Honesty note: this build environment could not fetch those pages **live** (outbound
+fetch blocked), so no page/figure number is asserted below. Where a state is
+`SOURCE_CONFIRMED` it means the meaning/context is the documented, non-disputed function
+per the named public source — not a fabricated page citation. Every symbol still needs
+**SME sign-off** (Phase 4); no SME has reviewed this set.
 
 ---
 
 ## 1. Chosen EASLearn standard (locked)
 
-- **Primary system:** North American **NEMA / JIC-style hardwired motor-control
-  schematics** (relay logic).
-- **PLC ladder instructions are a separate library** (Rockwell XIC/XIO/OTE/… ). They are
-  *bit-evaluation instructions*, not hardwired NO/NC contacts, and must never sit in the
-  hardwired section.
-- **IEC** may appear later only as a **clearly labeled comparison** (per Eaton
-  MZ081001EN), never mixed into the primary library unidentified.
+- **Primary:** North American **NEMA / JIC hardwired motor-control schematics** (relay logic).
+- **PLC ladder instructions are a separate library** (bit/timer instructions).
+- **IEC** only later, as a **clearly labeled comparison** (Eaton MZ081001EN), never mixed in unidentified.
 
 ---
 
-## 2. Taxonomy — every symbol belongs to exactly ONE context
+## 2. Taxonomy — one context per symbol
 
-| ID | Context | Definition | Example members |
-|----|---------|-----------|-----------------|
-| **A** | `PHYSICAL_DEVICE` | The real operator/device as a pictorial, not its electrical contact | Roller-lever limit switch body; E-stop mushroom operator; guard-interlock switch body; pushbutton operator |
-| **B** | `HARDWIRED_CONTROL_SCHEMATIC` | Relay-logic control-circuit elements on a NEMA/JIC elementary (ladder) diagram | NO/NC contacts, relay coil, aux contact, OL trip contact, PB NO/NC contact, LS NO/NC contact, E-stop NC contact |
-| **C** | `POWER_CIRCUIT` | Symbols in the motor/load power path (three-line / elementary power) | Contactor power poles, OL thermal element, motor, fuse, disconnect blade |
-| **D** | `ONE_LINE_DIAGRAM` | Single-line distribution symbols | One-line circuit breaker, one-line disconnect, one-line xfmr |
-| **E** | `PLC_LADDER_INSTRUCTION` | Rockwell/IEC PLC ladder bit & timer instructions | XIC, XIO, OTE, OTL, OTU, TON, TOF, RTO |
-| **F** | `FUNCTIONAL_BLOCK` | Multi-terminal functional equipment blocks, not a single glyph | Safety relay/monitoring module, VFD/drive, photoelectric sensor as a device block |
-| **G** | `TRAINING_ILLUSTRATION` | Deliberate EASLearn teaching composites (device + contact together), **explicitly labeled** as such | "E-stop operator shown with its NC contact" teaching card |
+| ID | Context | Definition | Members |
+|----|---------|-----------|---------|
+| **A** | `PHYSICAL_DEVICE` | The real operator/device as a pictorial, not its contact | Roller-lever LS body; E-stop mushroom operator; guard-interlock body; pushbutton/selector operators |
+| **B** | `HARDWIRED_CONTROL_SCHEMATIC` | NEMA/JIC relay-logic control-circuit elements | NO/NC contacts; relay/contactor coil; aux contact; OL trip contact; PB-NO/NC; LS-NO/NC; E-stop NC; guard NC monitoring; timer-relay coil + timed contacts |
+| **C** | `POWER_CIRCUIT` | Motor/load power-path symbols | Contactor power poles; OL thermal element; motor; fuse; disconnect blade |
+| **D** | `ONE_LINE_DIAGRAM` | Single-line distribution symbols | One-line breaker; one-line disconnect; one-line xfmr/fuse |
+| **E** | `PLC_LADDER_INSTRUCTION` | **Bit/timer instructions only** — evaluate/act on a bit | XIC, XIO, OTE, OTL, OTU, TON, TOF, RTO |
+| **F** | `FUNCTIONAL_BLOCK` | Multi-terminal functional blocks (incl. **PLC hardware**) | Safety-relay/monitoring module; VFD/drive; photoelectric sensor; **PLC digital input module; PLC digital output module; PLC rack/module; physical terminals/channels** |
+| **G** | `TRAINING_ILLUSTRATION` | Deliberate EASLearn composites (device + contact), **explicitly labeled** | "E-stop operator shown with its NC contact" teaching card |
 
-**Rule:** a card in one context must not borrow geometry/labels from another without an
-explicit cross-reference. A `PHYSICAL_DEVICE` illustration is never presented as its
-schematic contact, and a `PLC_LADDER_INSTRUCTION` is never called a "contact."
+**Correction locked in:** PLC **I/O modules** are hardware → **F (FUNCTIONAL_BLOCK / PLC
+hardware)**. PLC **instructions** (XIC/XIO/OTE/…) → **E**. They are not the same thing; a
+PLC input module is a physical block with terminals, while XIC is a bit-evaluation
+instruction on a rung.
 
 ---
 
-## 3. Symbol record schema (proposed `shared/electricalSymbolTaxonomy.ts`)
+## 3. Source-state vocabulary (per axis) + record schema
 
-> Proposed shape only — **not yet implemented**. Build after review.
+Per-symbol states (a symbol carries one per axis):
+
+- **SOURCE_CONFIRMED** — meaning and/or context established by an official public source.
+- **GEOMETRY_PENDING_LICENSED_STANDARD** — meaning/context confirmed; exact NEMA glyph still needs ICS 19.
+- **SME_REVIEW_PENDING** — needs qualified human sign-off (applies to all public symbols).
+- **REMOVE** — remove from the public library.
+- **REDRAW** — geometry must be redrawn to the sourced form.
+- **MOVE_TO_DIFFERENT_LIBRARY** — currently in the wrong context.
 
 ```ts
-export type SymbolContext =
-  | "PHYSICAL_DEVICE" | "HARDWIRED_CONTROL_SCHEMATIC" | "POWER_CIRCUIT"
-  | "ONE_LINE_DIAGRAM" | "PLC_LADDER_INSTRUCTION" | "FUNCTIONAL_BLOCK"
-  | "TRAINING_ILLUSTRATION";
-
-export type SymbolStatus =
-  | "APPROVED" | "REMOVE" | "REDRAW" | "MOVE_LIBRARY"
-  | "WAITING_FOR_SOURCE" | "WAITING_FOR_SME";
-
+// proposed shared/electricalSymbolTaxonomy.ts — NOT yet implemented
 export interface SymbolRecord {
-  id: string;                       // internal ID
-  name: string;                     // learner-facing name
-  context: SymbolContext;           // exactly one
-  represents: string;               // device or instruction represented
-  normalState?: "open" | "closed" | "n/a";
+  id: string;
+  name: string;
+  context: SymbolContext;            // exactly one (A–G)
+  represents: string;
   noNc?: "NO" | "NC" | "n/a";
-  circuit?: "power" | "control" | "n/a";
-  designation: string;              // NEMA/IEC/PLC designation (e.g. "M", "OL", "XIC")
-  source: {
-    org: string;                    // e.g. "NEMA", "Rockwell Automation"
-    document: string;               // e.g. "ICS 19-2002 (R2022)"
-    section?: string;               // page/figure — REQUIRED before APPROVED
-    url?: string;
-    accessStatus: "verified" | "not_accessible" | "public_not_fetched";
-  };
-  exampleTag?: string;              // e.g. "LS1" — labeled as EXAMPLE
+  normalState?: "open" | "closed" | "n/a";
+  circuit?: "power" | "control" | "one_line" | "plc" | "n/a";
+  designation: string;               // M, CR, OL, LS, PB, XIC, TON…
+  meaning: "SOURCE_CONFIRMED" | "PENDING";
+  contextConfirmed: "SOURCE_CONFIRMED" | "PENDING";
+  geometry: "SOURCE_CONFIRMED" | "GEOMETRY_PENDING_LICENSED_STANDARD";
+  publicSource?: { org: string; document: string; url?: string; fetchedLive: boolean };
+  licensedGeometrySource?: string;   // e.g. "NEMA ICS 19 figure (TBD)"
+  smeReview: "SME_REVIEW_PENDING" | "PASS" | "FAIL";
+  action: "KEEP" | "REDRAW" | "REMOVE" | "MOVE_TO_DIFFERENT_LIBRARY" | "SPLIT";
   simplified: boolean;
-  simplificationReason?: string;    // required if simplified
-  status: SymbolStatus;
-  smeReview: "PENDING" | "PASS" | "FAIL";
-  smeReviewer?: string;
+  simplificationReason?: string;
+  exampleTag?: string;               // labeled EXAMPLE
 }
 ```
 
 ---
 
-## 4. Source register (what each authority governs + access status)
+## 4. Source register — what each authority resolves + access
 
-| # | Source | Governs | Access in this env |
-|---|--------|---------|--------------------|
-| 1 | **NEMA ICS 19** — Diagrams, Device Designations & Symbols for Industrial Control | Exact hardwired control/power symbols; device designations (M, CR, OL, LS, PB…) | **Licensed — NOT ACCESSIBLE.** Must be purchased/consulted. |
-| 2 | **NFPA 79 (2024)** — Electrical Standard for Industrial Machinery | Machine drawing conventions, device/component designations, safety-circuit context | **Licensed — NOT ACCESSIBLE.** |
-| 3 | **Rockwell — Bit Instructions** (XIC/XIO/OTE/OTL/OTU) | PLC ladder instruction semantics; that XIC/XIO **evaluate a bit**, not a physical contact | Public page; **not fetchable here**. Content well-established → cite + "verify against live doc." |
-| 4 | **Schneider — Limit Switches** | Limit-switch signal evaluation is explicitly **NO or NC** (never one generic "NO/NC") | Public; not fetchable. |
-| 5 | **AutomationDirect / Schmersal roller-lever LS** | The **physical device/operator** and its separate NO and NC contacts | Public; not fetchable. |
-| 6 | **Siemens SIRIUS safety relay** | Safety relay = **functional safety module** (multi input/output), not a coil | Public; not fetchable. |
-| 7 | **Rockwell Guardmaster cut sheet** | Dual-channel input, safety outputs, aux output, reset, time-delay | Public; not fetchable. |
-| 8 | **AutomationDirect on-delay timer relay** | Physical timer relay & operation (NOT license to invent a contact glyph) | Public; not fetchable. |
-| 9 | **Eaton MZ081001EN** — NEMA vs IEC comparison | The labeled NEMA↔IEC comparison layer | **Publication — NOT ACCESSIBLE** (do not cite reposts). |
+| # | Source | Resolves | Access |
+|---|--------|----------|--------|
+| 1 | **NEMA ICS 19** | **Exact hardwired glyph geometry**; device designations | Scope/listing public; **full standard licensed — geometry not fetched here** |
+| 2 | **NFPA 79 (2024)** (NFPA LiNK preview) | Machine doc structure, device/component **designations**, safety-circuit context | Preview/structure public; full text licensed |
+| 3 | **Rockwell — Bit Instructions** | **XIC/XIO/OTE/OTL/OTU semantics + ladder geometry** (bit evaluation, not physical contacts) | Public (not fetched live); definitions established |
+| 4 | **Schneider — Limit Switches** | Limit-switch signal is **explicitly NO or NC**; operation | Public; definitions established |
+| 5 | **AutomationDirect / Schmersal roller-lever LS** | **Physical device** + separate NO and NC contacts | Public product docs |
+| 6 | **Siemens SIRIUS safety relay** | Safety relay = **functional module** (inputs, reset/monitor, safety outputs, aux) | Public; definitions established |
+| 7 | **Rockwell Guardmaster cut sheet** | Dual-channel input, safety outputs, aux output, reset, time-delay | Public product doc |
+| 8 | **AutomationDirect on-delay timer relay** | Physical timer relay & operation (not license to invent a glyph) | Public product doc |
+| 9 | **Eaton MZ081001EN** | Labeled NEMA↔IEC comparison layer | Publication — not fetched; do not cite reposts |
 
-**Net effect:** the geometry authorities (1, 2, 9) are exactly the ones I cannot open.
-That is why the remediation table below is dominated by `WAITING FOR SOURCE`.
+**Bottom line:** meaning/context is resolvable from 1(scope)–8 now; **exact hardwired
+geometry is the one thing gated on licensed ICS 19 (source 1).** PLC (3) and functional-block
+(6,7) geometry are set by vendor docs, so those are not ICS-19-gated.
 
 ---
 
 ## 5. Remediation table — current 25 symbols
 
-Statuses only: `APPROVED` · `REMOVE` · `REDRAW` · `MOVE_LIBRARY` · `WAITING_FOR_SOURCE` · `WAITING_FOR_SME`.
+Legend: **M**=meaning, **Cx**=context, **G**=geometry. ✅ = SOURCE_CONFIRMED · ⛔ =
+GEOMETRY_PENDING_LICENSED_STANDARD. **All rows are additionally SME_REVIEW_PENDING.**
 
-| Current ID | Current context (as shipped) | What is wrong | Correct context | Action | SME |
-|---|---|---|---|---|---|
-| `timer_contact` | "Control Contact · timed" (custom canopy+arrow) | **Custom, unsourced glyph**; also conflates an electromechanical timer-relay contact with a PLC TON. Not an ICS 19 figure. | B (timer-relay contact family) **and** E (TON/TOF) — separate | **REMOVE now**, re-add full family from ICS 19 later | PENDING |
-| `safety_relay` | "Safety Circuit · coil" | A modern safety relay is a **functional module**, not a coil; the coil symbol misrepresents it | F `FUNCTIONAL_BLOCK` | **REMOVE from foundational**, remodel as module block | PENDING |
-| `plc_input` | "PLC/Sensors" I/O block | Custom block; not a ladder instruction; conflated with field sensor | E `PLC_LADDER_INSTRUCTION` (+ separate field-device) | **MOVE_LIBRARY** + REDRAW | PENDING |
-| `plc_output` | "PLC/Sensors" I/O block | Same as above | E | **MOVE_LIBRARY** + REDRAW | PENDING |
-| `vfd` (VFD Fault Contact) | "Schematic contact · drive output" (NO contact + "VFD FLT") | Open-vs-close-on-fault **unspecified & unsourced**; terminal designation not confirmed | B (fault-relay contact) or F (drive block) | **REDRAW — WAITING_FOR_SOURCE** (confirm NO/NC + fault behavior) | PENDING |
-| `limit_switch` | "Physical field device" (single glyph) | One glyph conflates the **physical device** with its **NO/NC contacts**; "NC/NO" is ambiguous | Split A + B + B | **REDRAW / SPLIT into 3** | PENDING |
-| `estop` | "Physical operator device" (mushroom + NC hybrid) | Hybrid device+contact in one glyph, not labeled as an illustration | Split A + B (or G if kept combined) | **REDRAW / SPLIT** | PENDING |
-| `guard_switch` | "Schematic contact" (NC) | Missing the **physical device**; contact geometry unverified | B (keep) + add A | **REDRAW/ADD device — WAITING_FOR_SOURCE** | PENDING |
-| `pb_no` | "Physical operator device" (contact+button hybrid) | Same device/contact conflation as limit switch | Split A + B | **REDRAW / SPLIT** | PENDING |
-| `pb_nc` | "Physical operator device" | Same | Split A + B | **REDRAW / SPLIT** | PENDING |
-| `selector_switch` | "Physical operator device" | Device vs contact conflation; # positions not defined | Split A + B | **REDRAW / SPLIT** | PENDING |
-| `breaker` | "Power · Device symbol · simplified" (box-with-X) | A drawout/one-line box-with-X is presented as the universal breaker | Split D (one-line) + C (power poles) | **SPLIT / RECLASSIFY — WAITING_FOR_SOURCE** | PENDING |
-| `overload_heater` | "Power · element · simplified" (resistor zigzag) | Zigzag may **not** be the ICS 19 thermal-OL element; unverified | C `POWER_CIRCUIT` | **REDRAW — WAITING_FOR_SOURCE** | PENDING |
-| `contactor_power` | "Contact · power pole" (single blade) | Reads as a generic switch; single pole not clearly framed vs the 3 linked poles | C `POWER_CIRCUIT` | **REDRAW/RENAME** ("One Contactor Power Pole" or 3-pole) — WAITING_FOR_SOURCE | PENDING |
-| `terminal` | "Wiring / junction point" (filled dot) | One dot conflates **terminal point**, **connected junction**, and **crossing (not connected)** | B/D wiring | **SPLIT into 3** | PENDING |
-| `contact_no` | "Schematic contact" (vertical bars) | Base NO contact; exact ICS 19 geometry unverified | B | **KEEP — WAITING_FOR_SOURCE** (verify geometry) | PENDING |
-| `contact_nc` | "Schematic contact" (bars + slash) | Base NC contact; geometry unverified | B | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `coil` | "Schematic coil" (circle) | Relay/starter coil; geometry/designation unverified | B | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `contactor_aux` | "Schematic contact" (NO + M) | Aux contact; verify designation convention | B | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `overload_nc` | "Schematic contact" (NC + 95-96) | OL trip contact; verify 95-96 + geometry | B | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `fuse` | "Power · Device symbol" | Verify ICS 19/one-line form | C/D | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `transformer` | "Power · Device symbol" | Control transformer; verify form | C/D | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `motor` | "Load / machine symbol" (circle + M) | Verify ICS 19 motor form / 3-phase notation | C | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `disconnect` | "Power · Device symbol" (knife blade) | Verify power vs one-line form | C/D | **KEEP — WAITING_FOR_SOURCE** | PENDING |
-| `photoeye` | "Field device · simplified" (block) | Sensor block; classify device vs functional block | A or F | **RECLASSIFY — WAITING_FOR_SOURCE** | PENDING |
+| Current ID | Target context | M | Cx | G | Public source (meaning/context) | Action |
+|---|---|:--:|:--:|:--:|---|---|
+| `contact_no` | B | ✅ | ✅ | ⛔ | Schneider NO/NC; NEMA ICS 19 scope; NFPA 79 designations | **KEEP** · redraw to ICS 19 glyph when available |
+| `contact_nc` | B | ✅ | ✅ | ⛔ | Schneider NO/NC | **KEEP** · geometry pending |
+| `coil` | B | ✅ | ✅ | ⛔ | NEMA/JIC relay-coil convention | **KEEP** · geometry pending |
+| `contactor_aux` | B | ✅ | ✅ | ⛔ | NEMA ICS 2/19 aux-contact convention | **KEEP** · geometry pending |
+| `overload_nc` | B | ✅ | ✅ | ⛔ | OL trip-contact function; **designation 95-96 is IEC — confirm NEMA form** | **KEEP** · verify designation + geometry |
+| `pb_no` | **split A + B** | ✅ | ✅ | ⛔ | Operator vs contact (Schneider) | **SPLIT** (PB operator = A; PB-NO contact = B) |
+| `pb_nc` | **split A + B** | ✅ | ✅ | ⛔ | same | **SPLIT** |
+| `selector_switch` | **split A + B** | ✅ | ✅ | ⛔ | Operator vs contact; # positions to define | **SPLIT** |
+| `limit_switch` | **split A + B + B** | ✅ | ✅ | ⛔ | Schneider (explicit NO/NC) + Schmersal/ADC (device) | **SPLIT into 3** (roller-lever device = A; LS-NO = B; LS-NC = B) |
+| `estop` | **split A + B** | ✅ | ✅ | ⛔ | NFPA 79 / ISO 13850 (NC in safety string) | **SPLIT** (mushroom operator = A; E-stop NC contact = B); combined only as labeled G |
+| `guard_switch` | B (+ add A) | ✅ | ✅ | ⛔ | Guard-interlock NC monitoring | **KEEP contact + ADD device (A)** |
+| `timer_contact` | B (family) + E (separate) | ✅ | ✅ | ⛔ | Timer-relay behaviors (ADC timer relay); TON/TOF (Rockwell) | **REMOVE custom glyph now**; rebuild timer-relay family from ICS 19; keep separate from PLC TON |
+| `contactor_power` | C | ✅ | ✅ | ⛔ | Contactor power pole (NEMA ICS 2/19) | **REDRAW/RENAME** (3 linked poles, or "One Contactor Power Pole") |
+| `overload_heater` | C | ✅ | ✅ | ⛔ | Thermal-OL element in power path; **zigzag likely wrong** | **REDRAW** to ICS 19 thermal-element form |
+| `motor` | C | ✅ | ✅ | ⛔ | Motor symbol (circle + M); 3-phase notation | **KEEP** · confirm 3-phase form |
+| `fuse` | C/D | ✅ | ✅ | ⛔ | Fuse function | **KEEP** · confirm NEMA vs IEC rectangle |
+| `disconnect` | C/D | ✅ | ✅ | ⛔ | Knife/isolator | **KEEP** · confirm power vs one-line form |
+| `transformer` | C/D | ✅ | ✅ | ⛔ | Control transformer | **KEEP** · geometry pending |
+| `breaker` | **split D + C** | ✅ | ✅ | ⛔ | Box-with-X = drawout/one-line only | **SPLIT** (one-line = D; power-schematic breaker/poles = C) |
+| `terminal` | **split** (B/D wiring) | ✅ | ✅ | ⛔ | Connected junction vs crossing conventions (IEEE 315 widely used) | **SPLIT into 3** (terminal point; connected junction; crossing-not-connected) |
+| `plc_input` | **F (PLC hardware)** | ✅ | ✅ | ✅ | Rockwell I/O module = hardware block (NOT an instruction) | **KEEP in F** · rename "PLC Digital Input Module" |
+| `plc_output` | **F (PLC hardware)** | ✅ | ✅ | ✅ | same | **KEEP in F** · rename "PLC Digital Output Module" |
+| `photoeye` | F (or A) | ✅ | ✅ | ✅ | Photoelectric sensor device block | **KEEP** · classify F/A; block geometry ok |
+| `vfd` | F (block) **or** B (fault contact) | ✅ | ⏳ | ⛔ | Drive fault-relay is often **Form C**; NO/NC + open/close-on-fault undecided | **REDRAW/DECIDE** — split "VFD/drive block" (F) from "VFD fault contact" (B) |
+| `safety_relay` | **F (module)** | ✅ | ✅ | ✅ | Siemens SIRIUS / Guardmaster — functional module | **REDRAW as module (F)**; a coil glyph may appear **only** where a hardwired coil is genuinely drawn, never for the whole module |
 
-### 5a. Remove **immediately** from the public foundational library
-1. **`timer_contact`** — custom unsourced glyph; remove now, do not replace with another custom glyph.
-2. **`safety_relay` (coil)** — misrepresents a functional safety module as a coil.
-3. **`plc_input` / `plc_output`** — move out of the hardwired/foundational set into a separate PLC Ladder Instructions library (to be built).
+**New library to build — E `PLC_LADDER_INSTRUCTION`** (geometry SOURCE_CONFIRMED via Rockwell, SME pending):
+| Item | M | Cx | G | Source |
+|---|:--:|:--:|:--:|---|
+| XIC, XIO | ✅ | ✅ | ✅ | Rockwell — bit instructions (evaluate a bit; **not** physical NO/NC) |
+| OTE, OTL, OTU | ✅ | ✅ | ✅ | Rockwell |
+| TON, TOF, RTO | ✅ | ✅ | ✅ | Rockwell (distinct from electromechanical timer-relay contacts) |
 
-### 5b. Target inventory after remediation (illustrative — pending source + SME)
+### 5a. Act now
+- **REMOVE the custom `timer_contact` glyph** (do not replace with another custom glyph); rebuild the timer-relay family from ICS 19 later.
+- **REDRAW `safety_relay` as a functional module (F)** — stop representing the whole module as a coil.
+- **Do NOT move `plc_input`/`plc_output` into the instruction library** (that was the earlier error) — keep them as **F PLC-hardware** blocks and rename to "…Module"; **build a separate E library** for XIC/XIO/OTE/OTL/OTU/TON/TOF/RTO.
+- **SPLIT** limit switch (×3), E-stop (×2), guard (+device), pushbuttons (×2 each), selector (×2), breaker (one-line vs power), terminal (×3).
 
-- **Hardwired Control Schematic (B):** NO contact, NC contact, relay/contactor coil, contactor aux contact, OL trip (NC) contact, PB-NO contact, PB-NC contact, LS-NO contact, LS-NC contact, E-stop NC contact, guard-interlock NC monitoring contact, timer-relay contact family (NOTC, NOTO, NCTO, NCTC) + timer-relay coil.
-- **Power Circuit (C):** contactor power pole(s), OL thermal element, motor, fuse, disconnect blade, power-schematic breaker/poles.
-- **One-Line (D):** one-line circuit breaker, one-line disconnect, one-line transformer, one-line fuse.
-- **Physical Devices (A):** roller-lever limit switch, E-stop mushroom operator, guard-interlock switch, pushbutton operator, selector operator.
-- **PLC Ladder Instructions (E):** XIC, XIO, OTE, OTL, OTU, TON, TOF, RTO (Rockwell names) — with the explicit note that XIC/XIO **evaluate a bit**, not a physical contact.
-- **Functional Blocks (F):** safety relay/monitoring module, VFD/drive, photoelectric sensor.
-- **Wiring (B/D):** terminal point, connected junction, crossing-not-connected.
-- **Training Illustrations (G):** any device+contact composite, explicitly labeled.
-
----
-
-## 6. Phase 2 problem-symbol dispositions (per your list)
-
-1. **Timer** → REMOVE now. Re-add the *complete* electromechanical timer-relay family
-   (coil; NO timed-closed / NO timed-open / NC timed-open / NC timed-closed) from ICS 19,
-   each with behavior, initial state, timed transition, citation, example circuit — and
-   keep it distinct from PLC **TON/TOF/RTO** in library E.
-2. **Limit switch** → 3 cards: Roller-Lever LS (A), LS-NO contact (B), LS-NC contact (B).
-3. **E-stop** → 2 cards: Mushroom operator (A), E-stop NC contact (B). Combined view only
-   as a labeled G illustration.
-4. **Guard interlock** → 2 cards: device (A), NC monitoring contact (B).
-5. **Safety relay** → model as F module (safety inputs, reset/monitor, safety outputs,
-   aux output). Do **not** ship as a coil.
-6. **PLC** → separate E library with Rockwell names; state XIC/XIO evaluate bit state.
-   Rename the hardwired section "Hardwired Control Schematic," never "ladder logic."
-7. **VFD fault** → approved NO/NC contact tagged VFD-FLT (or terminal designation), state
-   open/close-on-fault — pending drive fault-relay source.
-8. **Circuit breaker** → separate one-line (D) vs power-schematic breaker/poles (C).
-9. **Overload element** → verify exact NEMA thermal-OL element; keep power-circuit element
-   (C) separate from control OL trip contact (B).
-10. **Contactor power pole** → show 3 mechanically-linked poles, or label "One Contactor
-    Power Pole."
-11. **Terminal/junction** → 3 cards: terminal point; connected junction; crossing-not-connected.
+### 5b. What is already resolved vs still blocked
+- **Resolved now (meaning + context, SOURCE_CONFIRMED):** every row's M and Cx columns above — the taxonomy, device meanings, NO/NC behavior, PLC-instruction-vs-hardware separation, limit-switch NO/NC separation, and safety-relay-as-module are all settled.
+- **Blocked on licensed ICS 19 (geometry only, ⛔):** exact hardwired glyph line-art for the B/C/D symbols.
+- **Not ICS-19-blocked (geometry SOURCE_CONFIRMED):** PLC instructions (E, Rockwell) and functional blocks (F: safety module, PLC I/O modules, VFD, photoeye).
+- **Blocked on SME:** all public symbols (Phase 4).
 
 ---
 
-## 7. SME review checklist (Phase 4 — human, not AI)
+## 6. Phase 2 problem-symbol dispositions (corrected)
 
-Reviewer role (one of): industrial controls engineer · electrical engineer (industrial
+1. **PLC I/O vs instructions** → I/O modules = **F (PLC hardware)**, renamed "…Module";
+   XIC/XIO/OTE/OTL/OTU/TON/TOF/RTO = **E**. XIC/XIO evaluate a bit; they are not physical contacts.
+2. **Safety relay** → primary form = **F module** (safety inputs, reset/monitor, safety
+   outputs, aux). A **coil** glyph is valid **only** in a genuine hardwired coil context, and
+   never stands for the whole module.
+3. **Limit switch** → 3 cards: roller-lever device (A), LS-NO contact (B), LS-NC contact
+   (B). No combined "NO/NC" card; no physical actuator used as the contact.
+4. **E-stop** → mushroom operator (A) + E-stop NC contact (B); combined view only as labeled G.
+5. **Guard interlock** → device (A) + NC monitoring contact (B).
+6. **VFD fault** → decide NO/NC + open/close-on-fault (drive fault relay often Form C); split
+   drive block (F) from fault contact (B).
+7. **Circuit breaker** → one-line (D) vs power-schematic breaker/poles (C).
+8. **Overload element** → power-circuit thermal element (C, redraw to ICS 19) vs control OL
+   trip contact (B) — kept separate.
+9. **Contactor power pole** → 3 linked poles or "One Contactor Power Pole" (C).
+10. **Terminal/junction** → terminal point; connected junction; crossing-not-connected.
+11. **Timer** → remove custom glyph; rebuild timer-relay family (coil; NO timed-closed/open;
+    NC timed-open/closed) from ICS 19; keep separate from PLC TON/TOF/RTO.
+
+---
+
+## 7. SME review checklist (Phase 4 — human)
+
+Reviewer (one of): industrial controls engineer · electrical engineer (industrial
 machinery) · senior controls technician · licensed electrician (motor-control schematics).
-
-For **each** public symbol, the SME initials each:
-- [ ] Symbol shape matches the cited source figure
-- [ ] Symbol meaning is correct
-- [ ] Circuit context (power vs control vs one-line vs PLC) is correct
-- [ ] NO/NC (and normal/initial state) is correct
-- [ ] Device-vs-contact distinction is correct
-- [ ] NEMA/JIC consistency (no unlabeled IEC mixing)
-- [ ] PLC instructions are separated from hardwired contacts
-- [ ] Example print tag is labeled as an example
-- [ ] Simplifications are declared and justified
-
-Sign-off block: reviewer name · credential/license · date · symbols reviewed · exceptions.
+Per symbol, initials each: shape matches cited figure · meaning correct · circuit context
+correct · NO/NC + normal state correct · device-vs-contact correct · NEMA/JIC consistency
+(no unlabeled IEC) · PLC instructions separated from hardwired contacts · example tag
+labeled as example · simplifications declared. Sign-off: name · credential · date ·
+symbols reviewed · exceptions.
 
 ---
 
-## 8. Estimated work by phase (engineering estimate, excludes source procurement + SME calendar time)
+## 8. Estimated work by phase
 
 | Phase | Work | Est. |
 |---|---|---|
-| 0 | Procure licensed ICS 19 + NFPA 79 (+ Eaton pub); assign SME | **External / blocking** |
-| 1 | Implement `electricalSymbolTaxonomy.ts` + migrate registry to the record schema; split libraries (A–G) | 2–3 d |
-| 2a | Remove-now items (timer, safety-relay-coil, PLC blocks) + reroute UI | 0.5 d |
-| 2b | Redraw/split symbols against sourced geometry (LS×3, E-stop×2, guard×2, PB×2, selector×2, breaker split, OL element, terminal×3, contactor poles) | 4–6 d (source-gated) |
-| 2c | Build PLC Ladder Instruction library (XIC/XIO/OTE/OTL/OTU/TON/TOF/RTO) | 2–3 d |
-| 2d | Functional-block models (safety relay, VFD, photoeye) | 2–3 d |
-| 3 | Remediation-table verification pass + SME cycle + fixes | 2 d + SME |
-| — | **Total (excl. source/SME wait)** | **~13–18 dev-days** |
+| 0 | Acquire licensed ICS 19 (geometry only) + assign SME | External / partial-block |
+| 1 | Implement `electricalSymbolTaxonomy.ts` (record schema w/ per-axis states); migrate registry; split libraries A–G | 2–3 d |
+| 2a | Act-now: remove timer glyph; safety-relay→module; rename PLC I/O modules; stand up E instruction library (geometry already sourced) | 1.5 d |
+| 2b | Splits + redraws for B/C/D (geometry-gated on ICS 19): LS×3, E-stop×2, guard, PB×2, selector, breaker, OL element, terminal×3, contactor poles | 4–6 d (geometry-gated) |
+| 2c | Functional blocks (F): safety module, PLC I/O modules, VFD, photoeye (geometry sourced) | 2–3 d |
+| 3 | Remediation-table verification + SME cycle + fixes | 2 d + SME |
+| — | **Total (excl. ICS-19/SME wait)** | **~12–16 dev-days** |
+
+Note: 2a, 2c and the E library are **not** ICS-19-gated and can proceed first.
 
 ---
 
-## 9. Risks & unresolved standards questions
+## 9. Risks & unresolved questions
 
-- **R1 (blocking):** No licensed ICS 19 / NFPA 79 / Eaton access here → exact geometry
-  cannot be verified in this environment. Someone with a licensed copy must supply the
-  figures, or approve a documented deviation.
-- **R2:** Copyright — ICS 19/NFPA figures cannot be copied; symbols must be *redrawn* to
-  match the standard's geometry, which still requires seeing the licensed figure.
-- **R3:** VFD fault relay is often **Form C**; "fault contact" NO-vs-NC depends on
-  fail-safe wiring — needs a decision + drive-doc citation.
-- **R4:** Timer family scope — do we teach all four timed-contact variants + coil, or
-  defer timers entirely until sourced? (Recommend defer from foundational now.)
-- **R5:** Pushbutton/selector — confirm whether EASLearn wants device+contact split for
-  *all* operators (consistent) or only the high-risk ones (LS, E-stop, guard).
-- **R6:** Motor 3-phase notation and one-line vs three-line breaker forms need explicit
-  scope decisions.
-- **R7:** IEC comparison layer (Eaton) — in scope now or a later phase?
+- **R1 (partial block):** Exact **hardwired glyph geometry** (B/C/D) needs licensed ICS 19.
+  Everything else — taxonomy, meaning, context, PLC/functional-block geometry — is resolvable now.
+- **R2:** Copyright — redraw to match ICS 19 geometry; still need to see the licensed figure.
+- **R3:** VFD fault relay Form-C — decide the taught NO/NC + fail-safe behavior + designation.
+- **R4:** Timer scope — rebuild the full timer-relay family now (defer geometry) or defer entirely?
+- **R5:** Operator device-vs-contact split for **all** operators (PB, selector, LS, E-stop, guard) — confirm consistency.
+- **R6:** Motor 3-phase notation; one-line vs three-line breaker scope.
+- **R7:** IEC comparison layer (Eaton) — scope now or later.
 
 ---
 
 ## 10. Verdict
 
-**NOT APPROVED — unresolved symbols.** No public symbol is source-verified against a
-licensed authority in this environment, and no SME has reviewed the set. The set cannot
-be called source-traceable or approved until Phase 0 (licensed sources + SME) is done.
-The remediation path above is ready to execute on approval.
+**NOT APPROVED — exact geometry and SME review pending.**
+
+But the blocked scope is now precise, not total: **meaning, context, taxonomy, PLC
+instruction-vs-hardware separation, limit-switch NO/NC separation, and safety-relay-as-module
+are RESOLVED (SOURCE_CONFIRMED)**. What remains: (a) exact hardwired glyph geometry from
+licensed ICS 19 for the B/C/D symbols, and (b) qualified human SME sign-off across the set.
+The act-now items and the PLC/functional-block work are not geometry-blocked and can start
+on approval.
