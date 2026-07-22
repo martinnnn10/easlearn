@@ -28,7 +28,6 @@ import {
   DiagramPLCInput,
   DiagramPLCOutput,
   DiagramTimerContact,
-  DiagramVFD,
   DiagramPhotoeye,
   DiagramTerminal,
   DiagramTransformer,
@@ -112,8 +111,24 @@ function SymbolGraphic({ id }: { id: SymbolPrimitiveId }) {
       return <DiagramTimerContact cx={cx} cy={cy + 4} color={COLOR} scale={1.5} />;
 
     // === VFD / Instrumentation ===
+    // The library entry is the drive's FAULT CONTACT (its fault-relay output), not the
+    // whole drive — so it is drawn as a contact with a VFD-FLT tag, not the drive block.
     case "vfd":
-      return <DiagramVFD cx={cx} cy={cy} color={COLOR} scale={1.4} energized={false} />;
+      return (
+        <g>
+          <DiagramNOContact cx={cx} cy={cy} color={COLOR} scale={1.7} />
+          <text
+            x={cx}
+            y={cy - 24}
+            textAnchor="middle"
+            fill={COLOR}
+            stroke="none"
+            style={{ fontFamily: "var(--diag-font-mono)", fontSize: "11px", fontWeight: 600 }}
+          >
+            VFD FLT
+          </text>
+        </g>
+      );
     case "photoeye":
       return <DiagramPhotoeye cx={cx} cy={cy} color={COLOR} scale={1.4} blocked={false} />;
 
