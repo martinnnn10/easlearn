@@ -27,9 +27,19 @@ import {
   getScenario, SCENARIO_IDS,
   type WorkstationScenario, type Hypothesis, type HypothesisStatus, type PlcIoLiveState,
 } from "@/lib/workstationScenarios";
+import type { WorkstationPersistenceApi } from "@/lib/useWorkstationPersistence";
+import type { WorkstationSavedState } from "@shared/workstationAnswerKey";
+import { WORKSTATION_VERSION } from "@shared/workstationAnswerKey";
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const SCAN_MS = 100;
+
+function newId(prefix: string): string {
+  const u = typeof crypto !== "undefined" && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+  return `${prefix}-${u}`;
+}
 
 type MobileTab = "machine" | "print" | "meter" | "diagnosis" | "closeout" | "replay";
 
@@ -602,12 +612,13 @@ function DiagnosticBenchPanel({
 
 // ─── Component: Bottom Drawer ───────────────────────────────────────────────
 function BottomDrawer({
-  tests, hypotheses, machine, scenario,
+  tests, hypotheses, machine, scenario, completionPanel,
 }: {
   tests: TestRecord[];
   hypotheses: Hypothesis[];
   machine: MachineState;
   scenario: WorkstationScenario;
+  completionPanel?: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"operator" | "closeout" | "methodology" | "replay" | "feedback">("operator");
@@ -696,6 +707,7 @@ function BottomDrawer({
                     <p className="text-zinc-300">{machine.beltRunning ? "Running — returned to production" : "Stopped — awaiting repair"}</p>
                   </div>
                 </div>
+                {completionPanel}
               </div>
             )}
 
@@ -920,32 +932,68 @@ function MobileContextBar({
 }
 
 // ─── Main Workstation Prototype Component ─────────────────────────────────────
-export default function WorkstationPrototype() {
+export default function WorkstationPrototype({
+  initialScenarioId,
+  lockedScenario = false,
+  onScenarioChange,
+  persistence,
+  initialSaved = null,
+  initialSafetyViolation = false,
+}: {
+  initialScenarioId?: string;
+  lockedScenario?: boolean;
+  /** Provided by the production wrapper: scenario switches remount with a fresh attempt. */
+  onScenarioChange?: (id: string) => void;
+  /** Production persistence seam. Absent ⇒ pure sandbox (no recording). */
+  persistence?: WorkstationPersistenceApi;
+  /** Saved machineState from a resumed attempt. */
+  initialSaved?: WorkstationSavedState | null;
+  initialSafetyViolation?: boolean;
+} = {}) {
   // ── Scenario Selection ──
-  const [scenarioId, setScenarioId] = useState<string>("overload_tripped");
+  const [scenarioId, setScenarioId] = useState<string>(initialScenarioId ?? "overload_tripped");
   const scenario = useMemo(() => getScenario(scenarioId), [scenarioId]);
+  // Only restore a snapshot that belongs to THIS scenario
+  const saved = initialSaved && initialSaved.scenarioId === scenarioId ? initialSaved : null;
 
-  // ── State ──
+  // ── State (initialized from the resumed snapshot when present) ──
   const [plc, setPlc] = useState<PlcState>(createInitialPlcState);
-  const [field, setField] = useState<FieldDeviceState>(() =>
-    injectFault({ faultId: scenario.faultId, productAtPhotoeye: false, field: createNormalFieldState() })
-  );
+  const [correctiveActionApplied, setCorrectiveActionApplied] = useState<boolean>(saved?.correctiveActionApplied ?? false);
+  const [field, setField] = useState<FieldDeviceState>(() => {
+    let f = injectFault({ faultId: scenario.faultId, productAtPhotoeye: false, field: createNormalFieldState() });
+    // Re-apply a previously-taken corrective action so resume restores machine state
+    if (saved?.correctiveActionApplied) {
+      if (scenario.faultId === "overload_tripped") f = { ...f, overloadNcClosed: true };
+      else if (scenario.faultId === "output_on_motor_dead") f = { ...f, motorMechanicalOk: true };
+    }
+    return f;
+  });
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [highlightedRung, setHighlightedRung] = useState<string | null>(null);
-  const [selectedProbe, setSelectedProbe] = useState<MeterProbeId>(scenario.defaultProbe);
-  const [meterMode, setMeterMode] = useState<MeterMode>(scenario.defaultMode);
-  const [lastReading, setLastReading] = useState<string | null>(null);
-  const [tests, setTests] = useState<TestRecord[]>([]);
+  const [selectedProbe, setSelectedProbe] = useState<MeterProbeId>((saved?.selectedProbe as MeterProbeId) ?? scenario.defaultProbe);
+  const [meterMode, setMeterMode] = useState<MeterMode>((saved?.meterMode as MeterMode) ?? scenario.defaultMode);
+  const [lastReading, setLastReading] = useState<string | null>(saved?.lastReading ?? null);
+  const [tests, setTests] = useState<TestRecord[]>((saved?.tests as TestRecord[]) ?? []);
   const [hypotheses, setHypotheses] = useState<Hypothesis[]>(
+    (saved?.hypotheses as Hypothesis[]) ??
     scenario.initialHypotheses.map((h) => ({ ...h, status: "untested" as const }))
   );
   const [mobileTab, setMobileTab] = useState<MobileTab>("machine");
-  const [safetyOk, setSafetyOk] = useState(true);
-  const [unsafeAttempts, setUnsafeAttempts] = useState<string[]>([]);
-  const [measuredOutputVoltage, setMeasuredOutputVoltage] = useState<string | null>(null);
+  const [safetyOk, setSafetyOk] = useState<boolean>(saved?.safetyOk ?? !initialSafetyViolation);
+  const [unsafeAttempts, setUnsafeAttempts] = useState<string[]>(saved?.unsafeAttempts ?? []);
+  const [measuredOutputVoltage, setMeasuredOutputVoltage] = useState<string | null>(saved?.measuredOutputVoltage ?? null);
+  const [diagnosisSubmitted, setDiagnosisSubmitted] = useState<boolean>(saved?.diagnosisSubmitted ?? false);
+  const [closeoutSubmitted, setCloseoutSubmitted] = useState<boolean>(saved?.closeoutSubmitted ?? false);
+  const [completion, setCompletion] = useState<{ status: "idle" | "submitting" | "done" | "error"; message?: string; diagnosisCorrect?: boolean }>({ status: "idle" });
 
   // ── Scenario Switch Handler ──
   const handleScenarioSwitch = useCallback((newId: string) => {
+    if (onScenarioChange) {
+      // Production: the wrapper owns the scenario — it re-bootstraps the attempt
+      // and remounts this component with a fresh (or resumed) state.
+      onScenarioChange(newId);
+      return;
+    }
     const newScenario = getScenario(newId);
     setScenarioId(newId);
     setPlc(createInitialPlcState());
@@ -961,7 +1009,11 @@ export default function WorkstationPrototype() {
     setSafetyOk(true);
     setUnsafeAttempts([]);
     setMeasuredOutputVoltage(null);
-  }, []);
+    setCorrectiveActionApplied(false);
+    setDiagnosisSubmitted(false);
+    setCloseoutSubmitted(false);
+    setCompletion({ status: "idle" });
+  }, [onScenarioChange]);
 
   // ── PLC Scan Loop ──
   useEffect(() => {
@@ -995,16 +1047,59 @@ export default function WorkstationPrototype() {
     setHighlightedRung(rung?.id || null);
   }, [selectedComponent]);
 
-  // ── Handlers ──
-  const handleSelectComponent = useCallback((id: string) => {
-    setSelectedComponent((prev) => (prev === id ? null : id));
-  }, []);
+  // ── Handlers (each meaningful action appends a persisted diagnostic event) ──
+  const record = persistence?.record;
+
+  const toggleComponent = useCallback((id: string, source: "machine_view" | "schematic") => {
+    setSelectedComponent((prev) => {
+      const next = prev === id ? null : id;
+      if (next && record) {
+        record(
+          source === "schematic" ? "schematic_item_selected" : "component_selected",
+          { componentId: id, source, addresses: COMPONENT_TO_ADDRESS[id] ?? [] },
+          id,
+        );
+      }
+      return next;
+    });
+  }, [record]);
+  const handleSelectFromMachine = useCallback((id: string) => toggleComponent(id, "machine_view"), [toggleComponent]);
+  const handleSelectFromPrint = useCallback((id: string) => toggleComponent(id, "schematic"), [toggleComponent]);
+
+  const handleSelectProbe = useCallback((id: MeterProbeId) => {
+    setSelectedProbe(id);
+    const def = PROBE_DEFS.find((p) => p.id === id);
+    record?.("test_points_selected", { probe: id, component: def?.component, terminals: def?.terminals }, def?.component);
+  }, [record]);
+
+  const handleSetMeterMode = useCallback((mode: MeterMode) => {
+    setMeterMode(mode);
+    record?.("meter_function_selected", { mode });
+  }, [record]);
 
   const handleTakeReading = useCallback(() => {
+    const probeDef = PROBE_DEFS.find((p) => p.id === selectedProbe);
+    const energizedState = {
+      contactorPulled: machine.contactorPulled,
+      motorCoilEnergized: machine.motorCoilEnergized,
+      beltRunning: machine.beltRunning,
+      overloadTripped: machine.overloadTripped,
+    };
+
     for (const rule of scenario.unsafeWhenEnergized) {
       if (selectedProbe === rule.probe && rule.condition(machine)) {
         setSafetyOk(false);
         setUnsafeAttempts((prev) => [...prev, rule.message]);
+        record?.("unsafe_action_attempted", {
+          attemptedAction: "take_reading",
+          probe: selectedProbe, component: probeDef?.component, terminals: probeDef?.terminals,
+          mode: meterMode, energizedState, reason: rule.message,
+        }, probeDef?.component);
+        record?.("unsafe_action_blocked", {
+          probe: selectedProbe, mode: meterMode,
+          reasonBlocked: rule.message,
+          remediation: "Measurement blocked — de-energize the circuit before continuity/resistance testing.",
+        }, probeDef?.component);
         return;
       }
     }
@@ -1017,9 +1112,8 @@ export default function WorkstationPrototype() {
       setMeasuredOutputVoltage(reading);
     }
 
-    const probeDef = PROBE_DEFS.find((p) => p.id === selectedProbe);
     const newTest: TestRecord = {
-      id: `test-${Date.now()}`,
+      id: newId("test"),
       probe: selectedProbe,
       probeLabel: probeDef?.label || selectedProbe,
       mode: meterMode,
@@ -1028,19 +1122,49 @@ export default function WorkstationPrototype() {
       interpretation: "",
     };
     setTests((prev) => [...prev, newTest]);
-  }, [selectedProbe, meterMode, plc, machine, scenario]);
+    record?.("measurement_performed", {
+      testId: newTest.id,
+      probe: selectedProbe, component: probeDef?.component, terminals: probeDef?.terminals,
+      mode: meterMode, reading,
+      expected: selectedProbe === scenario.plcIoConfig.outputProbe ? scenario.plcIoConfig.expectedVoltage : undefined,
+      unit: meterMode === "voltage" ? "V" : "Ω",
+      energizedState,
+      faultCleared: scenario.isFaultCleared(machine),
+    }, probeDef?.component);
+  }, [selectedProbe, meterMode, plc, machine, scenario, record]);
 
   const handleAddHypothesis = useCallback((text: string, zone: string) => {
-    setHypotheses((prev) => [...prev, { id: `h-${Date.now()}`, text, status: "untested", zone }]);
-  }, []);
+    const id = newId("h");
+    setHypotheses((prev) => [...prev, { id, text, status: "untested", zone }]);
+    record?.("hypothesis_created", { hypothesisId: id, text, zone });
+  }, [record]);
 
   const handleUpdateHypothesis = useCallback((id: string, status: HypothesisStatus) => {
-    setHypotheses((prev) => prev.map((h) => (h.id === id ? { ...h, status } : h)));
-  }, []);
+    setHypotheses((prev) => {
+      const current = prev.find((h) => h.id === id);
+      if (current && record) {
+        record("hypothesis_status_changed", {
+          hypothesisId: id, text: current.text, zone: current.zone,
+          from: current.status, to: status,
+        });
+      }
+      return prev.map((h) => (h.id === id ? { ...h, status } : h));
+    });
+  }, [record]);
 
   const handleRecordInterpretation = useCallback((testId: string, text: string) => {
-    setTests((prev) => prev.map((t) => (t.id === testId ? { ...t, interpretation: text } : t)));
-  }, []);
+    setTests((prev) => {
+      const test = prev.find((t) => t.id === testId);
+      if (test && record) {
+        record("measurement_interpreted", {
+          testId, interpretation: text,
+          probe: test.probe, reading: test.reading, mode: test.mode,
+          hypothesesSnapshot: hypotheses.map((h) => ({ id: h.id, status: h.status })),
+        });
+      }
+      return prev.map((t) => (t.id === testId ? { ...t, interpretation: text } : t));
+    });
+  }, [record, hypotheses]);
 
   const handleCorrectiveAction = useCallback(() => {
     if (scenario.faultId === "overload_tripped") {
@@ -1048,15 +1172,146 @@ export default function WorkstationPrototype() {
     } else if (scenario.faultId === "output_on_motor_dead") {
       setField((prev) => ({ ...prev, motorMechanicalOk: true }));
     }
-  }, [scenario.faultId]);
+    setCorrectiveActionApplied(true);
+    record?.("corrective_action_selected", {
+      actionLabel: scenario.correctiveActionLabel,
+      faultId: scenario.faultId,
+    });
+  }, [scenario.faultId, scenario.correctiveActionLabel, record]);
+
+  // ── Repair verification: fires once when the corrective action clears the fault
+  //    (stable across renders via useState initializer; prev seeded with the mount
+  //    value so a resumed already-cleared fault does not re-record). ──
+  const [repairRef] = useState(() => ({ prev: faultCleared, recorded: false }));
+  useEffect(() => {
+    if (!repairRef.prev && faultCleared && correctiveActionApplied && !repairRef.recorded) {
+      repairRef.recorded = true;
+      record?.("repair_verification_performed", {
+        faultCleared: true,
+        result: scenario.resolvedLabel,
+        machineRunning: machine.beltRunning,
+        verifiedBy: "machine_state_transition",
+      });
+    }
+    repairRef.prev = faultCleared;
+  }, [faultCleared, correctiveActionApplied, record, repairRef, scenario.resolvedLabel, machine.beltRunning]);
+
+  // ── Autosave machine state for resume ──
+  useEffect(() => {
+    if (!persistence) return;
+    const snapshot: WorkstationSavedState = {
+      savedAtVersion: WORKSTATION_VERSION,
+      scenarioId,
+      tests: tests.map((t) => ({ ...t })),
+      hypotheses: hypotheses.map((h) => ({ ...h })),
+      unsafeAttempts,
+      safetyOk,
+      selectedProbe,
+      meterMode,
+      lastReading,
+      measuredOutputVoltage,
+      correctiveActionApplied,
+      diagnosisSubmitted,
+      closeoutSubmitted,
+    };
+    persistence.saveState(snapshot);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tests, hypotheses, unsafeAttempts, safetyOk, selectedProbe, meterMode, lastReading, measuredOutputVoltage, correctiveActionApplied, diagnosisSubmitted, closeoutSubmitted, scenarioId]);
+
+  // ── Completion (production only): submit diagnosis + closeout, then fail-closed complete ──
+  const confirmedHypothesis = hypotheses.find((h) => h.status === "confirmed") ?? null;
+  const completionRequirements = [
+    { label: "At least one measurement taken", met: tests.length > 0 },
+    { label: "Root cause confirmed (mark one hypothesis 'confirmed')", met: !!confirmedHypothesis },
+    { label: "Corrective action performed", met: correctiveActionApplied },
+    { label: "Repair verified — fault cleared", met: correctiveActionApplied && faultCleared },
+  ];
+  const allRequirementsMet = completionRequirements.every((r) => r.met);
+
+  const handleSubmitCompletion = useCallback(async () => {
+    if (!persistence || !confirmedHypothesis) return;
+    setCompletion({ status: "submitting" });
+    if (!diagnosisSubmitted) {
+      persistence.record("diagnosis_submitted", {
+        hypothesisId: confirmedHypothesis.id,
+        hypothesisText: confirmedHypothesis.text,
+        zone: confirmedHypothesis.zone,
+      });
+      setDiagnosisSubmitted(true);
+    }
+    if (!closeoutSubmitted) {
+      persistence.record("closeout_submitted", {
+        rootCauseHypothesisId: confirmedHypothesis.id,
+        rootCause: confirmedHypothesis.text,
+        correctiveAction: faultCleared ? scenario.closeoutResolvedText : scenario.closeoutPendingText,
+        testsPerformed: tests.length,
+        machineRunning: machine.beltRunning,
+      });
+      setCloseoutSubmitted(true);
+    }
+    const res = await persistence.complete();
+    if (res.ok) {
+      const derived = (res.result as { derived?: { diagnosisCorrect?: boolean } } | undefined)?.derived;
+      setCompletion({ status: "done", diagnosisCorrect: derived?.diagnosisCorrect });
+    } else {
+      setCompletion({ status: "error", message: res.error });
+    }
+  }, [persistence, confirmedHypothesis, diagnosisSubmitted, closeoutSubmitted, faultCleared, scenario.closeoutResolvedText, scenario.closeoutPendingText, tests.length, machine.beltRunning]);
+
+  const completionPanel = persistence ? (
+    <div className="mt-2 px-2.5 py-2 rounded-md border border-emerald-700/40 bg-emerald-950/10 space-y-1.5">
+      <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider">Complete This Attempt</p>
+      {completion.status === "done" ? (
+        <div className="space-y-1">
+          <p className="text-[10px] text-emerald-300 font-medium flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5" /> Attempt completed — evidence recorded on the server.
+          </p>
+          <p className="text-[9px] text-zinc-400">
+            {completion.diagnosisCorrect === true && "Your diagnosis matches the fault model."}
+            {completion.diagnosisCorrect === false && "Your diagnosis does not match the fault model — your manager will review your reasoning replay."}
+            {completion.diagnosisCorrect === undefined && "Your manager can now review the reasoning replay."}
+          </p>
+        </div>
+      ) : (
+        <>
+          <ul className="space-y-0.5">
+            {completionRequirements.map((r) => (
+              <li key={r.label} className={`text-[9px] flex items-center gap-1 ${r.met ? "text-emerald-400" : "text-zinc-500"}`}>
+                {r.met ? <CheckCircle2 className="w-3 h-3" /> : <XCircle className="w-3 h-3 text-zinc-600" />}
+                {r.label}
+              </li>
+            ))}
+          </ul>
+          {completion.status === "error" && (
+            <div className="px-2 py-1.5 rounded border border-red-700/40 bg-red-950/20">
+              <p className="text-[9px] text-red-400">{completion.message}</p>
+              {persistence.failedWrites > 0 && (
+                <button onClick={persistence.retryFailed} className="text-[9px] text-sky-400 underline mt-0.5">
+                  Retry failed saves ({persistence.failedWrites})
+                </button>
+              )}
+            </div>
+          )}
+          <Button
+            size="sm"
+            disabled={!allRequirementsMet || completion.status === "submitting"}
+            onClick={handleSubmitCompletion}
+            className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-semibold text-[10px]"
+          >
+            {completion.status === "submitting" ? "Saving evidence…" : "Submit Diagnosis & Complete"}
+          </Button>
+        </>
+      )}
+    </div>
+  ) : null;
 
   // ── Mobile Tab Content ──
   const renderMobileContent = () => {
     switch (mobileTab) {
       case "machine":
-        return <MachineViewPanel machine={machine} selectedComponent={selectedComponent} onSelectComponent={handleSelectComponent} scenario={scenario} />;
+        return <MachineViewPanel machine={machine} selectedComponent={selectedComponent} onSelectComponent={handleSelectFromMachine} scenario={scenario} />;
       case "print":
-        return <PrintPanel plc={plc} selectedComponent={selectedComponent} onSelectComponent={handleSelectComponent} highlightedRung={highlightedRung} />;
+        return <PrintPanel plc={plc} selectedComponent={selectedComponent} onSelectComponent={handleSelectFromPrint} highlightedRung={highlightedRung} />;
       case "meter":
         return (
           <DiagnosticBenchPanel
@@ -1070,8 +1325,8 @@ export default function WorkstationPrototype() {
             safetyOk={safetyOk}
             ioState={ioState}
             scenario={scenario}
-            onSelectProbe={setSelectedProbe}
-            onSetMeterMode={setMeterMode}
+            onSelectProbe={handleSelectProbe}
+            onSetMeterMode={handleSetMeterMode}
             onTakeReading={handleTakeReading}
             onAddHypothesis={handleAddHypothesis}
             onUpdateHypothesis={handleUpdateHypothesis}
@@ -1147,6 +1402,7 @@ export default function WorkstationPrototype() {
                 <p className="text-zinc-300 text-[9px] leading-relaxed">{scenario.plcIoConfig.faultModelDescription}</p>
               </div>
             </div>
+            {completionPanel}
           </div>
         );
       case "replay":
@@ -1234,22 +1490,44 @@ export default function WorkstationPrototype() {
           </span>
         </div>
 
-        {/* Scenario Selector */}
-        <div className="ml-3">
-          <select
-            value={scenarioId}
-            onChange={(e) => handleScenarioSwitch(e.target.value)}
-            className="text-[10px] px-2 py-1 rounded border border-zinc-700 bg-zinc-800 text-zinc-300 cursor-pointer"
-          >
-            {SCENARIO_IDS.map((id) => (
-              <option key={id} value={id}>
-                {getScenario(id).badgeText}
-              </option>
-            ))}
-          </select>
-        </div>
+        {/* Scenario Selector (locked when launched from a specific assignment) */}
+        {!lockedScenario && (
+          <div className="ml-3">
+            <select
+              value={scenarioId}
+              onChange={(e) => handleScenarioSwitch(e.target.value)}
+              className="text-[10px] px-2 py-1 rounded border border-zinc-700 bg-zinc-800 text-zinc-300 cursor-pointer"
+            >
+              {SCENARIO_IDS.map((id) => (
+                <option key={id} value={id}>
+                  {getScenario(id).badgeText}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div className="ml-auto flex items-center gap-2">
+          {/* Persistence status — honest: shows unsaved/failed writes, never fakes "saved" */}
+          {persistence && (
+            persistence.failedWrites > 0 ? (
+              <button
+                onClick={persistence.retryFailed}
+                className="text-[9px] px-2 py-0.5 rounded bg-red-900/40 text-red-300 font-medium hover:bg-red-900/60"
+                title="Some diagnostic events failed to save — click to retry"
+              >
+                {persistence.failedWrites} not saved — Retry
+              </button>
+            ) : persistence.pendingWrites > 0 ? (
+              <span className="text-[9px] px-2 py-0.5 rounded bg-amber-900/30 text-amber-400 font-medium">
+                Saving…
+              </span>
+            ) : (
+              <span className="text-[9px] px-2 py-0.5 rounded bg-zinc-800/60 text-zinc-500 font-medium" title={`Attempt #${persistence.attemptId}`}>
+                Saved ✓
+              </span>
+            )
+          )}
           {faultCleared && (
             <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-900/40 text-emerald-400 font-medium animate-pulse">
               FAULT CLEARED
@@ -1267,7 +1545,7 @@ export default function WorkstationPrototype() {
       <div className="hidden lg:flex flex-1 min-h-0">
         {/* LEFT — Machine View */}
         <div className="w-[280px] border-r border-zinc-700/50 flex flex-col min-h-0">
-          <MachineViewPanel machine={machine} selectedComponent={selectedComponent} onSelectComponent={handleSelectComponent} scenario={scenario} />
+          <MachineViewPanel machine={machine} selectedComponent={selectedComponent} onSelectComponent={handleSelectFromMachine} scenario={scenario} />
           <div className="p-3 border-t border-zinc-700/50">
             <Button
               size="sm"
@@ -1282,7 +1560,7 @@ export default function WorkstationPrototype() {
 
         {/* CENTER — Print/Schematic */}
         <div className="flex-1 border-r border-zinc-700/50 flex flex-col min-h-0">
-          <PrintPanel plc={plc} selectedComponent={selectedComponent} onSelectComponent={handleSelectComponent} highlightedRung={highlightedRung} />
+          <PrintPanel plc={plc} selectedComponent={selectedComponent} onSelectComponent={handleSelectFromPrint} highlightedRung={highlightedRung} />
         </div>
 
         {/* RIGHT — Diagnostic Bench */}
@@ -1298,8 +1576,8 @@ export default function WorkstationPrototype() {
             safetyOk={safetyOk}
             ioState={ioState}
             scenario={scenario}
-            onSelectProbe={setSelectedProbe}
-            onSetMeterMode={setMeterMode}
+            onSelectProbe={handleSelectProbe}
+            onSetMeterMode={handleSetMeterMode}
             onTakeReading={handleTakeReading}
             onAddHypothesis={handleAddHypothesis}
             onUpdateHypothesis={handleUpdateHypothesis}
@@ -1310,7 +1588,7 @@ export default function WorkstationPrototype() {
 
       {/* DESKTOP — Bottom Drawer */}
       <div className="hidden lg:block">
-        <BottomDrawer tests={tests} hypotheses={hypotheses} machine={machine} scenario={scenario} />
+        <BottomDrawer tests={tests} hypotheses={hypotheses} machine={machine} scenario={scenario} completionPanel={completionPanel} />
       </div>
 
       {/* ═══ MOBILE LAYOUT ═══ */}

@@ -48,7 +48,6 @@ import Resources from "./pages/Resources";
 import InteractiveLabs from "./pages/InteractiveLabs";
 import VFDSandbox from "./pages/VFDSandbox";
 import HydraulicLab from "./pages/HydraulicLab";
-import WorkstationPrototype from "./pages/WorkstationPrototype";
 import MotorControlWorkstation from "./pages/MotorControlWorkstation";
 import Certifications from "./pages/Certifications";
 import SkillMatrix from "./pages/SkillMatrix";

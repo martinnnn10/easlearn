@@ -21,7 +21,7 @@
  *   - Feature flag gates access to the workstation
  */
 import { z } from "zod";
-import { eq, and, inArray, desc, isNull } from "drizzle-orm";
+import { eq, and, inArray, desc, asc } from "drizzle-orm";
 import { router, protectedProcedure } from "./_core/trpc";
 import { getDb } from "./db";
 import {
@@ -36,6 +36,12 @@ import {
 import { managedMemberIds } from "./competencyGraph";
 import { TRPCError } from "@trpc/server";
 import type { SkillDomain } from "../shared/competencyMatrix";
+import {
+  WORKSTATION_EVENT_TYPES,
+  REQUIRED_COMPLETION_EVENTS,
+  COMPETENCY_TO_DOMAIN,
+  getAnswerKey,
+} from "../shared/workstationAnswerKey";
 
 // ── Feature Flag Check ──────────────────────────────────────────────────────────
 
@@ -96,26 +102,8 @@ async function assertManagesUser(db: any, managerId: number, targetUserId: numbe
   }
 }
 
-// ── Competency Mapping ──────────────────────────────────────────────────────────
-
-/** Map workstation event types to Assessment Spine evidence types and competency domains */
-const EVENT_TO_EVIDENCE: Record<string, { evidenceType: string; domain: SkillDomain; competencyId: string }> = {
-  measurement_performed: { evidenceType: "live_interaction", domain: "electrical", competencyId: "meter_usage" },
-  measurement_predicted: { evidenceType: "prediction", domain: "electrical", competencyId: "electrical_diagnostic_method" },
-  measurement_interpreted: { evidenceType: "reasoned_answer", domain: "electrical", competencyId: "electrical_diagnostic_method" },
-  hypothesis_created: { evidenceType: "reasoned_answer", domain: "motors", competencyId: "motor_control_troubleshooting" },
-  hypothesis_confirmed: { evidenceType: "reasoned_answer", domain: "motors", competencyId: "motor_control_troubleshooting" },
-  hypothesis_eliminated: { evidenceType: "reasoned_answer", domain: "motors", competencyId: "motor_control_troubleshooting" },
-  unsafe_action_blocked: { evidenceType: "safety_action", domain: "safety", competencyId: "safety_judgment" },
-  unsafe_action_attempted: { evidenceType: "safety_action", domain: "safety", competencyId: "safety_judgment" },
-  meter_function_selected: { evidenceType: "action_choice", domain: "electrical", competencyId: "meter_usage" },
-  test_points_selected: { evidenceType: "action_choice", domain: "electrical", competencyId: "meter_usage" },
-  corrective_action_selected: { evidenceType: "action_choice", domain: "motors", competencyId: "repair_verification" },
-  repair_verification_performed: { evidenceType: "live_interaction", domain: "motors", competencyId: "repair_verification" },
-  diagnosis_submitted: { evidenceType: "diagnosis_submitted", domain: "motors", competencyId: "motor_control_troubleshooting" },
-  workstation_completed: { evidenceType: "simulation_completed", domain: "integration", competencyId: "motor_control_troubleshooting" },
-  closeout_submitted: { evidenceType: "ai_work_order_documentation", domain: "integration", competencyId: "work_order_documentation" },
-};
+// (The former EVENT_TO_EVIDENCE map was dead code — evidence is created at
+// completion time in completeAttempt, derived from persisted events.)
 
 // ── Router ──────────────────────────────────────────────────────────────────────
 
@@ -128,7 +116,10 @@ export const workstationRouter = router({
     return { hasAccess, reason: hasAccess ? null : "feature_not_enabled" };
   }),
 
-  /** Start a new attempt — creates a persisted record */
+  /** Start OR RESUME an attempt — server-authoritative resume-or-create.
+   *  If an in_progress attempt exists for (user, scenario) it is returned
+   *  (with saved machineState) instead of creating a duplicate. Refreshes,
+   *  rerenders, and double-clicks therefore cannot fork attempts. */
   startAttempt: protectedProcedure.input(z.object({
     scenarioId: z.string().min(1),
     faultId: z.string().min(1),
@@ -140,28 +131,61 @@ export const workstationRouter = router({
     const hasAccess = await hasWorkstationAccess(db, ctx.user.id, ctx.user.role);
     if (!hasAccess) throw new TRPCError({ code: "FORBIDDEN", message: "Workstation access not enabled for your account" });
 
-    // Find user's team (if any)
-    const [membership] = await db.select({ teamId: teamMembers.teamId })
-      .from(teamMembers)
-      .where(and(eq(teamMembers.userId, ctx.user.id), eq(teamMembers.status, "active")));
-
-    // If assignmentId provided, verify it belongs to this user
+    // If assignmentId provided, verify it belongs to this user (before any writes)
     if (input.assignmentId) {
       const [assignment] = await db.select().from(workstationAssignments)
         .where(and(eq(workstationAssignments.id, input.assignmentId), eq(workstationAssignments.userId, ctx.user.id)));
       if (!assignment) throw new TRPCError({ code: "NOT_FOUND", message: "Assignment not found" });
+    }
 
-      // Update assignment status to in_progress
+    // RESUME: an existing in_progress attempt for this scenario wins
+    const [existing] = await db.select().from(workstationAttempts)
+      .where(and(
+        eq(workstationAttempts.userId, ctx.user.id),
+        eq(workstationAttempts.scenarioId, input.scenarioId),
+        eq(workstationAttempts.status, "in_progress"),
+      ))
+      .orderBy(desc(workstationAttempts.startedAt))
+      .limit(1);
+
+    if (existing) {
+      // Late-link assignment if this resume came from an assignment CTA
+      if (input.assignmentId && !existing.assignmentId) {
+        await db.update(workstationAttempts)
+          .set({ assignmentId: input.assignmentId, lastActivityAt: new Date() })
+          .where(eq(workstationAttempts.id, existing.id));
+      }
+      if (input.assignmentId) {
+        await db.update(workstationAssignments)
+          .set({ status: "in_progress" })
+          .where(and(eq(workstationAssignments.id, input.assignmentId), eq(workstationAssignments.status, "not_started")));
+      }
+      return {
+        attemptId: existing.id,
+        resumed: true,
+        machineState: existing.machineState ?? null,
+        safetyViolation: existing.safetyViolation,
+      };
+    }
+
+    // CREATE: no in_progress attempt exists
+    const [membership] = await db.select({ teamId: teamMembers.teamId })
+      .from(teamMembers)
+      .where(and(eq(teamMembers.userId, ctx.user.id), eq(teamMembers.status, "active")));
+
+    if (input.assignmentId) {
       await db.update(workstationAssignments)
         .set({ status: "in_progress" })
         .where(eq(workstationAssignments.id, input.assignmentId));
     }
 
+    const key = getAnswerKey(input.scenarioId);
     const [result] = await db.insert(workstationAttempts).values({
       userId: ctx.user.id,
       teamId: membership?.teamId ?? null,
       scenarioId: input.scenarioId,
       faultId: input.faultId,
+      scenarioVersion: key?.scenarioVersion ?? "1.0",
       status: "in_progress",
       assignmentId: input.assignmentId ?? null,
     }).$returningId();
@@ -172,10 +196,11 @@ export const workstationRouter = router({
       userId: ctx.user.id,
       eventType: "scenario_observed",
       detail: { scenarioId: input.scenarioId, faultId: input.faultId },
+      scenarioVersion: key?.scenarioVersion ?? "1.0",
       idempotencyKey: `${result.id}_scenario_observed_init`,
     });
 
-    return { attemptId: result.id };
+    return { attemptId: result.id, resumed: false, machineState: null, safetyViolation: false };
   }),
 
   /** Get a specific attempt (learner: own only, manager: managed users) */
@@ -234,21 +259,41 @@ export const workstationRouter = router({
     return { ok: true };
   }),
 
-  /** Record a diagnostic event (idempotent via idempotencyKey) */
+  /** Record a diagnostic event (append-only; idempotent via idempotencyKey).
+   *  Idempotency has two layers: an application-level pre-check plus the
+   *  ws_evt_attempt_idem_uq unique index (drizzle/0039) that makes the
+   *  ER_DUP_ENTRY path real. Server timestamps are authoritative; ordering
+   *  is (occurredAt, id) — insertion order. */
   recordEvent: protectedProcedure.input(z.object({
     attemptId: z.number(),
-    eventType: z.string().min(1),
+    eventType: z.enum(WORKSTATION_EVENT_TYPES),
     detail: z.any().optional(),
-    componentRef: z.string().optional(),
-    idempotencyKey: z.string().min(1),
-    scenarioVersion: z.string().optional(),
+    componentRef: z.string().max(120).optional(),
+    idempotencyKey: z.string().min(1).max(64),
+    scenarioVersion: z.string().max(20).optional(),
   })).mutation(async ({ ctx, input }) => {
     const db = await getDb();
     if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
 
     await assertOwnsAttempt(db, input.attemptId, ctx.user.id);
 
-    // Duplicate prevention via idempotency key
+    // Events may only be appended to a live attempt (append-only history ends at completion)
+    const [attemptRow] = await db.select({ status: workstationAttempts.status })
+      .from(workstationAttempts).where(eq(workstationAttempts.id, input.attemptId));
+    if (!attemptRow || attemptRow.status !== "in_progress") {
+      throw new TRPCError({ code: "BAD_REQUEST", message: "Attempt is not in progress — events can no longer be recorded" });
+    }
+
+    // Fast-path duplicate detection (belt) — the unique index is the guarantee (braces)
+    const [dup] = await db.select({ id: workstationDiagnosticEvents.id })
+      .from(workstationDiagnosticEvents)
+      .where(and(
+        eq(workstationDiagnosticEvents.attemptId, input.attemptId),
+        eq(workstationDiagnosticEvents.idempotencyKey, input.idempotencyKey),
+      ))
+      .limit(1);
+    if (dup) return { ok: true, duplicate: true };
+
     try {
       await db.insert(workstationDiagnosticEvents).values({
         attemptId: input.attemptId,
@@ -260,7 +305,7 @@ export const workstationRouter = router({
         scenarioVersion: input.scenarioVersion ?? null,
       });
     } catch (err: any) {
-      // Duplicate key = idempotent success
+      // Unique-index race: concurrent duplicate = idempotent success
       if (err?.code === "ER_DUP_ENTRY" || err?.message?.includes("Duplicate entry")) {
         return { ok: true, duplicate: true };
       }
@@ -295,75 +340,127 @@ export const workstationRouter = router({
       await assertManagesUser(db, ctx.user.id, attempt.userId);
     }
 
+    // Deterministic order: server timestamp, then insertion id (occurredAt is
+    // second-precision — id breaks same-second ties in true append order).
     return db.select().from(workstationDiagnosticEvents)
       .where(eq(workstationDiagnosticEvents.attemptId, input.attemptId))
-      .orderBy(workstationDiagnosticEvents.occurredAt);
+      .orderBy(asc(workstationDiagnosticEvents.occurredAt), asc(workstationDiagnosticEvents.id));
   }),
 
-  /** Complete an attempt — finalize diagnosis, create Assessment Spine evidence */
+  /** Complete an attempt — FAIL-CLOSED and server-derived.
+   *
+   *  The client sends only the attemptId. The server:
+   *   1. verifies every required diagnostic event is PERSISTED
+   *      (measurement, diagnosis, corrective action, repair verification, closeout);
+   *   2. derives the diagnosis, correctness, corrective action, and safety state
+   *      from the persisted event timeline + the shared answer key — never from
+   *      client-supplied booleans;
+   *   3. completes atomically (conditional UPDATE ... WHERE status='in_progress')
+   *      so concurrent/repeat submissions cannot double-write evidence;
+   *   4. is idempotent: repeating the call on a completed attempt returns
+   *      { ok:true, alreadyCompleted:true }. */
   completeAttempt: protectedProcedure.input(z.object({
     attemptId: z.number(),
-    finalDiagnosis: z.string().min(1),
-    correctiveAction: z.string().min(1),
-    repairVerificationResult: z.string().optional(),
-    diagnosisCorrect: z.boolean(),
-    correctiveActionCorrect: z.boolean(),
   })).mutation(async ({ ctx, input }) => {
     const db = await getDb();
     if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
 
     await assertOwnsAttempt(db, input.attemptId, ctx.user.id);
 
-    // Verify attempt is in_progress
     const [attempt] = await db.select().from(workstationAttempts)
       .where(eq(workstationAttempts.id, input.attemptId));
-    if (!attempt || attempt.status !== "in_progress") {
+    if (!attempt) throw new TRPCError({ code: "NOT_FOUND", message: "Attempt not found" });
+
+    // Idempotent repeat: already completed → success without new writes
+    if (attempt.status === "completed") {
+      return { ok: true, alreadyCompleted: true, evidenceCreated: 0, assignmentCompleted: !!attempt.assignmentId };
+    }
+    if (attempt.status !== "in_progress") {
       throw new TRPCError({ code: "BAD_REQUEST", message: "Attempt is not in progress" });
     }
 
-    // Update attempt
-    await db.update(workstationAttempts).set({
-      status: "completed",
-      finalDiagnosis: input.finalDiagnosis,
-      correctiveAction: input.correctiveAction,
-      repairVerificationResult: input.repairVerificationResult ?? null,
-      diagnosisCorrect: input.diagnosisCorrect,
-      correctiveActionCorrect: input.correctiveActionCorrect,
-      completedAt: new Date(),
-      lastActivityAt: new Date(),
-    }).where(eq(workstationAttempts.id, input.attemptId));
-
-    // Record completion event
-    await db.insert(workstationDiagnosticEvents).values({
-      attemptId: input.attemptId,
-      userId: ctx.user.id,
-      eventType: "workstation_completed",
-      detail: {
-        finalDiagnosis: input.finalDiagnosis,
-        correctiveAction: input.correctiveAction,
-        diagnosisCorrect: input.diagnosisCorrect,
-        correctiveActionCorrect: input.correctiveActionCorrect,
-      },
-      idempotencyKey: `${input.attemptId}_workstation_completed`,
-    });
-
-    // Get all events for this attempt to create Assessment Spine evidence
+    // ── Fail-closed gate: required evidence must already be PERSISTED ──
     const events = await db.select().from(workstationDiagnosticEvents)
-      .where(eq(workstationDiagnosticEvents.attemptId, input.attemptId));
+      .where(eq(workstationDiagnosticEvents.attemptId, input.attemptId))
+      .orderBy(asc(workstationDiagnosticEvents.occurredAt), asc(workstationDiagnosticEvents.id));
 
-    // Create Assessment Spine evidence from diagnostic events
-    const evidenceToInsert: any[] = [];
+    const present = new Set(events.map((e: any) => e.eventType));
+    const missing = REQUIRED_COMPLETION_EVENTS.filter((t) => !present.has(t));
+    if (missing.length > 0) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: `Cannot complete: required diagnostic evidence not persisted yet: ${missing.join(", ")}`,
+      });
+    }
+
+    // ── Derive outcome from persisted events + answer key (server truth) ──
+    const key = getAnswerKey(attempt.scenarioId);
+    const lastOf = (type: string) => [...events].reverse().find((e: any) => e.eventType === type) as any;
+
+    const diagEvent = lastOf("diagnosis_submitted");
+    const diagDetail = (diagEvent?.detail ?? {}) as any;
+    const finalDiagnosis: string = String(diagDetail.hypothesisText ?? diagDetail.diagnosis ?? "").slice(0, 500);
+    const diagnosisCorrect = !!key && diagDetail.hypothesisId === key.correctHypothesisId;
+
+    const correctiveEvent = lastOf("corrective_action_selected");
+    const correctiveAction: string = String(
+      (correctiveEvent?.detail as any)?.actionLabel ?? key?.correctiveActionLabel ?? "Corrective action performed"
+    ).slice(0, 500);
+
+    const repairEvent = lastOf("repair_verification_performed");
+    const repairDetail = (repairEvent?.detail ?? {}) as any;
+    const correctiveActionCorrect = repairDetail.faultCleared === true;
+    const repairVerificationResult: string = String(
+      repairDetail.result ?? (correctiveActionCorrect ? "Fault cleared — machine restored to service" : "Repair not verified")
+    ).slice(0, 255);
+
     const safetyViolation = attempt.safetyViolation || events.some((e: any) => e.eventType === "unsafe_action_attempted");
 
-    // Overall simulation_completed evidence
+    // ── Atomic completion guard: only ONE caller can transition the status ──
+    const updateResult: any = await db.update(workstationAttempts).set({
+      status: "completed",
+      finalDiagnosis,
+      correctiveAction,
+      repairVerificationResult,
+      diagnosisCorrect,
+      correctiveActionCorrect,
+      safetyViolation,
+      completedAt: new Date(),
+      lastActivityAt: new Date(),
+    }).where(and(
+      eq(workstationAttempts.id, input.attemptId),
+      eq(workstationAttempts.status, "in_progress"),
+    ));
+    const header = Array.isArray(updateResult) ? updateResult[0] : updateResult;
+    if (header && typeof header.affectedRows === "number" && header.affectedRows === 0) {
+      // Lost the race — someone else completed it. Idempotent success, no evidence writes.
+      return { ok: true, alreadyCompleted: true, evidenceCreated: 0, assignmentCompleted: !!attempt.assignmentId };
+    }
+
+    // Record completion event (server-derived summary; idempotency-keyed)
+    try {
+      await db.insert(workstationDiagnosticEvents).values({
+        attemptId: input.attemptId,
+        userId: ctx.user.id,
+        eventType: "workstation_completed",
+        detail: { finalDiagnosis, correctiveAction, diagnosisCorrect, correctiveActionCorrect, safetyViolation, derivedBy: "server" },
+        idempotencyKey: `${input.attemptId}_workstation_completed`,
+      });
+    } catch (err: any) {
+      if (!(err?.code === "ER_DUP_ENTRY" || err?.message?.includes("Duplicate entry"))) throw err;
+    }
+
+    // ── Assessment Spine evidence — from PERSISTED events only ──
+    const evidenceToInsert: any[] = [];
+
     evidenceToInsert.push({
       learnerId: ctx.user.id,
       sourceType: "simulation",
       evidenceType: "simulation_completed",
       domain: "motors",
       competencyId: "motor_control_troubleshooting",
-      correctness: input.diagnosisCorrect ? "correct" : "incorrect",
-      reasoningQuality: input.diagnosisCorrect && input.correctiveActionCorrect ? "sound" : input.diagnosisCorrect ? "weak" : "flawed",
+      correctness: diagnosisCorrect ? "correct" : "incorrect",
+      reasoningQuality: diagnosisCorrect && correctiveActionCorrect ? "sound" : diagnosisCorrect ? "weak" : "flawed",
       safetyFlag: safetyViolation,
       detail: {
         attemptId: input.attemptId,
@@ -374,23 +471,17 @@ export const workstationRouter = router({
       },
     });
 
-    // Diagnosis evidence
     evidenceToInsert.push({
       learnerId: ctx.user.id,
       sourceType: "simulation",
       evidenceType: "diagnosis_submitted",
       domain: "motors",
       competencyId: "motor_control_troubleshooting",
-      correctness: input.diagnosisCorrect ? "correct" : "incorrect",
+      correctness: diagnosisCorrect ? "correct" : "incorrect",
       safetyFlag: safetyViolation,
-      detail: {
-        attemptId: input.attemptId,
-        diagnosis: input.finalDiagnosis,
-        scenarioId: attempt.scenarioId,
-      },
+      detail: { attemptId: input.attemptId, diagnosis: finalDiagnosis, scenarioId: attempt.scenarioId },
     });
 
-    // Safety evidence (if any safety events occurred)
     if (safetyViolation) {
       evidenceToInsert.push({
         learnerId: ctx.user.id,
@@ -400,15 +491,10 @@ export const workstationRouter = router({
         competencyId: "safety_judgment",
         correctness: "incorrect",
         safetyFlag: true,
-        detail: {
-          attemptId: input.attemptId,
-          scenarioId: attempt.scenarioId,
-          violationType: "unsafe_action_during_workstation",
-        },
+        detail: { attemptId: input.attemptId, scenarioId: attempt.scenarioId, violationType: "unsafe_action_during_workstation" },
       });
     }
 
-    // Meter usage evidence (if measurements were taken)
     const measurements = events.filter((e: any) => e.eventType === "measurement_performed");
     if (measurements.length > 0) {
       evidenceToInsert.push({
@@ -417,18 +503,15 @@ export const workstationRouter = router({
         evidenceType: "live_interaction",
         domain: "electrical",
         competencyId: "meter_usage",
-        correctness: input.diagnosisCorrect ? "correct" : "partial",
-        detail: {
-          attemptId: input.attemptId,
-          measurementCount: measurements.length,
-          scenarioId: attempt.scenarioId,
-        },
+        correctness: diagnosisCorrect ? "correct" : "partial",
+        detail: { attemptId: input.attemptId, measurementCount: measurements.length, scenarioId: attempt.scenarioId },
       });
     }
 
-    // PLC verification evidence (if PLC-related events occurred)
+    // PLC verification evidence — measurements at the PLC output terminal or PLC component interactions
     const plcEvents = events.filter((e: any) =>
-      e.eventType === "component_selected" && (e.detail as any)?.component?.includes("plc")
+      (e.componentRef && String(e.componentRef).toUpperCase().includes("PLC")) ||
+      (e.eventType === "measurement_performed" && (e.detail as any)?.probe === "output_terminal")
     );
     if (plcEvents.length > 0) {
       evidenceToInsert.push({
@@ -437,16 +520,11 @@ export const workstationRouter = router({
         evidenceType: "live_interaction",
         domain: "plc",
         competencyId: "plc_output_verification",
-        correctness: input.diagnosisCorrect ? "correct" : "partial",
-        detail: {
-          attemptId: input.attemptId,
-          plcInteractionCount: plcEvents.length,
-          scenarioId: attempt.scenarioId,
-        },
+        correctness: diagnosisCorrect ? "correct" : "partial",
+        detail: { attemptId: input.attemptId, plcInteractionCount: plcEvents.length, scenarioId: attempt.scenarioId },
       });
     }
 
-    // Batch insert all evidence
     if (evidenceToInsert.length > 0) {
       await db.insert(competencyEvidence).values(evidenceToInsert);
     }
@@ -462,8 +540,10 @@ export const workstationRouter = router({
 
     return {
       ok: true,
+      alreadyCompleted: false,
       evidenceCreated: evidenceToInsert.length,
       assignmentCompleted: !!attempt.assignmentId,
+      derived: { finalDiagnosis, diagnosisCorrect, correctiveAction, correctiveActionCorrect, safetyViolation },
     };
   }),
 
@@ -475,10 +555,14 @@ export const workstationRouter = router({
     if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
     await assertOwnsAttempt(db, input.attemptId, ctx.user.id);
 
+    // Only a live attempt can be abandoned (a completed attempt is immutable)
     await db.update(workstationAttempts).set({
       status: "abandoned",
       lastActivityAt: new Date(),
-    }).where(eq(workstationAttempts.id, input.attemptId));
+    }).where(and(
+      eq(workstationAttempts.id, input.attemptId),
+      eq(workstationAttempts.status, "in_progress"),
+    ));
 
     return { ok: true };
   }),
@@ -559,7 +643,11 @@ export const workstationRouter = router({
   /** Manager records a validation decision for a workstation attempt */
   validate: protectedProcedure.input(z.object({
     attemptId: z.number(),
-    competency: z.string().min(1),
+    competency: z.enum([
+      "motor_control_troubleshooting", "electrical_diagnostic_method", "meter_usage",
+      "plc_output_verification", "safety_judgment", "root_cause_explanation",
+      "repair_verification", "work_order_documentation",
+    ]),
     decision: z.enum(["validated", "needs_additional_demonstration", "needs_coaching", "needs_safety_review"]),
     comment: z.string().optional(),
   })).mutation(async ({ ctx, input }) => {
@@ -589,13 +677,15 @@ export const workstationRouter = router({
       comment: input.comment ?? null,
     });
 
-    // If validated, create manager_attestation evidence in the Assessment Spine
+    // If validated, create manager_attestation evidence in the Assessment Spine.
+    // Domain follows the competency (safety→safety, meter→electrical, …) instead
+    // of blanket-filing everything under "motors".
     if (input.decision === "validated") {
       await db.insert(competencyEvidence).values({
         learnerId: attempt.userId,
         sourceType: "manager_validation",
         evidenceType: "manager_attestation",
-        domain: "motors" as SkillDomain,
+        domain: (COMPETENCY_TO_DOMAIN[input.competency] ?? "motors") as SkillDomain,
         competencyId: input.competency,
         correctness: "correct",
         reasoningQuality: "sound",

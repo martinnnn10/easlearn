@@ -23,7 +23,7 @@ export default function MyAssignments() {
       </h3>
       <div className="space-y-2">
         {wsRows.map((w: any) => (
-          <Link key={`ws-${w.id}`} href="/labs/motor-control-workstation">
+          <Link key={`ws-${w.id}`} href={`/labs/motor-control-workstation?assignment=${w.id}${w.scenarioId ? `&scenario=${encodeURIComponent(w.scenarioId)}` : ""}`}>
             <div className="flex items-center gap-3 rounded-lg border border-gray-800 hover:border-emerald-500/40 bg-[#0a0f0a] p-3 cursor-pointer transition-colors">
               <Wrench className="w-4 h-4 text-emerald-400 shrink-0" />
               <div className="flex-1 min-w-0">

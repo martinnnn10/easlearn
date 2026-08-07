@@ -100,21 +100,21 @@ The following items were intentionally deferred to keep the production release f
 To enable workstation access for a specific user, run:
 
 ```sql
-INSERT INTO workstation_feature_flags (feature_key, entity_type, entity_id, enabled)
+INSERT INTO workstation_feature_flags (feature, entityType, entityId, enabled)
 VALUES ('motor_control_workstation', 'user', '<user_id>', 1);
 ```
 
 To enable for an entire team:
 
 ```sql
-INSERT INTO workstation_feature_flags (feature_key, entity_type, entity_id, enabled)
+INSERT INTO workstation_feature_flags (feature, entityType, entityId, enabled)
 VALUES ('motor_control_workstation', 'team', '<team_id>', 1);
 ```
 
 To enable for all users (public release):
 
 ```sql
-INSERT INTO workstation_feature_flags (feature_key, entity_type, entity_id, enabled)
+INSERT INTO workstation_feature_flags (feature, entityType, entityId, enabled)
 VALUES ('motor_control_workstation', 'role', 'user', 1);
 ```
 
@@ -129,3 +129,14 @@ VALUES ('motor_control_workstation', 'role', 'user', 1);
 3. **Add workstation to AssignTraining** so managers can assign specific scenarios from the team management UI.
 
 4. **Run a pilot test** with one admin user completing both scenarios end-to-end, then review the reasoning replay in the manager detail page.
+
+---
+
+## Addendum (2026-08-08) — Persistence wiring COMPLETE
+
+The "What Was NOT Built" gap above has been closed on branch `claude/workstation-persistence`:
+gameplay event recording, resume, autosave, fail-closed server-derived completion, assignment
+param plumbing, replay detail rendering, and DB idempotency (migration `drizzle/0039`).
+See `docs/WORKSTATION_REPO_AUDIT.md` and `docs/WORKSTATION_PERSISTENCE_INTEGRATION.md`.
+NOTE: the SQL examples above were corrected — the original used wrong column names
+(feature_key/entity_type/entity_id) that do not exist in the schema.

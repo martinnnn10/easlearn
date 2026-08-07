@@ -51,11 +51,55 @@ function WorkstationAttemptsSection({ userId }: { userId: number }) {
   );
 }
 
+/** Who produced an event — managers must see whose words/values they are reading. */
+function eventProvenance(eventType: string): { label: string; cls: string } {
+  if (["hypothesis_created", "hypothesis_status_changed", "measurement_interpreted", "diagnosis_submitted", "closeout_submitted", "measurement_predicted"].includes(eventType)) {
+    return { label: "learner", cls: "bg-sky-900/40 text-sky-300" };
+  }
+  if (eventType === "measurement_performed") return { label: "sim reading", cls: "bg-amber-900/40 text-amber-300" };
+  if (eventType.startsWith("unsafe_") || eventType === "workstation_completed" || eventType === "scenario_observed" || eventType === "repair_verification_performed") {
+    return { label: "system", cls: "bg-purple-900/40 text-purple-300" };
+  }
+  return { label: "action", cls: "bg-zinc-800 text-zinc-400" };
+}
+
+/** Compact human-readable summary of the event's detail payload (the learner's actual reasoning). */
+function eventDetailSummary(e: { eventType: string; detail: any }): string | null {
+  const d = e.detail ?? {};
+  switch (e.eventType) {
+    case "measurement_performed": return `${d.mode ?? ""} @ ${d.component ?? d.probe ?? ""} ${d.terminals ?? ""} → ${d.reading ?? "?"}${d.expected ? ` (expected ${d.expected})` : ""}`;
+    case "measurement_interpreted": return `"${d.interpretation ?? ""}"`;
+    case "hypothesis_created": return `"${d.text ?? ""}"`;
+    case "hypothesis_status_changed": return `"${d.text ?? d.hypothesisId ?? ""}": ${d.from ?? "?"} → ${d.to ?? "?"}`;
+    case "diagnosis_submitted": return `"${d.hypothesisText ?? d.diagnosis ?? ""}"`;
+    case "closeout_submitted": return `root cause: "${d.rootCause ?? ""}" · ${d.testsPerformed ?? 0} test(s)`;
+    case "unsafe_action_attempted": return `${d.reason ?? ""}`;
+    case "unsafe_action_blocked": return `${d.remediation ?? d.reasonBlocked ?? ""}`;
+    case "corrective_action_selected": return `${d.actionLabel ?? ""}`;
+    case "repair_verification_performed": return d.faultCleared ? `verified — ${d.result ?? "fault cleared"}` : "not verified";
+    case "test_points_selected": return `${d.component ?? ""} ${d.terminals ?? ""}`;
+    case "meter_function_selected": return `${d.mode ?? ""}`;
+    case "workstation_completed": return d.diagnosisCorrect != null ? `diagnosis ${d.diagnosisCorrect ? "correct" : "incorrect"} (server-derived)` : null;
+    default: return null;
+  }
+}
+
+const VALIDATION_COMPETENCIES = [
+  "motor_control_troubleshooting", "electrical_diagnostic_method", "meter_usage",
+  "plc_output_verification", "safety_judgment", "root_cause_explanation",
+  "repair_verification", "work_order_documentation",
+] as const;
+type ValidationCompetency = (typeof VALIDATION_COMPETENCIES)[number];
+
 function AttemptDetailPanel({ attemptId, attempt }: { attemptId: number; attempt: any }) {
   const eventsQuery = trpc.workstation.getEvents.useQuery({ attemptId });
   const validationsQuery = trpc.workstation.getValidations.useQuery({ attemptId });
-  const validateMut = trpc.workstation.validate.useMutation({ onSuccess: () => validationsQuery.refetch() });
-  const [valForm, setValForm] = useState({ competency: "motor_control_troubleshooting", decision: "validated" as string, comment: "" });
+  const [valError, setValError] = useState<string | null>(null);
+  const validateMut = trpc.workstation.validate.useMutation({
+    onSuccess: () => { setValError(null); validationsQuery.refetch(); setValForm((f) => ({ ...f, comment: "" })); },
+    onError: (err) => setValError(err.message || "Validation failed"),
+  });
+  const [valForm, setValForm] = useState<{ competency: ValidationCompetency; decision: string; comment: string }>({ competency: "motor_control_troubleshooting", decision: "validated", comment: "" });
   return (
     <div className="mt-1 p-3 rounded-lg bg-zinc-800/30 border border-zinc-700/30 space-y-4">
       <div className="grid grid-cols-2 gap-2 text-xs">
@@ -70,19 +114,25 @@ function AttemptDetailPanel({ attemptId, attempt }: { attemptId: number; attempt
         {eventsQuery.isLoading && <p className="text-xs text-zinc-500">Loading events...</p>}
         {eventsQuery.data && eventsQuery.data.length === 0 && <p className="text-xs text-zinc-600 italic">No diagnostic events recorded.</p>}
         {eventsQuery.data && eventsQuery.data.length > 0 && (
-          <div className="relative pl-4 border-l-2 border-zinc-700/50 space-y-1.5 max-h-60 overflow-y-auto">
-            {eventsQuery.data.map((e: any, idx: number) => {
-              const elapsed = idx === 0 ? 0 : Math.round((new Date(e.occurredAt).getTime() - new Date(eventsQuery.data![0].occurredAt).getTime()) / 1000);
+          <div className="relative pl-4 border-l-2 border-zinc-700/50 space-y-1.5 max-h-72 overflow-y-auto">
+            {eventsQuery.data.map((e: any) => {
+              // Baseline is the attempt start (server timestamp), not the first event
+              const base = new Date(attempt.startedAt).getTime();
+              const elapsed = Math.max(0, Math.round((new Date(e.occurredAt).getTime() - base) / 1000));
               const mins = Math.floor(elapsed / 60); const secs = elapsed % 60;
               const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
               const isSafety = e.eventType.includes("unsafe");
+              const prov = eventProvenance(e.eventType);
+              const summary = eventDetailSummary(e);
               return (
                 <div key={e.id} className="relative">
                   <div className={`absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2 ${isSafety ? "border-red-500 bg-red-900" : "border-zinc-600 bg-zinc-900"}`} />
                   <div className={`px-2 py-1 rounded text-[10px] ${isSafety ? "border border-red-700/30 bg-red-900/10" : "border border-zinc-700/20 bg-zinc-800/20"}`}>
                     <span className="text-[9px] text-zinc-500 font-mono mr-2">+{timeStr}</span>
                     <span className={`font-medium ${isSafety ? "text-red-400" : "text-zinc-300"}`}>{e.eventType.replace(/_/g, " ")}</span>
+                    <span className={`ml-2 text-[8px] px-1 py-0.5 rounded ${prov.cls}`}>{prov.label}</span>
                     {e.componentRef && <span className="ml-2 text-zinc-500">@ {e.componentRef}</span>}
+                    {summary && <div className="mt-0.5 text-[9px] text-zinc-400 leading-relaxed">{summary}</div>}
                   </div>
                 </div>
               );
@@ -109,7 +159,7 @@ function AttemptDetailPanel({ attemptId, attempt }: { attemptId: number; attempt
         <div className="border-t border-zinc-700/30 pt-3">
           <h4 className="text-xs font-semibold text-zinc-400 uppercase mb-2">Record Validation</h4>
           <div className="flex flex-wrap gap-2 items-end">
-            <select value={valForm.competency} onChange={(e) => setValForm(f => ({ ...f, competency: e.target.value }))} className="text-[10px] px-2 py-1.5 rounded border border-zinc-700 bg-zinc-800 text-zinc-300">
+            <select value={valForm.competency} onChange={(e) => setValForm(f => ({ ...f, competency: e.target.value as ValidationCompetency }))} className="text-[10px] px-2 py-1.5 rounded border border-zinc-700 bg-zinc-800 text-zinc-300">
               <option value="motor_control_troubleshooting">Motor Control Troubleshooting</option>
               <option value="electrical_diagnostic_method">Electrical Diagnostic Method</option>
               <option value="meter_usage">Meter Usage</option>
@@ -126,10 +176,11 @@ function AttemptDetailPanel({ attemptId, attempt }: { attemptId: number; attempt
               <option value="needs_safety_review">Needs Safety Review</option>
             </select>
             <input type="text" placeholder="Optional comment" value={valForm.comment} onChange={(e) => setValForm(f => ({ ...f, comment: e.target.value }))} className="text-[10px] px-2 py-1.5 rounded border border-zinc-700 bg-zinc-800 text-zinc-300 flex-1 min-w-[120px]" />
-            <button onClick={() => { validateMut.mutate({ attemptId, competency: valForm.competency, decision: valForm.decision as any, comment: valForm.comment || undefined }); setValForm(f => ({ ...f, comment: "" })); }} disabled={validateMut.isPending} className="text-[10px] px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-medium disabled:opacity-50">
+            <button onClick={() => { validateMut.mutate({ attemptId, competency: valForm.competency, decision: valForm.decision as any, comment: valForm.comment || undefined }); }} disabled={validateMut.isPending} className="text-[10px] px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-medium disabled:opacity-50">
               {validateMut.isPending ? "Saving..." : "Submit"}
             </button>
           </div>
+          {valError && <p className="mt-2 text-[10px] text-red-400">{valError}</p>}
         </div>
       )}
     </div>
