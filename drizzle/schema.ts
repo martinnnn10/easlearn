@@ -309,9 +309,13 @@ export const teamMembers = mysqlTable("team_members", {
   userId: int("userId"),
   /** owner = billing admin, admin = can manage members, manager = can view reports, member = learner */
   role: mysqlEnum("role", ["owner", "admin", "manager", "member"]).default("member").notNull(),
+  /** Role assigned at invite time (honored on acceptance) */
+  invitedRole: mysqlEnum("invitedRole", ["admin", "manager", "member"]).default("member"),
   invitedEmail: varchar("invitedEmail", { length: 320 }),
   inviteToken: varchar("inviteToken", { length: 64 }),
-  status: mysqlEnum("status", ["pending", "active", "removed"]).default("pending").notNull(),
+  status: mysqlEnum("status", ["pending", "active", "removed", "canceled"]).default("pending").notNull(),
+  /** When the invite expires (null = never) */
+  expiresAt: timestamp("expiresAt"),
   joinedAt: timestamp("joinedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
@@ -972,3 +976,147 @@ export const spacedReviewItems = mysqlTable("spaced_review_items", {
 });
 export type SpacedReviewItem = typeof spacedReviewItems.$inferSelect;
 export type InsertSpacedReviewItem = typeof spacedReviewItems.$inferInsert;
+
+
+// ── Audit Events ────────────────────────────────────────────────────────────────
+export const auditEvents = mysqlTable("audit_events", {
+  id: int("id").autoincrement().primaryKey(),
+  actorId: int("actorId").notNull(),
+  targetUserId: int("targetUserId"),
+  targetEmail: varchar("targetEmail", { length: 320 }),
+  teamId: int("teamId").notNull(),
+  /** Action performed (e.g., 'invite_created', 'role_changed', 'invite_canceled') */
+  action: varchar("action", { length: 50 }).notNull(),
+  previousValue: varchar("previousValue", { length: 100 }),
+  newValue: varchar("newValue", { length: 100 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type AuditEvent = typeof auditEvents.$inferSelect;
+export type InsertAuditEvent = typeof auditEvents.$inferInsert;
+
+// ── Onboarding Analytics ────────────────────────────────────────────────────────
+export const onboardingEvents = mysqlTable("onboarding_events", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  /** Event type: onboarding_started, step_completed, path_assigned, first_lesson_launched, etc. */
+  event: varchar("event", { length: 60 }).notNull(),
+  /** Additional metadata (persona, experience, goal, path, step, etc.) */
+  meta: json("meta"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type OnboardingEvent = typeof onboardingEvents.$inferSelect;
+export type InsertOnboardingEvent = typeof onboardingEvents.$inferInsert;
+
+// ── Motor Control Diagnostic Workstation — Production Tables ─────────────────
+
+/**
+ * Feature flags for the workstation pilot release.
+ * entityType + entityId identify who has access:
+ *   role:admin → all admins
+ *   user:123 → specific user
+ *   team:456 → all members of team 456
+ */
+export const workstationFeatureFlags = mysqlTable("workstation_feature_flags", {
+  id: int("id").autoincrement().primaryKey(),
+  entityType: mysqlEnum("entityType", ["role", "user", "team"]).notNull(),
+  entityId: varchar("entityId", { length: 60 }).notNull(),
+  feature: varchar("feature", { length: 60 }).notNull().default("motor_control_workstation"),
+  enabled: boolean("enabled").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type WorkstationFeatureFlag = typeof workstationFeatureFlags.$inferSelect;
+
+/**
+ * A single workstation attempt — one learner working one scenario.
+ * Status transitions: not_started → in_progress → completed | abandoned
+ */
+export const workstationAttempts = mysqlTable("workstation_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  teamId: int("teamId"),
+  scenarioId: varchar("scenarioId", { length: 60 }).notNull(),
+  faultId: varchar("faultId", { length: 60 }).notNull(),
+  scenarioVersion: varchar("scenarioVersion", { length: 20 }).notNull().default("1.0"),
+  workstationVersion: varchar("workstationVersion", { length: 20 }).notNull().default("1.0"),
+  status: mysqlEnum("status", ["not_started", "in_progress", "completed", "abandoned"]).notNull().default("not_started"),
+  /** JSON snapshot of machine state for resume (measurements, hypotheses, safety events, etc.) */
+  machineState: json("machineState"),
+  finalDiagnosis: varchar("finalDiagnosis", { length: 500 }),
+  correctiveAction: varchar("correctiveAction", { length: 500 }),
+  repairVerificationResult: varchar("repairVerificationResult", { length: 255 }),
+  /** Was the diagnosis correct? */
+  diagnosisCorrect: boolean("diagnosisCorrect"),
+  /** Was the corrective action correct? */
+  correctiveActionCorrect: boolean("correctiveActionCorrect"),
+  /** Did any safety violation occur during this attempt? */
+  safetyViolation: boolean("safetyViolation").default(false).notNull(),
+  /** Assignment ID if this attempt was started from an assignment */
+  assignmentId: int("assignmentId"),
+  startedAt: timestamp("startedAt").defaultNow().notNull(),
+  lastActivityAt: timestamp("lastActivityAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+export type WorkstationAttempt = typeof workstationAttempts.$inferSelect;
+export type InsertWorkstationAttempt = typeof workstationAttempts.$inferInsert;
+
+/**
+ * Append-only diagnostic event timeline for a workstation attempt.
+ * Each event is immutable — when the learner changes their mind, a new event is appended.
+ * The reasoning replay reads from this timeline.
+ */
+export const workstationDiagnosticEvents = mysqlTable("workstation_diagnostic_events", {
+  id: int("id").autoincrement().primaryKey(),
+  attemptId: int("attemptId").notNull(),
+  userId: int("userId").notNull(),
+  eventType: varchar("eventType", { length: 60 }).notNull(),
+  /** Structured detail: component, testPoints, reading, hypothesis, etc. */
+  detail: json("detail"),
+  scenarioVersion: varchar("scenarioVersion", { length: 20 }),
+  /** Component or test-point reference where relevant */
+  componentRef: varchar("componentRef", { length: 120 }),
+  /** Client-generated idempotency key to prevent duplicate events */
+  idempotencyKey: varchar("idempotencyKey", { length: 64 }),
+  occurredAt: timestamp("occurredAt").defaultNow().notNull(),
+});
+export type WorkstationDiagnosticEvent = typeof workstationDiagnosticEvents.$inferSelect;
+export type InsertWorkstationDiagnosticEvent = typeof workstationDiagnosticEvents.$inferInsert;
+
+/**
+ * Workstation-specific assignments (separate from module-based assigned_paths).
+ * A manager assigns a workstation scenario to team members.
+ */
+export const workstationAssignments = mysqlTable("workstation_assignments", {
+  id: int("id").autoincrement().primaryKey(),
+  teamId: int("teamId").notNull(),
+  userId: int("userId").notNull(),
+  /** Which workstation feature (e.g. "motor_control_workstation") */
+  workstationId: varchar("workstationId", { length: 60 }).notNull().default("motor_control_workstation"),
+  /** Optional: specific scenario to assign, or null for any scenario */
+  scenarioId: varchar("scenarioId", { length: 60 }),
+  assignedBy: int("assignedBy").notNull(),
+  dueAt: timestamp("dueAt"),
+  status: mysqlEnum("status", ["not_started", "in_progress", "completed", "overdue"]).notNull().default("not_started"),
+  /** The attempt that completed this assignment */
+  completedAttemptId: int("completedAttemptId"),
+  completedAt: timestamp("completedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type WorkstationAssignment = typeof workstationAssignments.$inferSelect;
+export type InsertWorkstationAssignment = typeof workstationAssignments.$inferInsert;
+
+/**
+ * Manager validation decisions for workstation competency evidence.
+ * Extends the existing competencyValidations pattern with attempt-level granularity.
+ */
+export const workstationValidations = mysqlTable("workstation_validations", {
+  id: int("id").autoincrement().primaryKey(),
+  managerId: int("managerId").notNull(),
+  userId: int("userId").notNull(),
+  attemptId: int("attemptId").notNull(),
+  competency: varchar("competency", { length: 80 }).notNull(),
+  decision: mysqlEnum("decision", ["validated", "needs_additional_demonstration", "needs_coaching", "needs_safety_review"]).notNull(),
+  comment: varchar("comment", { length: 500 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type WorkstationValidation = typeof workstationValidations.$inferSelect;
+export type InsertWorkstationValidation = typeof workstationValidations.$inferInsert;

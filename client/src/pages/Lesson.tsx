@@ -13,6 +13,8 @@ import { trpc } from "@/lib/trpc";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import SEO from "@/components/SEO";
 import { Streamdown } from "streamdown";
+import BeginnerMeterExercise from "@/components/interactive/BeginnerMeterExercise";
+import { ALL_METER_EXERCISES } from "@/lib/meterExercises";
 import { useLastLesson } from "@/hooks/useLastLesson";
 import VFDArchitectureDiagram from "@/components/VFDArchitectureDiagram";
 import PlantFloorCallout from "@/components/PlantFloorCallout";
@@ -829,6 +831,17 @@ export default function Lesson() {
               </Link>
             </div>
           )}
+
+          {/* Beginner Meter Exercises — embedded for basic-meter-usage module */}
+          {moduleSlug === "basic-meter-usage" && (() => {
+            const exerciseIndex = ["know-the-meter", "select-correct-function", "measuring-voltage", "resistance-and-continuity", "interpret-and-document"].indexOf(lessonSlug || "");
+            const exercise = exerciseIndex >= 0 ? ALL_METER_EXERCISES[exerciseIndex] : null;
+            return exercise ? (
+              <div className="mt-8">
+                <BeginnerMeterExercise exercise={exercise} />
+              </div>
+            ) : null;
+          })()}
 
           <div id="ilu-assess" className="scroll-mt-28" />
 

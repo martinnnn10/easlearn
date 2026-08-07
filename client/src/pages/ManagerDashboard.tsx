@@ -92,12 +92,10 @@ export default function ManagerDashboard() {
   }, [members]);
 
   if (!loading && !isAuthenticated) {
+    window.location.href = "/manager/demo";
     return (
-      <div className="min-h-screen bg-[#0a0f0a] text-white">
-        <SEO title="Manager Dashboard — Workforce Competency at a Glance" description="See who's ready, who needs review, who has a safety risk, and where your team's skill gaps are — from one evidence model." path="/manager" />
-        <PreviewFrame title="Manager Dashboard" subtitle="Workforce competency, demonstrated — decisions, not just reports. The team shown below is sample data.">
-          <ManagerDashboardPreview />
-        </PreviewFrame>
+      <div className="min-h-screen bg-[#0a0f0a] flex items-center justify-center">
+        <p className="text-gray-500">Redirecting to demo...</p>
       </div>
     );
   }
@@ -244,7 +242,7 @@ export default function ManagerDashboard() {
                 <tbody>
                   {members.map((m) => (
                     <tr key={m.userId} className="border-t border-gray-800/60">
-                      <td className="py-2 pr-3 text-gray-200 whitespace-nowrap">{m.name} <span className="text-[10px] text-gray-500">· {m.methodologyTier}</span></td>
+                      <td className="py-2 pr-3 whitespace-nowrap"><button onClick={() => navigate(`/manager/technician/${m.userId}`)} className="text-gray-200 hover:text-emerald-300 hover:underline transition-colors">{m.name}</button> <span className="text-[10px] text-gray-500">· {m.methodologyTier}</span></td>
                       {DOMAINS.map((d) => {
                         const r = m.readiness.find((x) => x.domain === d);
                         const v = r && r.attempts > 0 ? r.confidence : null;

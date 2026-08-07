@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '### F64 Drive Overtemp',\n    '### F64 Drive Overload (F008 is Heatsink OvrTemp)'\n  ),\n  'The F64 fault indicates the drive''s internal heatsink temperature has exceeded its safe operating limit (typically around 85°C to 100°C depending on the frame size).',\n  'The F064 fault indicates the drive has exceeded its current overload capacity (150% for 60 seconds or 200% for 3 seconds). *Note: For heatsink over-temperature, look for fault F008 (Heatsink OvrTemp).* The diagnostic steps below apply to both thermal and overload conditions:'\n) WHERE id = 4;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '### F64 Drive Overtemp',\n    '### F64 Drive Overload (F008 is Heatsink OvrTemp)'\n  ),\n  'The F64 fault indicates the drive''s internal heatsink temperature has exceeded its safe operating limit (typically around 85°C to 100°C depending on the frame size).',\n  'The F064 fault indicates the drive has exceeded its current overload capacity (150% for 60 seconds or 200% for 3 seconds). *Note: For heatsink over-temperature, look for fault F008 (Heatsink OvrTemp).* The diagnostic steps below apply to both thermal and overload conditions:'\n) WHERE id = 4;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 295
-}

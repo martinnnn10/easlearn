@@ -330,3 +330,74 @@ export async function sendWelcomeEmail(
     return { success: false, error: "Failed to send email" };
   }
 }
+
+
+// ─── Team Invite Email ────────────────────────────────────────────────────────
+
+function teamInviteTemplate(teamName: string, role: string, acceptUrl: string, expiresLabel: string): string {
+  return emailLayout(`
+    <h1 style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0 0 8px 0; text-align: center;">
+      You're Invited to Join a Team
+    </h1>
+    <p style="color: #9ca3af; font-size: 14px; line-height: 1.6; margin: 0 0 24px 0; text-align: center;">
+      You've been invited to join <strong style="color: #ffffff;">${teamName}</strong> as a <strong style="color: #34d399;">${role}</strong> on EAS Platform.
+    </p>
+    
+    ${buttonHtml("Accept Invitation", acceptUrl)}
+    
+    <p style="color: #6b7280; font-size: 13px; line-height: 1.5; margin: 0; text-align: center;">
+      This invitation ${expiresLabel}. If you don't have an account yet, you'll be prompted to create one.
+    </p>
+    
+    <hr style="border: none; border-top: 1px solid rgba(55, 65, 55, 0.3); margin: 24px 0;">
+    
+    <p style="color: #4b5563; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">
+      If the button doesn't work, copy and paste this link into your browser:<br>
+      <a href="${acceptUrl}" style="color: #34d399; word-break: break-all; font-size: 11px;">${acceptUrl}</a>
+    </p>
+  `, `You've been invited to join ${teamName} on EAS Platform`);
+}
+
+export async function sendTeamInviteEmail(
+  to: string,
+  teamName: string,
+  role: string,
+  token: string,
+  expiresAt: Date | null
+): Promise<SendEmailResult> {
+  const baseUrl = getBaseUrl();
+  const acceptUrl = `${baseUrl}/join?token=${token}`;
+  const expiresLabel = expiresAt
+    ? `expires on ${expiresAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
+    : "does not expire";
+  const html = teamInviteTemplate(teamName, role, acceptUrl, expiresLabel);
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: FROM_NOREPLY,
+      to: [to],
+      subject: `You're invited to join ${teamName} — EAS Platform`,
+      html,
+    });
+
+    if (error) {
+      console.error("[Email] Failed to send team invite:", error);
+      // Fallback: notify owner
+      await notifyOwner({
+        title: `Team Invite Email Failed: ${to}`,
+        content: `Failed to send team invite email to ${to} for team "${teamName}".\n\nAccept URL: ${acceptUrl}\n\nPlease forward this link manually.`,
+      }).catch(() => {});
+      return { success: false, error: error.message };
+    }
+
+    console.log(`[Email] Team invite sent to ${to}, messageId: ${data?.id}`);
+    return { success: true, messageId: data?.id };
+  } catch (err) {
+    console.error("[Email] Exception sending team invite:", err);
+    await notifyOwner({
+      title: `Team Invite Email Failed: ${to}`,
+      content: `Exception sending team invite to ${to} for team "${teamName}".\n\nAccept URL: ${acceptUrl}\n\nPlease forward this link manually.`,
+    }).catch(() => {});
+    return { success: false, error: "Failed to send email" };
+  }
+}

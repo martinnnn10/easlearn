@@ -1,9 +1,0 @@
-{
-  "query": "SELECT cl.id, cl.moduleId, cl.title, cl.orderIndex, cl.linkedScenarioId, cm.title as moduleName FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cl.linkedScenarioId IS NOT NULL ORDER BY cl.moduleId, cl.orderIndex;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cl.id, cl.moduleId, cl.title, cl.orderIndex, cl.linkedScenarioId, cm.title as moduleName FROM course_lessons cl JOIN course_modules cm ON cl.moduleId = cm.id WHERE cl.linkedScenarioId IS NOT NULL ORDER BY cl.moduleId, cl.orderIndex;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 268
-}

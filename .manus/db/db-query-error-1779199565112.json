@@ -1,8 +1,0 @@
-{
-  "query": "SELECT cm.id as module_id, cm.title as module_title, cm.slug as module_slug, COUNT(cl.id) as lesson_count FROM course_modules cm LEFT JOIN course_lessons cl ON cl.module_id = cm.id WHERE cm.is_published = 1 GROUP BY cm.id, cm.title, cm.slug ORDER BY cm.id;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT cm.id as module_id, cm.title as module_title, cm.slug as module_slug, COUNT(cl.id) as lesson_count FROM course_modules cm LEFT JOIN course_lessons cl ON cl.module_id = cm.id WHERE cm.is_published = 1 GROUP BY cm.id, cm.title, cm.slug ORDER BY cm.id;",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1054 (42S22) at line 1: Unknown column 'cl.module_id' in 'on clause'"
-  ]
-}

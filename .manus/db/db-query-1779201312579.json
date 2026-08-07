@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  'S = 1600 × (0.225) + 48 = 408mm minimum distance from hazard',\n  'S = 1600 × (0.225) + 48 = 408mm — **but since 408mm < 500mm, ISO 13855 requires recalculation with K = 2000 mm/s:**\\n\\nS = 2000 × (0.225) + 48 = **498mm minimum distance from hazard**'\n) WHERE id = 90014;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  'S = 1600 × (0.225) + 48 = 408mm minimum distance from hazard',\n  'S = 1600 × (0.225) + 48 = 408mm — **but since 408mm < 500mm, ISO 13855 requires recalculation with K = 2000 mm/s:**\\n\\nS = 2000 × (0.225) + 48 = **498mm minimum distance from hazard**'\n) WHERE id = 90014;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 267
-}

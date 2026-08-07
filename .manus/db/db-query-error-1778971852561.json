@@ -1,8 +1,0 @@
-{
-  "query": "SELECT slug, LEFT(content, 1000) as content_preview FROM lessons WHERE slug LIKE '%ohm%'",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT slug, LEFT(content, 1000) as content_preview FROM lessons WHERE slug LIKE '%ohm%'",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1146 (42S02) at line 1: Table 'dbvv3kqq9k9twbpcpty97y.lessons' doesn't exist"
-  ]
-}

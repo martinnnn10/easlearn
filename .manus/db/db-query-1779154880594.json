@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content, '| Schottky | →(S) | Low-voltage, high-speed | V_f = 0.2-0.4V |', '| Schottky | <svg width=\"48\" height=\"24\" viewBox=\"0 0 48 24\"><line x1=\"0\" y1=\"12\" x2=\"16\" y2=\"12\" stroke=\"currentColor\" stroke-width=\"2\"/><polygon points=\"16,4 16,20 32,12\" fill=\"currentColor\"/><path d=\"M32,4 L32,20 M32,4 L29,4 L29,7 M32,20 L35,20 L35,17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><line x1=\"32\" y1=\"12\" x2=\"48\" y2=\"12\" stroke=\"currentColor\" stroke-width=\"2\"/></svg> | Low-voltage, high-speed | V_f = 0.2-0.4V |') WHERE id = 60013",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content, '| Schottky | →(S) | Low-voltage, high-speed | V_f = 0.2-0.4V |', '| Schottky | <svg width=\"48\" height=\"24\" viewBox=\"0 0 48 24\"><line x1=\"0\" y1=\"12\" x2=\"16\" y2=\"12\" stroke=\"currentColor\" stroke-width=\"2\"/><polygon points=\"16,4 16,20 32,12\" fill=\"currentColor\"/><path d=\"M32,4 L32,20 M32,4 L29,4 L29,7 M32,20 L35,20 L35,17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><line x1=\"32\" y1=\"12\" x2=\"48\" y2=\"12\" stroke=\"currentColor\" stroke-width=\"2\"/></svg> | Low-voltage, high-speed | V_f = 0.2-0.4V |') WHERE id = 60013",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 264
-}

@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '| 370 | 100°F | Condenser |',\n    '| 340 | 100°F | Condenser |'\n  ),\n  '| 418 | 110°F | Condenser (hot day) |',\n  '| 381 | 110°F | Condenser (hot day) |'\n) WHERE id = 60019;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '| 370 | 100°F | Condenser |',\n    '| 340 | 100°F | Condenser |'\n  ),\n  '| 418 | 110°F | Condenser (hot day) |',\n  '| 381 | 110°F | Condenser (hot day) |'\n) WHERE id = 60019;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 265
-}

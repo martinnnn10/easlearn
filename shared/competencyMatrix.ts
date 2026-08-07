@@ -10,7 +10,8 @@ export type SkillDomain =
   | "electrical"
   | "networking"
   | "sensors"
-  | "integration";
+  | "integration"
+  | "fluid_power";
 
 export const SKILL_DOMAIN_LABELS: Record<SkillDomain, string> = {
   vfd: "VFD Diagnostics",
@@ -21,6 +22,7 @@ export const SKILL_DOMAIN_LABELS: Record<SkillDomain, string> = {
   networking: "Industrial Networking",
   sensors: "Sensors & Instrumentation",
   integration: "System Integration",
+  fluid_power: "Hydraulic Troubleshooting",
 };
 
 /** Module slug → primary skill domain */
@@ -47,7 +49,7 @@ export const MODULE_SKILL_DOMAIN: Record<string, SkillDomain> = {
   "real-troubleshooting-workflow": "integration",
   "real-world-fault-scenarios": "integration",
   "calibration-troubleshooting": "sensors",
-  "fluid-power": "motors",
+  "fluid-power": "fluid_power",
   "process-control": "sensors",
   "preventative-maintenance": "integration",
 };

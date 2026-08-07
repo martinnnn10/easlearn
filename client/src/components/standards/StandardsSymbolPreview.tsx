@@ -27,7 +27,6 @@ import {
   DiagramEStop,
   DiagramPLCInput,
   DiagramPLCOutput,
-  DiagramTimerContact,
   DiagramPhotoeye,
   DiagramTerminal,
   DiagramTransformer,
@@ -37,7 +36,7 @@ const COLOR = "oklch(0.65 0.10 155)";
 
 export default function StandardsSymbolPreview({ symbolId }: { symbolId: SymbolPrimitiveId }) {
   return (
-    <svg viewBox="0 -16 80 96" className="w-full h-full electrical-diagram" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 80 80" className="w-full h-full electrical-diagram" preserveAspectRatio="xMidYMid meet">
       <SymbolGraphic id={symbolId} />
     </svg>
   );
@@ -66,7 +65,7 @@ function SymbolGraphic({ id }: { id: SymbolPrimitiveId }) {
         </g>
       );
     case "contactor_aux":
-      return <DiagramContactorAux cx={cx} cy={cy + 4} color={COLOR} scale={1.6} />;
+      return <DiagramContactorAux cx={cx} cy={cy + 8} color={COLOR} scale={1.5} />;
     case "selector_switch":
       return <DiagramSelectorSwitchHW cx={cx} cy={cy + 6} color={COLOR} scale={1.5} />;
     case "contactor_power":
@@ -94,7 +93,7 @@ function SymbolGraphic({ id }: { id: SymbolPrimitiveId }) {
     case "guard_switch":
       return <DiagramGuardSwitch cx={cx} cy={cy + 4} color={COLOR} scale={1.5} />;
     case "safety_relay":
-      return <DiagramSafetyRelay cx={cx} cy={cy + 4} color={COLOR} scale={1.8} />;
+      return <DiagramSafetyRelay cx={cx} cy={cy + 8} color={COLOR} scale={1.6} />;
     case "estop":
       return <DiagramEStop cx={cx} cy={cy + 4} color={COLOR} scale={1.4} energized={false} />;
 
@@ -108,7 +107,16 @@ function SymbolGraphic({ id }: { id: SymbolPrimitiveId }) {
     case "plc_output":
       return <DiagramPLCOutput cx={cx} cy={cy} color={COLOR} scale={1.4} />;
     case "timer_contact":
-      return <DiagramTimerContact cx={cx} cy={cy + 4} color={COLOR} scale={1.5} />;
+      // BLOCKED: custom timer glyph removed per ELECTRICAL_SYMBOL_SOURCE_OF_TRUTH.md
+      // Electromechanical timer-relay contacts remain PENDING until ICS 19 licensed geometry
+      return (
+        <g>
+          <text x={cx} y={cy - 6} textAnchor="middle" fill={COLOR} stroke="none"
+            style={{ fontFamily: "var(--diag-font-mono)", fontSize: "9px", fontWeight: 600 }}>TR</text>
+          <text x={cx} y={cy + 8} textAnchor="middle" fill="oklch(0.45 0.006 250)" stroke="none"
+            style={{ fontFamily: "var(--diag-font-mono)", fontSize: "7px" }}>PENDING</text>
+        </g>
+      );
 
     // === VFD / Instrumentation ===
     // The library entry is the drive's FAULT CONTACT (its fault-relay output), not the

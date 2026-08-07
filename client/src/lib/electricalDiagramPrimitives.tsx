@@ -546,7 +546,7 @@ export function DiagramContactorAux({ cx, cy, color, scale = 1 }: GProps): React
   return (
     <g>
       <DiagramNOContact cx={cx} cy={cy} color={color} scale={scale} />
-      <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="M" dy={22} />
+      <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="M" dy={28} />
     </g>
   );
 }
@@ -568,19 +568,21 @@ export function DiagramSafetyRelay({ cx, cy, color, scale = 1 }: GProps): ReactN
   return (
     <g>
       <DiagramCoil cx={cx} cy={cy} color={color} scale={scale} />
-      <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="SR" dy={20} />
+      <ContactTag cx={cx} cy={cy} color={color} scale={scale} tag="SR" dy={26} />
     </g>
   );
 }
 
-/** Timer contact — on-delay normally-open, timed-closed (NOTC): a NO contact with the
- *  NEMA on-delay time-delay symbol — a canopy/dome over the moving contact (drawn
- *  concave-down) plus an arrowhead for the timed (delayed) motion. Tagged TR. */
+/** Timer contact — on-delay normally-open, timed-closed (NOTC): a NO contact with a
+ *  NEMA on-delay timing indicator (vertical stem + rightward arrow indicating delay
+ *  direction). Tagged TR. Per NEMA ICS 1 / JIC EGP-1 time-delay contact notation. */
 export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): ReactNode {
   const w = s(scale, 1.8);
   const half = s(scale, 8);
   const bar = s(scale, 11);
-  const domeY = cy - s(scale, 14);
+  const arrowY = cy + bar + s(scale, 5); // arrow sits below the contact
+  const arrowLen = s(scale, 10);
+  const arrowHead = s(scale, 3.5);
   return (
     <g stroke={color} strokeWidth={w} fill="none">
       {/* NO contact — vertical bars */}
@@ -588,22 +590,25 @@ export function DiagramTimerContact({ cx, cy, color, scale = 1 }: GProps): React
       <line x1={cx + half} y1={cy - bar} x2={cx + half} y2={cy + bar} />
       <line x1={cx - half - s(scale, 10)} y1={cy} x2={cx - half} y2={cy} />
       <line x1={cx + half} y1={cy} x2={cx + half + s(scale, 10)} y2={cy} />
-      {/* on-delay time-delay symbol: stem up to a canopy/dome (concave-down, NOT a cup),
-          with an arrowhead showing the timed motion */}
-      <line x1={cx} y1={cy - bar} x2={cx} y2={domeY} strokeWidth={s(scale, 1.3)} />
-      <path d={`M${cx - s(scale, 9)},${domeY} A${s(scale, 9)},${s(scale, 7)} 0 0 1 ${cx + s(scale, 9)},${domeY}`} strokeWidth={s(scale, 1.5)} />
-      <polyline points={`${cx + s(scale, 5.5)},${domeY - s(scale, 3.5)} ${cx + s(scale, 9)},${domeY} ${cx + s(scale, 4.5)},${domeY + s(scale, 0.5)}`}
-        strokeWidth={s(scale, 1.2)} fill="none" />
-      <text x={cx} y={cy + s(scale, 19)} textAnchor="middle" fill={color} stroke="none"
-        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 8)}px`, fontWeight: 600 }}>TR</text>
+      {/* On-delay timing indicator: vertical stem from contact + horizontal arrow pointing right */}
+      <line x1={cx} y1={cy + bar} x2={cx} y2={arrowY} strokeWidth={s(scale, 1.2)} />
+      <line x1={cx - s(scale, 2)} y1={arrowY} x2={cx + arrowLen} y2={arrowY} strokeWidth={s(scale, 1.5)} />
+      {/* Arrowhead */}
+      <polyline
+        points={`${cx + arrowLen - arrowHead},${arrowY - arrowHead} ${cx + arrowLen},${arrowY} ${cx + arrowLen - arrowHead},${arrowY + arrowHead}`}
+        strokeWidth={s(scale, 1.5)}
+        strokeLinejoin="miter"
+        fill="none"
+      />
+      {/* TR tag — positioned above with adequate clearance */}
+      <text x={cx} y={cy - s(scale, 19)} textAnchor="middle" fill={color} stroke="none"
+        style={{ fontFamily: "var(--diag-font-mono)", fontSize: `${s(scale, 9)}px`, fontWeight: 600 }}>TR</text>
     </g>
   );
 }
 
-// ─── PLC LADDER INSTRUCTIONS (Rockwell geometry — source-confirmed, not ICS-19-gated) ───
-
-/** PLC output coil — two facing arcs "-( )-" (OTE). Optional letter for OTL (L), OTU (U),
- *  or a short label (RES). Rockwell ladder coil form. */
+// ─── PLC LADDER COIL (Rockwell form — parentheses with optional letter) ───
+/** PLC ladder coil instruction. Parentheses form with optional letter (L/U/RES). */
 export function DiagramLadderCoil({ cx, cy, color, scale = 1, letter }: GProps & { letter?: string }): ReactNode {
   const w = s(scale, 2);
   const r = s(scale, 12);
@@ -622,6 +627,7 @@ export function DiagramLadderCoil({ cx, cy, color, scale = 1, letter }: GProps &
   );
 }
 
+// ─── PLC TIMER/COUNTER INSTRUCTION (Rockwell form — mnemonic header + block) ───
 /** PLC timer/counter instruction box (TON/TOF/RTO) — mnemonic header + block. Rockwell form. */
 export function DiagramTimerInstruction({ cx, cy, color, scale = 1, mnemonic = "TON" }: GProps & { mnemonic?: string }): ReactNode {
   const w = s(scale, 1.6);
@@ -642,7 +648,6 @@ export function DiagramTimerInstruction({ cx, cy, color, scale = 1, mnemonic = "
 }
 
 // ─── FUNCTIONAL BLOCKS (vendor geometry — labeled blocks with terminals) ───
-
 /** Generic functional block — a labeled rectangle with named terminal stubs on each side.
  *  Used for safety monitoring modules, PLC I/O hardware, and configurable drive relay outputs. */
 export function DiagramFunctionalBlock({

@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Users, UserPlus, Copy, Trash2, Mail, Shield, Crown, Loader2, CheckCircle2, BarChart3, UserCheck, Target } from "lucide-react";
+import { Users, UserPlus, Copy, Trash2, Mail, Shield, Crown, Loader2, CheckCircle2, BarChart3, UserCheck, Target, RefreshCw, XCircle, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 
@@ -39,9 +40,24 @@ function ManageSeatsButton() {
   );
 }
 
+const ROLE_LABELS: Record<string, string> = {
+  owner: "Owner",
+  admin: "Admin",
+  manager: "Manager",
+  member: "Member",
+};
+
+const ROLE_COLORS: Record<string, string> = {
+  owner: "text-yellow-500",
+  admin: "text-purple-400",
+  manager: "text-blue-400",
+  member: "text-green-400",
+};
+
 export default function Team() {
   const { user, loading: authLoading, isAuthenticated } = useAuth();
   const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState<"admin" | "manager" | "member">("member");
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
   const teamQuery = trpc.team.getMyTeam.useQuery(undefined, {
@@ -53,10 +69,12 @@ export default function Team() {
       const inviteUrl = `${window.location.origin}/team/invite/${data.token}`;
       navigator.clipboard.writeText(inviteUrl);
       setCopiedToken(data.token);
-      toast.success("Invite created! Link copied to clipboard.", {
-        description: `Send this link to ${inviteEmail}`,
-      });
+      const emailMsg = data.emailSent
+        ? `Invite email sent to ${inviteEmail} and link copied to clipboard.`
+        : `Link copied to clipboard. Email delivery may be delayed — share the link manually.`;
+      toast.success(emailMsg);
       setInviteEmail("");
+      setInviteRole("member");
       teamQuery.refetch();
       setTimeout(() => setCopiedToken(null), 3000);
     },
@@ -68,6 +86,39 @@ export default function Team() {
   const removeMember = trpc.team.removeMember.useMutation({
     onSuccess: () => {
       toast.success("Member removed from team");
+      teamQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const changeRole = trpc.team.changeRole.useMutation({
+    onSuccess: (data) => {
+      toast.success(`Role changed from ${data.previousRole} to the new role`);
+      teamQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const resendInvite = trpc.team.resendInvite.useMutation({
+    onSuccess: (data) => {
+      const msg = data.emailSent
+        ? "Invite resent! Email delivered."
+        : "New invite link generated. Email delivery may be delayed.";
+      toast.success(msg);
+      teamQuery.refetch();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const cancelInvite = trpc.team.cancelInvite.useMutation({
+    onSuccess: () => {
+      toast.success("Invite canceled");
       teamQuery.refetch();
     },
     onError: (err) => {
@@ -146,11 +197,12 @@ export default function Team() {
   const activeMembers = team.members.filter((m: any) => m.status === "active");
   const pendingMembers = team.members.filter((m: any) => m.status === "pending");
   const isOwner = team.role === "owner";
+  const isAdmin = team.role === "admin" || isOwner;
 
   const handleInvite = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inviteEmail.trim()) return;
-    createInvite.mutate({ email: inviteEmail.trim() });
+    createInvite.mutate({ email: inviteEmail.trim(), role: inviteRole });
   };
 
   const handleCopyInviteLink = (token: string) => {
@@ -175,8 +227,14 @@ export default function Team() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              {isOwner && (
+              {isAdmin && (
                 <>
+                  <Link href="/manager">
+                    <Button variant="outline" size="sm" className="border-green-700 text-green-400 hover:bg-green-900/30">
+                      <BarChart3 className="w-4 h-4 mr-2" />
+                      Manager Portal
+                    </Button>
+                  </Link>
                   <Link href="/hire-ready">
                     <Button variant="outline" size="sm" className="border-zinc-700 text-zinc-300 hover:border-green-700 hover:text-green-400">
                       <UserCheck className="w-4 h-4 mr-2" />
@@ -199,7 +257,7 @@ export default function Team() {
               )}
               <Badge variant="outline" className="border-green-700 text-green-400 w-fit">
                 <Shield className="w-3 h-3 mr-1" />
-                {isOwner ? "Team Owner" : `Team ${team.role}`}
+                {ROLE_LABELS[team.role] || team.role}
               </Badge>
             </div>
           </div>
@@ -262,8 +320,8 @@ export default function Team() {
             </Card>
           </div>
 
-          {/* Invite Section (Owner only) */}
-          {isOwner && (
+          {/* Invite Section (Owner or Admin) */}
+          {isAdmin && (
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
@@ -271,11 +329,11 @@ export default function Team() {
                   Invite Team Members
                 </CardTitle>
                 <CardDescription>
-                  Send an invite link to your technicians. They'll get full Pro access through your team subscription.
+                  Send an invite link to your technicians. They'll receive an email with the link and get access through your team subscription.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleInvite} className="flex gap-3">
+                <form onSubmit={handleInvite} className="flex flex-col sm:flex-row gap-3">
                   <Input
                     type="email"
                     placeholder="technician@company.com"
@@ -283,6 +341,16 @@ export default function Team() {
                     onChange={(e) => setInviteEmail(e.target.value)}
                     className="bg-zinc-800 border-zinc-700 text-white flex-1"
                   />
+                  <Select value={inviteRole} onValueChange={(v) => setInviteRole(v as any)}>
+                    <SelectTrigger className="w-full sm:w-[140px] bg-zinc-800 border-zinc-700 text-white">
+                      <SelectValue placeholder="Role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="member">Member</SelectItem>
+                      <SelectItem value="manager">Manager</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Button
                     type="submit"
                     disabled={createInvite.isPending || !inviteEmail.trim()}
@@ -298,6 +366,9 @@ export default function Team() {
                     )}
                   </Button>
                 </form>
+                <p className="text-xs text-zinc-500 mt-2">
+                  <strong>Member:</strong> Learner access · <strong>Manager:</strong> Can view team readiness · <strong>Admin:</strong> Can invite and manage members
+                </p>
               </CardContent>
             </Card>
           )}
@@ -322,6 +393,10 @@ export default function Team() {
                         <div className="w-10 h-10 bg-green-900/30 rounded-full flex items-center justify-center">
                           {member.role === "owner" ? (
                             <Crown className="w-5 h-5 text-yellow-500" />
+                          ) : member.role === "admin" ? (
+                            <Shield className="w-5 h-5 text-purple-400" />
+                          ) : member.role === "manager" ? (
+                            <BarChart3 className="w-5 h-5 text-blue-400" />
                           ) : (
                             <Users className="w-5 h-5 text-green-500" />
                           )}
@@ -331,20 +406,44 @@ export default function Team() {
                             {member.invitedEmail || "Team Owner"}
                           </p>
                           <p className="text-sm text-zinc-400">
-                            {member.role === "owner" ? "Owner" : "Member"} · Joined {member.joinedAt ? new Date(member.joinedAt).toLocaleDateString() : "—"}
+                            <span className={ROLE_COLORS[member.role] || "text-zinc-400"}>{ROLE_LABELS[member.role] || member.role}</span>
+                            {" · Joined "}
+                            {member.joinedAt ? new Date(member.joinedAt).toLocaleDateString() : "—"}
                           </p>
                         </div>
                       </div>
-                      {isOwner && member.role !== "owner" && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeMember.mutate({ memberId: member.id })}
-                          className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {/* Role change (owner only, not for self or other owners) */}
+                        {isOwner && member.role !== "owner" && (
+                          <Select
+                            value={member.role}
+                            onValueChange={(newRole) => {
+                              if (newRole !== member.role) {
+                                changeRole.mutate({ memberId: member.id, newRole: newRole as any });
+                              }
+                            }}
+                          >
+                            <SelectTrigger className="w-[110px] h-8 bg-zinc-800 border-zinc-700 text-xs text-zinc-300">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="member">Member</SelectItem>
+                              <SelectItem value="manager">Manager</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                        {isOwner && member.role !== "owner" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeMember.mutate({ memberId: member.id })}
+                            className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -373,17 +472,26 @@ export default function Team() {
                         <div>
                           <p className="text-white font-medium">{member.invitedEmail}</p>
                           <p className="text-sm text-zinc-400">
-                            Invited {new Date(member.createdAt).toLocaleDateString()}
+                            Invited as <span className={ROLE_COLORS[member.invitedRole || "member"]}>{ROLE_LABELS[member.invitedRole || "member"]}</span>
+                            {" · "}
+                            {new Date(member.createdAt).toLocaleDateString()}
+                            {member.expiresAt && (
+                              <span className="text-zinc-500">
+                                {" · Expires "}
+                                {new Date(member.expiresAt).toLocaleDateString()}
+                              </span>
+                            )}
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
                         {member.inviteToken && (
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => handleCopyInviteLink(member.inviteToken)}
                             className="text-zinc-400 hover:text-white"
+                            title="Copy invite link"
                           >
                             {copiedToken === member.inviteToken ? (
                               <CheckCircle2 className="w-4 h-4 text-green-500" />
@@ -392,15 +500,29 @@ export default function Team() {
                             )}
                           </Button>
                         )}
-                        {isOwner && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeMember.mutate({ memberId: member.id })}
-                            className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+                        {isAdmin && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => resendInvite.mutate({ memberId: member.id })}
+                              disabled={resendInvite.isPending}
+                              className="text-blue-400 hover:text-blue-300 hover:bg-blue-900/20"
+                              title="Resend invite email"
+                            >
+                              <RefreshCw className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => cancelInvite.mutate({ memberId: member.id })}
+                              disabled={cancelInvite.isPending}
+                              className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                              title="Cancel invite"
+                            >
+                              <XCircle className="w-4 h-4" />
+                            </Button>
+                          </>
                         )}
                       </div>
                     </div>

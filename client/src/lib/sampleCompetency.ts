@@ -95,6 +95,7 @@ function member(userId: string, name: string, role: string, scores: Partial<Reco
   const labels: Record<SkillDomain, string> = {
     vfd: "VFD Diagnostics", plc: "PLC Diagnostics", motors: "Motor Control", safety: "Safety Circuits",
     electrical: "Electrical Power", networking: "Industrial Networking", sensors: "Sensors & Instrumentation", integration: "System Integration",
+    fluid_power: "Hydraulic Troubleshooting",
   };
   const domains = Object.keys(labels) as SkillDomain[];
   const cells = domains.map((d) => {

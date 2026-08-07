@@ -1,8 +1,0 @@
-{
-  "query": "SELECT 'published_modules' as metric, COUNT(*) as cnt FROM courseModules WHERE isPublished = 1 UNION ALL SELECT 'modules_with_lessons', COUNT(*) FROM courseModules WHERE isPublished = 1 AND totalLessons > 0 UNION ALL SELECT 'total_lessons', COUNT(*) FROM courseLessons UNION ALL SELECT 'published_scenarios', COUNT(*) FROM scenarios WHERE isPublished = 1 UNION ALL SELECT 'all_scenarios', COUNT(*) FROM scenarios;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute SELECT 'published_modules' as metric, COUNT(*) as cnt FROM courseModules WHERE isPublished = 1 UNION ALL SELECT 'modules_with_lessons', COUNT(*) FROM courseModules WHERE isPublished = 1 AND totalLessons > 0 UNION ALL SELECT 'total_lessons', COUNT(*) FROM courseLessons UNION ALL SELECT 'published_scenarios', COUNT(*) FROM scenarios WHERE isPublished = 1 UNION ALL SELECT 'all_scenarios', COUNT(*) FROM scenarios;",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1146 (42S02) at line 1: Table 'dbvv3kqq9k9twbpcpty97y.courseModules' doesn't exist"
-  ]
-}

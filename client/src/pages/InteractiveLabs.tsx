@@ -15,6 +15,8 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { Gauge, Network } from "lucide-react";
 import { RelaySimulator, PLCLogicVisualizer, OhmsLawCalculator, CircuitFlowAnimator, VirtualMultimeterLab, LadderLogicSimulatorLab, VFDParameterLab, DiodeTestingLab, TransistorTestingLab, ThyristorTestingLab, ComponentIDChallenge, MotorStarterSimulator, WiringDiagramLab, ConveyorTroubleshootingLab, PowerFlexDiagnosticLab } from "@/components/interactive";
 import SimulatorOnboarding from "@/components/SimulatorOnboarding";
+import FirstLabIntro from "@/components/FirstLabIntro";
+import LabPrerequisites from "@/components/LabPrerequisites";
 import { isLocalQaFullDeck } from "@shared/lessonCardNav";
 
 type LabTab = "circuit" | "relay" | "plc" | "ohms" | "multimeter" | "ladder" | "vfd" | "diode" | "transistor" | "thyristor" | "component-id" | "motor-starter" | "wiring-diagram" | "conveyor-troubleshoot" | "powerflex-diagnostic";
@@ -137,6 +139,8 @@ export default function InteractiveLabs() {
       />
       {/* First-run orientation for the flagship diagnostic lab — short & skippable */}
       <SimulatorOnboarding show={activeTab === "conveyor-troubleshoot"} />
+      {/* First-time beginner lab introduction — shows once, skippable */}
+      <FirstLabIntro show={FLAGSHIP_TAB_IDS.includes(activeTab)} />
 
       {/* Hero */}
       <section className="relative py-16 sm:py-24 landscape:py-6 overflow-hidden">
@@ -219,6 +223,17 @@ export default function InteractiveLabs() {
                   </button>
                 );
               })}
+            <span className="flex items-center px-2 ml-2 text-[10px] font-mono uppercase tracking-wider text-[oklch(0.45_0.006_250)] shrink-0 border-l border-[oklch(0.18_0.004_250)]">
+              Fluid Power
+            </span>
+            <Link href="/labs/hydraulic">
+              <button
+                className="flex items-center gap-2 px-4 py-2.5 min-h-11 rounded-lg text-sm font-medium whitespace-nowrap shrink-0 transition-all text-[oklch(0.55_0.008_250)] hover:text-white hover:bg-[oklch(0.12_0.003_250)]"
+              >
+                <Gauge className="w-4 h-4" />
+                Hydraulic Lab
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -227,13 +242,16 @@ export default function InteractiveLabs() {
       <section className="py-10">
         <div className="container max-w-7xl">
           {activeTabData && (
-            <div className="mb-6 flex flex-wrap items-center gap-3">
-              <h2 className="text-xl font-heading text-white tracking-wide">{activeTabData.label}</h2>
-              {LAB_DIFFICULTY[activeTab] && (
-                <span className="text-[10px] font-mono uppercase px-2 py-1 rounded border border-[oklch(0.55_0.12_155/30%)] text-[oklch(0.65_0.10_155)]">
-                  {LAB_DIFFICULTY[activeTab]}
-                </span>
-              )}
+            <div className="mb-6">
+              <div className="flex flex-wrap items-center gap-3">
+                <h2 className="text-xl font-heading text-white tracking-wide">{activeTabData.label}</h2>
+                {LAB_DIFFICULTY[activeTab] && (
+                  <span className="text-[10px] font-mono uppercase px-2 py-1 rounded border border-[oklch(0.55_0.12_155/30%)] text-[oklch(0.65_0.10_155)]">
+                    {LAB_DIFFICULTY[activeTab]}
+                  </span>
+                )}
+              </div>
+              <LabPrerequisites labId={activeTab} compact />
             </div>
           )}
 

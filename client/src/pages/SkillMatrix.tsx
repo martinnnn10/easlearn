@@ -72,7 +72,7 @@ export default function SkillMatrix() {
     scenariosCompleted?: number;
   }) => {
     const skills: Record<SkillDomain, number> = {
-      vfd: 0, plc: 0, motors: 0, safety: 0, electrical: 0, networking: 0, sensors: 0, integration: 0,
+      vfd: 0, plc: 0, motors: 0, safety: 0, electrical: 0, networking: 0, sensors: 0, integration: 0, fluid_power: 0,
     };
     const totals: Record<SkillDomain, number> = { ...skills };
 

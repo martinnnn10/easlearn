@@ -47,6 +47,9 @@ import TutorialDetail from "./pages/TutorialDetail";
 import Resources from "./pages/Resources";
 import InteractiveLabs from "./pages/InteractiveLabs";
 import VFDSandbox from "./pages/VFDSandbox";
+import HydraulicLab from "./pages/HydraulicLab";
+import WorkstationPrototype from "./pages/WorkstationPrototype";
+import MotorControlWorkstation from "./pages/MotorControlWorkstation";
 import Certifications from "./pages/Certifications";
 import SkillMatrix from "./pages/SkillMatrix";
 import Videos from "./pages/Videos";
@@ -78,6 +81,11 @@ import VfdHub from "./pages/hubs/VfdHub";
 import SafetyHub from "./pages/hubs/SafetyHub";
 import PrintReadingHub from "./pages/hubs/PrintReadingHub";
 import Leaderboard from "./pages/Leaderboard";
+import ManagerDemo from "./pages/ManagerDemo";
+import TechnicianDetail from "./pages/TechnicianDetail";
+import Onboarding from "./pages/Onboarding";
+import OnboardingStart from "./pages/OnboardingStart";
+import LearnerHome from "./pages/LearnerHome";
 import ClientPortal from "./pages/ClientPortal";
 import CandidatePortal from "./pages/CandidatePortal";
 import Layout from "./components/Layout";
@@ -86,12 +94,16 @@ import CookieConsent from "./components/CookieConsent";
 import { PWAInstallPrompt } from "./components/PWAInstallPrompt";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import ReferralCapture from "./components/ReferralCapture";
+import OnboardingGuard from "./components/OnboardingGuard";
 
 function Router() {
   return (
     <Switch>
       {/* Jobs cut: the magic moment is the homepage; full site lives at /explore. */}
       <Route path="/" component={FOCUSED_LAUNCH ? Landing : Home} />
+      <Route path="/onboarding" component={Onboarding} />
+      <Route path="/onboarding/start" component={OnboardingStart} />
+      <Route path="/learn" component={LearnerHome} />
       <Route path="/demo" component={Landing} />
       <Route path="/explore" component={Home} />
       <Route path="/courses" component={Courses} />
@@ -122,6 +134,8 @@ function Router() {
       <Route path="/employer" component={EmployerPortal} />
       <Route path="/intelligence" component={WorkforceIntelligence} />
       <Route path="/competency" component={CompetencyGraph} />
+      <Route path="/manager/demo" component={ManagerDemo} />
+      <Route path="/manager/technician/:userId" component={TechnicianDetail} />
       <Route path="/manager" component={ManagerDashboard} />
       <Route path="/planner" component={WorkforcePlanner} />
       <Route path="/become-a-tech" component={OperatorToTech} />
@@ -135,6 +149,11 @@ function Router() {
       <Route path="/tutorials/:slug" component={TutorialDetail} />
       <Route path="/resources" component={Resources} />
       <Route path="/labs" component={InteractiveLabs} />
+      <Route path="/labs/hydraulic" component={HydraulicLab} />
+      <Route path="/labs/motor-control-workstation" component={MotorControlWorkstation} />
+      <Route path="/prototype/workstation">
+        {() => <Redirect to="/labs/motor-control-workstation" />}
+      </Route>
       <Route path="/labs/sandbox" component={VFDSandbox} />
       <Route path="/programs">
         <Redirect to="/courses" />
@@ -192,7 +211,9 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Layout>
-            <Router />
+            <OnboardingGuard>
+              <Router />
+            </OnboardingGuard>
           </Layout>
           <MobileLabNav />
           <ScrollToTopButton />

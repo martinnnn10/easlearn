@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  '| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + start capacitor |',\n  '| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + overload relay (DOL) |'\n) WHERE id = 60020;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  '| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + start capacitor |',\n  '| Scroll compressor | 3-phase hermetic | 5-30 HP | Contactor + overload relay (DOL) |'\n) WHERE id = 60020;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 282
-}

@@ -29,7 +29,8 @@ export type MeterProbeId =
   | "overload_nc"
   | "photoeye_signal"
   | "motor_coil"
-  | "contactor_aux";
+  | "contactor_aux"
+  | "output_terminal";
 
 export type MeterMode = "continuity" | "voltage";
 

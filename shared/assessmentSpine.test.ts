@@ -156,7 +156,7 @@ describe("Assessment Spine — display helpers (page source of truth)", () => {
 
   it("readinessCells returns one spine-based cell per domain (replacement for buildCells)", () => {
     const cells = readinessCells([reasoned("sound", true, iso(1)), reasoned("sound", true, iso(2))]);
-    expect(cells.length).toBe(8); // one per SkillDomain
+    expect(cells.length).toBe(9); // one per SkillDomain (includes fluid_power)
     const motors = cells.find((c) => c.domain === "motors")!;
     expect(motors.attempts).toBe(2);
     expect(motors.confidence).toBeGreaterThanOrEqual(85);

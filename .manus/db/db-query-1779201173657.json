@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '*   **Parameter `d320` [Control Temp]:** Displays the temperature of the control board.',\n    '*   **Parameter `b024` [Drive Temp]:** Displays the heatsink temperature in °C. *(Note: d320/d321 are PowerFlex 750 series parameters — the PF525 uses b024.)*'\n  ),\n  '*   **Parameter `d321` [Drive Temp]:** Displays the temperature of the power section (heatsink).',\n  '*   **Parameter `b025` [Drive Status]:** Shows drive status bits including thermal warnings.'\n) WHERE id = 30027;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(\n  REPLACE(content,\n    '*   **Parameter `d320` [Control Temp]:** Displays the temperature of the control board.',\n    '*   **Parameter `b024` [Drive Temp]:** Displays the heatsink temperature in °C. *(Note: d320/d321 are PowerFlex 750 series parameters — the PF525 uses b024.)*'\n  ),\n  '*   **Parameter `d321` [Drive Temp]:** Displays the temperature of the power section (heatsink).',\n  '*   **Parameter `b025` [Drive Status]:** Shows drive status bits including thermal warnings.'\n) WHERE id = 30027;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 272
-}

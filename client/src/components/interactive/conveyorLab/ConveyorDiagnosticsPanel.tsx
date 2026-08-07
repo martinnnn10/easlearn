@@ -99,6 +99,17 @@ function computeMeterReading(
         : motorOn && !mechanicalFault
         ? "24 VDC aux"
         : "0 V";
+    case "output_terminal":
+      // PLC output terminal voltage: measures actual field voltage at the output module terminal.
+      // If the output is ON AND field power is present, voltage exists at the terminal.
+      // This is separate from the software bit state — proves physical voltage.
+      return mode === "voltage"
+        ? motorOn
+          ? "~24 VDC (output terminal energized)"
+          : "0 V (no output voltage)"
+        : motorOn
+        ? "LOW Ω (path to load)"
+        : "OL (no output)";
     default:
       return "—";
   }

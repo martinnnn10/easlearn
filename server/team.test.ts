@@ -73,7 +73,7 @@ describe("team.createInvite", () => {
 
     await expect(
       caller.team.createInvite({ email: "tech@company.com" })
-    ).rejects.toThrow(/don't own a team/);
+    ).rejects.toThrow(/don't manage a team/);
   });
 
   it("validates email format", async () => {
@@ -93,7 +93,7 @@ describe("team.acceptInvite", () => {
 
     await expect(
       caller.team.acceptInvite({ token: "invalid-token-abc123" })
-    ).rejects.toThrow(/Invalid or expired invite/);
+    ).rejects.toThrow(/invite link is invalid/);
   });
 });
 

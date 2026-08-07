@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+// useState removed (legacy onboarding state removed)
 import { Link } from "wouter";
 import {
   BookOpen, Award, ArrowRight, CheckCircle, Zap, TrendingUp,
@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { useAnalytics } from "@/hooks/useAnalytics";
+// useAnalytics removed (legacy onboarding tracking removed)
 import SEO from "@/components/SEO";
 import LeaderboardPanel from "@/components/LeaderboardPanel";
 import { WeeklyDigestCard } from "@/components/WeeklyDigestCard";
@@ -17,12 +17,12 @@ import SavedLessonsPanel from "@/components/SavedLessonsPanel";
 import SimulatorCareerPanel from "@/components/SimulatorCareerPanel";
 import { useSubscription } from "@/hooks/useSubscription";
 import StreakCard from "@/components/StreakCard";
-import OnboardingWizard from "@/components/OnboardingWizard";
+// REMOVED: Legacy OnboardingWizard — replaced by /onboarding route guard
 import PendingResultWelcome from "@/components/PendingResultWelcome";
 import MyAssignments from "@/components/MyAssignments";
 import ContinueLearning from "@/components/ContinueLearning";
 import Achievements from "@/components/Achievements";
-import PersonalizedRecommendations from "@/components/PersonalizedRecommendations";
+// REMOVED: Legacy PersonalizedRecommendations — replaced by /onboarding path assignment
 import RecommendedNextStep from "@/components/RecommendedNextStep";
 import { pluralize } from "@/lib/pluralize";
 
@@ -59,16 +59,7 @@ export default function Dashboard() {
   const { data: certProgress } = trpc.certification.getMyProgress.useQuery(undefined, {
     enabled: isAuthenticated,
   });
-  // Server-side onboarding persistence (with localStorage fallback)
-  const { data: onboardingStatus } = trpc.auth.getOnboardingStatus.useQuery(undefined, {
-    enabled: isAuthenticated,
-  });
-  const completeOnboardingMutation = trpc.auth.completeOnboarding.useMutation();
-  const { trackOnboardingCompleted } = useAnalytics();
-  const [localDismissed, setLocalDismissed] = useState(
-    () => localStorage.getItem('eas-onboarding-dismissed') === 'true'
-  );
-  const showOnboarding = !localDismissed && onboardingStatus?.completed === false;
+  // REMOVED: Legacy onboarding state — new learners are now redirected to /onboarding by OnboardingGuard
   // Server-side XP (includes lessons + quizzes + scenarios + labs)
   const { data: myStats } = trpc.leaderboard.getMyStats.useQuery(undefined, {
     enabled: isAuthenticated,
@@ -148,33 +139,15 @@ export default function Dashboard() {
         <PendingResultWelcome />
         {/* Manager-assigned training with due dates + progress */}
         <MyAssignments />
-        {/* ─── Onboarding Wizard for New Users ─── */}
-        {showOnboarding && dashboard.completedLessons === 0 && (
-          <OnboardingWizard
-            userName={user?.name || ''}
-            onDismiss={(selections) => {
-              localStorage.setItem('eas-onboarding-dismissed', 'true');
-              setLocalDismissed(true);
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              completeOnboardingMutation.mutate(selections as any);
-              trackOnboardingCompleted({
-                experienceLevel: selections?.experienceLevel || 'unknown',
-                goalCount: selections?.goals?.length || 0,
-                equipmentCount: selections?.equipment?.length || 0,
-                skipped: selections?.skipped ?? false,
-              });
-            }}
-          />
-        )}
+        {/* REMOVED: Legacy OnboardingWizard — new learners are redirected to /onboarding by OnboardingGuard */}
         {/* ─── Continue Learning ─── */}
         {/* Only show localStorage-based ContinueLearning when server has no nextLesson (avoids inconsistency) */}
         {dashboard.completedLessons > 0 && !dashboard.nextLesson && <ContinueLearning />}
 
-        {/* ─── Personalized Recommendations (from onboarding) ─── */}
-        <PersonalizedRecommendations />
+        {/* REMOVED: Legacy PersonalizedRecommendations — path assignment now handled by /onboarding */}
 
         {/* ─── Recommended Next Step (server-driven) ─── */}
-        {!showOnboarding && <RecommendedNextStep />}
+        <RecommendedNextStep />
 
         {/* ─── Control Room Header ─── */}
         <motion.div {...fadeUp} className="mb-8">
@@ -185,7 +158,7 @@ export default function Dashboard() {
                 <span className="text-[10px] font-mono uppercase tracking-widest text-[oklch(0.45_0.006_250)]">System Online &middot; {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-heading text-white tracking-wide mb-1">
-                Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}
+                {(dashboard?.completedLessons ?? 0) > 0 ? 'Welcome back' : 'Welcome to EASLearn'}{user?.name ? `, ${user.name.split(' ')[0]}` : ''}
               </h1>
               <p className="text-sm sm:text-base text-[oklch(0.55_0.008_250)]">
                 Your training progress and performance overview.

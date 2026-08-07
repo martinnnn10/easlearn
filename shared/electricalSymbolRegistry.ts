@@ -84,8 +84,8 @@ export const CATEGORY_META: Record<
     order: 2,
   },
   safety_circuits: {
-    title: "Safety Circuits",
-    description: "E-stop, safety relays, guarded contacts",
+    title: "Safety Circuit Symbols",
+    description: "E-stop operators, guard interlock contacts, and safety relay coils",
     order: 3,
   },
   plc_symbols: {
@@ -253,10 +253,10 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
   },
   {
     id: "safety_relay",
-    name: "Safety Relay (Coil Symbol)",
-    description: "The schematic COIL symbol for a safety relay — how the relay appears on a ladder/elementary drawing, not the physical module. The real device is a dual-channel safety controller with monitored inputs and force-guided output contacts.",
+    name: "Safety Relay Coil",
+    description: "Schematic representation of the coil element inside a safety monitoring relay (drawn as a relay coil, tagged SR). This is NOT the complete physical safety-relay module — it represents only the coil that energizes when the safety circuit is healthy.",
     function: "Monitors E-stop/guard channels and directly de-energizes the machine contactor — not a standard PLC.",
-    contextNote: "This is the control/schematic coil representation, not the full physical safety-relay module.",
+    contextNote: "Schematic coil symbol only. The physical device is a dual-channel safety monitoring module (e.g., Allen-Bradley Guardmaster, Pilz PNOZ).",
     iecReference: "IEC 61508 / ISO 13849",
     nemaJicReference: "NFPA 79 — safety relay / safety controller",
     typicalUse: "E-stop and guard monitoring, PLd–e safety functions",
@@ -270,7 +270,7 @@ export const ELECTRICAL_SYMBOL_REGISTRY: ElectricalSymbolEntry[] = [
   {
     id: "timer_contact",
     name: "Timer Contact — NO, On-Delay",
-    description: "Normally-open, timed-closed (NOTC) on-delay contact: a NO contact drawn with the on-delay time-delay symbol. It closes a preset time AFTER its rung energizes.",
+    description: "Normally-open, timed-closed (NOTC) on-delay contact: a NO contact with an on-delay timing indicator (arrow). It closes a preset time AFTER its rung energizes.",
     function: "Closes a set time after its rung is energized (on-delay, NOTC); paired with a TON timer/instruction.",
     contextNote: "Normally open; closes after the on-delay time. It is not instantaneous and not a timed-NC contact.",
     iecReference: "IEC 61131-3",
@@ -632,7 +632,7 @@ export const LEARNER_SYMBOL_GROUPS: LearnerSymbolGroup[] = [
   {
     id: "safety-devices",
     title: "Safety Circuit Symbols",
-    description: "How safety functions appear on a schematic — a physical operator (E-stop), a contact (guard interlock), and a coil (safety relay). The label on each card says which.",
+    description: "Schematic symbols found in safety circuits: the E-stop operator, guard interlock NC contact, and safety relay coil. These represent different device types (operator, contact, coil) unified by their role in the safety string.",
     symbolIds: ["estop", "guard_switch", "safety_relay"],
   },
   {
@@ -681,38 +681,33 @@ export const SYMBOL_PRINT_TAGS: Record<SymbolPrimitiveId, string> = {
   terminal: "TB1",
 };
 
-/**
- * What each card *is*, in one consistent phrase — so a learner always knows whether
- * they are looking at a schematic contact, a coil, a physical device, an I/O block, or
- * a wiring point, and whether it is an exact symbol or a training simplification
- * ("· simplified"). Shown as a small label on every card.
- */
-export const SYMBOL_REPRESENTATION: Record<SymbolPrimitiveId, string> = {
-  disconnect: "Device symbol",
-  fuse: "Device symbol",
-  breaker: "Device symbol · simplified",
-  transformer: "Device symbol",
-  contactor_power: "Contact · power pole",
-  overload_heater: "Element symbol · simplified",
-  motor: "Load / machine symbol",
-  contact_no: "Schematic contact",
-  contact_nc: "Schematic contact",
-  coil: "Schematic coil",
-  contactor_aux: "Schematic contact",
-  overload_nc: "Schematic contact",
-  timer_contact: "Schematic contact · timed",
-  pb_no: "Physical operator device",
-  pb_nc: "Physical operator device",
-  selector_switch: "Physical operator device",
-  limit_switch: "Physical field device",
-  estop: "Physical operator device",
-  guard_switch: "Schematic contact",
-  safety_relay: "Schematic coil",
-  plc_input: "I/O block · simplified",
-  plc_output: "I/O block · simplified",
-  photoeye: "Field device · simplified",
-  vfd: "Schematic contact · drive output",
-  terminal: "Wiring / junction point",
+/** Short representation label per symbol — what the symbol represents in one phrase. */
+export const SYMBOL_REPRESENTATION: Partial<Record<SymbolPrimitiveId, string>> = {
+  contact_no: "Normally open contact",
+  contact_nc: "Normally closed contact",
+  coil: "Relay / contactor coil",
+  fuse: "Fuse element",
+  breaker: "Circuit breaker",
+  disconnect: "Disconnect switch",
+  transformer: "Control power transformer",
+  overload_heater: "Overload thermal element",
+  overload_nc: "Overload NC trip contact",
+  motor: "Three-phase motor",
+  contactor_power: "Contactor power pole",
+  contactor_aux: "Contactor auxiliary contact",
+  pb_no: "Pushbutton NO",
+  pb_nc: "Pushbutton NC",
+  guard_switch: "Guard interlock NC contact",
+  terminal: "Terminal block",
+  limit_switch: "Limit switch NO",
+  selector_switch: "Selector switch",
+  estop: "Emergency stop NC contact",
+  safety_relay: "Safety relay coil (schematic)",
+  plc_input: "PLC digital input module",
+  plc_output: "PLC digital output module",
+  vfd: "Variable frequency drive",
+  timer_contact: "Timer contact — on-delay NO",
+  photoeye: "Photoelectric sensor",
 };
 
 /** Resolves the learner groups to their full symbol entries, skipping any unknown ids. */

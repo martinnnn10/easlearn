@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content, \n  'The Stop pushbutton is wired NC — when you press it (input goes TRUE), the XIO goes FALSE',\n  'The Stop pushbutton is wired NC — when NOT pressed, the input is TRUE (closed circuit provides voltage). When pressed, the input goes FALSE (open circuit). Program it with an XIC instruction so the rung is TRUE when the button is NOT pressed, and goes FALSE (stopping the motor) when pressed'\n) WHERE id = 60010;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content, \n  'The Stop pushbutton is wired NC — when you press it (input goes TRUE), the XIO goes FALSE',\n  'The Stop pushbutton is wired NC — when NOT pressed, the input is TRUE (closed circuit provides voltage). When pressed, the input goes FALSE (open circuit). Program it with an XIC instruction so the rung is TRUE when the button is NOT pressed, and goes FALSE (stopping the motor) when pressed'\n) WHERE id = 60010;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 276
-}

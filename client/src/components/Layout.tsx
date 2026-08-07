@@ -1,7 +1,8 @@
 import { useState, useEffect, ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Zap, Mail, Award, ChevronDown, Users, LogOut, Settings, LayoutDashboard } from "lucide-react";
+import { Menu, X, Zap, Mail, Award, ChevronDown, Users, LogOut, Settings, LayoutDashboard, BarChart3 } from "lucide-react";
 import ScrollToTop from "./ScrollToTop";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
@@ -41,18 +42,18 @@ const fullNavLinks: NavLink[] = [
 // Focused-launch nav: guided learner journey through the platform.
 const focusedNavLinks: NavLink[] = [
   {
+    href: "/learn",
+    label: "Home",
+    match: (loc) => loc === "/learn",
+  },
+  {
     href: "/become-a-tech",
-    label: "Learning Path",
+    label: "My Path",
     match: (loc) => loc === "/become-a-tech",
   },
   {
-    href: "/courses",
-    label: "Courses",
-    match: (loc) => loc.startsWith("/courses"),
-  },
-  {
-    href: "/labs?entry=nav&mode=practice#conveyor-troubleshoot",
-    label: "Labs",
+    href: "/labs",
+    label: "Practice",
     match: (loc) => loc.startsWith("/labs") || loc === "/simulator",
   },
   {
@@ -61,14 +62,9 @@ const focusedNavLinks: NavLink[] = [
     match: (loc) => loc === "/skills-passport",
   },
   {
-    href: "/competency",
-    label: "Competency",
-    match: (loc) => loc === "/competency",
-  },
-  {
-    href: "/symbols",
-    label: "Symbols",
-    match: (loc) => loc === "/symbols" || loc.startsWith("/reference/electrical"),
+    href: "/courses",
+    label: "Explore",
+    match: (loc) => loc.startsWith("/courses") || loc === "/competency" || loc === "/symbols" || loc.startsWith("/reference"),
   },
 ];
 
@@ -153,6 +149,15 @@ function NavUserLinks() {
           <span className="hidden xl:inline">Team</span>
         </Link>
       )}
+      {teamQuery.data && ["owner", "admin", "manager"].includes(teamQuery.data.role) && (
+        <Link
+          href="/manager"
+          className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-[oklch(0.60_0.005_250)] hover:text-white transition-colors rounded"
+        >
+          <BarChart3 className="w-4 h-4" />
+          <span className="hidden xl:inline">Manager</span>
+        </Link>
+      )}
     </>
   );
 }
@@ -190,6 +195,7 @@ function NavAuthButton() {
 
 function MobileAuthSection() {
   const { isAuthenticated, user, logout, loading } = useAuth();
+  const teamQuery = trpc.team.getMyTeam.useQuery(undefined, { enabled: isAuthenticated });
 
   if (loading) {
     return (
@@ -234,6 +240,15 @@ function MobileAuthSection() {
             <Award className="w-4 h-4" />
             My Certificates
           </Link>
+          {teamQuery.data && ["owner", "admin", "manager"].includes(teamQuery.data.role) && (
+            <Link
+              href="/manager"
+              className="flex items-center gap-3 px-4 py-2.5 text-sm text-[oklch(0.65_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)] rounded transition-colors"
+            >
+              <BarChart3 className="w-4 h-4" />
+              Manager Portal
+            </Link>
+          )}
           <Link
             href="/account"
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-[oklch(0.65_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)] rounded transition-colors"
@@ -297,6 +312,7 @@ function Navbar() {
   }, [mobileOpen]);
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
         isScrolled
@@ -359,87 +375,91 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu — full-screen slide-out */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.button
-              type="button"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-              aria-label="Close menu"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="lg:hidden fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-[oklch(0.09_0.003_250)] border-l border-[oklch(0.20_0.004_250)] shadow-2xl flex flex-col pt-[env(safe-area-inset-top)]"
-            >
-              <div className="flex items-center justify-between px-4 h-16 border-b border-[oklch(0.18_0.004_250)]">
-                <span className="font-heading text-white tracking-wide">Menu</span>
-                <button
-                  type="button"
-                  onClick={() => setMobileOpen(false)}
-                  className="min-h-11 min-w-11 inline-flex items-center justify-center rounded-md text-[oklch(0.60_0.005_250)] hover:text-white"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              <nav
-                aria-label="Mobile navigation"
-                className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2"
-                style={{ WebkitOverflowScrolling: "touch" }}
-              >
-                {navLinks.map((link) => {
-                  const active = link.match(location);
-                  if (link.dropdown) {
-                    return (
-                      <div key={link.href} className="space-y-1">
-                        <p className="px-4 pt-2 text-[10px] font-mono uppercase tracking-wider text-[oklch(0.45_0.006_250)]">
-                          {link.label}
-                        </p>
-                        {link.dropdown.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`block px-4 py-3.5 min-h-11 text-base font-medium rounded-lg transition-colors ${
-                              location.startsWith(item.href)
-                                ? "text-white bg-[oklch(0.55_0.12_155/12%)] border border-[oklch(0.55_0.12_155/25%)]"
-                                : "text-[oklch(0.70_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)]"
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    );
-                  }
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`px-4 py-3.5 min-h-11 text-base font-medium rounded-lg transition-colors ${
-                        active
-                          ? "text-white bg-[oklch(0.55_0.12_155/12%)] border border-[oklch(0.55_0.12_155/25%)]"
-                          : "text-[oklch(0.70_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)]"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-                <MobileAuthSection />
-              </nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </header>
+      {/* Mobile Menu — portaled outside header to avoid iOS Safari backdrop-filter containing block */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {mobileOpen && (
+            <>
+              <motion.button
+                type="button"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="lg:hidden fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+              />
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="lg:hidden fixed top-0 right-0 bottom-0 z-[9999] w-full max-w-sm bg-[oklch(0.09_0.003_250)] border-l border-[oklch(0.20_0.004_250)] shadow-2xl flex flex-col pt-[env(safe-area-inset-top)]"
+              >
+                <div className="flex items-center justify-between px-4 h-16 border-b border-[oklch(0.18_0.004_250)]">
+                  <span className="font-heading text-white tracking-wide">Menu</span>
+                  <button
+                    type="button"
+                    onClick={() => setMobileOpen(false)}
+                    className="min-h-11 min-w-11 inline-flex items-center justify-center rounded-md text-[oklch(0.60_0.005_250)] hover:text-white"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                <nav
+                  aria-label="Mobile navigation"
+                  className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-2"
+                  style={{ WebkitOverflowScrolling: "touch" }}
+                >
+                  {navLinks.map((link) => {
+                    const active = link.match(location);
+                    if (link.dropdown) {
+                      return (
+                        <div key={link.href} className="space-y-1">
+                          <p className="px-4 pt-2 text-[10px] font-mono uppercase tracking-wider text-[oklch(0.45_0.006_250)]">
+                            {link.label}
+                          </p>
+                          {link.dropdown.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className={`block px-4 py-3.5 min-h-11 text-base font-medium rounded-lg transition-colors ${
+                                location.startsWith(item.href)
+                                  ? "text-white bg-[oklch(0.55_0.12_155/12%)] border border-[oklch(0.55_0.12_155/25%)]"
+                                  : "text-[oklch(0.70_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)]"
+                              }`}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={`px-4 py-3.5 min-h-11 text-base font-medium rounded-lg transition-colors ${
+                          active
+                            ? "text-white bg-[oklch(0.55_0.12_155/12%)] border border-[oklch(0.55_0.12_155/25%)]"
+                            : "text-[oklch(0.70_0.008_250)] hover:text-white hover:bg-[oklch(0.14_0.004_250)]"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                  <MobileAuthSection />
+                </nav>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   );
 }
 

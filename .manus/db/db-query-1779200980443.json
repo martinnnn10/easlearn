@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  '- The **lag flow** controller adjusts to maintain a fixed ratio (R) to the lead flow.',\n  '- The **lag flow** (the controlled stream, adjusted by the ratio controller) adjusts to maintain a fixed ratio (R) to the lead flow.'\n) WHERE id = 120027;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  '- The **lag flow** controller adjusts to maintain a fixed ratio (R) to the lead flow.',\n  '- The **lag flow** (the controlled stream, adjusted by the ratio controller) adjusts to maintain a fixed ratio (R) to the lead flow.'\n) WHERE id = 120027;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 270
-}

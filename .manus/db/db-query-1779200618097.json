@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content, \n  'Category 2: A controlled stop with power left available to the machine actuators. (Note: Category 2 is rarely used for Emergency Stops, as power remains applied).',\n  'Category 2: A controlled stop with power left available to the machine actuators. **IMPORTANT: Category 2 is NOT permitted for Emergency Stops per NFPA 79 and IEC 60204-1.** Emergency stops must be Category 0 or Category 1 only, as power must be removed after the stop is achieved.'\n) WHERE id = 120024;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content, \n  'Category 2: A controlled stop with power left available to the machine actuators. (Note: Category 2 is rarely used for Emergency Stops, as power remains applied).',\n  'Category 2: A controlled stop with power left available to the machine actuators. **IMPORTANT: Category 2 is NOT permitted for Emergency Stops per NFPA 79 and IEC 60204-1.** Emergency stops must be Category 0 or Category 1 only, as power must be removed after the stop is achieved.'\n) WHERE id = 120024;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 267
-}

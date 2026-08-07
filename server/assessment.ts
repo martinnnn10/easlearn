@@ -12,10 +12,10 @@
  * ledger and interprets them with one shared, tested rule set.
  */
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { eq, desc, and, inArray } from "drizzle-orm";
 import { protectedProcedure, router } from "./_core/trpc";
 import { getDb } from "./db";
-import { competencyEvidence, scenarioCompletions, competencyValidations, users } from "../drizzle/schema";
+import { competencyEvidence, scenarioCompletions, competencyValidations, users, faultCompetencyAttempts, assignedPaths, courseModules, userProgress, userStreaks } from "../drizzle/schema";
 import { SKILL_DOMAIN_LABELS, type SkillDomain } from "@shared/competencyMatrix";
 import { managedMemberIds, slugDomainMap } from "./competencyGraph";
 import {
@@ -235,6 +235,109 @@ export const assessmentRouter = router({
     }
     return { isManager: true, members };
   }),
+
+  /** Per-technician detail — full evidence + attempts + assignments for one managed learner. */
+  technicianDetail: protectedProcedure
+    .input(z.object({ userId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const db = await getDb();
+      if (!db) throw new Error("Database unavailable");
+
+      // Authorization: caller must manage this user
+      const ids = await managedMemberIds(db, ctx.user.id);
+      if (!ids.includes(input.userId)) {
+        throw new Error("You do not manage this technician");
+      }
+
+      const [user] = await db.select({ id: users.id, name: users.name, email: users.email, lastSignedIn: users.lastSignedIn, createdAt: users.createdAt }).from(users).where(eq(users.id, input.userId)).limit(1);
+      if (!user) throw new Error("User not found");
+
+      // Evidence + readiness
+      const events = await gatherEvidence(db, input.userId);
+      const readiness = readinessForDomains(events);
+      const overall = overallConfidence(readiness);
+
+      // Scenario completions (recent 20)
+      const scenarios = await db.select()
+        .from(scenarioCompletions)
+        .where(eq(scenarioCompletions.userId, input.userId))
+        .orderBy(desc(scenarioCompletions.completedAt))
+        .limit(20);
+
+      // Fault diagnosis attempts (recent 20)
+      const faultAttempts = await db.select()
+        .from(faultCompetencyAttempts)
+        .where(eq(faultCompetencyAttempts.userId, input.userId))
+        .orderBy(desc(faultCompetencyAttempts.completedAt))
+        .limit(20);
+
+      // Training assignments
+      const assignments = await db.select()
+        .from(assignedPaths)
+        .where(eq(assignedPaths.userId, input.userId));
+
+      // Module names for assignments
+      const moduleIds = assignments.map(a => a.moduleId).filter(Boolean);
+      const modules = moduleIds.length > 0
+        ? await db.select({ id: courseModules.id, title: courseModules.title, slug: courseModules.slug }).from(courseModules).where(inArray(courseModules.id, moduleIds))
+        : [];
+      const moduleMap = new Map(modules.map(m => [m.id, m]));
+
+      // Lesson progress count
+      const progress = await db.select().from(userProgress).where(and(eq(userProgress.userId, input.userId), eq(userProgress.completed, true)));
+
+      // Streak / last activity
+      const [streak] = await db.select().from(userStreaks).where(eq(userStreaks.userId, input.userId)).limit(1);
+
+      // Manager validations
+      const validations = await db.select().from(competencyValidations).where(eq(competencyValidations.userId, input.userId));
+
+      return {
+        user: { id: user.id, name: user.name, email: user.email, lastSignedIn: user.lastSignedIn, createdAt: user.createdAt },
+        readiness,
+        overallConfidence: overall,
+        methodologyTier: methodologyTierFromConfidence(overall),
+        communication: communicationReadiness(events),
+        scenarios: scenarios.map(s => ({
+          slug: s.scenarioSlug,
+          title: s.scenarioTitle,
+          score: s.score,
+          maxScore: s.maxScore,
+          methodology: s.methodologyScore,
+          time: s.timeSeconds,
+          completedAt: new Date(s.completedAt).toISOString(),
+        })),
+        faultAttempts: faultAttempts.map(f => ({
+          scenarioSlug: f.scenarioSlug,
+          score: f.score,
+          maxScore: f.maxScore,
+          percentage: f.percentage,
+          methodology: f.methodologyScore,
+          safety: f.safetyScore,
+          timeSec: f.timeToDiagnoseSec,
+          passed: f.passed,
+          completedAt: new Date(f.completedAt).toISOString(),
+        })),
+        assignments: assignments.map(a => {
+          const mod = moduleMap.get(a.moduleId);
+          return {
+            moduleTitle: mod?.title ?? "Unknown",
+            moduleSlug: mod?.slug ?? "",
+            completed: a.completed,
+            completedAt: a.completedAt ? new Date(a.completedAt).toISOString() : null,
+            dueAt: a.dueAt ? new Date(a.dueAt).toISOString() : null,
+            overdue: !a.completed && a.dueAt && new Date(a.dueAt) < new Date(),
+          };
+        }),
+        lessonsCompleted: progress.length,
+        streak: streak ? { current: streak.currentStreak, longest: streak.longestStreak, lastActivity: streak.lastActivityDate ? new Date(streak.lastActivityDate).toISOString() : null } : null,
+        validations: validations.map(v => ({
+          domain: v.domain,
+          note: v.note,
+          validatedAt: new Date(v.validatedAt).toISOString(),
+        })),
+      };
+    }),
 });
 
 interface TeamReadinessMember {

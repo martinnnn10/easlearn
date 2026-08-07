@@ -41,24 +41,6 @@ claimed to be a strict schematic glyph.
 
 ---
 
-### Revision — readability & taxonomy polish
-
-A later pass addressed learner-facing readability and taxonomy:
-
-- **Timer contact redrawn** so it no longer resembles a smiley (canopy moved above the
-  contact, concave-down, with a timed-motion arrowhead; "TR" moved below).
-- **Label-safe area added** to every preview tile (extra top padding via the SVG
-  viewBox) so internal tags (M, SR, TR, GS, OL, VFD FLT) are no longer clipped or cramped.
-- **"Safety Devices" section renamed "Safety Circuit Symbols"** because it holds a mix —
-  a physical operator (E-stop), a contact (guard), and a coil (safety relay).
-- **"Safety Relay Coil" → "Safety Relay (Coil Symbol)"** to make clear it is the
-  schematic coil representation, not the physical safety-relay module.
-- **Every card now carries a one-line representation label** (e.g. "Schematic contact",
-  "Schematic coil", "Physical operator device", "I/O block · simplified") so the whole
-  library is consistent about what each symbol *is* and which entries are training
-  simplifications.
-- Jargon "timing parachute" replaced with "on-delay time-delay symbol".
-
 ## Master QA table
 
 | # | Symbol (final label) | Internal ID | Category | Intended context | Rendering | Standards / convention check | Pass / Fix | Change applied | Example tag |
@@ -75,14 +57,14 @@ A later pass addressed learner-facing readability and taxonomy:
 | 10 | Relay / Contactor Coil | `coil` | Control Contacts | Control circuit | Circle with leads | NEMA ICS 1 relay/starter coil = circle (device letter added on prints). Matches. | **PASS** | — | CR1 |
 | 11 | Contactor Auxiliary Contact | `contactor_aux` | Control Contacts | Control circuit (seal-in/status) | NO contact ( `-\| \|-` ) tagged **M** | NEMA ICS 2 aux contact = a control NO/NC contact carrying the contactor tag. Matches. | **PASS** | — | M-aux |
 | 12 | Overload NC Monitoring Contact | `overload_nc` | Control Contacts | Control circuit (trip logic) | NC contact ( `-\|/\|-` ) tagged **OL / 95-96** | NEMA ICS 2 OL contact 95-96 in the control string. Matches, and is visibly different from the power-circuit heater (#6). | **PASS** | — | 95-96 |
-| 13 | Timer Contact — NO, On-Delay (NOTC) | `timer_contact` | Control Contacts | Control circuit (timed) | NO contact + on-delay time-delay canopy (concave-down dome) + arrowhead, tagged **TR** below | NEMA ICS 1 time-delay contact. It is a **normally-open, timed-closed, on-delay** contact — stated explicitly. | **PASS (redrawn)** | Redrawn so it no longer resembles a smiley (was a cup below the contact); canopy now sits above with a timed-motion arrowhead; wording "parachute" dropped | TR1 |
+| 13 | Timer Contact — NO, On-Delay (NOTC) | `timer_contact` | Control Contacts | Control circuit (timed) | NO contact + on-delay "parachute" canopy, tagged **TR** | NEMA ICS 1 time-delay contact. It is a **normally-open, timed-closed, on-delay** contact — now stated explicitly. | **PASS (clarified)** | Label → "Timer Contact — NO, On-Delay"; note declares NOTC (not instantaneous, not timed-NC) | TR1 |
 | 14 | Pushbutton — Normally Open | `pb_no` | Pushbuttons & Switches | Physical operator (control input) | Fixed contacts + movable bar held **open** + button cap | NEMA ICS 1 momentary NO pushbutton. Matches. | **PASS** | — | PB1 |
 | 15 | Pushbutton — Normally Closed | `pb_nc` | Pushbuttons & Switches | Physical operator | Fixed contacts + movable bar **bridging** + button cap | NEMA ICS 1 momentary NC pushbutton. Matches. | **PASS** | — | PB2 |
 | 16 | Selector Switch | `selector_switch` | Pushbuttons & Switches | Physical operator (maintained) | Pivoting blade + detent arc + positions 1/2 | NEMA ICS 1 selector. Two-position shown. | **PASS (simplified, documented)** | Documented as a 2-position selector (HOA etc. are 3-position) | SS1 |
 | 17 | Limit Switch (Roller Lever) | `limit_switch` | Pushbuttons & Switches | Physical device (position) | Pivoting blade + operating lever + **filled** roller, held open | NEMA ICS 1 / ANSI Y32.2 roller-lever limit switch; actuator roller is a **filled** circle. Matches. Shown as held-open (NO). | **PASS** | — | LS1 |
-| 18 | Emergency Stop Pushbutton | `estop` | Safety Circuit Symbols | Physical operator (with NC contact) | Mushroom-head dome + stem + NC bridging contact | ISO 13850 / NFPA 79 E-stop **operator**; its NC contact opens the safety string. | **PASS (relabeled/clarified)** | Label → "Emergency Stop Pushbutton"; note states it is the operator and its NC contact opens the safety circuit | ES1 |
-| 19 | Guard Interlock NC Contact | `guard_switch` | Safety Circuit Symbols | Control/safety circuit (contact) | NC contact ( `-\|/\|-` ) tagged **GS** | The rendering is the **NC monitoring contact** in the safety string, not the physical switch body. | **PASS (relabeled)** | Label → "Guard Interlock NC Contact"; note states control/safety-circuit NC contact | GS1 |
-| 20 | Safety Relay (Coil Symbol) | `safety_relay` | Safety Circuit Symbols | Control circuit (coil element) | Relay coil (circle) tagged **SR** | The rendering is a **coil**, not the module block or its output contact. | **PASS (relabeled)** | Label → "Safety Relay (Coil Symbol)"; note states the physical device is a dual-channel module | SR1 |
+| 18 | Emergency Stop Pushbutton | `estop` | Safety Devices | Physical operator (with NC contact) | Mushroom-head dome + stem + NC bridging contact | ISO 13850 / NFPA 79 E-stop **operator**; its NC contact opens the safety string. | **PASS (relabeled/clarified)** | Label → "Emergency Stop Pushbutton"; note states it is the operator and its NC contact opens the safety circuit | ES1 |
+| 19 | Guard Interlock NC Contact | `guard_switch` | Safety Devices | Control/safety circuit (contact) | NC contact ( `-\|/\|-` ) tagged **GS** | The rendering is the **NC monitoring contact** in the safety string, not the physical switch body. | **PASS (relabeled)** | Label → "Guard Interlock NC Contact"; note states control/safety-circuit NC contact | GS1 |
+| 20 | Safety Relay Coil | `safety_relay` | Safety Devices | Control circuit (coil element) | Relay coil (circle) tagged **SR** | The rendering is a **coil**, not the module block or its output contact. | **PASS (relabeled)** | Label → "Safety Relay Coil"; note states the physical device is a dual-channel module | SR1 |
 | 21 | PLC Digital Input | `plc_input` | PLC, Sensors, & Drives | Device / I/O block | I/O block with "IN" badge + leads | Not a strict schematic glyph — an EASLearn device-block representation of a PLC input module. | **PASS (simplified, documented)** | Documented as an EASLearn I/O-block representation | I:1/0 |
 | 22 | PLC Digital Output | `plc_output` | PLC, Sensors, & Drives | Device / I/O block | I/O block with "OUT" badge + leads | EASLearn device-block representation of a PLC output module. | **PASS (simplified, documented)** | Documented as an EASLearn I/O-block representation | O:2/0 |
 | 23 | Photoelectric Sensor | `photoeye` | PLC, Sensors, & Drives | Sensor / device block | Housing + lens + beam arrow + "PE" | No single strict NEMA glyph; an EASLearn field-device block. | **PASS (simplified, documented)** | Documented as an EASLearn sensor-block representation | PE1 |
@@ -123,7 +105,7 @@ description/note state **normally-open, timed-closed (NOTC), on-delay** — not
 instantaneous and not a timed-NC contact.
 
 **7. Safety Relay — context is explicit.** The glyph is a **coil**, so it is labeled
-**"Safety Relay (Coil Symbol)"** with a note that the physical device is a dual-channel safety
+**"Safety Relay Coil"** with a note that the physical device is a dual-channel safety
 module. It is not presented as an unexplained abstract symbol.
 
 ---
@@ -158,7 +140,7 @@ them for strict, unique schematic glyphs:
 | Emergency stop context explicit | ✅ | "Emergency Stop Pushbutton" + operator/NC note |
 | Guard interlock context explicit | ✅ | "Guard Interlock NC Contact" |
 | Timer contact type explicit | ✅ | "Timer Contact — NO, On-Delay (NOTC)" |
-| Safety relay context explicit | ✅ | "Safety Relay (Coil Symbol)" + module note |
+| Safety relay context explicit | ✅ | "Safety Relay Coil" + module note |
 | Every label learner-facing | ✅ | No developer IDs surfaced; human names throughout |
 | Every symbol has a short explanation | ✅ | `description` on every entry; `contextNote` on every confusable one |
 | Every questionable simplification documented | ✅ | See "Documented training simplifications" |

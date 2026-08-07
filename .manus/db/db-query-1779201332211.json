@@ -1,9 +1,0 @@
-{
-  "query": "UPDATE course_lessons SET content = REPLACE(content,\n  'a safety relay or safety PLC. Never wire them directly to a standard standard relay or contactor.',\n  'a safety relay or safety PLC. Do not wire them directly to a standard relay or contactor. *(Advanced note: OSSD outputs may be wired directly to safety-rated contactors with force-guided contacts in a redundant configuration with feedback monitoring, achieving Category 3 or 4 architectures without a separate safety relay — but this requires careful design per ISO 13849.)*'\n) WHERE id = 120023;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3Xfr6pEYj29Uk5X.87c2f8e04b6a --database dBvv3KQQ9K9tWbpcptY97y --execute UPDATE course_lessons SET content = REPLACE(content,\n  'a safety relay or safety PLC. Never wire them directly to a standard standard relay or contactor.',\n  'a safety relay or safety PLC. Do not wire them directly to a standard relay or contactor. *(Advanced note: OSSD outputs may be wired directly to safety-rated contactors with force-guided contacts in a redundant configuration with feedback monitoring, achieving Category 3 or 4 architectures without a separate safety relay — but this requires careful design per ISO 13849.)*'\n) WHERE id = 120023;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 268
-}

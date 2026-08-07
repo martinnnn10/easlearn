@@ -28,6 +28,7 @@ import { competencyRouter } from "./competency";
 import { accreditationRouter } from "./accreditation";
 import { dailyRouter } from "./daily";
 import { referralRouter } from "./referral";
+import { onboardingRouter } from "./onboarding";
 import { reviewRouter } from "./review";
 import { schedulerRouter } from "./reviewScheduler";
 import { employerRouter, jobsRouter } from "./employer";
@@ -38,8 +39,9 @@ import { mentorRouter } from "./mentor";
 import { plannerRouter } from "./planner";
 import { programRouter } from "./program";
 import { assignmentsRouter } from "./assignments";
+import { workstationRouter } from "./workstation";
 import { buildIluStatus, type IluProgressSnapshot } from "./hubsIlu";
-import { scenarios, assessments, assessmentResults, courseModules, courseLessons, userProgress, quizQuestions, quizAttempts, certificates, teams, teamMembers, users, tutorials, contactSubmissions, certificationLevels, bookmarks, scenarioCompletions, subscriptions, passwordResetTokens, emailVerificationTokens, userStreaks, clientErrors, simulatorSessions, labScores, lessonAssessmentQuestions, lessonAssessmentAttempts } from "../drizzle/schema";
+import { scenarios, assessments, assessmentResults, courseModules, courseLessons, userProgress, quizQuestions, quizAttempts, certificates, teams, teamMembers, users, tutorials, contactSubmissions, certificationLevels, bookmarks, scenarioCompletions, subscriptions, passwordResetTokens, emailVerificationTokens, userStreaks, clientErrors, simulatorSessions, labScores, lessonAssessmentQuestions, lessonAssessmentAttempts, auditEvents } from "../drizzle/schema";
 import {
   allModuleLessonQuizzesPassed,
   buildModuleLessonGates,
@@ -49,8 +51,8 @@ import {
   scoreLessonAssessment,
 } from "./lessonAssessment";
 import { didPass, LESSON_QUIZ_MAX_ATTEMPTS } from "@shared/assessment";
-import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail } from "./email";
-import { eq, desc, and, inArray, sql, like, or, gte } from "drizzle-orm";
+import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail, sendTeamInviteEmail } from "./email";
+import { eq, desc, and, inArray, sql, like, or, gte, gt, isNull } from "drizzle-orm";
 import { invokeLLM } from "./_core/llm";
 import { nanoid } from "nanoid";
 import { hash, compare } from "bcryptjs";
@@ -64,6 +66,7 @@ let _lastErrorAlertSentAt = 0;
 
 export const appRouter = router({
   system: systemRouter,
+  workstation: workstationRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
@@ -298,34 +301,65 @@ export const appRouter = router({
         email: z.string().email("Invalid email address"),
       }))
       .mutation(async ({ input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
         const user = await getUserByEmail(input.email.toLowerCase().trim());
 
-        // Always return success to prevent email enumeration
+        // Generic response — do not reveal account existence
         if (!user || user.emailVerified) {
-          return { success: true };
+          return { success: true, message: "If an eligible account exists, a new verification email has been sent." };
         }
 
-        // Generate a new verification token
+        // Rate limit: max 5 resends per hour per user
+        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+        const recentTokens = await db.select({ id: emailVerificationTokens.id, createdAt: emailVerificationTokens.createdAt })
+          .from(emailVerificationTokens)
+          .where(and(
+            eq(emailVerificationTokens.userId, user.id),
+            gt(emailVerificationTokens.createdAt, oneHourAgo)
+          ));
+
+        if (recentTokens.length >= 5) {
+          return { success: true, message: "If an eligible account exists, a new verification email has been sent." };
+        }
+
+        // Cooldown: 60 seconds between resends
+        const COOLDOWN_MS = 60_000;
+        if (recentTokens.length > 0) {
+          const mostRecent = recentTokens.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0))[0];
+          if (mostRecent?.createdAt && (Date.now() - mostRecent.createdAt.getTime()) < COOLDOWN_MS) {
+            return { success: false, message: "Please wait before requesting another verification email.", cooldownSeconds: Math.ceil((COOLDOWN_MS - (Date.now() - mostRecent.createdAt.getTime())) / 1000) };
+          }
+        }
+
+        // Invalidate all previous active tokens for this user
+        await db.update(emailVerificationTokens)
+          .set({ usedAt: new Date() })
+          .where(and(
+            eq(emailVerificationTokens.userId, user.id),
+            isNull(emailVerificationTokens.usedAt)
+          ));
+
+        // Generate new token
         const token = crypto.randomBytes(48).toString("hex");
         const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
-        const db = await getDb();
-        if (db) {
-          await db.insert(emailVerificationTokens).values({
-            userId: user.id,
-            token,
-            expiresAt,
-          });
+        await db.insert(emailVerificationTokens).values({
+          userId: user.id,
+          token,
+          expiresAt,
+        });
+
+        // Send verification email — report delivery failure honestly
+        try {
+          await sendVerificationEmail(user.email!, user.name || "User", token);
+        } catch (err) {
+          console.error("[Auth] Failed to resend verification email:", err);
+          return { success: false, message: "Unable to send verification email. Please try again later." };
         }
 
-        // Send verification email
-        await sendVerificationEmail(
-          user.email!,
-          user.name || "User",
-          token
-        ).catch((err) => console.error("[Auth] Failed to resend verification email:", err));
-
-        return { success: true };
+        return { success: true, message: "If an eligible account exists, a new verification email has been sent." };
       }),
 
     resetPassword: publicProcedure
@@ -1754,20 +1788,34 @@ Requirements:
     createInvite: protectedProcedure
       .input(z.object({
         email: z.string().email(),
+        role: z.enum(["admin", "manager", "member"]).default("member"),
+        expiresInDays: z.number().int().min(1).max(90).default(14),
       }))
       .mutation(async ({ ctx, input }) => {
         const db = await getDb();
         if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
-        // Verify user owns a team
-        const [team] = await db
+        // Verify user owns or administers a team
+        let [team] = await db
           .select()
           .from(teams)
           .where(and(eq(teams.ownerId, ctx.user.id), eq(teams.isActive, true)))
           .limit(1);
 
         if (!team) {
-          throw new TRPCError({ code: "FORBIDDEN", message: "You don't own a team" });
+          // Check if admin of a team
+          const [adminMembership] = await db
+            .select()
+            .from(teamMembers)
+            .where(and(eq(teamMembers.userId, ctx.user.id), eq(teamMembers.role, "admin"), eq(teamMembers.status, "active")))
+            .limit(1);
+          if (adminMembership) {
+            [team] = await db.select().from(teams).where(and(eq(teams.id, adminMembership.teamId), eq(teams.isActive, true))).limit(1);
+          }
+        }
+
+        if (!team) {
+          throw new TRPCError({ code: "FORBIDDEN", message: "You don't manage a team" });
         }
 
         // Check seat limit
@@ -1791,7 +1839,7 @@ Requirements:
           throw new TRPCError({ code: "BAD_REQUEST", message: `Team seat limit reached (${team.maxSeats} seats). Upgrade your plan to add more seats.` });
         }
 
-        // Check if already invited
+        // Check if already invited (active or pending)
         const [existing] = await db
           .select()
           .from(teamMembers)
@@ -1801,35 +1849,155 @@ Requirements:
           ))
           .limit(1);
 
-        if (existing && existing.status !== "removed") {
-          throw new TRPCError({ code: "BAD_REQUEST", message: "This email has already been invited" });
+        if (existing && existing.status === "active") {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "This person is already an active team member" });
+        }
+        if (existing && existing.status === "pending") {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "This email already has a pending invite. Use resend or cancel it first." });
         }
 
         const token = nanoid(32);
+        const expiresAt = new Date(Date.now() + input.expiresInDays * 24 * 60 * 60 * 1000);
 
-        if (existing && existing.status === "removed") {
-          // Re-invite removed member
+        if (existing && (existing.status === "removed" || existing.status === "canceled")) {
+          // Re-invite removed/canceled member
           await db
             .update(teamMembers)
-            .set({ status: "pending", inviteToken: token })
+            .set({ status: "pending", inviteToken: token, invitedRole: input.role, expiresAt, role: "member" })
             .where(eq(teamMembers.id, existing.id));
         } else {
           await db.insert(teamMembers).values({
             teamId: team.id,
             invitedEmail: input.email,
             inviteToken: token,
+            invitedRole: input.role,
             role: "member",
             status: "pending",
+            expiresAt,
           });
         }
 
-        // Notify team owner about the invite (serves as record)
-        await notifyOwner({
-          title: `Team Invite Sent: ${input.email}`,
-          content: `A team invite was created for ${input.email} to join "${team.name}".\n\nThe invite link has been copied to the team owner's clipboard. Share it with the invitee to complete onboarding.`,
-        }).catch(() => {});
+        // Record audit event
+        await db.insert(auditEvents).values({
+          actorId: ctx.user.id,
+          targetEmail: input.email,
+          teamId: team.id,
+          action: "invite_created",
+          newValue: input.role,
+        });
 
-        return { token, teamName: team.name };
+        // Send invite email (best-effort)
+        const emailResult = await sendTeamInviteEmail(input.email, team.name, input.role, token, expiresAt);
+
+        return { token, teamName: team.name, emailSent: emailResult.success };
+      }),
+
+    // Resend an existing pending invite
+    resendInvite: protectedProcedure
+      .input(z.object({ memberId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+        // Verify caller manages a team
+        const [team] = await db.select().from(teams).where(and(eq(teams.ownerId, ctx.user.id), eq(teams.isActive, true))).limit(1);
+        if (!team) throw new TRPCError({ code: "FORBIDDEN", message: "You don't manage a team" });
+
+        const [invite] = await db.select().from(teamMembers).where(and(
+          eq(teamMembers.id, input.memberId),
+          eq(teamMembers.teamId, team.id),
+          eq(teamMembers.status, "pending")
+        )).limit(1);
+
+        if (!invite) throw new TRPCError({ code: "NOT_FOUND", message: "Pending invite not found" });
+
+        // Generate new token and reset expiration
+        const newToken = nanoid(32);
+        const expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+        await db.update(teamMembers).set({ inviteToken: newToken, expiresAt }).where(eq(teamMembers.id, invite.id));
+
+        // Record audit
+        await db.insert(auditEvents).values({
+          actorId: ctx.user.id,
+          targetEmail: invite.invitedEmail,
+          teamId: team.id,
+          action: "invite_resent",
+        });
+
+        // Send email
+        const role = invite.invitedRole ?? "member";
+        const emailResult = await sendTeamInviteEmail(invite.invitedEmail!, team.name, role, newToken, expiresAt);
+
+        return { token: newToken, emailSent: emailResult.success };
+      }),
+
+    // Cancel a pending invite
+    cancelInvite: protectedProcedure
+      .input(z.object({ memberId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+        const [team] = await db.select().from(teams).where(and(eq(teams.ownerId, ctx.user.id), eq(teams.isActive, true))).limit(1);
+        if (!team) throw new TRPCError({ code: "FORBIDDEN", message: "You don't manage a team" });
+
+        const [invite] = await db.select().from(teamMembers).where(and(
+          eq(teamMembers.id, input.memberId),
+          eq(teamMembers.teamId, team.id),
+          eq(teamMembers.status, "pending")
+        )).limit(1);
+
+        if (!invite) throw new TRPCError({ code: "NOT_FOUND", message: "Pending invite not found" });
+
+        await db.update(teamMembers).set({ status: "canceled", inviteToken: null }).where(eq(teamMembers.id, invite.id));
+
+        await db.insert(auditEvents).values({
+          actorId: ctx.user.id,
+          targetEmail: invite.invitedEmail,
+          teamId: team.id,
+          action: "invite_canceled",
+        });
+
+        return { success: true };
+      }),
+
+    // Change a member's role (owner only)
+    changeRole: protectedProcedure
+      .input(z.object({
+        memberId: z.number(),
+        newRole: z.enum(["admin", "manager", "member"]),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+        // Only team owner can change roles
+        const [team] = await db.select().from(teams).where(and(eq(teams.ownerId, ctx.user.id), eq(teams.isActive, true))).limit(1);
+        if (!team) throw new TRPCError({ code: "FORBIDDEN", message: "Only the team owner can change roles" });
+
+        const [member] = await db.select().from(teamMembers).where(and(
+          eq(teamMembers.id, input.memberId),
+          eq(teamMembers.teamId, team.id),
+          eq(teamMembers.status, "active")
+        )).limit(1);
+
+        if (!member) throw new TRPCError({ code: "NOT_FOUND", message: "Active member not found" });
+        if (member.role === "owner") throw new TRPCError({ code: "BAD_REQUEST", message: "Cannot change the owner's role" });
+        if (member.role === input.newRole) return { success: true, previousRole: member.role };
+
+        const previousRole = member.role;
+        await db.update(teamMembers).set({ role: input.newRole }).where(eq(teamMembers.id, member.id));
+
+        await db.insert(auditEvents).values({
+          actorId: ctx.user.id,
+          targetUserId: member.userId,
+          teamId: team.id,
+          action: "role_changed",
+          previousValue: previousRole,
+          newValue: input.newRole,
+        });
+
+        return { success: true, previousRole };
       }),
 
     // Accept an invite (join team)
@@ -1839,17 +2007,29 @@ Requirements:
         const db = await getDb();
         if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
+        // Look up by token regardless of status to give specific error messages
         const [invite] = await db
           .select()
           .from(teamMembers)
-          .where(and(
-            eq(teamMembers.inviteToken, input.token),
-            eq(teamMembers.status, "pending")
-          ))
+          .where(eq(teamMembers.inviteToken, input.token))
           .limit(1);
 
         if (!invite) {
-          throw new TRPCError({ code: "NOT_FOUND", message: "Invalid or expired invite" });
+          // Also check if a canceled/removed record exists with null token
+          throw new TRPCError({ code: "NOT_FOUND", message: "This invite link is invalid. Please ask your team owner for a new invitation." });
+        }
+
+        if (invite.status === "canceled") {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "This invitation has been canceled. Please ask your team owner for a new invitation." });
+        }
+
+        if (invite.status !== "pending") {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "This invitation has already been used or is no longer valid." });
+        }
+
+        // Check expiration
+        if (invite.expiresAt && new Date(invite.expiresAt) < new Date()) {
+          throw new TRPCError({ code: "BAD_REQUEST", message: "This invitation has expired. Please ask your team owner to resend it." });
         }
 
         // Verify team is still active
@@ -1863,12 +2043,16 @@ Requirements:
           throw new TRPCError({ code: "NOT_FOUND", message: "Team is no longer active" });
         }
 
-        // Activate the member
+        // Honor the invitedRole (default to member if not set)
+        const assignedRole = invite.invitedRole ?? "member";
+
+        // Activate the member with the assigned role
         await db
           .update(teamMembers)
           .set({
             userId: ctx.user.id,
             status: "active",
+            role: assignedRole,
             joinedAt: new Date(),
             inviteToken: null,
           })
@@ -1880,7 +2064,16 @@ Requirements:
           .set({ subscriptionTier: "team" })
           .where(eq(users.id, ctx.user.id));
 
-        return { success: true, teamName: team.name };
+        // Record audit
+        await db.insert(auditEvents).values({
+          actorId: ctx.user.id,
+          targetUserId: ctx.user.id,
+          teamId: team.id,
+          action: "invite_accepted",
+          newValue: assignedRole,
+        });
+
+        return { success: true, teamName: team.name, role: assignedRole };
       }),
 
     // Remove a member from team (owner only)
@@ -3532,6 +3725,7 @@ Requirements:
   program: programRouter,
 
   assignments: assignmentsRouter,
+  onboarding: onboardingRouter,
 
   verification: router({
     verifyCode: publicProcedure
